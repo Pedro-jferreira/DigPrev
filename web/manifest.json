@@ -1,0 +1,35 @@
+{
+    "name": "digprev_flutter",
+    "short_name": "digprev_flutter",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "Projeto de um aplicativo Flutter multiplataforma para o rastreamento da condição de saúde, por meio de questionários que avaliam comportamento alimentar, hábitos alimentares, consumo de ultraprocessados, qualidade da dieta, insatisfação corporal e sintomas de transtornos alimentares.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
