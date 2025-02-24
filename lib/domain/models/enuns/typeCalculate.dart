@@ -1,1 +1,1 @@
-enum TypeCalculate { PONTUACAO, ATIVIDADE_FISICA }
+enum TypeCalculate { PONTUACAO, ATIVIDADE_FISICA, SEM_CALCULO }
