@@ -22,17 +22,13 @@ SectionAnswer _$SectionAnswerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SectionAnswer {
   String get id => throw _privateConstructorUsedError;
-
   String get title => throw _privateConstructorUsedError;
-
   String get sectionRef => throw _privateConstructorUsedError;
 
+  @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-
   double get score => throw _privateConstructorUsedError;
-
   List<Answer> get answers => throw _privateConstructorUsedError;
-
   bool get isCalculated => throw _privateConstructorUsedError;
 
   /// Serializes this SectionAnswer to a JSON map.
@@ -51,13 +47,12 @@ abstract class $SectionAnswerCopyWith<$Res> {
     SectionAnswer value,
     $Res Function(SectionAnswer) then,
   ) = _$SectionAnswerCopyWithImpl<$Res, SectionAnswer>;
-
   @useResult
   $Res call({
     String id,
     String title,
     String sectionRef,
-    DateTime date,
+    @TimestampConverter() DateTime date,
     double score,
     List<Answer> answers,
     bool isCalculated,
@@ -71,7 +66,6 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -138,14 +132,13 @@ abstract class _$$SectionAnswerImplCopyWith<$Res>
     _$SectionAnswerImpl value,
     $Res Function(_$SectionAnswerImpl) then,
   ) = __$$SectionAnswerImplCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({
     String id,
     String title,
     String sectionRef,
-    DateTime date,
+    @TimestampConverter() DateTime date,
     double score,
     List<Answer> answers,
     bool isCalculated,
@@ -223,7 +216,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     required this.id,
     required this.title,
     required this.sectionRef,
-    required this.date,
+    @TimestampConverter() required this.date,
     required this.score,
     required final List<Answer> answers,
     required this.isCalculated,
@@ -239,11 +232,11 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   @override
   final String sectionRef;
   @override
+  @TimestampConverter()
   final DateTime date;
   @override
   final double score;
   final List<Answer> _answers;
-
   @override
   List<Answer> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
@@ -307,7 +300,7 @@ abstract class _SectionAnswer implements SectionAnswer {
     required final String id,
     required final String title,
     required final String sectionRef,
-    required final DateTime date,
+    @TimestampConverter() required final DateTime date,
     required final double score,
     required final List<Answer> answers,
     required final bool isCalculated,
@@ -318,22 +311,17 @@ abstract class _SectionAnswer implements SectionAnswer {
 
   @override
   String get id;
-
   @override
   String get title;
-
   @override
   String get sectionRef;
-
   @override
+  @TimestampConverter()
   DateTime get date;
-
   @override
   double get score;
-
   @override
   List<Answer> get answers;
-
   @override
   bool get isCalculated;
 
