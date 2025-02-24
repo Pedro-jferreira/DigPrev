@@ -7,11 +7,11 @@ part of 'option.dart';
 // **************************************************************************
 
 _$OptionImpl _$$OptionImplFromJson(Map<String, dynamic> json) => _$OptionImpl(
-  id: json['id'] as String,
-  question: json['question'] as String,
-  valueScore: (json['valueScore'] as num).toDouble(),
-  intensity: json['intensity'] as String,
-  days: (json['days'] as num).toInt(),
+  id: (json['id'] as num?)?.toInt(),
+  question: json['question'] as String?,
+  valueScore: (json['valueScore'] as num?)?.toDouble(),
+  intensity: json['intensity'] as String?,
+  days: (json['days'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$$OptionImplToJson(_$OptionImpl instance) =>
