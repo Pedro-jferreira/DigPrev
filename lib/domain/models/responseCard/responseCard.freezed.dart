@@ -22,15 +22,12 @@ ResponseCard _$ResponseCardFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ResponseCard {
   String get id => throw _privateConstructorUsedError;
-
   String get userRef => throw _privateConstructorUsedError;
 
+  @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-
   List<SectionAnswer> get sectionAnswer => throw _privateConstructorUsedError;
-
   bool get isCalculated => throw _privateConstructorUsedError;
-
   bool get isCompleted => throw _privateConstructorUsedError;
 
   /// Serializes this ResponseCard to a JSON map.
@@ -49,12 +46,11 @@ abstract class $ResponseCardCopyWith<$Res> {
     ResponseCard value,
     $Res Function(ResponseCard) then,
   ) = _$ResponseCardCopyWithImpl<$Res, ResponseCard>;
-
   @useResult
   $Res call({
     String id,
     String userRef,
-    DateTime date,
+    @TimestampConverter() DateTime date,
     List<SectionAnswer> sectionAnswer,
     bool isCalculated,
     bool isCompleted,
@@ -68,7 +64,6 @@ class _$ResponseCardCopyWithImpl<$Res, $Val extends ResponseCard>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -129,13 +124,12 @@ abstract class _$$ResponseCardImplCopyWith<$Res>
     _$ResponseCardImpl value,
     $Res Function(_$ResponseCardImpl) then,
   ) = __$$ResponseCardImplCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({
     String id,
     String userRef,
-    DateTime date,
+    @TimestampConverter() DateTime date,
     List<SectionAnswer> sectionAnswer,
     bool isCalculated,
     bool isCompleted,
@@ -206,7 +200,7 @@ class _$ResponseCardImpl implements _ResponseCard {
   const _$ResponseCardImpl({
     required this.id,
     required this.userRef,
-    required this.date,
+    @TimestampConverter() required this.date,
     required final List<SectionAnswer> sectionAnswer,
     required this.isCalculated,
     required this.isCompleted,
@@ -220,9 +214,9 @@ class _$ResponseCardImpl implements _ResponseCard {
   @override
   final String userRef;
   @override
+  @TimestampConverter()
   final DateTime date;
   final List<SectionAnswer> _sectionAnswer;
-
   @override
   List<SectionAnswer> get sectionAnswer {
     if (_sectionAnswer is EqualUnmodifiableListView) return _sectionAnswer;
@@ -288,7 +282,7 @@ abstract class _ResponseCard implements ResponseCard {
   const factory _ResponseCard({
     required final String id,
     required final String userRef,
-    required final DateTime date,
+    @TimestampConverter() required final DateTime date,
     required final List<SectionAnswer> sectionAnswer,
     required final bool isCalculated,
     required final bool isCompleted,
@@ -299,19 +293,15 @@ abstract class _ResponseCard implements ResponseCard {
 
   @override
   String get id;
-
   @override
   String get userRef;
-
   @override
+  @TimestampConverter()
   DateTime get date;
-
   @override
   List<SectionAnswer> get sectionAnswer;
-
   @override
   bool get isCalculated;
-
   @override
   bool get isCompleted;
 

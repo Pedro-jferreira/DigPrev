@@ -23,9 +23,11 @@ Section _$SectionFromJson(Map<String, dynamic> json) {
 mixin _$Section {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  int get maxValue => throw _privateConstructorUsedError;
+
+  int? get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
-  List<StageLabel> get textUnderBar => throw _privateConstructorUsedError;
+
+  List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
 
   /// Serializes this Section to a JSON map.
@@ -45,9 +47,9 @@ abstract class $SectionCopyWith<$Res> {
   $Res call({
     int id,
     String title,
-    int maxValue,
+    int? maxValue,
     TypeCalculate typeCalculate,
-    List<StageLabel> textUnderBar,
+    List<StageLabel>? textUnderBar,
     List<Question> questions,
   });
 }
@@ -69,9 +71,9 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? maxValue = null,
+    Object? maxValue = freezed,
     Object? typeCalculate = null,
-    Object? textUnderBar = null,
+    Object? textUnderBar = freezed,
     Object? questions = null,
   }) {
     return _then(
@@ -87,20 +89,20 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                     : title // ignore: cast_nullable_to_non_nullable
                         as String,
             maxValue:
-                null == maxValue
+                freezed == maxValue
                     ? _value.maxValue
                     : maxValue // ignore: cast_nullable_to_non_nullable
-                        as int,
+                        as int?,
             typeCalculate:
                 null == typeCalculate
                     ? _value.typeCalculate
                     : typeCalculate // ignore: cast_nullable_to_non_nullable
                         as TypeCalculate,
             textUnderBar:
-                null == textUnderBar
+                freezed == textUnderBar
                     ? _value.textUnderBar
                     : textUnderBar // ignore: cast_nullable_to_non_nullable
-                        as List<StageLabel>,
+                        as List<StageLabel>?,
             questions:
                 null == questions
                     ? _value.questions
@@ -123,9 +125,9 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
   $Res call({
     int id,
     String title,
-    int maxValue,
+    int? maxValue,
     TypeCalculate typeCalculate,
-    List<StageLabel> textUnderBar,
+    List<StageLabel>? textUnderBar,
     List<Question> questions,
   });
 }
@@ -146,9 +148,9 @@ class __$$SectionImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? maxValue = null,
+    Object? maxValue = freezed,
     Object? typeCalculate = null,
-    Object? textUnderBar = null,
+    Object? textUnderBar = freezed,
     Object? questions = null,
   }) {
     return _then(
@@ -164,20 +166,20 @@ class __$$SectionImplCopyWithImpl<$Res>
                 : title // ignore: cast_nullable_to_non_nullable
                     as String,
         maxValue:
-            null == maxValue
+            freezed == maxValue
                 ? _value.maxValue
                 : maxValue // ignore: cast_nullable_to_non_nullable
-                    as int,
+                    as int?,
         typeCalculate:
             null == typeCalculate
                 ? _value.typeCalculate
                 : typeCalculate // ignore: cast_nullable_to_non_nullable
                     as TypeCalculate,
         textUnderBar:
-            null == textUnderBar
+            freezed == textUnderBar
                 ? _value._textUnderBar
                 : textUnderBar // ignore: cast_nullable_to_non_nullable
-                    as List<StageLabel>,
+                    as List<StageLabel>?,
         questions:
             null == questions
                 ? _value._questions
@@ -196,7 +198,7 @@ class _$SectionImpl implements _Section {
     required this.title,
     required this.maxValue,
     required this.typeCalculate,
-    required final List<StageLabel> textUnderBar,
+    required final List<StageLabel>? textUnderBar,
     required final List<Question> questions,
   }) : _textUnderBar = textUnderBar,
        _questions = questions;
@@ -209,15 +211,17 @@ class _$SectionImpl implements _Section {
   @override
   final String title;
   @override
-  final int maxValue;
+  final int? maxValue;
   @override
   final TypeCalculate typeCalculate;
-  final List<StageLabel> _textUnderBar;
+  final List<StageLabel>? _textUnderBar;
   @override
-  List<StageLabel> get textUnderBar {
+  List<StageLabel>? get textUnderBar {
+    final value = _textUnderBar;
+    if (value == null) return null;
     if (_textUnderBar is EqualUnmodifiableListView) return _textUnderBar;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_textUnderBar);
+    return EqualUnmodifiableListView(value);
   }
 
   final List<Question> _questions;
@@ -284,9 +288,9 @@ abstract class _Section implements Section {
   const factory _Section({
     required final int id,
     required final String title,
-    required final int maxValue,
+    required final int? maxValue,
     required final TypeCalculate typeCalculate,
-    required final List<StageLabel> textUnderBar,
+    required final List<StageLabel>? textUnderBar,
     required final List<Question> questions,
   }) = _$SectionImpl;
 
@@ -297,11 +301,11 @@ abstract class _Section implements Section {
   @override
   String get title;
   @override
-  int get maxValue;
+  int? get maxValue;
   @override
   TypeCalculate get typeCalculate;
   @override
-  List<StageLabel> get textUnderBar;
+  List<StageLabel>? get textUnderBar;
   @override
   List<Question> get questions;
 

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
+import 'package:digprev_flutter/utils/timeStampConversor.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'responseCard.freezed.dart';
@@ -9,7 +11,7 @@ class ResponseCard with _$ResponseCard {
   const factory ResponseCard({
     required String id,
     required String userRef,
-    required DateTime date,
+    @TimestampConverter() required DateTime date,
     required List<SectionAnswer> sectionAnswer,
     required bool isCalculated,
     required bool isCompleted,
