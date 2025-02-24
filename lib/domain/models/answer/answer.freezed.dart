@@ -23,8 +23,8 @@ Answer _$AnswerFromJson(Map<String, dynamic> json) {
 mixin _$Answer {
   String get id => throw _privateConstructorUsedError;
 
+  @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-
   List<Option> get answers => throw _privateConstructorUsedError;
 
   /// Serializes this Answer to a JSON map.
@@ -40,9 +40,12 @@ mixin _$Answer {
 abstract class $AnswerCopyWith<$Res> {
   factory $AnswerCopyWith(Answer value, $Res Function(Answer) then) =
       _$AnswerCopyWithImpl<$Res, Answer>;
-
   @useResult
-  $Res call({String id, DateTime date, List<Option> answers});
+  $Res call({
+    String id,
+    @TimestampConverter() DateTime date,
+    List<Option> answers,
+  });
 }
 
 /// @nodoc
@@ -52,7 +55,6 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -90,10 +92,13 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
     _$AnswerImpl value,
     $Res Function(_$AnswerImpl) then,
   ) = __$$AnswerImplCopyWithImpl<$Res>;
-
   @override
   @useResult
-  $Res call({String id, DateTime date, List<Option> answers});
+  $Res call({
+    String id,
+    @TimestampConverter() DateTime date,
+    List<Option> answers,
+  });
 }
 
 /// @nodoc
@@ -137,7 +142,7 @@ class __$$AnswerImplCopyWithImpl<$Res>
 class _$AnswerImpl implements _Answer {
   const _$AnswerImpl({
     required this.id,
-    required this.date,
+    @TimestampConverter() required this.date,
     required final List<Option> answers,
   }) : _answers = answers;
 
@@ -147,9 +152,9 @@ class _$AnswerImpl implements _Answer {
   @override
   final String id;
   @override
+  @TimestampConverter()
   final DateTime date;
   final List<Option> _answers;
-
   @override
   List<Option> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
@@ -198,7 +203,7 @@ class _$AnswerImpl implements _Answer {
 abstract class _Answer implements Answer {
   const factory _Answer({
     required final String id,
-    required final DateTime date,
+    @TimestampConverter() required final DateTime date,
     required final List<Option> answers,
   }) = _$AnswerImpl;
 
@@ -206,10 +211,9 @@ abstract class _Answer implements Answer {
 
   @override
   String get id;
-
   @override
+  @TimestampConverter()
   DateTime get date;
-
   @override
   List<Option> get answers;
 
