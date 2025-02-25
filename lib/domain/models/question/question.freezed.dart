@@ -26,8 +26,8 @@ mixin _$Question {
   String get supportingText => throw _privateConstructorUsedError;
   String get tooltipText => throw _privateConstructorUsedError;
   InputType get inputType => throw _privateConstructorUsedError;
-  List<String> get explanatoryTexts => throw _privateConstructorUsedError;
-  List<Option> get options => throw _privateConstructorUsedError;
+  List<String>? get explanatoryTexts => throw _privateConstructorUsedError;
+  List<Option>? get options => throw _privateConstructorUsedError;
 
   /// Serializes this Question to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,8 +50,8 @@ abstract class $QuestionCopyWith<$Res> {
     String supportingText,
     String tooltipText,
     InputType inputType,
-    List<String> explanatoryTexts,
-    List<Option> options,
+    List<String>? explanatoryTexts,
+    List<Option>? options,
   });
 }
 
@@ -75,8 +75,8 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? supportingText = null,
     Object? tooltipText = null,
     Object? inputType = null,
-    Object? explanatoryTexts = null,
-    Object? options = null,
+    Object? explanatoryTexts = freezed,
+    Object? options = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -106,15 +106,15 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                     : inputType // ignore: cast_nullable_to_non_nullable
                         as InputType,
             explanatoryTexts:
-                null == explanatoryTexts
+                freezed == explanatoryTexts
                     ? _value.explanatoryTexts
                     : explanatoryTexts // ignore: cast_nullable_to_non_nullable
-                        as List<String>,
+                        as List<String>?,
             options:
-                null == options
+                freezed == options
                     ? _value.options
                     : options // ignore: cast_nullable_to_non_nullable
-                        as List<Option>,
+                        as List<Option>?,
           )
           as $Val,
     );
@@ -136,8 +136,8 @@ abstract class _$$QuestionImplCopyWith<$Res>
     String supportingText,
     String tooltipText,
     InputType inputType,
-    List<String> explanatoryTexts,
-    List<Option> options,
+    List<String>? explanatoryTexts,
+    List<Option>? options,
   });
 }
 
@@ -160,8 +160,8 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? supportingText = null,
     Object? tooltipText = null,
     Object? inputType = null,
-    Object? explanatoryTexts = null,
-    Object? options = null,
+    Object? explanatoryTexts = freezed,
+    Object? options = freezed,
   }) {
     return _then(
       _$QuestionImpl(
@@ -191,15 +191,15 @@ class __$$QuestionImplCopyWithImpl<$Res>
                 : inputType // ignore: cast_nullable_to_non_nullable
                     as InputType,
         explanatoryTexts:
-            null == explanatoryTexts
+            freezed == explanatoryTexts
                 ? _value._explanatoryTexts
                 : explanatoryTexts // ignore: cast_nullable_to_non_nullable
-                    as List<String>,
+                    as List<String>?,
         options:
-            null == options
+            freezed == options
                 ? _value._options
                 : options // ignore: cast_nullable_to_non_nullable
-                    as List<Option>,
+                    as List<Option>?,
       ),
     );
   }
@@ -214,8 +214,8 @@ class _$QuestionImpl implements _Question {
     required this.supportingText,
     required this.tooltipText,
     required this.inputType,
-    required final List<String> explanatoryTexts,
-    required final List<Option> options,
+    required final List<String>? explanatoryTexts,
+    required final List<Option>? options,
   }) : _explanatoryTexts = explanatoryTexts,
        _options = options;
 
@@ -232,21 +232,25 @@ class _$QuestionImpl implements _Question {
   final String tooltipText;
   @override
   final InputType inputType;
-  final List<String> _explanatoryTexts;
+  final List<String>? _explanatoryTexts;
   @override
-  List<String> get explanatoryTexts {
+  List<String>? get explanatoryTexts {
+    final value = _explanatoryTexts;
+    if (value == null) return null;
     if (_explanatoryTexts is EqualUnmodifiableListView)
       return _explanatoryTexts;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_explanatoryTexts);
+    return EqualUnmodifiableListView(value);
   }
 
-  final List<Option> _options;
+  final List<Option>? _options;
   @override
-  List<Option> get options {
+  List<Option>? get options {
+    final value = _options;
+    if (value == null) return null;
     if (_options is EqualUnmodifiableListView) return _options;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_options);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -310,8 +314,8 @@ abstract class _Question implements Question {
     required final String supportingText,
     required final String tooltipText,
     required final InputType inputType,
-    required final List<String> explanatoryTexts,
-    required final List<Option> options,
+    required final List<String>? explanatoryTexts,
+    required final List<Option>? options,
   }) = _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
@@ -328,9 +332,9 @@ abstract class _Question implements Question {
   @override
   InputType get inputType;
   @override
-  List<String> get explanatoryTexts;
+  List<String>? get explanatoryTexts;
   @override
-  List<Option> get options;
+  List<Option>? get options;
 
   /// Create a copy of Question
   /// with the given fields replaced by the non-null parameter values.

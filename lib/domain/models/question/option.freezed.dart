@@ -21,11 +21,11 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Option {
-  String get id => throw _privateConstructorUsedError;
-  String get question => throw _privateConstructorUsedError;
-  double get valueScore => throw _privateConstructorUsedError;
-  String get intensity => throw _privateConstructorUsedError;
-  int get days => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
+  String? get question => throw _privateConstructorUsedError;
+  double? get valueScore => throw _privateConstructorUsedError;
+  String? get intensity => throw _privateConstructorUsedError;
+  int? get days => throw _privateConstructorUsedError;
 
   /// Serializes this Option to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,11 +42,11 @@ abstract class $OptionCopyWith<$Res> {
       _$OptionCopyWithImpl<$Res, Option>;
   @useResult
   $Res call({
-    String id,
-    String question,
-    double valueScore,
-    String intensity,
-    int days,
+    int? id,
+    String? question,
+    double? valueScore,
+    String? intensity,
+    int? days,
   });
 }
 
@@ -65,39 +65,39 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? question = null,
-    Object? valueScore = null,
-    Object? intensity = null,
-    Object? days = null,
+    Object? id = freezed,
+    Object? question = freezed,
+    Object? valueScore = freezed,
+    Object? intensity = freezed,
+    Object? days = freezed,
   }) {
     return _then(
       _value.copyWith(
             id:
-                null == id
+                freezed == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as int?,
             question:
-                null == question
+                freezed == question
                     ? _value.question
                     : question // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             valueScore:
-                null == valueScore
+                freezed == valueScore
                     ? _value.valueScore
                     : valueScore // ignore: cast_nullable_to_non_nullable
-                        as double,
+                        as double?,
             intensity:
-                null == intensity
+                freezed == intensity
                     ? _value.intensity
                     : intensity // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             days:
-                null == days
+                freezed == days
                     ? _value.days
                     : days // ignore: cast_nullable_to_non_nullable
-                        as int,
+                        as int?,
           )
           as $Val,
     );
@@ -113,11 +113,11 @@ abstract class _$$OptionImplCopyWith<$Res> implements $OptionCopyWith<$Res> {
   @override
   @useResult
   $Res call({
-    String id,
-    String question,
-    double valueScore,
-    String intensity,
-    int days,
+    int? id,
+    String? question,
+    double? valueScore,
+    String? intensity,
+    int? days,
   });
 }
 
@@ -135,39 +135,39 @@ class __$$OptionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? question = null,
-    Object? valueScore = null,
-    Object? intensity = null,
-    Object? days = null,
+    Object? id = freezed,
+    Object? question = freezed,
+    Object? valueScore = freezed,
+    Object? intensity = freezed,
+    Object? days = freezed,
   }) {
     return _then(
       _$OptionImpl(
         id:
-            null == id
+            freezed == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as int?,
         question:
-            null == question
+            freezed == question
                 ? _value.question
                 : question // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         valueScore:
-            null == valueScore
+            freezed == valueScore
                 ? _value.valueScore
                 : valueScore // ignore: cast_nullable_to_non_nullable
-                    as double,
+                    as double?,
         intensity:
-            null == intensity
+            freezed == intensity
                 ? _value.intensity
                 : intensity // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         days:
-            null == days
+            freezed == days
                 ? _value.days
                 : days // ignore: cast_nullable_to_non_nullable
-                    as int,
+                    as int?,
       ),
     );
   }
@@ -188,15 +188,15 @@ class _$OptionImpl implements _Option {
       _$$OptionImplFromJson(json);
 
   @override
-  final String id;
+  final int? id;
   @override
-  final String question;
+  final String? question;
   @override
-  final double valueScore;
+  final double? valueScore;
   @override
-  final String intensity;
+  final String? intensity;
   @override
-  final int days;
+  final int? days;
 
   @override
   String toString() {
@@ -239,25 +239,25 @@ class _$OptionImpl implements _Option {
 
 abstract class _Option implements Option {
   const factory _Option({
-    required final String id,
-    required final String question,
-    required final double valueScore,
-    required final String intensity,
-    required final int days,
+    required final int? id,
+    required final String? question,
+    required final double? valueScore,
+    required final String? intensity,
+    required final int? days,
   }) = _$OptionImpl;
 
   factory _Option.fromJson(Map<String, dynamic> json) = _$OptionImpl.fromJson;
 
   @override
-  String get id;
+  int? get id;
   @override
-  String get question;
+  String? get question;
   @override
-  double get valueScore;
+  double? get valueScore;
   @override
-  String get intensity;
+  String? get intensity;
   @override
-  int get days;
+  int? get days;
 
   /// Create a copy of Option
   /// with the given fields replaced by the non-null parameter values.

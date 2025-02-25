@@ -14,12 +14,12 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
       tooltipText: json['tooltipText'] as String,
       inputType: $enumDecode(_$InputTypeEnumMap, json['inputType']),
       explanatoryTexts:
-          (json['explanatoryTexts'] as List<dynamic>)
-              .map((e) => e as String)
+          (json['explanatoryTexts'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList(),
       options:
-          (json['options'] as List<dynamic>)
-              .map((e) => Option.fromJson(e as Map<String, dynamic>))
+          (json['options'] as List<dynamic>?)
+              ?.map((e) => Option.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
 
