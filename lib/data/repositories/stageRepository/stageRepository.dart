@@ -4,5 +4,5 @@ import 'package:digprev_flutter/utils/result.dart';
 abstract class StageRepository {
   Stream<List<Stage>> observeAll();
 
-  Result<Stage> findById(String id);
+  Future<Result<Stage>> findById(int id);
 }

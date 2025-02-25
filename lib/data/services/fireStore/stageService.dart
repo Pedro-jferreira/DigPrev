@@ -6,19 +6,6 @@ class StageService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final String path = 'questionarios';
 
-  Stream<List<Stage>> observerAll() {
-    return db.collection(path).snapshots().map((
-      QuerySnapshot<Map<String, dynamic>> snapshot,
-    ) {
-      return snapshot.docs.map((
-        QueryDocumentSnapshot<Map<String, dynamic>> doc,
-      ) {
-        final Map<String, dynamic> data = doc.data();
-        return Stage.fromJson(data);
-      }).toList();
-    });
-  }
-
   Future<Result<Stage>> findById(int id) async {
     try {
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -33,5 +20,18 @@ class StageService {
     } catch (e) {
       return Result.error(Exception('Error ao buscar o documento: $e'));
     }
+  }
+
+  Stream<List<Stage>> observerAll() {
+    return db.collection(path).snapshots().map((
+      QuerySnapshot<Map<String, dynamic>> snapshot,
+    ) {
+      return snapshot.docs.map((
+        QueryDocumentSnapshot<Map<String, dynamic>> doc,
+      ) {
+        final Map<String, dynamic> data = doc.data();
+        return Stage.fromJson(data);
+      }).toList();
+    });
   }
 }
