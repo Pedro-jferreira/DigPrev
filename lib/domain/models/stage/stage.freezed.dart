@@ -22,13 +22,9 @@ Stage _$StageFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Stage {
   int get id => throw _privateConstructorUsedError;
-
   String get title => throw _privateConstructorUsedError;
-
   String get description => throw _privateConstructorUsedError;
-
   DateTime get creationDate => throw _privateConstructorUsedError;
-
   List<Section> get sections => throw _privateConstructorUsedError;
 
   /// Serializes this Stage to a JSON map.
@@ -44,7 +40,6 @@ mixin _$Stage {
 abstract class $StageCopyWith<$Res> {
   factory $StageCopyWith(Stage value, $Res Function(Stage) then) =
       _$StageCopyWithImpl<$Res, Stage>;
-
   @useResult
   $Res call({
     int id,
@@ -62,7 +57,6 @@ class _$StageCopyWithImpl<$Res, $Val extends Stage>
 
   // ignore: unused_field
   final $Val _value;
-
   // ignore: unused_field
   final $Res Function($Val) _then;
 
@@ -116,7 +110,6 @@ abstract class _$$StageImplCopyWith<$Res> implements $StageCopyWith<$Res> {
     _$StageImpl value,
     $Res Function(_$StageImpl) then,
   ) = __$$StageImplCopyWithImpl<$Res>;
-
   @override
   @useResult
   $Res call({
@@ -203,7 +196,6 @@ class _$StageImpl implements _Stage {
   @override
   final DateTime creationDate;
   final List<Section> _sections;
-
   @override
   List<Section> get sections {
     if (_sections is EqualUnmodifiableListView) return _sections;
@@ -268,16 +260,12 @@ abstract class _Stage implements Stage {
 
   @override
   int get id;
-
   @override
   String get title;
-
   @override
   String get description;
-
   @override
   DateTime get creationDate;
-
   @override
   List<Section> get sections;
 
