@@ -24,10 +24,11 @@ mixin _$SectionAnswer {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get sectionRef => throw _privateConstructorUsedError;
-  @TimestampConverter()
-  DateTime get date => throw _privateConstructorUsedError;
-  double get score => throw _privateConstructorUsedError;
+
+  @JsonKey(toJson: _answersToJson)
   List<Answer> get answers => throw _privateConstructorUsedError;
+
+  double get score => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
 
   /// Serializes this SectionAnswer to a JSON map.
@@ -51,9 +52,8 @@ abstract class $SectionAnswerCopyWith<$Res> {
     String id,
     String title,
     String sectionRef,
-    @TimestampConverter() DateTime date,
+    @JsonKey(toJson: _answersToJson) List<Answer> answers,
     double score,
-    List<Answer> answers,
     bool isCalculated,
   });
 }
@@ -76,9 +76,8 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
     Object? id = null,
     Object? title = null,
     Object? sectionRef = null,
-    Object? date = null,
-    Object? score = null,
     Object? answers = null,
+    Object? score = null,
     Object? isCalculated = null,
   }) {
     return _then(
@@ -98,21 +97,16 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
                     ? _value.sectionRef
                     : sectionRef // ignore: cast_nullable_to_non_nullable
                         as String,
-            date:
-                null == date
-                    ? _value.date
-                    : date // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
-            score:
-                null == score
-                    ? _value.score
-                    : score // ignore: cast_nullable_to_non_nullable
-                        as double,
             answers:
                 null == answers
                     ? _value.answers
                     : answers // ignore: cast_nullable_to_non_nullable
                         as List<Answer>,
+            score:
+                null == score
+                    ? _value.score
+                    : score // ignore: cast_nullable_to_non_nullable
+                        as double,
             isCalculated:
                 null == isCalculated
                     ? _value.isCalculated
@@ -137,9 +131,8 @@ abstract class _$$SectionAnswerImplCopyWith<$Res>
     String id,
     String title,
     String sectionRef,
-    @TimestampConverter() DateTime date,
+    @JsonKey(toJson: _answersToJson) List<Answer> answers,
     double score,
-    List<Answer> answers,
     bool isCalculated,
   });
 }
@@ -161,9 +154,8 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? sectionRef = null,
-    Object? date = null,
-    Object? score = null,
     Object? answers = null,
+    Object? score = null,
     Object? isCalculated = null,
   }) {
     return _then(
@@ -183,21 +175,16 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
                 ? _value.sectionRef
                 : sectionRef // ignore: cast_nullable_to_non_nullable
                     as String,
-        date:
-            null == date
-                ? _value.date
-                : date // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
-        score:
-            null == score
-                ? _value.score
-                : score // ignore: cast_nullable_to_non_nullable
-                    as double,
         answers:
             null == answers
                 ? _value._answers
                 : answers // ignore: cast_nullable_to_non_nullable
                     as List<Answer>,
+        score:
+            null == score
+                ? _value.score
+                : score // ignore: cast_nullable_to_non_nullable
+                    as double,
         isCalculated:
             null == isCalculated
                 ? _value.isCalculated
@@ -215,9 +202,8 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     required this.id,
     required this.title,
     required this.sectionRef,
-    @TimestampConverter() required this.date,
+    @JsonKey(toJson: _answersToJson) required final List<Answer> answers,
     required this.score,
-    required final List<Answer> answers,
     required this.isCalculated,
   }) : _answers = answers;
 
@@ -230,13 +216,9 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   final String title;
   @override
   final String sectionRef;
-  @override
-  @TimestampConverter()
-  final DateTime date;
-  @override
-  final double score;
   final List<Answer> _answers;
   @override
+  @JsonKey(toJson: _answersToJson)
   List<Answer> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
@@ -244,11 +226,13 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   }
 
   @override
+  final double score;
+  @override
   final bool isCalculated;
 
   @override
   String toString() {
-    return 'SectionAnswer(id: $id, title: $title, sectionRef: $sectionRef, date: $date, score: $score, answers: $answers, isCalculated: $isCalculated)';
+    return 'SectionAnswer(id: $id, title: $title, sectionRef: $sectionRef, answers: $answers, score: $score, isCalculated: $isCalculated)';
   }
 
   @override
@@ -260,9 +244,8 @@ class _$SectionAnswerImpl implements _SectionAnswer {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.sectionRef, sectionRef) ||
                 other.sectionRef == sectionRef) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.score, score) || other.score == score) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
+            (identical(other.score, score) || other.score == score) &&
             (identical(other.isCalculated, isCalculated) ||
                 other.isCalculated == isCalculated));
   }
@@ -274,9 +257,8 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     id,
     title,
     sectionRef,
-    date,
-    score,
     const DeepCollectionEquality().hash(_answers),
+    score,
     isCalculated,
   );
 
@@ -299,9 +281,8 @@ abstract class _SectionAnswer implements SectionAnswer {
     required final String id,
     required final String title,
     required final String sectionRef,
-    @TimestampConverter() required final DateTime date,
+    @JsonKey(toJson: _answersToJson) required final List<Answer> answers,
     required final double score,
-    required final List<Answer> answers,
     required final bool isCalculated,
   }) = _$SectionAnswerImpl;
 
@@ -315,12 +296,10 @@ abstract class _SectionAnswer implements SectionAnswer {
   @override
   String get sectionRef;
   @override
-  @TimestampConverter()
-  DateTime get date;
+  @JsonKey(toJson: _answersToJson)
+  List<Answer> get answers;
   @override
   double get score;
-  @override
-  List<Answer> get answers;
   @override
   bool get isCalculated;
 

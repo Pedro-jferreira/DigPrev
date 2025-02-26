@@ -24,6 +24,8 @@ mixin _$Answer {
   String get id => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
+
+  @JsonKey(toJson: _answersToJson)
   List<Option> get answers => throw _privateConstructorUsedError;
 
   /// Serializes this Answer to a JSON map.
@@ -43,7 +45,7 @@ abstract class $AnswerCopyWith<$Res> {
   $Res call({
     String id,
     @TimestampConverter() DateTime date,
-    List<Option> answers,
+    @JsonKey(toJson: _answersToJson) List<Option> answers,
   });
 }
 
@@ -96,7 +98,7 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
   $Res call({
     String id,
     @TimestampConverter() DateTime date,
-    List<Option> answers,
+    @JsonKey(toJson: _answersToJson) List<Option> answers,
   });
 }
 
@@ -142,7 +144,7 @@ class _$AnswerImpl implements _Answer {
   const _$AnswerImpl({
     required this.id,
     @TimestampConverter() required this.date,
-    required final List<Option> answers,
+    @JsonKey(toJson: _answersToJson) required final List<Option> answers,
   }) : _answers = answers;
 
   factory _$AnswerImpl.fromJson(Map<String, dynamic> json) =>
@@ -155,6 +157,7 @@ class _$AnswerImpl implements _Answer {
   final DateTime date;
   final List<Option> _answers;
   @override
+  @JsonKey(toJson: _answersToJson)
   List<Option> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
@@ -203,7 +206,7 @@ abstract class _Answer implements Answer {
   const factory _Answer({
     required final String id,
     @TimestampConverter() required final DateTime date,
-    required final List<Option> answers,
+    @JsonKey(toJson: _answersToJson) required final List<Option> answers,
   }) = _$AnswerImpl;
 
   factory _Answer.fromJson(Map<String, dynamic> json) = _$AnswerImpl.fromJson;
@@ -214,6 +217,7 @@ abstract class _Answer implements Answer {
   @TimestampConverter()
   DateTime get date;
   @override
+  @JsonKey(toJson: _answersToJson)
   List<Option> get answers;
 
   /// Create a copy of Answer
