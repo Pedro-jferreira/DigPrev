@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'users.dart';
+part of 'user.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -21,10 +21,12 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  String get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
   String get cpf => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
+
+  @TimestampConverter()
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
 
@@ -44,11 +46,11 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call({
-    String id,
+    String? id,
     String nome,
     String cpf,
     String senha,
-    DateTime dataNascimento,
+    @TimestampConverter() DateTime dataNascimento,
     String email,
   });
 }
@@ -68,7 +70,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? nome = null,
     Object? cpf = null,
     Object? senha = null,
@@ -78,10 +80,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     return _then(
       _value.copyWith(
             id:
-                null == id
+                freezed == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             nome:
                 null == nome
                     ? _value.nome
@@ -123,11 +125,11 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    String? id,
     String nome,
     String cpf,
     String senha,
-    DateTime dataNascimento,
+    @TimestampConverter() DateTime dataNascimento,
     String email,
   });
 }
@@ -146,7 +148,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? nome = null,
     Object? cpf = null,
     Object? senha = null,
@@ -156,10 +158,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     return _then(
       _$UserModelImpl(
         id:
-            null == id
+            freezed == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         nome:
             null == nome
                 ? _value.nome
@@ -198,7 +200,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     required this.nome,
     required this.cpf,
     required this.senha,
-    required this.dataNascimento,
+    @TimestampConverter() required this.dataNascimento,
     required this.email,
   });
 
@@ -206,7 +208,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       _$$UserModelImplFromJson(json);
 
   @override
-  final String id;
+  final String? id;
   @override
   final String nome;
   @override
@@ -214,6 +216,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   @override
   final String senha;
   @override
+  @TimestampConverter()
   final DateTime dataNascimento;
   @override
   final String email;
@@ -271,11 +274,11 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel({
-    required final String id,
+    required final String? id,
     required final String nome,
     required final String cpf,
     required final String senha,
-    required final DateTime dataNascimento,
+    @TimestampConverter() required final DateTime dataNascimento,
     required final String email,
   }) = _$UserModelImpl;
 
@@ -283,7 +286,7 @@ abstract class _UserModel implements UserModel {
       _$UserModelImpl.fromJson;
 
   @override
-  String get id;
+  String? get id;
   @override
   String get nome;
   @override
@@ -291,6 +294,7 @@ abstract class _UserModel implements UserModel {
   @override
   String get senha;
   @override
+  @TimestampConverter()
   DateTime get dataNascimento;
   @override
   String get email;

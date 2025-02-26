@@ -1,11 +1,15 @@
-import 'package:digprev_flutter/domain/models/users/users.dart';
-import 'package:digprev_flutter/utils/result.dart';
+import 'package:digprev_flutter/domain/models/user/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:result_dart/result_dart.dart';
 
 abstract class AuthRepository {
-  Future<Result<UserModel>> findById(String id);
-  Future<Result<UserModel>> cadastrarUsuario(String email,
-      String password, UserModel user);
-  Future<Result<UserModel>> loginUsuario(String email,
-      String password);
+  AsyncResult<UserModel> findById(String id);
+
+  AsyncResult<UserModel> cadastrarUsuario(UserModel user);
+
+  AsyncResult<UserModel> loginUsuario(String email, String password);
+
+  Stream<Result<User>> get authStatesChanges;
+
   Future<void> logoutUsuario();
 }

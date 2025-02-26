@@ -24,10 +24,8 @@ mixin _$SectionAnswer {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get sectionRef => throw _privateConstructorUsedError;
-
   @JsonKey(toJson: _answersToJson)
   List<Answer> get answers => throw _privateConstructorUsedError;
-
   double get score => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
 

@@ -25,7 +25,6 @@ mixin _$ResponseCard {
   String get userRef => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-
   @JsonKey(toJson: _sectionsToJson)
   List<SectionAnswer> get sections => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;

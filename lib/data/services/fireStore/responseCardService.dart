@@ -12,13 +12,14 @@ class ResponseCardService {
     try {
       final DocumentReference<Map<String, dynamic>> document = db
           .collection(path)
-          .doc(responseCard.id); // Garante um ID válido
+          .doc(responseCard.id);
+
       await document.set(
         responseCard.toJson(),
-      ); // Aguarda a operação ser concluída
-      return Success(responseCard);
+      );
+      return Success<ResponseCard, Exception>(responseCard);
     } catch (e) {
-      return Failure(Exception(e.toString()));
+      return Failure<ResponseCard, Exception>(Exception(e.toString()));
     }
   }
 
@@ -28,15 +29,17 @@ class ResponseCardService {
           await db.collection(path).where('id', isEqualTo: id).limit(1).get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Failure(Exception('Documento não encontrado'));
+        return Failure<ResponseCard, Exception>(
+          Exception('Documento não encontrado'),
+        );
       }
 
       final DocumentReference<Map<String, dynamic>> document =
           querySnapshot.docs.first.reference;
       await document.set(responseCard.toJson(), SetOptions(merge: false));
-      return Success(responseCard);
+      return Success<ResponseCard, Exception>(responseCard);
     } catch (e) {
-      return Failure(Exception(e.toString()));
+      return Failure<ResponseCard, Exception>(Exception(e.toString()));
     }
   }
 
@@ -46,15 +49,17 @@ class ResponseCardService {
           await db.collection(path).where('id', isEqualTo: id).limit(1).get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Failure(Exception('Documento não encontrado'));
+        return Failure<ResponseCard, Exception>(
+          Exception('Documento não encontrado'),
+        );
       }
 
       final ResponseCard responseCard = ResponseCard.fromJson(
         querySnapshot.docs.first.data(),
       );
-      return Success(responseCard);
+      return Success<ResponseCard, Exception>(responseCard);
     } catch (e) {
-      return Failure(Exception(e.toString()));
+      return Failure<ResponseCard, Exception>(Exception(e.toString()));
     }
   }
 
@@ -74,7 +79,7 @@ class ResponseCardService {
             ResponseCard.fromJson(snapshot.docs.first.data()),
           );
         })
-        .handleError((error) {
+        .handleError((Object error) {
           return Failure<ResponseCard, Exception>(Exception(error.toString()));
         });
   }
@@ -95,7 +100,7 @@ class ResponseCardService {
             ResponseCard.fromJson(snapshot.docs.first.data()),
           );
         })
-        .handleError((error) {
+        .handleError((Object error) {
           return Failure<ResponseCard, Exception>(Exception(error.toString()));
         });
   }
@@ -106,11 +111,13 @@ class ResponseCardService {
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
           return snapshot.docs
-                  .map((doc) => ResponseCard.fromJson(doc.data()))
-                  .toList() ??
-              <ResponseCard>[];
+              .map(
+                (QueryDocumentSnapshot<Map<String, dynamic>> doc) =>
+                ResponseCard.fromJson(doc.data()),
+          )
+              .toList();
         })
-        .handleError((error) {
+        .handleError((Object error) {
           return <ResponseCard>[];
         });
   }
@@ -122,12 +129,12 @@ class ResponseCardService {
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
           return snapshot.docs
-                  .map((doc) => ResponseCard.fromJson(doc.data()))
-                  .toList() ??
-              <ResponseCard>[];
+              .map(
+                (QueryDocumentSnapshot<Map<String, dynamic>> doc) =>
+                ResponseCard.fromJson(doc.data()),
+          )
+              .toList();
         })
-        .handleError((error) {
-          return <ResponseCard>[];
-        });
+        .handleError((Object error) => <ResponseCard>[]);
   }
 }

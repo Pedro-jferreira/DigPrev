@@ -24,7 +24,6 @@ mixin _$Answer {
   String get id => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-
   @JsonKey(toJson: _answersToJson)
   List<Option> get answers => throw _privateConstructorUsedError;
 
