@@ -15,12 +15,12 @@ final _privateConstructorUsedError = UnsupportedError(
   'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
 );
 
-Users _$UsersFromJson(Map<String, dynamic> json) {
-  return _Users.fromJson(json);
+UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+  return _UserModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Users {
+mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
   String get cpf => throw _privateConstructorUsedError;
@@ -28,19 +28,20 @@ mixin _$Users {
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
 
-  /// Serializes this Users to a JSON map.
+  /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of Users
+  /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $UsersCopyWith<Users> get copyWith => throw _privateConstructorUsedError;
+  $UserModelCopyWith<UserModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UsersCopyWith<$Res> {
-  factory $UsersCopyWith(Users value, $Res Function(Users) then) =
-      _$UsersCopyWithImpl<$Res, Users>;
+abstract class $UserModelCopyWith<$Res> {
+  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
+      _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call({
     String id,
@@ -53,16 +54,16 @@ abstract class $UsersCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UsersCopyWithImpl<$Res, $Val extends Users>
-    implements $UsersCopyWith<$Res> {
-  _$UsersCopyWithImpl(this._value, this._then);
+class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
+    implements $UserModelCopyWith<$Res> {
+  _$UserModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of Users
+  /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -113,11 +114,12 @@ class _$UsersCopyWithImpl<$Res, $Val extends Users>
 }
 
 /// @nodoc
-abstract class _$$UsersImplCopyWith<$Res> implements $UsersCopyWith<$Res> {
-  factory _$$UsersImplCopyWith(
-    _$UsersImpl value,
-    $Res Function(_$UsersImpl) then,
-  ) = __$$UsersImplCopyWithImpl<$Res>;
+abstract class _$$UserModelImplCopyWith<$Res>
+    implements $UserModelCopyWith<$Res> {
+  factory _$$UserModelImplCopyWith(
+    _$UserModelImpl value,
+    $Res Function(_$UserModelImpl) then,
+  ) = __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
@@ -131,15 +133,15 @@ abstract class _$$UsersImplCopyWith<$Res> implements $UsersCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$UsersImplCopyWithImpl<$Res>
-    extends _$UsersCopyWithImpl<$Res, _$UsersImpl>
-    implements _$$UsersImplCopyWith<$Res> {
-  __$$UsersImplCopyWithImpl(
-    _$UsersImpl _value,
-    $Res Function(_$UsersImpl) _then,
+class __$$UserModelImplCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
+    implements _$$UserModelImplCopyWith<$Res> {
+  __$$UserModelImplCopyWithImpl(
+    _$UserModelImpl _value,
+    $Res Function(_$UserModelImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of Users
+  /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -152,7 +154,7 @@ class __$$UsersImplCopyWithImpl<$Res>
     Object? email = null,
   }) {
     return _then(
-      _$UsersImpl(
+      _$UserModelImpl(
         id:
             null == id
                 ? _value.id
@@ -190,8 +192,8 @@ class __$$UsersImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UsersImpl with DiagnosticableTreeMixin implements _Users {
-  const _$UsersImpl({
+class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
+  const _$UserModelImpl({
     required this.id,
     required this.nome,
     required this.cpf,
@@ -200,8 +202,8 @@ class _$UsersImpl with DiagnosticableTreeMixin implements _Users {
     required this.email,
   });
 
-  factory _$UsersImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UsersImplFromJson(json);
+  factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserModelImplFromJson(json);
 
   @override
   final String id;
@@ -218,14 +220,14 @@ class _$UsersImpl with DiagnosticableTreeMixin implements _Users {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Users(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email)';
+    return 'UserModel(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Users'))
+      ..add(DiagnosticsProperty('type', 'UserModel'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('nome', nome))
       ..add(DiagnosticsProperty('cpf', cpf))
@@ -238,7 +240,7 @@ class _$UsersImpl with DiagnosticableTreeMixin implements _Users {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UsersImpl &&
+            other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.nome, nome) || other.nome == nome) &&
             (identical(other.cpf, cpf) || other.cpf == cpf) &&
@@ -253,31 +255,32 @@ class _$UsersImpl with DiagnosticableTreeMixin implements _Users {
   int get hashCode =>
       Object.hash(runtimeType, id, nome, cpf, senha, dataNascimento, email);
 
-  /// Create a copy of Users
+  /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UsersImplCopyWith<_$UsersImpl> get copyWith =>
-      __$$UsersImplCopyWithImpl<_$UsersImpl>(this, _$identity);
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UsersImplToJson(this);
+    return _$$UserModelImplToJson(this);
   }
 }
 
-abstract class _Users implements Users {
-  const factory _Users({
+abstract class _UserModel implements UserModel {
+  const factory _UserModel({
     required final String id,
     required final String nome,
     required final String cpf,
     required final String senha,
     required final DateTime dataNascimento,
     required final String email,
-  }) = _$UsersImpl;
+  }) = _$UserModelImpl;
 
-  factory _Users.fromJson(Map<String, dynamic> json) = _$UsersImpl.fromJson;
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$UserModelImpl.fromJson;
 
   @override
   String get id;
@@ -292,10 +295,10 @@ abstract class _Users implements Users {
   @override
   String get email;
 
-  /// Create a copy of Users
+  /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UsersImplCopyWith<_$UsersImpl> get copyWith =>
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
