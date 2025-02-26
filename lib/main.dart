@@ -20,6 +20,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
+      home: const TestScreen(),
+    );
+  }
+}
+
+class TestScreen extends StatelessWidget {
+  const TestScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Test Repository')),
+      body: const Center(
+        child: Text('Verifique o console para os resultados.'),
+      ),
     );
   }
 }

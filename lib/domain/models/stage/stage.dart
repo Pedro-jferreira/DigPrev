@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/utils/timeStampConversor.dart';
+import 'package:digprev_flutter/utils/timestampConverter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'stage.freezed.dart';
