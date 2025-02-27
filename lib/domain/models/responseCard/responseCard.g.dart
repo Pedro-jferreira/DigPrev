@@ -10,7 +10,7 @@ _$ResponseCardImpl _$$ResponseCardImplFromJson(Map<String, dynamic> json) =>
     _$ResponseCardImpl(
       id: json['id'] as String,
       userRef: json['userRef'] as String?,
-      date: DateTime.parse(json['date'] as String),
+      date: const TimestampSerializer().fromJson(json['date']),
       sections:
           (json['sections'] as List<dynamic>)
               .map((e) => SectionAnswer.fromJson(e as Map<String, dynamic>))
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$ResponseCardImplToJson(_$ResponseCardImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userRef': instance.userRef,
-      'date': instance.date.toIso8601String(),
+      'date': const TimestampSerializer().toJson(instance.date),
       'sections': instance.sections.map((e) => e.toJson()).toList(),
       'isCalculated': instance.isCalculated,
       'isCompleted': instance.isCompleted,

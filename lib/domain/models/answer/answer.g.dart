@@ -9,7 +9,7 @@ part of 'answer.dart';
 _$AnswerImpl _$$AnswerImplFromJson(Map<String, dynamic> json) => _$AnswerImpl(
   id: json['id'] as String,
   questionRef: json['questionRef'] as String,
-  date: DateTime.parse(json['date'] as String),
+  date: const TimestampSerializer().fromJson(json['date']),
   answers:
       (json['answers'] as List<dynamic>)
           .map((e) => Option.fromJson(e as Map<String, dynamic>))
@@ -20,6 +20,6 @@ Map<String, dynamic> _$$AnswerImplToJson(_$AnswerImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'questionRef': instance.questionRef,
-      'date': instance.date.toIso8601String(),
+      'date': const TimestampSerializer().toJson(instance.date),
       'answers': instance.answers.map((e) => e.toJson()).toList(),
     };

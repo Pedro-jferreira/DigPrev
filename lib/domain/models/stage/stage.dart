@@ -11,7 +11,7 @@ class Stage with _$Stage {
     required int id,
     required String title,
     required String description,
-    @TimestampConverter() required DateTime creationDate,
+    @TimestampSerializer() required DateTime creationDate,
     required List<Section>? sections,
   }) = _Stage;
 

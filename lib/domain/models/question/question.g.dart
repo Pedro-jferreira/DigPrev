@@ -8,7 +8,7 @@ part of 'question.dart';
 
 _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
     _$QuestionImpl(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       question: json['question'] as String,
       placeholder: json['placeholder'] as String,
       supportingText: json['supportingText'] as String,

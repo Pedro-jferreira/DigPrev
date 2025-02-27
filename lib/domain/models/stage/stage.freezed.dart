@@ -24,7 +24,7 @@ mixin _$Stage {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get creationDate => throw _privateConstructorUsedError;
   List<Section>? get sections => throw _privateConstructorUsedError;
 
@@ -46,7 +46,7 @@ abstract class $StageCopyWith<$Res> {
     int id,
     String title,
     String description,
-    @TimestampConverter() DateTime creationDate,
+    @TimestampSerializer() DateTime creationDate,
     List<Section>? sections,
   });
 }
@@ -117,7 +117,7 @@ abstract class _$$StageImplCopyWith<$Res> implements $StageCopyWith<$Res> {
     int id,
     String title,
     String description,
-    @TimestampConverter() DateTime creationDate,
+    @TimestampSerializer() DateTime creationDate,
     List<Section>? sections,
   });
 }
@@ -181,7 +181,7 @@ class _$StageImpl implements _Stage {
     required this.id,
     required this.title,
     required this.description,
-    @TimestampConverter() required this.creationDate,
+    @TimestampSerializer() required this.creationDate,
     required final List<Section>? sections,
   }) : _sections = sections;
 
@@ -195,7 +195,7 @@ class _$StageImpl implements _Stage {
   @override
   final String description;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   final DateTime creationDate;
   final List<Section>? _sections;
   @override
@@ -256,7 +256,7 @@ abstract class _Stage implements Stage {
     required final int id,
     required final String title,
     required final String description,
-    @TimestampConverter() required final DateTime creationDate,
+    @TimestampSerializer() required final DateTime creationDate,
     required final List<Section>? sections,
   }) = _$StageImpl;
 
@@ -269,7 +269,7 @@ abstract class _Stage implements Stage {
   @override
   String get description;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get creationDate;
   @override
   List<Section>? get sections;
