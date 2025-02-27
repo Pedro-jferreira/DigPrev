@@ -11,6 +11,7 @@ class OutlinedTextFieldComponent extends StatelessWidget {
   final Function(String) onValueChange;
 
   const OutlinedTextFieldComponent({
+    required this.onValueChange,
     Key? key,
     this.titulo = '',
     this.value = '',
@@ -19,27 +20,26 @@ class OutlinedTextFieldComponent extends StatelessWidget {
     this.isError = false,
     this.errorText = '',
     this.keyboardType = TextInputType.text,
-    required this.onValueChange,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         if (titulo.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text(
-              titulo,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
+            child: Text(titulo, style: Theme.of(context).textTheme.bodyMedium),
           ),
         TextField(
           keyboardType: keyboardType,
-          onChanged: (input) {
+          onChanged: (String input) {
             if (keyboardType == TextInputType.number) {
-              final numericValue = input.replaceAll(RegExp(r'[^0-9]'), '');
+              final String numericValue = input.replaceAll(
+                RegExp(r'[^0-9]'),
+                '',
+              );
               onValueChange(numericValue);
             } else {
               onValueChange(input);
@@ -49,9 +49,7 @@ class OutlinedTextFieldComponent extends StatelessWidget {
             hintText: placeholder,
             errorText: isError ? errorText : null,
             helperText: isError ? null : supportingText,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
       ],

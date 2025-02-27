@@ -84,6 +84,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
+        canRequestFocus: false,
         controller: _dateController,
         readOnly: true,
         decoration: InputDecoration(
