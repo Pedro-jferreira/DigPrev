@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
+import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldComponent.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,8 +33,20 @@ class TestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Test Repository')),
-      body: const Center(
-        child: Text('Verifique o console para os resultados.'),
+      body: Center(
+        child:
+          OutlinedTextFieldComponent(
+            titulo: 'Nome',
+            placeholder: 'Digite seu nome',
+            supportingText: 'Nome completo',
+            isError: false,
+            errorText: 'Nome inválido',
+            keyboardType: TextInputType.text,
+            onValueChange: (value) {
+              print("Valor digitado: $value");
+            },
+          )
+
       ),
     );
   }
