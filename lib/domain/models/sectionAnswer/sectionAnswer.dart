@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
-import 'package:digprev_flutter/utils/timeStampConversor.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'sectionAnswer.freezed.dart';
@@ -12,9 +10,8 @@ class SectionAnswer with _$SectionAnswer {
     required String id,
     required String title,
     required String sectionRef,
-    @TimestampConverter() required DateTime date,
-    required double score,
     required List<Answer> answers,
+    required double score,
     required bool isCalculated,
   }) = _SectionAnswer;
 

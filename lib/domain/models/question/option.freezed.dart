@@ -22,13 +22,9 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Option {
   int? get id => throw _privateConstructorUsedError;
-
   String? get question => throw _privateConstructorUsedError;
-
   double? get valueScore => throw _privateConstructorUsedError;
-
   String? get intensity => throw _privateConstructorUsedError;
-
   int? get days => throw _privateConstructorUsedError;
 
   /// Serializes this Option to a JSON map.

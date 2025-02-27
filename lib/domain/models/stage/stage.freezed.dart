@@ -24,10 +24,8 @@ mixin _$Stage {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-
   @TimestampConverter()
   DateTime get creationDate => throw _privateConstructorUsedError;
-
   List<Section>? get sections => throw _privateConstructorUsedError;
 
   /// Serializes this Stage to a JSON map.

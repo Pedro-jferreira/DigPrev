@@ -22,11 +22,10 @@ ResponseCard _$ResponseCardFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ResponseCard {
   String get id => throw _privateConstructorUsedError;
-  String get userRef => throw _privateConstructorUsedError;
-
+  String? get userRef => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-  List<SectionAnswer> get sectionAnswer => throw _privateConstructorUsedError;
+  List<SectionAnswer> get sections => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
 
@@ -49,9 +48,9 @@ abstract class $ResponseCardCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
-    String userRef,
+    String? userRef,
     @TimestampConverter() DateTime date,
-    List<SectionAnswer> sectionAnswer,
+    List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
   });
@@ -73,9 +72,9 @@ class _$ResponseCardCopyWithImpl<$Res, $Val extends ResponseCard>
   @override
   $Res call({
     Object? id = null,
-    Object? userRef = null,
+    Object? userRef = freezed,
     Object? date = null,
-    Object? sectionAnswer = null,
+    Object? sections = null,
     Object? isCalculated = null,
     Object? isCompleted = null,
   }) {
@@ -87,19 +86,19 @@ class _$ResponseCardCopyWithImpl<$Res, $Val extends ResponseCard>
                     : id // ignore: cast_nullable_to_non_nullable
                         as String,
             userRef:
-                null == userRef
+                freezed == userRef
                     ? _value.userRef
                     : userRef // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as String?,
             date:
                 null == date
                     ? _value.date
                     : date // ignore: cast_nullable_to_non_nullable
                         as DateTime,
-            sectionAnswer:
-                null == sectionAnswer
-                    ? _value.sectionAnswer
-                    : sectionAnswer // ignore: cast_nullable_to_non_nullable
+            sections:
+                null == sections
+                    ? _value.sections
+                    : sections // ignore: cast_nullable_to_non_nullable
                         as List<SectionAnswer>,
             isCalculated:
                 null == isCalculated
@@ -128,9 +127,9 @@ abstract class _$$ResponseCardImplCopyWith<$Res>
   @useResult
   $Res call({
     String id,
-    String userRef,
+    String? userRef,
     @TimestampConverter() DateTime date,
-    List<SectionAnswer> sectionAnswer,
+    List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
   });
@@ -151,9 +150,9 @@ class __$$ResponseCardImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? userRef = null,
+    Object? userRef = freezed,
     Object? date = null,
-    Object? sectionAnswer = null,
+    Object? sections = null,
     Object? isCalculated = null,
     Object? isCompleted = null,
   }) {
@@ -165,19 +164,19 @@ class __$$ResponseCardImplCopyWithImpl<$Res>
                 : id // ignore: cast_nullable_to_non_nullable
                     as String,
         userRef:
-            null == userRef
+            freezed == userRef
                 ? _value.userRef
                 : userRef // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as String?,
         date:
             null == date
                 ? _value.date
                 : date // ignore: cast_nullable_to_non_nullable
                     as DateTime,
-        sectionAnswer:
-            null == sectionAnswer
-                ? _value._sectionAnswer
-                : sectionAnswer // ignore: cast_nullable_to_non_nullable
+        sections:
+            null == sections
+                ? _value._sections
+                : sections // ignore: cast_nullable_to_non_nullable
                     as List<SectionAnswer>,
         isCalculated:
             null == isCalculated
@@ -201,10 +200,10 @@ class _$ResponseCardImpl implements _ResponseCard {
     required this.id,
     required this.userRef,
     @TimestampConverter() required this.date,
-    required final List<SectionAnswer> sectionAnswer,
+    required final List<SectionAnswer> sections,
     required this.isCalculated,
     required this.isCompleted,
-  }) : _sectionAnswer = sectionAnswer;
+  }) : _sections = sections;
 
   factory _$ResponseCardImpl.fromJson(Map<String, dynamic> json) =>
       _$$ResponseCardImplFromJson(json);
@@ -212,16 +211,16 @@ class _$ResponseCardImpl implements _ResponseCard {
   @override
   final String id;
   @override
-  final String userRef;
+  final String? userRef;
   @override
   @TimestampConverter()
   final DateTime date;
-  final List<SectionAnswer> _sectionAnswer;
+  final List<SectionAnswer> _sections;
   @override
-  List<SectionAnswer> get sectionAnswer {
-    if (_sectionAnswer is EqualUnmodifiableListView) return _sectionAnswer;
+  List<SectionAnswer> get sections {
+    if (_sections is EqualUnmodifiableListView) return _sections;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_sectionAnswer);
+    return EqualUnmodifiableListView(_sections);
   }
 
   @override
@@ -231,7 +230,7 @@ class _$ResponseCardImpl implements _ResponseCard {
 
   @override
   String toString() {
-    return 'ResponseCard(id: $id, userRef: $userRef, date: $date, sectionAnswer: $sectionAnswer, isCalculated: $isCalculated, isCompleted: $isCompleted)';
+    return 'ResponseCard(id: $id, userRef: $userRef, date: $date, sections: $sections, isCalculated: $isCalculated, isCompleted: $isCompleted)';
   }
 
   @override
@@ -242,10 +241,7 @@ class _$ResponseCardImpl implements _ResponseCard {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userRef, userRef) || other.userRef == userRef) &&
             (identical(other.date, date) || other.date == date) &&
-            const DeepCollectionEquality().equals(
-              other._sectionAnswer,
-              _sectionAnswer,
-            ) &&
+            const DeepCollectionEquality().equals(other._sections, _sections) &&
             (identical(other.isCalculated, isCalculated) ||
                 other.isCalculated == isCalculated) &&
             (identical(other.isCompleted, isCompleted) ||
@@ -259,7 +255,7 @@ class _$ResponseCardImpl implements _ResponseCard {
     id,
     userRef,
     date,
-    const DeepCollectionEquality().hash(_sectionAnswer),
+    const DeepCollectionEquality().hash(_sections),
     isCalculated,
     isCompleted,
   );
@@ -281,9 +277,9 @@ class _$ResponseCardImpl implements _ResponseCard {
 abstract class _ResponseCard implements ResponseCard {
   const factory _ResponseCard({
     required final String id,
-    required final String userRef,
+    required final String? userRef,
     @TimestampConverter() required final DateTime date,
-    required final List<SectionAnswer> sectionAnswer,
+    required final List<SectionAnswer> sections,
     required final bool isCalculated,
     required final bool isCompleted,
   }) = _$ResponseCardImpl;
@@ -294,12 +290,12 @@ abstract class _ResponseCard implements ResponseCard {
   @override
   String get id;
   @override
-  String get userRef;
+  String? get userRef;
   @override
   @TimestampConverter()
   DateTime get date;
   @override
-  List<SectionAnswer> get sectionAnswer;
+  List<SectionAnswer> get sections;
   @override
   bool get isCalculated;
   @override

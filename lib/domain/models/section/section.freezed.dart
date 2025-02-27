@@ -23,10 +23,8 @@ Section _$SectionFromJson(Map<String, dynamic> json) {
 mixin _$Section {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-
   int? get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
-
   List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
 

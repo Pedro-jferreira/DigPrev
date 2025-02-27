@@ -28,8 +28,8 @@ Map<String, dynamic> _$$SectionImplToJson(_$SectionImpl instance) =>
       'title': instance.title,
       'maxValue': instance.maxValue,
       'typeCalculate': _$TypeCalculateEnumMap[instance.typeCalculate]!,
-      'textUnderBar': instance.textUnderBar,
-      'questions': instance.questions,
+      'textUnderBar': instance.textUnderBar?.map((e) => e.toJson()).toList(),
+      'questions': instance.questions.map((e) => e.toJson()).toList(),
     };
 
 const _$TypeCalculateEnumMap = {

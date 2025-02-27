@@ -7,6 +7,7 @@ part 'question.g.dart';
 @freezed
 class Question with _$Question{
   const factory Question({
+    required String id,
     required String question,
     required String placeholder,
     required String supportingText,
@@ -17,9 +18,5 @@ class Question with _$Question{
   }) = _Question;
   factory Question.fromJson(Map<String, dynamic> json) => _$QuestionFromJson(json);
 }
-List<Option> _optionsFromJson(List<dynamic>? json) =>
-    json?.map((e) => Option.fromJson(e as Map<String, dynamic>)).toList() ?? [];
 
-List<Map<String, dynamic>> _optionsToJson(List<Option> options) =>
-    options.map((e) => e.toJson()).toList();
 

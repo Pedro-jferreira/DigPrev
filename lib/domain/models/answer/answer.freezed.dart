@@ -22,7 +22,7 @@ Answer _$AnswerFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Answer {
   String get id => throw _privateConstructorUsedError;
-
+  String get questionRef => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
   List<Option> get answers => throw _privateConstructorUsedError;
@@ -43,6 +43,7 @@ abstract class $AnswerCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
+    String questionRef,
     @TimestampConverter() DateTime date,
     List<Option> answers,
   });
@@ -62,13 +63,23 @@ class _$AnswerCopyWithImpl<$Res, $Val extends Answer>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? id = null, Object? date = null, Object? answers = null}) {
+  $Res call({
+    Object? id = null,
+    Object? questionRef = null,
+    Object? date = null,
+    Object? answers = null,
+  }) {
     return _then(
       _value.copyWith(
             id:
                 null == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            questionRef:
+                null == questionRef
+                    ? _value.questionRef
+                    : questionRef // ignore: cast_nullable_to_non_nullable
                         as String,
             date:
                 null == date
@@ -96,6 +107,7 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
+    String questionRef,
     @TimestampConverter() DateTime date,
     List<Option> answers,
   });
@@ -114,13 +126,23 @@ class __$$AnswerImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? id = null, Object? date = null, Object? answers = null}) {
+  $Res call({
+    Object? id = null,
+    Object? questionRef = null,
+    Object? date = null,
+    Object? answers = null,
+  }) {
     return _then(
       _$AnswerImpl(
         id:
             null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        questionRef:
+            null == questionRef
+                ? _value.questionRef
+                : questionRef // ignore: cast_nullable_to_non_nullable
                     as String,
         date:
             null == date
@@ -142,6 +164,7 @@ class __$$AnswerImplCopyWithImpl<$Res>
 class _$AnswerImpl implements _Answer {
   const _$AnswerImpl({
     required this.id,
+    required this.questionRef,
     @TimestampConverter() required this.date,
     required final List<Option> answers,
   }) : _answers = answers;
@@ -151,6 +174,8 @@ class _$AnswerImpl implements _Answer {
 
   @override
   final String id;
+  @override
+  final String questionRef;
   @override
   @TimestampConverter()
   final DateTime date;
@@ -164,7 +189,7 @@ class _$AnswerImpl implements _Answer {
 
   @override
   String toString() {
-    return 'Answer(id: $id, date: $date, answers: $answers)';
+    return 'Answer(id: $id, questionRef: $questionRef, date: $date, answers: $answers)';
   }
 
   @override
@@ -173,6 +198,8 @@ class _$AnswerImpl implements _Answer {
         (other.runtimeType == runtimeType &&
             other is _$AnswerImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.questionRef, questionRef) ||
+                other.questionRef == questionRef) &&
             (identical(other.date, date) || other.date == date) &&
             const DeepCollectionEquality().equals(other._answers, _answers));
   }
@@ -182,6 +209,7 @@ class _$AnswerImpl implements _Answer {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    questionRef,
     date,
     const DeepCollectionEquality().hash(_answers),
   );
@@ -203,6 +231,7 @@ class _$AnswerImpl implements _Answer {
 abstract class _Answer implements Answer {
   const factory _Answer({
     required final String id,
+    required final String questionRef,
     @TimestampConverter() required final DateTime date,
     required final List<Option> answers,
   }) = _$AnswerImpl;
@@ -211,6 +240,8 @@ abstract class _Answer implements Answer {
 
   @override
   String get id;
+  @override
+  String get questionRef;
   @override
   @TimestampConverter()
   DateTime get date;
