@@ -10,7 +10,7 @@ class SectionAnswer with _$SectionAnswer {
     required String id,
     required String title,
     required String sectionRef,
-    @JsonKey(toJson: _answersToJson) required List<Answer> answers,
+    required List<Answer> answers,
     required double score,
     required bool isCalculated,
   }) = _SectionAnswer;
@@ -18,6 +18,3 @@ class SectionAnswer with _$SectionAnswer {
   factory SectionAnswer.fromJson(Map<String, dynamic> json) =>
       _$SectionAnswerFromJson(json);
 }
-
-List<Map<String, dynamic>> _answersToJson(List<Answer> answers) =>
-    answers.map((e) => e.toJson()).toList();

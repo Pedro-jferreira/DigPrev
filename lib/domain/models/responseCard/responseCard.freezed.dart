@@ -25,7 +25,6 @@ mixin _$ResponseCard {
   String? get userRef => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _sectionsToJson)
   List<SectionAnswer> get sections => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
@@ -51,7 +50,7 @@ abstract class $ResponseCardCopyWith<$Res> {
     String id,
     String? userRef,
     @TimestampConverter() DateTime date,
-    @JsonKey(toJson: _sectionsToJson) List<SectionAnswer> sections,
+    List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
   });
@@ -130,7 +129,7 @@ abstract class _$$ResponseCardImplCopyWith<$Res>
     String id,
     String? userRef,
     @TimestampConverter() DateTime date,
-    @JsonKey(toJson: _sectionsToJson) List<SectionAnswer> sections,
+    List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
   });
@@ -201,7 +200,6 @@ class _$ResponseCardImpl implements _ResponseCard {
     required this.id,
     required this.userRef,
     @TimestampConverter() required this.date,
-    @JsonKey(toJson: _sectionsToJson)
     required final List<SectionAnswer> sections,
     required this.isCalculated,
     required this.isCompleted,
@@ -219,7 +217,6 @@ class _$ResponseCardImpl implements _ResponseCard {
   final DateTime date;
   final List<SectionAnswer> _sections;
   @override
-  @JsonKey(toJson: _sectionsToJson)
   List<SectionAnswer> get sections {
     if (_sections is EqualUnmodifiableListView) return _sections;
     // ignore: implicit_dynamic_type
@@ -282,7 +279,6 @@ abstract class _ResponseCard implements ResponseCard {
     required final String id,
     required final String? userRef,
     @TimestampConverter() required final DateTime date,
-    @JsonKey(toJson: _sectionsToJson)
     required final List<SectionAnswer> sections,
     required final bool isCalculated,
     required final bool isCompleted,
@@ -299,7 +295,6 @@ abstract class _ResponseCard implements ResponseCard {
   @TimestampConverter()
   DateTime get date;
   @override
-  @JsonKey(toJson: _sectionsToJson)
   List<SectionAnswer> get sections;
   @override
   bool get isCalculated;

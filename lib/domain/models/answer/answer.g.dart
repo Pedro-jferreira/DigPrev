@@ -21,5 +21,5 @@ Map<String, dynamic> _$$AnswerImplToJson(_$AnswerImpl instance) =>
       'id': instance.id,
       'questionRef': instance.questionRef,
       'date': instance.date.toIso8601String(),
-      'answers': _answersToJson(instance.answers),
+      'answers': instance.answers.map((e) => e.toJson()).toList(),
     };

@@ -11,7 +11,7 @@ class ResponseCard with _$ResponseCard {
     required String id,
     required String? userRef,
     @TimestampConverter() required DateTime date,
-    @JsonKey(toJson: _sectionsToJson) required List<SectionAnswer> sections,
+   required List<SectionAnswer> sections,
     required bool isCalculated,
     required bool isCompleted,
   }) = _ResponseCard;
@@ -19,6 +19,3 @@ class ResponseCard with _$ResponseCard {
   factory ResponseCard.fromJson(Map<String, dynamic> json) =>
       _$ResponseCardFromJson(json);
 }
-
-List<Map<String, dynamic>> _sectionsToJson(List<SectionAnswer> sections) =>
-    sections.map((e) => e.toJson()).toList();

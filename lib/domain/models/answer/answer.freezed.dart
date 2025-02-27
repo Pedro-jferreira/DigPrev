@@ -25,7 +25,6 @@ mixin _$Answer {
   String get questionRef => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get date => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _answersToJson)
   List<Option> get answers => throw _privateConstructorUsedError;
 
   /// Serializes this Answer to a JSON map.
@@ -46,7 +45,7 @@ abstract class $AnswerCopyWith<$Res> {
     String id,
     String questionRef,
     @TimestampConverter() DateTime date,
-    @JsonKey(toJson: _answersToJson) List<Option> answers,
+    List<Option> answers,
   });
 }
 
@@ -110,7 +109,7 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
     String id,
     String questionRef,
     @TimestampConverter() DateTime date,
-    @JsonKey(toJson: _answersToJson) List<Option> answers,
+    List<Option> answers,
   });
 }
 
@@ -167,7 +166,7 @@ class _$AnswerImpl implements _Answer {
     required this.id,
     required this.questionRef,
     @TimestampConverter() required this.date,
-    @JsonKey(toJson: _answersToJson) required final List<Option> answers,
+    required final List<Option> answers,
   }) : _answers = answers;
 
   factory _$AnswerImpl.fromJson(Map<String, dynamic> json) =>
@@ -182,7 +181,6 @@ class _$AnswerImpl implements _Answer {
   final DateTime date;
   final List<Option> _answers;
   @override
-  @JsonKey(toJson: _answersToJson)
   List<Option> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
@@ -235,7 +233,7 @@ abstract class _Answer implements Answer {
     required final String id,
     required final String questionRef,
     @TimestampConverter() required final DateTime date,
-    @JsonKey(toJson: _answersToJson) required final List<Option> answers,
+    required final List<Option> answers,
   }) = _$AnswerImpl;
 
   factory _Answer.fromJson(Map<String, dynamic> json) = _$AnswerImpl.fromJson;
@@ -248,7 +246,6 @@ abstract class _Answer implements Answer {
   @TimestampConverter()
   DateTime get date;
   @override
-  @JsonKey(toJson: _answersToJson)
   List<Option> get answers;
 
   /// Create a copy of Answer

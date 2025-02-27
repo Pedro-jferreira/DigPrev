@@ -33,7 +33,7 @@ Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
       'tooltipText': instance.tooltipText,
       'inputType': _$InputTypeEnumMap[instance.inputType]!,
       'explanatoryTexts': instance.explanatoryTexts,
-      'options': instance.options,
+      'options': instance.options?.map((e) => e.toJson()).toList(),
     };
 
 const _$InputTypeEnumMap = {

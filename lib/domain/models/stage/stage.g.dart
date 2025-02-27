@@ -23,5 +23,5 @@ Map<String, dynamic> _$$StageImplToJson(_$StageImpl instance) =>
       'title': instance.title,
       'description': instance.description,
       'creationDate': instance.creationDate.toIso8601String(),
-      'sections': instance.sections,
+      'sections': instance.sections?.map((e) => e.toJson()).toList(),
     };

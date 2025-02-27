@@ -24,7 +24,7 @@ Map<String, dynamic> _$$ResponseCardImplToJson(_$ResponseCardImpl instance) =>
       'id': instance.id,
       'userRef': instance.userRef,
       'date': instance.date.toIso8601String(),
-      'sections': _sectionsToJson(instance.sections),
+      'sections': instance.sections.map((e) => e.toJson()).toList(),
       'isCalculated': instance.isCalculated,
       'isCompleted': instance.isCompleted,
     };

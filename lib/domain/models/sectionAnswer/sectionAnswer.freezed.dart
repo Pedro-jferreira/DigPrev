@@ -24,7 +24,6 @@ mixin _$SectionAnswer {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get sectionRef => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _answersToJson)
   List<Answer> get answers => throw _privateConstructorUsedError;
   double get score => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
@@ -50,7 +49,7 @@ abstract class $SectionAnswerCopyWith<$Res> {
     String id,
     String title,
     String sectionRef,
-    @JsonKey(toJson: _answersToJson) List<Answer> answers,
+    List<Answer> answers,
     double score,
     bool isCalculated,
   });
@@ -129,7 +128,7 @@ abstract class _$$SectionAnswerImplCopyWith<$Res>
     String id,
     String title,
     String sectionRef,
-    @JsonKey(toJson: _answersToJson) List<Answer> answers,
+    List<Answer> answers,
     double score,
     bool isCalculated,
   });
@@ -200,7 +199,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     required this.id,
     required this.title,
     required this.sectionRef,
-    @JsonKey(toJson: _answersToJson) required final List<Answer> answers,
+    required final List<Answer> answers,
     required this.score,
     required this.isCalculated,
   }) : _answers = answers;
@@ -216,7 +215,6 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   final String sectionRef;
   final List<Answer> _answers;
   @override
-  @JsonKey(toJson: _answersToJson)
   List<Answer> get answers {
     if (_answers is EqualUnmodifiableListView) return _answers;
     // ignore: implicit_dynamic_type
@@ -279,7 +277,7 @@ abstract class _SectionAnswer implements SectionAnswer {
     required final String id,
     required final String title,
     required final String sectionRef,
-    @JsonKey(toJson: _answersToJson) required final List<Answer> answers,
+    required final List<Answer> answers,
     required final double score,
     required final bool isCalculated,
   }) = _$SectionAnswerImpl;
@@ -294,7 +292,6 @@ abstract class _SectionAnswer implements SectionAnswer {
   @override
   String get sectionRef;
   @override
-  @JsonKey(toJson: _answersToJson)
   List<Answer> get answers;
   @override
   double get score;

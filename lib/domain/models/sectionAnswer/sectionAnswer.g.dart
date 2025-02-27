@@ -24,7 +24,7 @@ Map<String, dynamic> _$$SectionAnswerImplToJson(_$SectionAnswerImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'sectionRef': instance.sectionRef,
-      'answers': _answersToJson(instance.answers),
+      'answers': instance.answers.map((e) => e.toJson()).toList(),
       'score': instance.score,
       'isCalculated': instance.isCalculated,
     };
