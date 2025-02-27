@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
 import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
+import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldComponent.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,30 +33,34 @@ class MyApp extends StatelessWidget {
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
-
-
   @override
   Widget build(BuildContext context) {
-    final generator = Provider.of<ResponseCardGenerator>(context);
-     generator.generate().fold(
-         (sucess)=> print(sucess.toJson()),
-         (failure) => print(failure)
-     );
     return Scaffold(
       appBar: AppBar(title: const Text('Test Repository')),
       body: Center(
-        child: OutlinedTextFieldComponent(
-          titulo: "Nome",
-          placeholder: "Digite seu nome",
-          supportingText: "Nome completo",
-          isError: false,
-          errorText: "Nome inválido",
-          keyboardType: TextInputType.text,
-          onValueChange: (value) {
-            print("Valor digitado: $value");
-          },
-        )
-
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Ajusta o tamanho da coluna
+          children: [
+            OutlinedTextFieldComponent(
+              titulo: "Nome",
+              placeholder: "Digite seu nome",
+              supportingText: "Nome completo",
+              isError: false,
+              errorText: "Nome inválido",
+              keyboardType: TextInputType.text,
+              onValueChange: (value) {
+                print("Valor digitado: $value");
+              },
+            ),
+            const SizedBox(height: 20), // Espaço entre o TextField e o DatePicker
+            DatePickerWidget(
+              labelText: 'selecione uma data de nascimento',
+              onDateSelected: (value){
+                print(value);
+              },
+            ), // Coloque o DatePicker abaixo
+          ],
+        ),
       ),
     );
   }
