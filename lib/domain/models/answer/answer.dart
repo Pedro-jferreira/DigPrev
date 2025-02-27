@@ -9,6 +9,7 @@ part 'answer.g.dart';
 class Answer with _$Answer {
   const factory Answer({
     required String id,
+    required String questionRef,
     @TimestampConverter() required DateTime date,
     @JsonKey(toJson: _answersToJson) required List<Option> answers,
   }) = _Answer;

@@ -25,7 +25,6 @@ mixin _$UserModel {
   String get nome => throw _privateConstructorUsedError;
   String get cpf => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
-
   @TimestampConverter()
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;

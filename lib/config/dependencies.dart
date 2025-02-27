@@ -7,6 +7,8 @@ import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryR
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
 import 'package:digprev_flutter/data/services/fireStore/responseCardService.dart';
 import 'package:digprev_flutter/data/services/fireStore/stageService.dart';
+import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
+import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGeneratorImpl.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -32,6 +34,15 @@ List<SingleChildWidget> get providersRemote {
           (context) =>
               AuthRepositoryRemote(authService: context.read())
                   as AuthRepository,
+    ),
+    Provider(
+      create:
+          (context) =>
+              ResponseCardGeneratorImpl(
+                    stageRepository: context.read(),
+                    responseCardRepository: context.read(),
+                  )
+                  as ResponseCardGenerator,
     ),
   ];
 }

@@ -7,6 +7,7 @@ part 'question.g.dart';
 @freezed
 class Question with _$Question{
   const factory Question({
+    required String id,
     required String question,
     required String placeholder,
     required String supportingText,

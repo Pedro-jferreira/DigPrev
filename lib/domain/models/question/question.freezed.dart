@@ -21,6 +21,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Question {
+  String get id => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   String get placeholder => throw _privateConstructorUsedError;
   String get supportingText => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call({
+    String id,
     String question,
     String placeholder,
     String supportingText,
@@ -70,6 +72,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? question = null,
     Object? placeholder = null,
     Object? supportingText = null,
@@ -80,6 +83,11 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   }) {
     return _then(
       _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
             question:
                 null == question
                     ? _value.question
@@ -131,6 +139,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
+    String id,
     String question,
     String placeholder,
     String supportingText,
@@ -155,6 +164,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? question = null,
     Object? placeholder = null,
     Object? supportingText = null,
@@ -165,6 +175,11 @@ class __$$QuestionImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$QuestionImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
         question:
             null == question
                 ? _value.question
@@ -209,6 +224,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$QuestionImpl implements _Question {
   const _$QuestionImpl({
+    required this.id,
     required this.question,
     required this.placeholder,
     required this.supportingText,
@@ -222,6 +238,8 @@ class _$QuestionImpl implements _Question {
   factory _$QuestionImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuestionImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String question;
   @override
@@ -255,7 +273,7 @@ class _$QuestionImpl implements _Question {
 
   @override
   String toString() {
-    return 'Question(question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, options: $options)';
+    return 'Question(id: $id, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, options: $options)';
   }
 
   @override
@@ -263,6 +281,7 @@ class _$QuestionImpl implements _Question {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QuestionImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             (identical(other.placeholder, placeholder) ||
@@ -284,6 +303,7 @@ class _$QuestionImpl implements _Question {
   @override
   int get hashCode => Object.hash(
     runtimeType,
+    id,
     question,
     placeholder,
     supportingText,
@@ -309,6 +329,7 @@ class _$QuestionImpl implements _Question {
 
 abstract class _Question implements Question {
   const factory _Question({
+    required final String id,
     required final String question,
     required final String placeholder,
     required final String supportingText,
@@ -321,6 +342,8 @@ abstract class _Question implements Question {
   factory _Question.fromJson(Map<String, dynamic> json) =
       _$QuestionImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get question;
   @override

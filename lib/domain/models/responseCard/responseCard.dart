@@ -9,7 +9,7 @@ part 'responseCard.g.dart';
 class ResponseCard with _$ResponseCard {
   const factory ResponseCard({
     required String id,
-    required String userRef,
+    required String? userRef,
     @TimestampConverter() required DateTime date,
     @JsonKey(toJson: _sectionsToJson) required List<SectionAnswer> sections,
     required bool isCalculated,

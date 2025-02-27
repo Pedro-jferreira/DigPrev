@@ -8,6 +8,7 @@ part of 'question.dart';
 
 _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
     _$QuestionImpl(
+      id: json['id'] as String,
       question: json['question'] as String,
       placeholder: json['placeholder'] as String,
       supportingText: json['supportingText'] as String,
@@ -25,6 +26,7 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'question': instance.question,
       'placeholder': instance.placeholder,
       'supportingText': instance.supportingText,
