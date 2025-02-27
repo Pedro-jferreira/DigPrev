@@ -23,7 +23,7 @@ Answer _$AnswerFromJson(Map<String, dynamic> json) {
 mixin _$Answer {
   String get id => throw _privateConstructorUsedError;
   String get questionRef => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get date => throw _privateConstructorUsedError;
   List<Option> get answers => throw _privateConstructorUsedError;
 
@@ -44,7 +44,7 @@ abstract class $AnswerCopyWith<$Res> {
   $Res call({
     String id,
     String questionRef,
-    @TimestampConverter() DateTime date,
+    @TimestampSerializer() DateTime date,
     List<Option> answers,
   });
 }
@@ -108,7 +108,7 @@ abstract class _$$AnswerImplCopyWith<$Res> implements $AnswerCopyWith<$Res> {
   $Res call({
     String id,
     String questionRef,
-    @TimestampConverter() DateTime date,
+    @TimestampSerializer() DateTime date,
     List<Option> answers,
   });
 }
@@ -165,7 +165,7 @@ class _$AnswerImpl implements _Answer {
   const _$AnswerImpl({
     required this.id,
     required this.questionRef,
-    @TimestampConverter() required this.date,
+    @TimestampSerializer() required this.date,
     required final List<Option> answers,
   }) : _answers = answers;
 
@@ -177,7 +177,7 @@ class _$AnswerImpl implements _Answer {
   @override
   final String questionRef;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   final DateTime date;
   final List<Option> _answers;
   @override
@@ -232,7 +232,7 @@ abstract class _Answer implements Answer {
   const factory _Answer({
     required final String id,
     required final String questionRef,
-    @TimestampConverter() required final DateTime date,
+    @TimestampSerializer() required final DateTime date,
     required final List<Option> answers,
   }) = _$AnswerImpl;
 
@@ -243,7 +243,7 @@ abstract class _Answer implements Answer {
   @override
   String get questionRef;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get date;
   @override
   List<Option> get answers;

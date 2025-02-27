@@ -10,7 +10,7 @@ _$StageImpl _$$StageImplFromJson(Map<String, dynamic> json) => _$StageImpl(
   id: (json['id'] as num).toInt(),
   title: json['title'] as String,
   description: json['description'] as String,
-  creationDate: DateTime.parse(json['creationDate'] as String),
+  creationDate: const TimestampSerializer().fromJson(json['creationDate']),
   sections:
       (json['sections'] as List<dynamic>?)
           ?.map((e) => Section.fromJson(e as Map<String, dynamic>))
@@ -22,6 +22,6 @@ Map<String, dynamic> _$$StageImplToJson(_$StageImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'creationDate': instance.creationDate.toIso8601String(),
+      'creationDate': const TimestampSerializer().toJson(instance.creationDate),
       'sections': instance.sections?.map((e) => e.toJson()).toList(),
     };

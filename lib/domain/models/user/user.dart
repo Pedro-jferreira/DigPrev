@@ -12,7 +12,7 @@ class UserModel with _$UserModel {
     required String nome,
     required String cpf,
     required String senha,
-    @TimestampConverter() required DateTime dataNascimento,
+    @TimestampSerializer() required DateTime dataNascimento,
     required String email,
   }) = _UserModel;
 

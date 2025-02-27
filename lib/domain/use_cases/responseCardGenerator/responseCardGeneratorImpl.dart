@@ -29,15 +29,15 @@ class ResponseCardGeneratorImpl implements ResponseCardGenerator {
             .expand((Stage stage) => stage.sections ?? <Section>[])
             .map(
               (dynamic section) => SectionAnswer(
-                id: _generateId(),
+                id:  ObjectId().hexString,
                 title: section.title,
                 sectionRef: section.id.toString(),
                 answers:
                     section.questions
-                        .map(
+                        .map<Answer>(
                           (dynamic question) => Answer(
-                            id: _generateId(),
-                            questionRef: question.id,
+                            id:  ObjectId().hexString,
+                            questionRef: question.id.toString(),
                             date: DateTime.now(),
                             answers: <Option>[],
                           ),
@@ -50,7 +50,7 @@ class ResponseCardGeneratorImpl implements ResponseCardGenerator {
             .toList();
 
     final ResponseCard responseCard = ResponseCard(
-      id: _generateId(),
+      id:  ObjectId().hexString,
       userRef: null,
       date: DateTime.now(),
       sections: sectionsAnswer,
@@ -60,6 +60,4 @@ class ResponseCardGeneratorImpl implements ResponseCardGenerator {
 
     return _responseCardRepository.save(responseCard);
   }
-
-  String _generateId() => ObjectId().hexString;
 }

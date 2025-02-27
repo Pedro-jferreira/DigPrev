@@ -25,7 +25,7 @@ mixin _$UserModel {
   String get nome => throw _privateConstructorUsedError;
   String get cpf => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
 
@@ -49,7 +49,7 @@ abstract class $UserModelCopyWith<$Res> {
     String nome,
     String cpf,
     String senha,
-    @TimestampConverter() DateTime dataNascimento,
+    @TimestampSerializer() DateTime dataNascimento,
     String email,
   });
 }
@@ -128,7 +128,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
     String nome,
     String cpf,
     String senha,
-    @TimestampConverter() DateTime dataNascimento,
+    @TimestampSerializer() DateTime dataNascimento,
     String email,
   });
 }
@@ -199,7 +199,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     required this.nome,
     required this.cpf,
     required this.senha,
-    @TimestampConverter() required this.dataNascimento,
+    @TimestampSerializer() required this.dataNascimento,
     required this.email,
   });
 
@@ -215,7 +215,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   @override
   final String senha;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   final DateTime dataNascimento;
   @override
   final String email;
@@ -277,7 +277,7 @@ abstract class _UserModel implements UserModel {
     required final String nome,
     required final String cpf,
     required final String senha,
-    @TimestampConverter() required final DateTime dataNascimento,
+    @TimestampSerializer() required final DateTime dataNascimento,
     required final String email,
   }) = _$UserModelImpl;
 
@@ -293,7 +293,7 @@ abstract class _UserModel implements UserModel {
   @override
   String get senha;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get dataNascimento;
   @override
   String get email;

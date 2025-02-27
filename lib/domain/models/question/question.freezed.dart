@@ -21,7 +21,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Question {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   String get placeholder => throw _privateConstructorUsedError;
   String get supportingText => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call({
-    String id,
+    int id,
     String question,
     String placeholder,
     String supportingText,
@@ -87,7 +87,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                 null == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as int,
             question:
                 null == question
                     ? _value.question
@@ -139,7 +139,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    int id,
     String question,
     String placeholder,
     String supportingText,
@@ -179,7 +179,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
             null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as int,
         question:
             null == question
                 ? _value.question
@@ -239,7 +239,7 @@ class _$QuestionImpl implements _Question {
       _$$QuestionImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String question;
   @override
@@ -329,7 +329,7 @@ class _$QuestionImpl implements _Question {
 
 abstract class _Question implements Question {
   const factory _Question({
-    required final String id,
+    required final int id,
     required final String question,
     required final String placeholder,
     required final String supportingText,
@@ -343,7 +343,7 @@ abstract class _Question implements Question {
       _$QuestionImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get question;
   @override
