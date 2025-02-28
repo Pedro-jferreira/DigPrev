@@ -83,7 +83,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator:widget.validator ,
+      validator:widget.validator,
       canRequestFocus: false,
       controller: _dateController,
       readOnly: true,
@@ -91,7 +91,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         labelText: widget.labelText,
         border: const OutlineInputBorder(),
         suffixIcon: IconButton(
-          icon: const Icon(Icons.calendar_today),
+          icon: const Icon(Icons.calendar_month),
           onPressed: _selectDate,
         ),
       ),

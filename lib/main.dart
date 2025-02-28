@@ -67,10 +67,10 @@ class TestScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min, // Ajusta o tamanho da coluna
           children: <Widget>[
             OutlinedTextFieldComponent(
-              titulo: 'Nome',
+              title: 'Nome',
+              toolTipText: 'um texto de tooltip',
               placeholder: 'Digite seu nome',
               supportingText: 'Nome completo',
-              errorText: 'Nome inválido',
               onValueChange: (String value) {
                 print('Valor digitado: $value');
               },

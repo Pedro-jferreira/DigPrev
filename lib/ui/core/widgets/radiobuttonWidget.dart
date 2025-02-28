@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,6 @@ class RadioButtonComponent extends StatefulWidget {
   final String? initialSelection;
   final Function(String) onSelectionChanged;
   final String tooltipText;
-  final String tooltipDescription;
 
   const RadioButtonComponent({
     Key? key,
@@ -16,7 +16,6 @@ class RadioButtonComponent extends StatefulWidget {
     this.initialSelection,
     required this.onSelectionChanged,
     this.tooltipText = 'Breve explicação dos assuntos.',
-    this.tooltipDescription = 'Mais informações',
   }) : super(key: key);
 
   @override
@@ -49,23 +48,8 @@ class _RadioButtonComponentState extends State<RadioButtonComponent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 4,
-              child: Text(
-                widget.textQuestion,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-            ToolTipWidget(
-              labelText: widget.tooltipText,
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
+        TitleToolTip(title:widget.textQuestion,
+        tooltipText: widget.tooltipText,),
         Column(
           children: widget.radioOptions.map((text) {
             return RadioListTile<String>(

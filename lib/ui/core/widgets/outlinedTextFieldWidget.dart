@@ -1,25 +1,30 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class OutlinedTextFieldComponent extends StatelessWidget {
-  final String titulo;
-  final String value;
-  final String placeholder;
-  final String supportingText;
-  final bool isError;
-  final String errorText;
+  final String title;
+  final String? initialValue;
+  final String? placeholder;
+  final String? supportingText;
+  final String toolTipText;
   final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final FormFieldValidator<String>? validator;
   final Function(String) onValueChange;
 
   const OutlinedTextFieldComponent({
     required this.onValueChange,
+    required this.title,
+    required this.toolTipText,
     Key? key,
-    this.titulo = '',
-    this.value = '',
-    this.placeholder = '',
-    this.supportingText = '',
-    this.isError = false,
-    this.errorText = '',
+    this.initialValue,
+    this.placeholder,
+    this.supportingText,
+    this.validator,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -27,28 +32,19 @@ class OutlinedTextFieldComponent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (titulo.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Text(titulo, style: Theme.of(context).textTheme.bodyMedium),
-          ),
+        TitleToolTip(
+          title: title,
+          tooltipText: toolTipText,
+        ),
         TextFormField(
+          initialValue: initialValue,
+          validator: validator,
           keyboardType: keyboardType,
-          onChanged: (String input) {
-            if (keyboardType == TextInputType.number) {
-              final String numericValue = input.replaceAll(
-                RegExp(r'[^0-9]'),
-                '',
-              );
-              onValueChange(numericValue);
-            } else {
-              onValueChange(input);
-            }
-          },
+          onChanged: onValueChange,
+          inputFormatters:inputFormatters,
           decoration: InputDecoration(
             hintText: placeholder,
-            errorText: isError ? errorText : null,
-            helperText: isError ? null : supportingText,
+            helperText: supportingText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),

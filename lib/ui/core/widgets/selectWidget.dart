@@ -1,9 +1,10 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:flutter/material.dart';
 
 class SelectComponent extends StatefulWidget {
   final String textInputQuestion;
-  final String textTooltipPopup;
+  final String textTooltip;
   final String textPlaceholderInput;
   final String supportingText;
   final List<String> selectTexts;
@@ -14,7 +15,7 @@ class SelectComponent extends StatefulWidget {
   const SelectComponent({
     Key? key,
     this.textInputQuestion = "",
-    this.textTooltipPopup = "Breve explicação dos gêneros.",
+    this.textTooltip = "Breve explicação dos gêneros.",
     this.textPlaceholderInput = "Selecione o seu gênero",
     this.supportingText = "",
     this.selectTexts = const ["Alexander", "Isabella", "Alexander", "Isabella"],
@@ -43,23 +44,10 @@ class _SelectComponentState extends State<SelectComponent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Expanded(
-              flex: 4,
-              child: Text(
-                widget.textInputQuestion,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-            ToolTipWidget(
-              labelText: widget.textTooltipPopup,
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
+       TitleToolTip(
+         title: widget.textInputQuestion,
+         tooltipText: widget.textTooltip,
+       ),
         DropdownButtonFormField<String>(
           value: selectedText.isEmpty ? null : selectedText,
           hint: Text(widget.textPlaceholderInput),
