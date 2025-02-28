@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 /* DatePickerWidget - Um widget personalizado para seleção de datas.
 
  Como usar:
@@ -25,10 +26,9 @@ import 'package:intl/intl.dart';
 class DatePickerWidget extends StatefulWidget {
   final String labelText;
   final DateTime? initialDate;
-  final DateTime?
-  firstDate;
-  final DateTime?
-  lastDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+  final FormFieldValidator<String>? validator;
   final ValueChanged<DateTime> onDateSelected;
 
   const DatePickerWidget({
@@ -38,6 +38,7 @@ class DatePickerWidget extends StatefulWidget {
     this.initialDate,
     this.firstDate,
     this.lastDate,
+    this.validator,
   });
 
   @override
@@ -81,19 +82,17 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextField(
-        canRequestFocus: false,
-        controller: _dateController,
-        readOnly: true,
-        decoration: InputDecoration(
-          labelText: widget.labelText,
-          border: const OutlineInputBorder(),
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.calendar_today),
-            onPressed: _selectDate,
-          ),
+    return TextFormField(
+      validator:widget.validator ,
+      canRequestFocus: false,
+      controller: _dateController,
+      readOnly: true,
+      decoration: InputDecoration(
+        labelText: widget.labelText,
+        border: const OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.calendar_today),
+          onPressed: _selectDate,
         ),
       ),
     );

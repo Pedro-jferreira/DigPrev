@@ -9,6 +9,7 @@ import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
+
+      supportedLocales: const [
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
+        Locale('es', 'ES'),
+      ],
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+
+      localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
+        for (Locale supportedLocale in supportedLocales) {
+          if (locale != null &&
+              locale.languageCode == supportedLocale.languageCode &&
+              locale.countryCode == supportedLocale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return const Locale('pt', 'BR'); // Define português como padrão
+      },
+
       home: const TestScreen(),
     );
   }
@@ -58,6 +82,10 @@ class TestScreen extends StatelessWidget {
               onDateSelected: (DateTime value) {
                 print(value);
               },
+              firstDate:  DateTime(DateTime.now().year - 110,
+                  DateTime.now().month, DateTime.now().day),
+              lastDate: DateTime.now(),
+              initialDate:DateTime(2020, 11, 10) ,
             ),
             const SizedBox(height: 20),
             const ToolTipWidget(
