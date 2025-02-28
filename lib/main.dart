@@ -1,7 +1,10 @@
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldComponent.dart';
+import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +66,29 @@ class TestScreen extends StatelessWidget {
                   'informação é importante para calcular seu Índice '
                   'de Massa Corporal (IMC).',
             ),
+            OutlinedPasswordTextFieldComponent(
+              titulo: "Senha",
+              placeholder: "Digite sua senha",
+              onValueChange: (value) {
+                print("Senha digitada: $value");
+              },
+            ),
+            RadioButtonComponent(
+              textQuestion: "Qual sua renda mensal?",
+              radioOptions: ["Baixa", "Média", "Alta"],
+              initialSelection: "Média",
+              onSelectionChanged: (value) {
+                print("Opção selecionada: $value");
+              },
+            ),
+            SelectComponent(
+              textInputQuestion: "Qual seu gênero?",
+              selectTexts: ["Mona", "Caminhão", "Fluido"],
+              selectedValue: "",
+              onItemSelected: (index, value) {
+                print("Selecionado: $value na posição $index");
+              },
+            )
           ],
         ),
       ),

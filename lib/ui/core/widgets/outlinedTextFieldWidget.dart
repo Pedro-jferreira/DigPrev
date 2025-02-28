@@ -32,7 +32,7 @@ class OutlinedTextFieldComponent extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 4),
             child: Text(titulo, style: Theme.of(context).textTheme.bodyMedium),
           ),
-        TextField(
+        TextFormField(
           keyboardType: keyboardType,
           onChanged: (String input) {
             if (keyboardType == TextInputType.number) {
