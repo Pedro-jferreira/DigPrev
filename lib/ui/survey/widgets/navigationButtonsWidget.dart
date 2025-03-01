@@ -16,14 +16,17 @@ class NavigationButtonsWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ElevatedButton(
-            onPressed:  onPrevious,
-            child: const Text("← Voltar"),
+        children: <Widget>[
+          FilledButton.icon(
+            onPressed: onPrevious,
+            icon: const Icon(Icons.arrow_back), // Ícone de seta para a esquerda
+            label: const Text('Voltar'),
           ),
-          ElevatedButton(
-            onPressed:  onNext,
-            child: const Text("Próximo →"),
+          FilledButton.icon(
+            onPressed: onNext,
+            icon: const Icon(Icons.arrow_forward), // Ícone de seta para a direita
+            label: const Text('Próximo'),
+            iconAlignment: IconAlignment.end,
           ),
         ],
       ),
