@@ -1,5 +1,4 @@
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
-import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -39,6 +38,7 @@ class OutlinedTextFieldComponent extends StatelessWidget {
         TextFormField(
           initialValue: initialValue,
           validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: keyboardType,
           onChanged: onValueChange,
           inputFormatters:inputFormatters,
