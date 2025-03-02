@@ -24,11 +24,11 @@ class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
     });
 
     // Navegação para diferentes rotas
-    if (index == 1) {
-      Navigator.pushNamed(context, '/reports', arguments: {'userId': '1'});
-    } else {
-      Navigator.pushNamed(context, items[index]['route']);
-    }
+    // if (index == 1) {
+    //   Navigator.pushNamed(context, '/reports', arguments: {'userId': '1'});
+    // } else {
+    //   Navigator.pushNamed(context, items[index]['route']);
+    // }
   }
 
   @override
