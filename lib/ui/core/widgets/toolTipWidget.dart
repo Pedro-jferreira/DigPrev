@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class ToolTipWidget extends StatelessWidget {
   final String labelText;
-
   const ToolTipWidget({
     required this.labelText,
     super.key,
@@ -17,7 +16,6 @@ class ToolTipWidget extends StatelessWidget {
               (BuildContext context) => AlertDialog(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 icon: const Icon(
-                  // Icon verde no AlertDialog
                   Icons.info_outline,
                   color: Colors.green,
                 ),
@@ -31,7 +29,7 @@ class ToolTipWidget extends StatelessWidget {
         );
       },
 
-      iconSize: 30,
+      iconSize: 20,
       color: Theme.of(context).colorScheme.primary,
       icon: const Icon(Icons.info),
     );

@@ -1,14 +1,22 @@
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
+import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
+import 'package:digprev_flutter/domain/models/enuns/typeCalculate.dart';
+import 'package:digprev_flutter/domain/models/question/option.dart';
+import 'package:digprev_flutter/domain/models/question/question.dart';
+import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
+import 'package:digprev_flutter/ui/survey/widgets/sectionPageWidget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +34,30 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: const TestScreen(),
+
+      supportedLocales: const <Locale>[
+        Locale('pt', 'BR'),
+        Locale('en', 'US'),
+        Locale('es', 'ES'),
+      ],
+      localizationsDelegates: const <LocalizationsDelegate>[
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+
+      localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
+        for (Locale supportedLocale in supportedLocales) {
+          if (locale != null &&
+              locale.languageCode == supportedLocale.languageCode &&
+              locale.countryCode == supportedLocale.countryCode) {
+            return supportedLocale;
+          }
+        }
+        return const Locale('pt', 'BR'); // Define português como padrão
+      },
+
+      home: const TestScreen2(),
     );
   }
 }
@@ -43,10 +74,10 @@ class TestScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min, // Ajusta o tamanho da coluna
           children: <Widget>[
             OutlinedTextFieldComponent(
-              titulo: 'Nome',
+              title: 'Nome',
+              toolTipText: 'um texto de tooltip',
               placeholder: 'Digite seu nome',
               supportingText: 'Nome completo',
-              errorText: 'Nome inválido',
               onValueChange: (String value) {
                 print('Valor digitado: $value');
               },
@@ -58,6 +89,10 @@ class TestScreen extends StatelessWidget {
               onDateSelected: (DateTime value) {
                 print(value);
               },
+              firstDate:  DateTime(DateTime.now().year - 110,
+                  DateTime.now().month, DateTime.now().day),
+              lastDate: DateTime.now(),
+              initialDate:DateTime(2020, 11, 10) ,
             ),
             const SizedBox(height: 20),
             const ToolTipWidget(
@@ -94,4 +129,131 @@ class TestScreen extends StatelessWidget {
       ),
     );
   }
+}
+class TestScreen2 extends StatelessWidget {
+  const TestScreen2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Option> options = <Option>[
+      const Option(id: 1, question: 'opção 1', valueScore: 2, intensity: null, days: null),
+      const Option(id: 2, question: 'opcão 2', valueScore: 2, intensity: null, days: null),
+      const Option(id: 3, question: 'opção 3', valueScore: 2, intensity: null, days: null)
+    ];
+
+    final List<Question> questions = <Question>[
+      const Question(
+          id: 1,
+          question: 'qual o seu peso?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu peso',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o sua altura?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite sua altura',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o seu nome?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu nome',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o seu peso?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu peso',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o sua altura?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite sua altura',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o seu nome?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu nome',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o seu peso?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu peso',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o sua altura?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite sua altura',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null),
+      const Question(
+          id: 1,
+          question: 'qual o seu nome?',
+          placeholder: 'digite aqui',
+          supportingText: 'digite seu nome',
+          tooltipText: 'isso é um texto',
+          inputType: InputType.TEXT_INPUT,
+          explanatoryTexts: null,
+          options: null)
+    ];
+
+    final  List<Section> sections =  [
+      Section(
+        id: 1,
+        title: 'habitos de vida',
+        maxValue: 0,
+        typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
+        textUnderBar: const <StageLabel>[
+          StageLabel(min: 1, max: 3, label: 'texto'),
+          StageLabel(min: 4, max: 6, label: 'texto'),
+          StageLabel(min: 7, max: 10, label: 'texto')
+        ],
+        questions: questions ),
+      Section(
+          id: 1,
+          title: 'habitos de tabagicos',
+          maxValue: 0,
+          typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
+          textUnderBar: const <StageLabel>[
+            StageLabel(min: 1, max: 3, label: 'texto'),
+            StageLabel(min: 4, max: 6, label: 'texto'),
+            StageLabel(min: 7, max: 10, label: 'texto')
+          ],
+          questions: questions )];
+
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Test Repository')),
+      body: SectionPageWidget(sections: sections),
+    );
+  }
+
 }

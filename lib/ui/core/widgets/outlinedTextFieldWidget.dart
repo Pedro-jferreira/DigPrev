@@ -1,23 +1,29 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class OutlinedTextFieldComponent extends StatefulWidget {
-  final String titulo;
-  final String placeholder;
-  final String supportingText;
-  final bool isError;
-  final String errorText;
+  final String title;
+  final String? initialValue;
+  final String? placeholder;
+  final String? supportingText;
+  final String toolTipText;
   final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
+  final FormFieldValidator<String>? validator;
   final Function(String) onValueChange;
 
   const OutlinedTextFieldComponent({
     required this.onValueChange,
+    required this.title,
+    required this.toolTipText,
     Key? key,
-    this.titulo = '',
-    this.placeholder = '',
-    this.supportingText = '',
-    this.isError = false,
-    this.errorText = '',
+    this.initialValue,
+    this.placeholder,
+    this.supportingText,
+    this.validator,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -59,19 +65,20 @@ class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (widget.titulo.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4),
-            child: Text(widget.titulo, style: Theme.of(context).textTheme.bodyMedium),
-          ),
+        TitleToolTip(
+          title: widget.title,
+          tooltipText: widget.toolTipText,
+        ),
         TextFormField(
-          controller: _controller,
+          initialValue: widget.initialValue,
+          validator: widget.validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: widget.keyboardType,
-          onChanged: _onTextChanged,
+          onChanged: widget.onValueChange,
+          inputFormatters: widget.inputFormatters,
           decoration: InputDecoration(
             hintText: widget.placeholder,
-            errorText: widget.isError ? widget.errorText : null,
-            helperText: widget.isError ? null : widget.supportingText,
+            helperText: widget.supportingText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
