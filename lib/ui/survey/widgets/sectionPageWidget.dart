@@ -57,7 +57,7 @@ class SectionPageState extends State<SectionPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final double listViewHeight =  MediaQuery.of(context).size.height * 0.8;
+    final double listViewHeight =  MediaQuery.of(context).size.height * 0.7;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[

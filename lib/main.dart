@@ -6,6 +6,8 @@ import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
+import 'package:digprev_flutter/ui/core/widgets/bottomNavigationWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/topAppBarWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
@@ -68,7 +70,7 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Repository')),
+      appBar: const TopBarWidget(),
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min, // Ajusta o tamanho da coluna
@@ -140,6 +142,8 @@ class TestScreen2 extends StatelessWidget {
       const Option(id: 2, question: 'opcão 2', valueScore: 2, intensity: null, days: null),
       const Option(id: 3, question: 'opção 3', valueScore: 2, intensity: null, days: null)
     ];
+
+    final PageController pageController = PageController();
 
     final List<Question> questions = <Question>[
       const Question(
@@ -251,8 +255,9 @@ class TestScreen2 extends StatelessWidget {
 
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Repository')),
+      appBar: const TopBarWidget(),
       body: SectionPageWidget(sections: sections),
+      bottomNavigationBar: BottomNavigationWidget(pageController: pageController),
     );
   }
 
