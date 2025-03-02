@@ -14,6 +14,9 @@ import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/widgets/initialImageWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/widgets/startScreen.dart';
 import 'package:digprev_flutter/ui/survey/widgets/sectionPageWidget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
         return const Locale('pt', 'BR'); // Define português como padrão
       },
 
-      home: const TestScreen2(),
+      home: const TestScreenStart(),
     );
   }
 }
@@ -260,5 +263,17 @@ class TestScreen2 extends StatelessWidget {
       bottomNavigationBar: BottomNavigationWidget(pageController: pageController),
     );
   }
+}
 
+class TestScreenStart extends StatelessWidget{
+  const TestScreenStart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+
+    return const Scaffold(
+      body: StartScreen()
+    );
+  }
 }
