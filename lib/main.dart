@@ -67,26 +67,26 @@ class TestScreen extends StatelessWidget {
                   'de Massa Corporal (IMC).',
             ),
             OutlinedPasswordTextFieldComponent(
-              titulo: "Senha",
-              placeholder: "Digite sua senha",
+              titulo: 'Senha',
+              placeholder: 'Digite sua senha',
               onValueChange: (value) {
-                print("Senha digitada: $value");
+                print('Senha digitada: $value');
               },
             ),
             RadioButtonComponent(
-              textQuestion: "Qual sua renda mensal?",
-              radioOptions: ["Baixa", "Média", "Alta"],
-              initialSelection: "Média",
+              textQuestion: 'Qual sua renda mensal?',
+              radioOptions: ['Baixa', 'Média', 'Alta'],
+              initialSelection: 'Média',
               onSelectionChanged: (value) {
-                print("Opção selecionada: $value");
+                print('Opção selecionada: $value');
               },
             ),
             SelectComponent(
-              textInputQuestion: "Qual seu gênero?",
-              selectTexts: ["Mona", "Caminhão", "Fluido"],
-              selectedValue: "",
+              textInputQuestion: 'Qual seu gênero?',
+              selectTexts: ['Mona', 'Caminhão', 'Fluido'],
+              selectedValue: '',
               onItemSelected: (index, value) {
-                print("Selecionado: $value na posição $index");
+                print('Selecionado: $value na posição $index');
               },
             )
           ],

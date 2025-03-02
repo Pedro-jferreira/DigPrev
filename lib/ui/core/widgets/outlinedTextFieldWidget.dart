@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OutlinedTextFieldComponent extends StatelessWidget {
+class OutlinedTextFieldComponent extends StatefulWidget {
   final String titulo;
-  final String value;
   final String placeholder;
   final String supportingText;
   final bool isError;
@@ -14,7 +13,6 @@ class OutlinedTextFieldComponent extends StatelessWidget {
     required this.onValueChange,
     Key? key,
     this.titulo = '',
-    this.value = '',
     this.placeholder = '',
     this.supportingText = '',
     this.isError = false,
@@ -23,32 +21,57 @@ class OutlinedTextFieldComponent extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _OutlinedTextFieldComponentState createState() =>
+      _OutlinedTextFieldComponentState();
+}
+
+class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged(String input) {
+    String newValue = input;
+    if (widget.keyboardType == TextInputType.number) {
+      newValue = input.replaceAll(RegExp(r'[^0-9]'), '');
+    }
+    setState(() {
+      _controller.text = newValue;
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _controller.text.length),
+      );
+    });
+    widget.onValueChange(newValue);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (titulo.isNotEmpty)
+        if (widget.titulo.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(bottom: 4),
-            child: Text(titulo, style: Theme.of(context).textTheme.bodyMedium),
+            child: Text(widget.titulo, style: Theme.of(context).textTheme.bodyMedium),
           ),
         TextFormField(
-          keyboardType: keyboardType,
-          onChanged: (String input) {
-            if (keyboardType == TextInputType.number) {
-              final String numericValue = input.replaceAll(
-                RegExp(r'[^0-9]'),
-                '',
-              );
-              onValueChange(numericValue);
-            } else {
-              onValueChange(input);
-            }
-          },
+          controller: _controller,
+          keyboardType: widget.keyboardType,
+          onChanged: _onTextChanged,
           decoration: InputDecoration(
-            hintText: placeholder,
-            errorText: isError ? errorText : null,
-            helperText: isError ? null : supportingText,
+            hintText: widget.placeholder,
+            errorText: widget.isError ? widget.errorText : null,
+            helperText: widget.isError ? null : widget.supportingText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
           ),
         ),
