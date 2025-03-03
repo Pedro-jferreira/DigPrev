@@ -18,19 +18,19 @@ class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
     {
       'route': '/home',
       'label': 'Início',
-      'icon': Icons.home_rounded,
+      'icon': Icons.home,
       'outlinedIcon': Icons.home_outlined,
     },
     {
       'route': '/reports',
       'label': 'Relatórios',
-      'icon': Icons.leaderboard_rounded,
+      'icon': Icons.leaderboard,
       'outlinedIcon': Icons.leaderboard_outlined,
     },
     {
       'route': '/profile',
       'label': 'Perfil',
-      'icon': Icons.person_rounded,
+      'icon': Icons.person,
       'outlinedIcon': Icons.person_outline,
     },
   ];
