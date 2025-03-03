@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/ui/survey/widgets/questionFormWidget.dart';
-import 'package:digprev_flutter/ui/survey/widgets/stepperIndicatorWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/widgets/questionFormWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
 import 'package:flutter/material.dart';
 
 class SectionPageWidget extends StatefulWidget {
@@ -24,7 +24,11 @@ class SectionPageState extends State<SectionPageWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _scrollToPage(0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _scrollToPage(0);
+      }
+    });
   }
 
   void onNext() {

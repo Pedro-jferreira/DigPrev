@@ -12,8 +12,9 @@ import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
-import 'package:digprev_flutter/ui/survey/widgets/questionFormWidget.dart';
-import 'package:digprev_flutter/ui/survey/widgets/sectionPageWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/widgets/sectionPageWidget.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -254,6 +255,7 @@ class TestScreen2 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Test Repository')),
       body: SectionPageWidget(sections: sections),
+      floatingActionButton: const RestartButtonWidget(),
     );
   }
 

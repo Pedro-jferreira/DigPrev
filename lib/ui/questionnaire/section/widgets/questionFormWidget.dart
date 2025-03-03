@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
-import 'package:digprev_flutter/ui/survey/widgets/navigationButtonsWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
 import 'package:flutter/material.dart';
 
 class QuestionFormWidget extends StatefulWidget {
