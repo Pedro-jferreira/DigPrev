@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/ui/survey/widgets/questionFormWidget.dart';
+import 'package:digprev_flutter/ui/survey/widgets/stepperIndicatorWidget.dart';
 import 'package:flutter/material.dart';
 
 class SectionPageWidget extends StatefulWidget {
@@ -19,6 +20,7 @@ class SectionPageState extends State<SectionPageWidget> {
   void initState() {
     super.initState();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -55,34 +57,65 @@ class SectionPageState extends State<SectionPageWidget> {
     });
   }
 
+  bool _isStepCompleted(int step) {
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double listViewHeight =  MediaQuery.of(context).size.height * 0.7;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Text(widget.sections[_currentPage].title,
-        style:  Theme.of(context).textTheme.titleLarge,),
-        Text('em breve o StepPage',
-          style:  Theme.of(context).textTheme.titleSmall,),
-        SizedBox(
-          height: listViewHeight,
-          width: MediaQuery.of(context).size.width,
-          child:ListView.builder(
-            controller: _scrollController,
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: widget.sections.length,
-            itemBuilder: (BuildContext context, int index) {
-              return QuestionFormWidget(
-                  questions: widget.sections[index].questions,
-                onPrevious: onPrevious,
-                onNext: onNext,
-              );
-            },
-          ),
-        ),
-      ],
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double availableHeight = constraints.maxHeight;
+
+        return Column(
+          children: <Widget>[
+            SizedBox(
+              height: availableHeight * 0.05,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    widget.sections[_currentPage].title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: availableHeight * 0.1,
+              width: double.infinity,
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: widget.sections.length < 3 ? 70 : 0,
+                ),
+                child: StepperIndicatorWidget(
+                  currentStep: _currentPage,
+                  totalSteps: widget.sections.length,
+                  canMarkStepComplete: _isStepCompleted,
+                  onStepTapped: _scrollToPage,
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: widget.sections.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return QuestionFormWidget(
+                    questions: widget.sections[index].questions,
+                    onPrevious: onPrevious,
+                    onNext: onNext,
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

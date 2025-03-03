@@ -24,7 +24,7 @@ class NavigationButtonsWidget extends StatelessWidget {
           ),
           FilledButton.icon(
             onPressed: onNext,
-            icon: const Icon(Icons.arrow_forward), // Ícone de seta para a direita
+            icon: const Icon(Icons.arrow_forward),
             label: const Text('Próximo'),
             iconAlignment: IconAlignment.end,
           ),
