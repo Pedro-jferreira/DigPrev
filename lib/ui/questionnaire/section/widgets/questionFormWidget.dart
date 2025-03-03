@@ -35,7 +35,11 @@ class _QuestionFormState extends State<QuestionFormWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _navigateToTextField(0);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _navigateToTextField(0);
+      }
+    });
   }
 
   @override

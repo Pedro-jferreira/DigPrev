@@ -6,12 +6,15 @@ import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
+import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/ui/core/enum/progressState.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/sectionPageWidget.dart';
 
@@ -251,10 +254,22 @@ class TestScreen2 extends StatelessWidget {
           ],
           questions: questions )];
 
+    Stage stage = Stage(
+        id: 1,
+        title: 'Dados Cadastrais',
+        description: 'description',
+        creationDate: DateTime.now(),
+        sections: sections);
+
 
     return Scaffold(
       appBar: AppBar(title: const Text('Test Repository')),
-      body: SectionPageWidget(sections: sections),
+      body: Stagewidget(
+        stage:stage ,
+        onProgressStateChanged: (ProgressState state){
+          print(state);
+        },
+      ),
       floatingActionButton: const RestartButtonWidget(),
     );
   }
