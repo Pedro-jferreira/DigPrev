@@ -35,7 +35,7 @@ class _StagewidgetState extends State<Stagewidget> {
   }
 
   void _updateProgress() {
-    final double valueByViewModel = 0.8;
+    final double valueByViewModel = 0.0;
     if (valueByViewModel != _progress) {
       setState(() {
         _progress = valueByViewModel;
@@ -64,8 +64,8 @@ class _StagewidgetState extends State<Stagewidget> {
             size: iconSize,
           ),
           ProgressState.Running => SizedBox(
-            width: (iconSize - 2),
-            height: (iconSize - 2),
+            width: (iconSize - 5),
+            height: (iconSize - 5),
             child: CircularProgressIndicator(value: _progress),
           ),
           ProgressState.Complete => const Icon(
@@ -88,11 +88,16 @@ class _StagewidgetState extends State<Stagewidget> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Text(
-                widget.stage.title,
-                style: Theme.of(context).textTheme.titleMedium,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(
+                  widget.stage.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                ),
               ),
             ),
             Row(

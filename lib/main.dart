@@ -14,6 +14,7 @@ import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stagePageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/sectionPageWidget.dart';
@@ -51,7 +52,10 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
 
-      localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) {
+      localeResolutionCallback: (
+        Locale? locale,
+        Iterable<Locale> supportedLocales,
+      ) {
         for (Locale supportedLocale in supportedLocales) {
           if (locale != null &&
               locale.languageCode == supportedLocale.languageCode &&
@@ -94,10 +98,13 @@ class TestScreen extends StatelessWidget {
               onDateSelected: (DateTime value) {
                 print(value);
               },
-              firstDate:  DateTime(DateTime.now().year - 110,
-                  DateTime.now().month, DateTime.now().day),
+              firstDate: DateTime(
+                DateTime.now().year - 110,
+                DateTime.now().month,
+                DateTime.now().day,
+              ),
               lastDate: DateTime.now(),
-              initialDate:DateTime(2020, 11, 10) ,
+              initialDate: DateTime(2020, 11, 10),
             ),
             const SizedBox(height: 20),
             const ToolTipWidget(
@@ -128,109 +135,137 @@ class TestScreen extends StatelessWidget {
               onItemSelected: (index, value) {
                 print("Selecionado: $value na posição $index");
               },
-            )
+            ),
           ],
         ),
       ),
     );
   }
 }
+
 class TestScreen2 extends StatelessWidget {
   const TestScreen2({super.key});
 
   @override
   Widget build(BuildContext context) {
     final List<Option> options = <Option>[
-      const Option(id: 1, question: 'opção 1', valueScore: 2, intensity: null, days: null),
-      const Option(id: 2, question: 'opcão 2', valueScore: 2, intensity: null, days: null),
-      const Option(id: 3, question: 'opção 3', valueScore: 2, intensity: null, days: null)
+      const Option(
+        id: 1,
+        question: 'opção 1',
+        valueScore: 2,
+        intensity: null,
+        days: null,
+      ),
+      const Option(
+        id: 2,
+        question: 'opcão 2',
+        valueScore: 2,
+        intensity: null,
+        days: null,
+      ),
+      const Option(
+        id: 3,
+        question: 'opção 3',
+        valueScore: 2,
+        intensity: null,
+        days: null,
+      ),
     ];
 
     final List<Question> questions = <Question>[
       const Question(
-          id: 1,
-          question: 'qual o seu peso?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu peso',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o seu peso?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu peso',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o sua altura?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite sua altura',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o sua altura?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite sua altura',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o seu nome?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu nome',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o seu nome?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu nome',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o seu peso?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu peso',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o seu peso?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu peso',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o sua altura?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite sua altura',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o sua altura?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite sua altura',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o seu nome?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu nome',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o seu nome?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu nome',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o seu peso?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu peso',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o seu peso?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu peso',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o sua altura?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite sua altura',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null),
+        id: 1,
+        question: 'qual o sua altura?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite sua altura',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
       const Question(
-          id: 1,
-          question: 'qual o seu nome?',
-          placeholder: 'digite aqui',
-          supportingText: 'digite seu nome',
-          tooltipText: 'isso é um texto',
-          inputType: InputType.TEXT_INPUT,
-          explanatoryTexts: null,
-          options: null)
+        id: 1,
+        question: 'qual o seu nome?',
+        placeholder: 'digite aqui',
+        supportingText: 'digite seu nome',
+        tooltipText: 'isso é um texto',
+        inputType: InputType.TEXT_INPUT,
+        explanatoryTexts: null,
+        options: null,
+      ),
     ];
 
-    final  List<Section> sections =  [
+    final List<Section> sections = [
       Section(
         id: 1,
         title: 'habitos de vida',
@@ -239,39 +274,68 @@ class TestScreen2 extends StatelessWidget {
         textUnderBar: const <StageLabel>[
           StageLabel(min: 1, max: 3, label: 'texto'),
           StageLabel(min: 4, max: 6, label: 'texto'),
-          StageLabel(min: 7, max: 10, label: 'texto')
+          StageLabel(min: 7, max: 10, label: 'texto'),
         ],
-        questions: questions ),
+        questions: questions,
+      ),
       Section(
-          id: 1,
-          title: 'habitos de tabagicos',
-          maxValue: 0,
-          typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
-          textUnderBar: const <StageLabel>[
-            StageLabel(min: 1, max: 3, label: 'texto'),
-            StageLabel(min: 4, max: 6, label: 'texto'),
-            StageLabel(min: 7, max: 10, label: 'texto')
-          ],
-          questions: questions )];
+        id: 1,
+        title: 'habitos de tabagicos',
+        maxValue: 0,
+        typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
+        textUnderBar: const <StageLabel>[
+          StageLabel(min: 1, max: 3, label: 'texto'),
+          StageLabel(min: 4, max: 6, label: 'texto'),
+          StageLabel(min: 7, max: 10, label: 'texto'),
+        ],
+        questions: questions,
+      ),
+    ];
 
-    Stage stage = Stage(
+    List<Stage> stages = [
+      Stage(
         id: 1,
         title: 'Dados Cadastrais',
         description: 'description',
         creationDate: DateTime.now(),
-        sections: sections);
-
+        sections: sections,
+      ),
+      Stage(
+        id: 2,
+        title: 'habitos de vida',
+        description: 'description',
+        creationDate: DateTime.now(),
+        sections: sections,
+      ),
+      Stage(
+        id: 3,
+        title: 'perfil alimentar',
+        description: 'description',
+        creationDate: DateTime.now(),
+        sections: sections,
+      ),
+      Stage(
+        id: 4,
+        title: '(In)Satisficação com Imagem Corporal ',
+        description: 'description',
+        creationDate: DateTime.now(),
+        sections: sections,
+      ),
+      Stage(
+        id: 5,
+        title: 'Rastreio de sintomas de transtornos alimentares',
+        description: 'description',
+        creationDate: DateTime.now(),
+        sections: sections,
+      ),
+    ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Test Repository')),
-      body: Stagewidget(
-        stage:stage ,
-        onProgressStateChanged: (ProgressState state){
-          print(state);
-        },
+      body: Center(
+        child: StagePageWidget(stages: stages), // Centraliza o StagePageWidget
       ),
       floatingActionButton: const RestartButtonWidget(),
     );
   }
-
 }
