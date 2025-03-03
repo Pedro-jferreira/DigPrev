@@ -9,21 +9,15 @@ import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/ui/core/widgets/bottomNavigationWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/topAppBarWidget.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/ui/core/enum/progressState.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/initialImageWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/startScreen.dart';
-import 'package:digprev_flutter/ui/survey/widgets/sectionPageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stagePageWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/widgets/sectionPageWidget.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -332,15 +326,14 @@ class TestScreen2 extends StatelessWidget {
         sections: sections,
       ),
     ];
+    PageController pageController = PageController();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Test Repository')),
+      appBar: const TopBarWidget(),
       body: Center(
         child: StagePageWidget(stages: stages), // Centraliza o StagePageWidget
       ),
       floatingActionButton: const RestartButtonWidget(),
-      appBar: const TopBarWidget(),
-      body: SectionPageWidget(sections: sections),
       bottomNavigationBar: BottomNavigationWidget(pageController: pageController),
     );
   }
