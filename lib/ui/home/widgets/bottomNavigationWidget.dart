@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
-  final PageController pageController;
-
-  const BottomNavigationWidget({Key? key, required this.pageController})
-    : super(key: key);
+  const BottomNavigationWidget({
+    required this.onTap,
+    required this.currentIndex,
+    Key? key,
+  }) : super(key: key);
+  final ValueChanged<int> onTap;
+  final int currentIndex;
 
   @override
   _BottomNavigationComponentState createState() =>
@@ -12,8 +15,6 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
-  int selectedItem = 0;
-
   final List<Map<String, dynamic>> items = [
     {
       'route': '/home',
@@ -35,24 +36,11 @@ class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
     },
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedItem = index;
-    });
-
-    // Navegação para diferentes rotas
-    // if (index == 1) {
-    //   Navigator.pushNamed(context, '/reports', arguments: {'userId': '1'});
-    // } else {
-    //   Navigator.pushNamed(context, items[index]['route']);
-    // }
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: selectedItem,
-      onTap: _onItemTapped,
+      currentIndex: widget.currentIndex,
+      onTap: widget.onTap,
       backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       selectedItemColor: Theme.of(context).colorScheme.primaryContainer,
       unselectedItemColor: Theme.of(context).colorScheme.secondaryContainer,
@@ -60,7 +48,7 @@ class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
       // Sombra equivalente a shadow(8.dp)
       items:
           items.map((item) {
-            bool isSelected = items.indexOf(item) == selectedItem;
+            bool isSelected = items.indexOf(item) == widget.currentIndex;
             return BottomNavigationBarItem(
               icon: Icon(
                 isSelected ? item['icon'] : item['outlinedIcon'],

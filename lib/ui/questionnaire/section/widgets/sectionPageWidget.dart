@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/questionFormWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
@@ -75,7 +76,7 @@ class SectionPageState extends State<SectionPageWidget> {
       if (_currentPage < _sections.length - 1) {
         _currentPage++;
         _scrollToPage(_currentPage);
-      } else context.go('/');
+      } else GoRouter.of(context).pop();
     });
   }
 
@@ -84,7 +85,7 @@ class SectionPageState extends State<SectionPageWidget> {
       if (_currentPage > 0) {
         _currentPage--;
         _scrollToPage(_currentPage);
-      }else context.go('/');
+      }else GoRouter.of(context).pop();
     });
   }
 
@@ -117,7 +118,7 @@ class SectionPageState extends State<SectionPageWidget> {
           children: <Widget>[
             if (widget.viewModel.loadComand.isSuccess)
               SizedBox(
-                height: availableHeight * 0.05,
+                height: availableHeight * 0.1,
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20),
@@ -130,6 +131,7 @@ class SectionPageState extends State<SectionPageWidget> {
                   ),
                 ),
               ),
+            if(_sections.length > 1)
             SizedBox(
               height: availableHeight * 0.11,
               width: double.infinity,

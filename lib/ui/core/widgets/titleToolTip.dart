@@ -13,22 +13,24 @@ class TitleToolTip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 35, // Define uma altura mínima controlada
-      child: Row(
+    return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Text(
+                title,
+                style: Theme.of(context).textTheme.titleMedium,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
             ),
           ),
           ToolTipWidget(labelText: tooltipText),
         ],
-      ),
-    );
+      );
   }
 }
 

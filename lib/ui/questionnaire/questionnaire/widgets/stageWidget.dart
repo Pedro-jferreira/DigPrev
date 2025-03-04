@@ -1,4 +1,5 @@
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/core/enum/progressState.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,8 @@ class _StagewidgetState extends State<Stagewidget> {
   double _progress = 0.0;
 
   void _onPressed() {
-    context.go('/section/${widget.stage.id}');
+    context.pushNamed(AppRoutes.section.name,
+    pathParameters: <String, String>{'id': '${widget.stage.id}'});
   }
 
   @override
