@@ -1,6 +1,7 @@
 import 'package:digprev_flutter/ui/start_auth/widgets/initialImageWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StartScreen extends StatefulWidget {
   final VoidCallback? onNavigateToLogin;
@@ -30,7 +31,7 @@ class _StartScreenState extends State<StartScreen>
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      widget.onNavigateToLogin?.call();
+      context.go('/login');
     });
   }
 
@@ -46,15 +47,13 @@ class _StartScreenState extends State<StartScreen>
       backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       body: FadeTransition(
         opacity: _fadeAnimation,
-        child: Container(
-          child: const Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InitialImage(),
-              const SizedBox(height: 10),
-              InitialText(),
-            ],
-          ),
+        child: const Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            InitialImage(),
+            const SizedBox(height: 10),
+            InitialText(),
+          ],
         ),
       ),
     );

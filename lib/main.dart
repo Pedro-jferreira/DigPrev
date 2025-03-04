@@ -8,6 +8,7 @@ import 'package:digprev_flutter/ui/core/widgets/radiobuttonWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/topAppBarWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/widgets/registerScreen.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/startScreen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -140,10 +141,8 @@ class TestScreenStart extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-
-
     return const Scaffold(
-      body: StartScreen()
+      body: RegisterScreen()
     );
   }
 }
