@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         return const Locale('pt', 'BR'); // Define português como padrão
       },
 
-      home: const TestScreen2(),
+      home: const StartScreen(),
     );
   }
 }

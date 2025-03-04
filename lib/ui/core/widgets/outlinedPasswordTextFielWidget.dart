@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 
 class OutlinedPasswordTextFieldComponent extends StatefulWidget {
-  final String titulo;
+  final String title;
   final String value;
   final String placeholder;
   final String supportingText;
   final bool isError;
   final String errorText;
+  final FormFieldValidator<String>? validator;
   final Function(String) onValueChange;
 
   const OutlinedPasswordTextFieldComponent({
     Key? key,
-    this.titulo = "",
-    this.value = "",
-    this.placeholder = "",
-    this.supportingText = "",
+    this.title = '',
+    this.value = '',
+    this.placeholder = '',
+    this.supportingText = '',
     this.isError = false,
-    this.errorText = "",
+    this.errorText = '',
+    this.validator,
     required this.onValueChange,
   }) : super(key: key);
 
@@ -35,7 +37,7 @@ class _OutlinedPasswordTextFieldComponentState
       onChanged: widget.onValueChange,
       obscureText: !passwordVisible,
       decoration: InputDecoration(
-        labelText: widget.titulo,
+        labelText: widget.title,
         hintText: widget.placeholder,
         errorText: widget.isError ? widget.errorText : null,
         helperText: widget.isError ? null : widget.supportingText,
