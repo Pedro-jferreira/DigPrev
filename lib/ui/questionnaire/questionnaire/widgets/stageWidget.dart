@@ -1,6 +1,7 @@
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/core/enum/progressState.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Stagewidget extends StatefulWidget {
   final Stage stage;
@@ -22,7 +23,9 @@ class _StagewidgetState extends State<Stagewidget> {
   ProgressState _progressState = ProgressState.NotStarted;
   double _progress = 0.0;
 
-  void _onPressed() {}
+  void _onPressed() {
+    context.go('/section/${widget.stage.id}');
+  }
 
   @override
   void didChangeDependencies() {

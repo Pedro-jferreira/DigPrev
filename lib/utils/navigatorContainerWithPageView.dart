@@ -10,12 +10,20 @@ class NavigatorContainerWithPageView extends HookWidget {
   });
   final StatefulNavigationShell navigationShell;
   final List<Widget> children;
+
   @override
   Widget build(BuildContext context) {
+
+
+    final String basePath = GoRouterState.of(context).matchedLocation;
+    final bool isRouteBlocked = basePath.startsWith('/section/');
+
     final (:pageController, :onPageChanged) = usePageView(navigationShell);
     return PageView(
       controller: pageController,
-      physics: const ClampingScrollPhysics(),
+      physics: isRouteBlocked
+          ? const NeverScrollableScrollPhysics()
+          : const ClampingScrollPhysics(),
       onPageChanged: onPageChanged,
       children: children,
     );

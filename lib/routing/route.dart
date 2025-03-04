@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/routing/routes/section.dart';
 import 'package:digprev_flutter/utils/navigatorContainerWithPageView.dart';
 import 'package:digprev_flutter/routing/routes/home.dart';
 import 'package:digprev_flutter/routing/routes/report.dart';
@@ -16,9 +17,10 @@ final GoRouter router = GoRouter(
             StatefulNavigationShell child,
           ) => HomePageWidget(child: child),
       branches: <StatefulShellBranch>[
-        StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
+        StatefulShellBranch(routes: <RouteBase>[HomeRoute(),  SectionRoute()]),
         StatefulShellBranch(routes: <RouteBase>[PostsRoute()]),
         StatefulShellBranch(routes: <RouteBase>[ProfileRoute()]),
+
       ],
       navigatorContainerBuilder: (
         BuildContext context,
@@ -31,5 +33,6 @@ final GoRouter router = GoRouter(
         );
       },
     ),
+
   ],
 );
