@@ -1,13 +1,15 @@
-import 'package:digprev_flutter/routing/routes/section.dart';
+import 'package:digprev_flutter/routing/pages/home.dart';
+import 'package:digprev_flutter/routing/pages/profile.dart';
+import 'package:digprev_flutter/routing/pages/report.dart';
+import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/utils/navigatorContainerWithPageView.dart';
-import 'package:digprev_flutter/routing/routes/home.dart';
-import 'package:digprev_flutter/routing/routes/report.dart';
-import 'package:digprev_flutter/routing/routes/profile.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 final GoRouter router = GoRouter(
+  initialLocation: AppRoutes.quiz.path,
   routes: <RouteBase>[
     StatefulShellRoute(
       builder:
@@ -17,7 +19,7 @@ final GoRouter router = GoRouter(
             StatefulNavigationShell child,
           ) => HomePageWidget(child: child),
       branches: <StatefulShellBranch>[
-        StatefulShellBranch(routes: <RouteBase>[HomeRoute(),  SectionRoute()]),
+        StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
         StatefulShellBranch(routes: <RouteBase>[PostsRoute()]),
         StatefulShellBranch(routes: <RouteBase>[ProfileRoute()]),
 

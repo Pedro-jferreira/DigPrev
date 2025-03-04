@@ -21,8 +21,8 @@ UsePageViewReturn usePageView(StatefulNavigationShell navigationShell) {
       pageController
           .animateToPage(
             navigationShell.currentIndex,
-            duration: const Duration(milliseconds: 250),
-            curve: Curves.fastOutSlowIn,
+            duration: const Duration(milliseconds: 450),
+            curve: Curves.easeInOut,
           )
           .then((_) => isAnimating.value = false);
     }

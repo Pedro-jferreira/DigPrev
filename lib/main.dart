@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
-import 'package:digprev_flutter/routing/route.dart';
+import 'package:digprev_flutter/routing/router.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
