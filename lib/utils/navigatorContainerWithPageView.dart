@@ -17,8 +17,6 @@ class NavigatorContainerWithPageView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final (:pageController, :onPageChanged) = usePageView(navigationShell);
-    final GoRouterState routerState = GoRouterState.of(context);
-
     return PageView(
       controller: pageController,
       physics:

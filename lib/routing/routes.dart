@@ -1,7 +1,5 @@
 class AppRoutes {
 
-
-  // quiz
   static const AppRoute quiz = AppRoute(
     path: '/quiz',
     name: 'quiz',
