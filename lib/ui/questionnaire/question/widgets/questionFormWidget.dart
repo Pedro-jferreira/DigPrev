@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/question/widgets/dynamicFormField.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,6 @@ class QuestionFormWidget extends StatefulWidget {
 
 class _QuestionFormState extends State<QuestionFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Map<int, String> _answers = <int, String>{};
   final ScrollController _scrollController = ScrollController();
   final List<FocusNode> _focusNodes = <FocusNode>[];
 
@@ -32,6 +32,7 @@ class _QuestionFormState extends State<QuestionFormWidget> {
       _focusNodes.add(FocusNode());
     }
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -76,30 +77,28 @@ class _QuestionFormState extends State<QuestionFormWidget> {
           itemCount: widget.questions.length + 1,
           itemBuilder: (BuildContext context, int index) {
             if (index < widget.questions.length) {
+              final FocusNode currentFocusNode = _focusNodes[index];
+              final FocusNode nextFocusNode =
+              index + 1 < _focusNodes.length
+                  ? _focusNodes[index + 1]
+                  : FocusNode();
               final Question question = widget.questions[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,
                   horizontal: 16.0,
                 ),
-                child: OutlinedTextFieldComponent(
-                  title: question.question,
-                  toolTipText: question.tooltipText,
-                  placeholder: question.placeholder,
-                  supportingText: question.supportingText,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Campo obrigatório';
-                    }
-                    return null;
+                child: DynamicFormField(
+                  question: question,
+                  onChanged: (value) {
+                    print(value);
                   },
-                  onValueChange: (String value) {
-                    _answers[index] = value;
-                  },
+                  focusNode: currentFocusNode,
+                  // Passa o FocusNode para o campo
+                  nextFocusNode: nextFocusNode,
                 ),
               );
             } else {
-              // Último item: NavigationButtonsWidget
               return NavigationButtonsWidget(
                 onNext: widget.onNext,
                 onPrevious: widget.onPrevious,

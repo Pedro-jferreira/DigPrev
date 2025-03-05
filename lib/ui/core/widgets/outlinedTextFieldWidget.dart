@@ -12,6 +12,7 @@ class OutlinedTextFieldComponent extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FormFieldValidator<String>? validator;
   final Function(String) onValueChange;
+  final FormFieldSetter<String>? onSaved;
 
   const OutlinedTextFieldComponent({
     required this.onValueChange,
@@ -24,6 +25,8 @@ class OutlinedTextFieldComponent extends StatefulWidget {
     this.validator,
     this.keyboardType = TextInputType.text,
     this.inputFormatters,
+    this.onSaved,
+
   }) : super(key: key);
 
   @override
@@ -73,6 +76,7 @@ class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent>
           tooltipText: widget.toolTipText,
         ),
         TextFormField(
+          onSaved: widget.onSaved,
           initialValue: widget.initialValue,
           validator: widget.validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
