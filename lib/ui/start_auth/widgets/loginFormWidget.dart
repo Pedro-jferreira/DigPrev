@@ -130,7 +130,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                               },
                               child: const Text(
                                   'Cadastre-se',
-                                  style: TextStyle(color: Color(0xffffffff))
+                                  style: TextStyle(color: Color(0xff2d4578))
                               )
                           )
                         ],

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:digprev_flutter/data/repositories/stageRepository/stageRepository.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:flutter/material.dart';
