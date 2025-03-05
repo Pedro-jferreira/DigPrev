@@ -11,6 +11,7 @@ class AppRoutes {
   static const AppRoute section = AppRoute(
     path: 'section/:id',
     name: 'section',
+    isScrollable: false,
   );
 
   //start
@@ -31,22 +32,36 @@ class AppRoutes {
   // profile
   static const AppRoute profile = AppRoute(path: '/profile', name: 'profile');
 
+  static final List<AppRoute> allRoutes = <AppRoute>[
+    start,
+    quiz,
+    section,
+    posts,
+    profile,
+  ];
 
-
-  static final List<AppRoute> allRoutes =
-    <AppRoute>[start, quiz, section, posts, profile];
-
-
+  static bool isScrollableForName(String name) {
+    return allRoutes
+        .firstWhere(
+          (AppRoute route) => route.name == name,
+          orElse:
+              () =>
+                  const AppRoute(name: 'default', path: '', isScrollable: true),
+        )
+        .isScrollable;
+  }
 }
 
 class AppRoute {
   final String path;
   final String name;
+  final bool isScrollable;
   final List<AppRoute>? appRoutes;
 
   const AppRoute({
     required this.path,
     required this.name,
+    this.isScrollable = true,
     this.appRoutes,
   });
 }
