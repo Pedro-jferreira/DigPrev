@@ -1,8 +1,7 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/widgets/questionFormWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/question/widgets/questionFormWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
