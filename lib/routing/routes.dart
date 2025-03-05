@@ -13,6 +13,18 @@ class AppRoutes {
     name: 'section',
   );
 
+  //start
+  static const AppRoute start = AppRoute(
+      path: '/',
+      name: 'start',
+      appRoutes: <AppRoute>[login]
+  );
+  //login
+  static const AppRoute login = AppRoute(
+      path: '/login',
+      name: 'login'
+  );
+
   //relatorios
   static const AppRoute posts = AppRoute(path: '/posts', name: 'posts');
 
@@ -21,7 +33,8 @@ class AppRoutes {
 
 
 
-  static final List<AppRoute> allRoutes = <AppRoute>[quiz, section, posts, profile];
+  static final List<AppRoute> allRoutes =
+    <AppRoute>[start, quiz, section, posts, profile];
 
 
 }

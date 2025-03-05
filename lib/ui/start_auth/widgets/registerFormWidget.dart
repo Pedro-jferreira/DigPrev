@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:lucid_validation/src/types/validation_result.dart';
 
 class RegisterFormComponent extends StatefulWidget {
-  const RegisterFormComponent({super.key});
+  final ValueChanged<bool>? onFormValidationChanged;
+  const RegisterFormComponent({Key? key, this.onFormValidationChanged})
+      : super(key: key);
 
   @override
   _RegisterFormComponentState createState() => _RegisterFormComponentState();
@@ -21,6 +23,8 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final NomeValidator nomeValidator = NomeValidator();
   final CPFValidator cpfValidator = CPFValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
+  final _formKey = GlobalKey<FormState>();
+  late bool _isFormValid = false;
 
   bool isNomeError = false;
   String errorNome = '';
@@ -41,12 +45,19 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
     super.dispose();
   }
 
+  void _validateForm() {
+    _isFormValid = _formKey.currentState?.validate() ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
+    String? senhaDigitada = '';
     return Card(
       color: Theme.of(context).colorScheme.primaryContainer,
       margin: const EdgeInsets.all(10),
       child: Form(
+        key: _formKey,
+        onChanged: _validateForm,
         child: Column(
           children: <Widget>[
             SingleChildScrollView(
@@ -63,7 +74,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     OutlinedTextFieldComponent(
                       title: 'Nome',
                       placeholder: 'Digite seu Nome Aqui',
@@ -88,7 +99,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         });
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     OutlinedTextFieldComponent(
                       title: 'CPF',
                       placeholder: 'Digite seu CPF',
@@ -102,7 +113,8 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                           return null;
                         }
                         isCpfError == true;
-                        errorCpf = 'Somente números são aceitas.';
+                        errorCpf = 'Somente números são aceitos, '
+                            'ex: 000.000.000-00';
                         return errorCpf;
                       },
                       onValueChange: (String value) {
@@ -113,37 +125,44 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         });
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
                       title: 'Senha',
                       placeholder: 'Digite sua Senha',
                       supportingText: 'Mínimo de 6 caracteres',
+                      tooltipText: 'Deve ter letra maiúscula, minúscula, '
+                          'número, caracter especial e 6 letras.',
                       validator: (String? value) {
                         final ValidationResult result = senhaValidator
                             .validate(value ?? '');
                         if (result.isValid) {
                           isSenhaError == false;
+                          senhaDigitada = value;
+                          print('senhadigitadanovalue' + senhaDigitada!);
                           return null;
                         }
                         isSenhaError == true;
                         errorSenha = 'Deve ter letra maiúscula, minúscula, '
-                            'número, caracter especial e 6 letras.';
+                            'número e 6 letras.';
                         return errorSenha;
                       },
                       onValueChange: (String value) {
                         setState(() {
-                          isSenhaError = value.length < 6;
+                          isSenhaError = value.length < 4;
                           errorSenha = isSenhaError ? 'Senha muito curta' : '';
                         });
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
                       title: 'Confirme sua senha',
                       placeholder: 'Digite sua Senha',
                       supportingText: 'Mínimo de 6 caracteres',
+                      tooltipText: 'Esta senha deve ser igual à digitada no '
+                          'campo de Senha',
                       validator: (String? value) {
-                        if (value == senhaController.text) {
+                        print('senhaAnterior' + senhaDigitada!);
+                        if (value == senhaDigitada) {
                           isSenhaConfirmError == false;
                           return null;
                         }
@@ -158,7 +177,27 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                               ? 'As senhas não coincidem' : '';
                         });
                       },
-                    )
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _isFormValid ? () {
+                          // Ação do botão quando o formulário estiver válido
+                        } : null,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          disabledBackgroundColor:
+                            Theme.of(context).colorScheme.outline,
+                        ),
+                        child: const Text(
+                            'CADASTRAR  ',
+                          style: TextStyle(
+                            color: Color(0xffffffff),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

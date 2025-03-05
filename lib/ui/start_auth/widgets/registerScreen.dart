@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
   final VoidCallback? onNavigateToLogin;
-
   const RegisterScreen({Key? key, this.onNavigateToLogin}) : super(key: key);
 
   @override
@@ -15,6 +14,7 @@ class _RegisterScreenState extends State<RegisterScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  bool _isFormValid = false;
 
   @override
   void initState() {
@@ -28,10 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen>
     _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
     _controller.forward();
-
-    Future.delayed(const Duration(seconds: 3), () {
-      widget.onNavigateToLogin?.call();
-    });
   }
 
   @override
@@ -54,12 +50,18 @@ class _RegisterScreenState extends State<RegisterScreen>
         ),
         child: FadeTransition(
           opacity: _fadeAnimation,
-          child: const Column(
+          child: Column(  // Removi o const para usar ValueListenableBuilder
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              InitialText(),
-              SizedBox(height: 10),
-              RegisterFormComponent()
+              const InitialText(),
+              RegisterFormComponent(
+                onFormValidationChanged: (isValid) {
+                  print("validade: " + isValid.toString());
+                  setState(() {
+                    _isFormValid = isValid;
+                  });
+                },
+              ),
             ],
           ),
         ),

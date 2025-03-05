@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
 
 class OutlinedPasswordTextFieldComponent extends StatefulWidget {
@@ -5,6 +6,7 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
   final String value;
   final String placeholder;
   final String supportingText;
+  final String tooltipText;
   final bool isError;
   final String errorText;
   final FormFieldValidator<String>? validator;
@@ -17,6 +19,7 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
     this.placeholder = '',
     this.supportingText = '',
     this.isError = false,
+    this.tooltipText = '',
     this.errorText = '',
     this.validator,
     required this.onValueChange,
@@ -29,30 +32,71 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
 
 class _OutlinedPasswordTextFieldComponentState
     extends State<OutlinedPasswordTextFieldComponent> {
+  late TextEditingController _controller;
   bool passwordVisible = false;
+  String? _errorText;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onTextChanged(String input) {
+    String newValue = input;
+    setState(() {
+      _controller.text = newValue;
+      _controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: _controller.text.length),
+      );
+    });
+    widget.onValueChange(newValue);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: widget.onValueChange,
-      obscureText: !passwordVisible,
-      decoration: InputDecoration(
-        labelText: widget.title,
-        hintText: widget.placeholder,
-        errorText: widget.isError ? widget.errorText : null,
-        helperText: widget.isError ? null : widget.supportingText,
-        border: OutlineInputBorder(),
-        suffixIcon: IconButton(
-          icon: Icon(
-            passwordVisible ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            setState(() {
-              passwordVisible = !passwordVisible;
-            });
-          },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TitleToolTip(
+          title: widget.title,
+          tooltipText: widget.tooltipText,
         ),
-      ),
+        TextFormField(
+          obscureText: !passwordVisible,
+          validator: widget.validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          onChanged: (value) {
+            widget.onValueChange(value);
+            if (widget.validator != null) {
+              setState(() {
+                _errorText = widget.validator!(value);
+              });
+            }
+          },
+          decoration: InputDecoration(
+            labelText: widget.title,
+            hintText: widget.placeholder,
+            helperText: widget.supportingText,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            suffixIcon: IconButton(
+              icon: Icon(
+                passwordVisible ? Icons.visibility : Icons.visibility_off,
+              ),
+              onPressed: () {
+                setState(() {
+                  passwordVisible = !passwordVisible;
+                });
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -31,7 +31,6 @@ class UserValidator extends LucidValidator<UserRegister>{
         .mustHaveUppercase()
         .mustHaveLowercase()
         .mustHaveNumber()
-        .mustHaveSpecialCharacter()
         .minLength(6);
   }
 }
@@ -68,7 +67,6 @@ class SenhaValidator extends LucidValidator<String> {
         .mustHaveUppercase()
         .mustHaveLowercase()
         .mustHaveNumber()
-        .mustHaveSpecialCharacter()
         .minLength(6);
   }
 }
