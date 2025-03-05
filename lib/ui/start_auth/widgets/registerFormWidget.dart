@@ -6,8 +6,12 @@ import 'package:lucid_validation/src/types/validation_result.dart';
 
 class RegisterFormComponent extends StatefulWidget {
   final ValueChanged<bool>? onFormValidationChanged;
-  const RegisterFormComponent({Key? key, this.onFormValidationChanged})
-      : super(key: key);
+  final VoidCallback onLoginPressed;
+
+  const RegisterFormComponent({
+    required this.onLoginPressed, Key? key,
+    this.onFormValidationChanged,
+  }) : super(key: key);
 
   @override
   _RegisterFormComponentState createState() => _RegisterFormComponentState();
@@ -22,12 +26,15 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final UserValidator validator = UserValidator();
   final NomeValidator nomeValidator = NomeValidator();
   final CPFValidator cpfValidator = CPFValidator();
+  final EmailValidator emailValidator = EmailValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late bool _isFormValid = false;
 
   bool isNomeError = false;
   String errorNome = '';
+  bool isEmailError = false;
+  String errorEmail = '';
   bool isCpfError = false;
   String errorCpf = '';
   bool isSenhaError = false;
@@ -125,20 +132,44 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         });
                       },
                     ),
+                    OutlinedTextFieldComponent(
+                      title: 'Email',
+                      placeholder: 'Digite seu e-mail',
+                      supportingText: 'Ex: joaosilva@gmail.com',
+                      toolTipText: 'Digite seu e-mail corretamente',
+                      validator: (String? value) {
+                        final ValidationResult result = emailValidator
+                            .validate(value ?? '');
+                        if (result.isValid) {
+                          isEmailError == false;
+                          return null;
+                        }
+                        isEmailError == true;
+                        errorEmail = 'E-mail inválido, ex: joaosilva@gmail.com';
+                        return errorEmail;
+                      },
+                      onValueChange: (String value) {
+                        setState(() {
+                          isEmailError = value.isEmpty;
+                          errorEmail = isEmailError
+                              ? 'E-mail não pode estar vazio'
+                              : '';
+                        });
+                      },
+                    ),
                     const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
                       title: 'Senha',
                       placeholder: 'Digite sua Senha',
                       supportingText: 'Mínimo de 6 caracteres',
                       tooltipText: 'Deve ter letra maiúscula, minúscula, '
-                          'número, caracter especial e 6 letras.',
+                          'número e 6 letras.',
                       validator: (String? value) {
                         final ValidationResult result = senhaValidator
                             .validate(value ?? '');
                         if (result.isValid) {
                           isSenhaError == false;
                           senhaDigitada = value;
-                          print('senhadigitadanovalue' + senhaDigitada!);
                           return null;
                         }
                         isSenhaError == true;
@@ -161,7 +192,6 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       tooltipText: 'Esta senha deve ser igual à digitada no '
                           'campo de Senha',
                       validator: (String? value) {
-                        print('senhaAnterior' + senhaDigitada!);
                         if (value == senhaDigitada) {
                           isSenhaConfirmError == false;
                           return null;
@@ -183,10 +213,11 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: _isFormValid ? () {
-                          // Ação do botão quando o formulário estiver válido
+                          widget.onLoginPressed();
                         } : null,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme.primary,
                           disabledBackgroundColor:
                             Theme.of(context).colorScheme.outline,
                         ),

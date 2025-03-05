@@ -1,20 +1,35 @@
 import 'package:digprev_flutter/ui/start_auth/widgets/RegisterFormWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/widgets/loginFormWidget.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   final VoidCallback? onNavigateToLogin;
-  const RegisterScreen({Key? key, this.onNavigateToLogin}) : super(key: key);
+  const LoginScreen({Key? key, this.onNavigateToLogin}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen>
+class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
-  bool _isFormValid = false;
+  bool isLoginForm = true;
+
+  // Função para alternar para o formulário de registro
+  void _switchToRegisterForm() {
+    setState(() {
+      isLoginForm = false;
+    });
+  }
+
+  // Função para alternar para o formulário de login
+  void _switchToLoginForm() {
+    setState(() {
+      isLoginForm = true;
+    });
+  }
 
   @override
   void initState() {
@@ -46,22 +61,17 @@ class _RegisterScreenState extends State<RegisterScreen>
           bottom: MediaQuery.of(context).viewInsets.bottom + 20,
           left: 20,
           right: 20,
-          top: 20,
+          top: 100,
         ),
         child: FadeTransition(
           opacity: _fadeAnimation,
-          child: Column(  // Removi o const para usar ValueListenableBuilder
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const InitialText(),
-              RegisterFormComponent(
-                onFormValidationChanged: (isValid) {
-                  print("validade: " + isValid.toString());
-                  setState(() {
-                    _isFormValid = isValid;
-                  });
-                },
-              ),
+              isLoginForm ?
+              LoginFormComponent(onRegisterPressed: _switchToRegisterForm)
+                  : RegisterFormComponent(onLoginPressed: _switchToLoginForm),
             ],
           ),
         ),
