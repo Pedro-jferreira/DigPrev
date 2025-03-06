@@ -1,18 +1,22 @@
+import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
-import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/dynamicFormField.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
 import 'package:flutter/material.dart';
+
 
 class QuestionFormWidget extends StatefulWidget {
   final List<Question> questions;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
+  final FormViewModel viewModel;
 
   const QuestionFormWidget({
     required this.questions,
     required this.onNext,
     required this.onPrevious,
+    required this.viewModel,
     super.key,
   });
 
@@ -79,23 +83,19 @@ class _QuestionFormState extends State<QuestionFormWidget> {
             if (index < widget.questions.length) {
               final FocusNode currentFocusNode = _focusNodes[index];
               final FocusNode nextFocusNode =
-              index + 1 < _focusNodes.length
-                  ? _focusNodes[index + 1]
-                  : FocusNode();
+                  index + 1 < _focusNodes.length
+                      ? _focusNodes[index + 1]
+                      : FocusNode();
               final Question question = widget.questions[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,
                   horizontal: 16.0,
                 ),
-                child: DynamicFormField(
-                  question: question,
-                  onChanged: (value) {
-                    print(value);
-                  },
-                  focusNode: currentFocusNode,
-                  // Passa o FocusNode para o campo
-                  nextFocusNode: nextFocusNode,
+                child: _buildDynamicFormField(
+                  question,
+                  currentFocusNode,
+                  nextFocusNode,
                 ),
               );
             } else {
@@ -109,4 +109,31 @@ class _QuestionFormState extends State<QuestionFormWidget> {
       ),
     );
   }
+
+  Widget _buildDynamicFormField(
+      Question question,
+      FocusNode currentFocusNode,
+      FocusNode nextFocusNode,
+      ) {
+    return FutureBuilder<Answer?>(
+      future: widget.viewModel.fetchAnswerByQuestionId(question.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot<Answer?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if(snapshot.data != null){
+          return DynamicFormField(
+            question: question,
+            focusNode: currentFocusNode,
+            nextFocusNode: nextFocusNode,
+            viewModel: widget.viewModel,
+            answer: snapshot.data!,
+          );
+        }
+        else return const Center( child: Text(' deu erradp'),);
+      },
+    );
+  }
+
 }

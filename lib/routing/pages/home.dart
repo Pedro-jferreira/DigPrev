@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/home/widgets/topAppBarWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stagePageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
@@ -29,6 +29,7 @@ class HomeRoute extends GoRoute {
                 child: SectionPageWidget(
                   stageId: id,
                   viewModel: context.watch<SectionViewModel>(),
+                  formViewModel: context.watch<FormViewModel>(),
                 ),
               );
             },

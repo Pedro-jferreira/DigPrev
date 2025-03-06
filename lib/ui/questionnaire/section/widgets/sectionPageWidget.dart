@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/questionFormWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
@@ -10,10 +11,12 @@ import 'package:result_command/result_command.dart';
 class SectionPageWidget extends StatefulWidget {
   final String stageId;
   final SectionViewModel viewModel;
+  final FormViewModel formViewModel;
 
   const SectionPageWidget({
     required this.stageId,
     required this.viewModel,
+    required this.formViewModel,
     super.key,
   });
 
@@ -33,11 +36,13 @@ class SectionPageState extends State<SectionPageWidget> {
     // Adicionando o listener para o comando
     widget.viewModel.loadComand.addListener(_onCommandStateChanged);
     widget.viewModel.loadComand.execute(int.parse(widget.stageId));
+    widget.formViewModel.loadComand.execute();
   }
 
   @override
   void dispose() {
     widget.viewModel.loadComand.removeListener(_onCommandStateChanged);
+    widget.viewModel.loadComand.execute;
     super.dispose();
   }
 
@@ -48,16 +53,14 @@ class SectionPageState extends State<SectionPageWidget> {
         _sections = snapshot.value.sections!;
       });
     } else if (snapshot is FailureCommand<Stage>) {
-      print('Error: ${snapshot.error}');
     }
   }
+
 
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    // Adiciona um post frame callback para garantir que o scroll só será realizado depois que o widget for completamente construído.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
         final snapshot = widget.viewModel.loadComand.value;
@@ -108,6 +111,8 @@ class SectionPageState extends State<SectionPageWidget> {
   Widget build(BuildContext context) {
     if (widget.viewModel.loadComand.isRunning) {
       return const Center(child: CircularProgressIndicator());
+    } else if(widget.viewModel.loadComand.isFailure || widget.formViewModel.loadComand.isFailure){
+      return const Center(child: Text('falha ao carregar os dados tente novamente mais tarde'));
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -157,6 +162,7 @@ class SectionPageState extends State<SectionPageWidget> {
                     questions: _sections[index].questions,
                     onPrevious: onPrevious,
                     onNext: onNext,
+                    viewModel: widget.formViewModel,
                   );
                 },
               ),

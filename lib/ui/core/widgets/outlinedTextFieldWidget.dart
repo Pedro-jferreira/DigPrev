@@ -41,6 +41,7 @@ class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent>
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
     if (widget.initialValue != null) {
       _controller.text = widget.initialValue!;
     }

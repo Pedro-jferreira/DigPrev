@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: AppRoutes.start.path,
+  initialLocation: AppRoutes.quiz.path,
   routes: <RouteBase>[
     StartRoute(),
     LoginRoute(),
