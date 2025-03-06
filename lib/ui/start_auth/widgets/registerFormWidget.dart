@@ -1,6 +1,10 @@
+import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
+import 'package:digprev_flutter/data/services/fireStore/authService.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/validators/registerLoginValidators.dart';
+import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
+import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
+import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/src/types/validation_result.dart';
 
@@ -29,7 +33,9 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final EmailValidator emailValidator = EmailValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late bool _isFormValid = false;
+  final CredentialsModel credentials = CredentialsModel();
+  final LoginViewModel loginViewModel = LoginViewModel(authRepository:
+    AuthRepositoryRemote(authService: AuthService()));
 
   bool isNomeError = false;
   String errorNome = '';
@@ -52,8 +58,9 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
     super.dispose();
   }
 
-  void _validateForm() {
-    _isFormValid = _formKey.currentState?.validate() ?? false;
+  bool _validateForm() {
+    final result = validator.validate(credentials);
+    return result.isValid;
   }
 
   @override
@@ -87,6 +94,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       placeholder: 'Digite seu Nome Aqui',
                       supportingText: 'Ex: José da Silva',
                       toolTipText: 'Digite o seu nome completo',
+                      onValueChange: credentials.setNome,
                       validator: (String? value) {
                         final ValidationResult result = nomeValidator
                             .validate(value ?? '');
@@ -97,13 +105,6 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         isNomeError == true;
                         errorNome = 'Somente letras são aceitas.';
                         return errorNome;
-                      },
-                      onValueChange: (String value) {
-                        setState(() {
-                          isNomeError = value.isEmpty;
-                          errorNome = isNomeError ? 'Nome não pode estar vazio'
-                              : '';
-                        });
                       },
                     ),
                     const SizedBox(height: 10),
@@ -124,13 +125,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                             'ex: 000.000.000-00';
                         return errorCpf;
                       },
-                      onValueChange: (String value) {
-                        setState(() {
-                          isCpfError = value.isEmpty;
-                          errorCpf = isCpfError ? 'CPF não pode estar vazio'
-                              : '';
-                        });
-                      },
+                      onValueChange: credentials.setCpf,
                     ),
                     OutlinedTextFieldComponent(
                       title: 'Email',
@@ -148,14 +143,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         errorEmail = 'E-mail inválido, ex: joaosilva@gmail.com';
                         return errorEmail;
                       },
-                      onValueChange: (String value) {
-                        setState(() {
-                          isEmailError = value.isEmpty;
-                          errorEmail = isEmailError
-                              ? 'E-mail não pode estar vazio'
-                              : '';
-                        });
-                      },
+                      onValueChange: credentials.setEmail,
                     ),
                     const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
@@ -177,12 +165,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                             'número e 6 letras.';
                         return errorSenha;
                       },
-                      onValueChange: (String value) {
-                        setState(() {
-                          isSenhaError = value.length < 4;
-                          errorSenha = isSenhaError ? 'Senha muito curta' : '';
-                        });
-                      },
+                      onValueChange: credentials.setSenha,
                     ),
                     const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
@@ -211,22 +194,29 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                     const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _isFormValid ? () {
-                          widget.onLoginPressed();
-                        } : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context)
-                              .colorScheme.primary,
-                          disabledBackgroundColor:
-                            Theme.of(context).colorScheme.outline,
-                        ),
-                        child: const Text(
-                            'CADASTRAR  ',
-                          style: TextStyle(
-                            color: Color(0xffffffff),
-                          ),
-                        ),
+                      child: ListenableBuilder(
+                        listenable: credentials,
+                        builder: (context, child) {
+                          return ElevatedButton(
+                            onPressed: _validateForm() ? () {
+                              widget.onLoginPressed();
+                              print('<-----form------>' + credentials.toString());
+                              loginViewModel.cadastrar(credentials);
+                            } : null,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme.primary,
+                              disabledBackgroundColor:
+                                Theme.of(context).colorScheme.outline,
+                            ),
+                            child: const Text(
+                                'CADASTRAR  ',
+                              style: TextStyle(
+                                color: Color(0xffffffff),
+                              ),
+                            ),
+                          );
+                        }
                       ),
                     ),
                   ],

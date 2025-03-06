@@ -31,7 +31,9 @@ class _StartScreenState extends State<StartScreen>
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      context.go('/login');
+      if (mounted) {  // Verifica se o widget ainda está na árvore
+        context.go('/login');
+      }
     });
   }
 

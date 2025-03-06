@@ -1,5 +1,4 @@
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
-import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
 import 'package:flutter/material.dart';
 
 class SelectComponent extends StatefulWidget {
@@ -9,20 +8,22 @@ class SelectComponent extends StatefulWidget {
   final String supportingText;
   final List<String> selectTexts;
   final Function(int, String) onItemSelected;
-  final bool isError;
   final String selectedValue;
+  final FormFieldSetter<String>? onSaved;
+  final FormFieldValidator<String>? validator;
 
   const SelectComponent({
-    Key? key,
-    this.textInputQuestion = "",
-    this.textTooltip = "Breve explicação dos gêneros.",
-    this.textPlaceholderInput = "Selecione o seu gênero",
-    this.supportingText = "",
-    this.selectTexts = const ["Alexander", "Isabella", "Alexander", "Isabella"],
+    required this.textInputQuestion,
+    required this.textTooltip,
+    required this.textPlaceholderInput,
+    required this.supportingText,
+    required this.selectTexts,
     required this.onItemSelected,
-    this.isError = false,
     required this.selectedValue,
-  }) : super(key: key);
+    this.onSaved,
+    this.validator,
+    Key? key,
+  });
 
   @override
   _SelectComponentState createState() => _SelectComponentState();
@@ -43,27 +44,29 @@ class _SelectComponentState extends State<SelectComponent> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
        TitleToolTip(
          title: widget.textInputQuestion,
          tooltipText: widget.textTooltip,
        ),
         DropdownButtonFormField<String>(
+          validator: widget.validator,
+          onSaved: widget.onSaved,
           value: selectedText.isEmpty ? null : selectedText,
           hint: Text(widget.textPlaceholderInput),
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            errorText: widget.isError ? "Seleção obrigatória" : null,
+            border: const OutlineInputBorder(),
             helperText: widget.supportingText,
             suffixIcon: const Icon(Icons.arrow_drop_down),
           ),
-          items: widget.selectTexts.asMap().entries.map((entry) {
+          items: widget.selectTexts.asMap().entries.map((
+              MapEntry<int, String> entry) {
             return DropdownMenuItem<String>(
               value: entry.value,
               child: Text(entry.value),
             );
           }).toList(),
-          onChanged: (value) {
+          onChanged: (String? value) {
             if (value != null) {
               setState(() {
                 selectedText = value;

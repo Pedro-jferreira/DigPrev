@@ -1,4 +1,3 @@
-
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/LoginScreen.dart';
@@ -13,10 +12,7 @@ class LoginRoute extends GoRoute{
     path: AppRoutes.login.path,
     pageBuilder: (BuildContext context, GoRouterState state) {
       return MaterialPage(
-        child: ChangeNotifierProvider(
-          create: (_) => LoginViewModel(),
-          child: const LoginScreen(),
-        ),
+        child: LoginScreen(loginViewModel: context.watch<LoginViewModel>()),
       );
     },
   );
