@@ -40,7 +40,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
   }
 
   bool _validateForm() {
-    final result = loginValidator.validate(loginModel);
+    final ValidationResult result = loginValidator.validate(loginModel);
     return result.isValid;
   }
 
@@ -130,7 +130,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                         width: double.infinity,
                         child: ListenableBuilder(
                           listenable: loginModel,
-                          builder: (context, child) {
+                          builder: (BuildContext context, Widget? child) {
                             return ElevatedButton(
                               onPressed: _validateForm() ? () {
                                 print('<-----form------>' + loginModel.toString());
