@@ -1,16 +1,17 @@
 import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/domain/models/user/user.dart';
+import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';
 
 class LoginViewModel extends ChangeNotifier {
-  final AuthRepository _authRepository;
   LoginViewModel({required AuthRepository authRepository})
-    : _authRepository = authRepository;
+      : _authRepository = authRepository;
+  final AuthRepository _authRepository;
   bool _isLoading = false;
   String? _errorMessage;
 
-  Future<Result<void>> _login((String, String) credentials) async {
+  Future<Result<void>> login((String, String) credentials) async {
     final (email, password) = credentials;
     final result = await _authRepository.loginUsuario(
       email,
@@ -22,9 +23,18 @@ class LoginViewModel extends ChangeNotifier {
     return result;
   }
 
-  Future<void> _cadastrar(UserModel user) async{
+  Future<void> cadastrar(CredentialsModel credentials) async{
     _isLoading = true;
     notifyListeners();
+
+    UserModel user = UserModel (
+      id: '1',
+      nome: credentials.nome,
+      cpf: credentials.cpf,
+      senha: credentials.senha,
+      email: credentials.email,
+      dataNascimento: DateTime(2025, 01, 01)
+    );
 
     try {
       var result = await _authRepository.cadastrarUsuario(user);

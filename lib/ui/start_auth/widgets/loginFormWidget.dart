@@ -1,6 +1,7 @@
+import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/validators/registerLoginValidators.dart';
+import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 
@@ -23,7 +24,8 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
   final EmailValidator emailValidator = EmailValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late bool _isFormValid = false;
+  final LoginModel loginModel = LoginModel();
+  final LoginValidator loginValidator = LoginValidator();
 
   bool isEmailError = false;
   String errorEmail = '';
@@ -37,8 +39,9 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
     super.dispose();
   }
 
-  void _validateForm() {
-    _isFormValid = _formKey.currentState?.validate() ?? false;
+  bool _validateForm() {
+    final result = loginValidator.validate(loginModel);
+    return result.isValid;
   }
 
   @override
@@ -83,14 +86,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                                 'ex: joaosilva@gmail.com';
                             return errorEmail;
                           },
-                          onValueChange: (String value) {
-                            setState(() {
-                              isEmailError = value.isEmpty;
-                              errorEmail = isEmailError
-                                  ? 'E-mail não pode estar vazio'
-                                  : '';
-                            });
-                          },
+                          onValueChange: loginModel.setEmail
                         ),
                       const SizedBox(height: 10),
                       OutlinedPasswordTextFieldComponent(
@@ -111,13 +107,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                               'número e 6 letras.';
                           return errorSenha;
                         },
-                        onValueChange: (String value) {
-                          setState(() {
-                            isSenhaError = value.length < 4;
-                            errorSenha = isSenhaError
-                                ? 'Senha muito curta' : '';
-                          });
-                        },
+                        onValueChange: loginModel.setSenha
                       ),
                       const SizedBox(height: 10),
                       Row(
@@ -138,22 +128,28 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                       const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _isFormValid ? () {
-                            // Ação do botão quando o formulário estiver válido
-                          } : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context)
-                                .colorScheme.primary,
-                            disabledBackgroundColor:
-                            Theme.of(context).colorScheme.outline,
-                          ),
-                          child: const Text(
-                            'ENTRAR',
-                            style: TextStyle(
-                              color: Color(0xffffffff),
-                            ),
-                          ),
+                        child: ListenableBuilder(
+                          listenable: loginModel,
+                          builder: (context, child) {
+                            return ElevatedButton(
+                              onPressed: _validateForm() ? () {
+                                print('<-----form------>' + loginModel.toString());
+                                //authViewModel.login(user)
+                              } : null,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context)
+                                    .colorScheme.primary,
+                                disabledBackgroundColor:
+                                Theme.of(context).colorScheme.outline,
+                              ),
+                              child: const Text(
+                                'ENTRAR',
+                                style: TextStyle(
+                                  color: Color(0xffffffff),
+                                ),
+                              ),
+                            );
+                          }
                         ),
                       ),
                     ],

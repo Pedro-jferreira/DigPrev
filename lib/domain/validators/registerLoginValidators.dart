@@ -1,20 +1,8 @@
+import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 
-class UserRegister{
-  String nome;
-  String email;
-  String cpf;
-  String senha;
-
-  UserRegister({
-    required this.nome,
-    required this.email,
-    required this.cpf,
-    required this.senha
-  });
-}
-
-class UserValidator extends LucidValidator<UserRegister>{
+class UserValidator extends LucidValidator<CredentialsModel>{
+  final credentials = CredentialsModel();
   UserValidator(){
     final pattern = (r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$');
     ruleFor((user) => user.nome, key: 'nome')
@@ -63,6 +51,21 @@ class CPFValidator extends LucidValidator<String> {
 class SenhaValidator extends LucidValidator<String> {
   SenhaValidator() {
     ruleFor((senha) => senha, key: '')
+        .notEmpty()
+        .mustHaveUppercase()
+        .mustHaveLowercase()
+        .mustHaveNumber()
+        .minLength(6);
+  }
+}
+
+class LoginValidator extends LucidValidator<LoginModel>{
+  final LoginModel loginModel = LoginModel();
+  LoginValidator(){
+    ruleFor((user) => user.email, key: 'email')
+        .notEmpty()
+        .validEmail();
+    ruleFor((user) => user.senha, key: 'senha')
         .notEmpty()
         .mustHaveUppercase()
         .mustHaveLowercase()

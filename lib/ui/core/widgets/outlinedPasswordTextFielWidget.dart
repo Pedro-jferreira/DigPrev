@@ -39,6 +39,7 @@ class _OutlinedPasswordTextFieldComponentState
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController();
   }
 
   @override

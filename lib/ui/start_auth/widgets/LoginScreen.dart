@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/RegisterFormWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/loginFormWidget.dart';
@@ -5,8 +6,10 @@ import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
   final VoidCallback? onNavigateToLogin;
-  const LoginScreen({Key? key, this.onNavigateToLogin}) : super(key: key);
+  const LoginScreen({required this.loginViewModel,
+    Key? key, this.onNavigateToLogin }) : super(key: key);
 
+  final LoginViewModel loginViewModel;
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -17,14 +20,12 @@ class _LoginScreenState extends State<LoginScreen>
   late Animation<double> _fadeAnimation;
   bool isLoginForm = true;
 
-  // Função para alternar para o formulário de registro
   void _switchToRegisterForm() {
     setState(() {
       isLoginForm = false;
     });
   }
 
-  // Função para alternar para o formulário de login
   void _switchToLoginForm() {
     setState(() {
       isLoginForm = true;
