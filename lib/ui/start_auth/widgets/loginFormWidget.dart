@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
@@ -73,9 +73,9 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                        OutlinedTextFieldComponent(
-                          title: 'Email',
-                          placeholder: 'Digite seu e-mail',
+                        TextFieldWidget(
+                          labelText: 'Email',
+                          placeholderText: 'Digite seu e-mail',
                           supportingText: 'Ex: joaosilva@gmail.com',
                           toolTipText: 'Digite seu e-mail corretamente',
                           validator: (String? value) {
@@ -90,7 +90,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                                 'ex: joaosilva@gmail.com';
                             return errorEmail;
                           },
-                          onValueChange: loginModel.setEmail
+                          onChanged: loginModel.setEmail
                         ),
                       const SizedBox(height: 10),
                       OutlinedPasswordTextFieldComponent(

@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
+import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/routing/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         }
         return const Locale('pt', 'BR'); // Define português como padrão
       },
-      routerConfig: router,
+      routerConfig: router(authRepository: context.read<AuthRepository>()),
     );
   }
 }

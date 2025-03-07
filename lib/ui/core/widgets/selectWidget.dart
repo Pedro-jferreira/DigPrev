@@ -1,43 +1,46 @@
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
 
-class SelectComponent extends StatefulWidget {
-  final String textInputQuestion;
-  final String textTooltip;
-  final String textPlaceholderInput;
+class SelectWidget extends StatefulWidget {
+  final String labelText;
+  final String tooltipText;
+  final String placeholderText;
   final String supportingText;
+  final String? initialValue;
   final List<String> selectTexts;
-  final Function(int, String) onItemSelected;
-  final String selectedValue;
+  final Function(String?) onChanged;
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
 
-  const SelectComponent({
-    required this.textInputQuestion,
-    required this.textTooltip,
-    required this.textPlaceholderInput,
+  const SelectWidget({
+    required this.labelText,
+    required this.tooltipText,
+    required this.placeholderText,
     required this.supportingText,
     required this.selectTexts,
-    required this.onItemSelected,
-    required this.selectedValue,
+    required this.onChanged,
+    this.initialValue,
     this.onSaved,
     this.validator,
     Key? key,
   });
 
+
   @override
   _SelectComponentState createState() => _SelectComponentState();
 }
 
-class _SelectComponentState extends State<SelectComponent> {
-  late String selectedText;
+class _SelectComponentState extends State<SelectWidget> {
+  String? selectedValue;
   late int selectedIndex;
 
   @override
   void initState() {
     super.initState();
-    selectedText = widget.selectedValue;
-    selectedIndex = widget.selectTexts.indexOf(widget.selectedValue);
+    if (widget.initialValue != null) {
+      selectedValue = widget.initialValue!;
+      selectedIndex = widget.selectTexts.indexOf(widget.initialValue!);
+    }
   }
 
   @override
@@ -45,36 +48,26 @@ class _SelectComponentState extends State<SelectComponent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-       TitleToolTip(
-         title: widget.textInputQuestion,
-         tooltipText: widget.textTooltip,
-       ),
+        TitleToolTip(title: widget.labelText, tooltipText: widget.tooltipText),
         DropdownButtonFormField<String>(
-          validator: widget.validator,
-          onSaved: widget.onSaved,
-          value: selectedText.isEmpty ? null : selectedText,
-          hint: Text(widget.textPlaceholderInput),
+          hint: Text(widget.placeholderText),
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             helperText: widget.supportingText,
-            suffixIcon: const Icon(Icons.arrow_drop_down),
           ),
-          items: widget.selectTexts.asMap().entries.map((
-              MapEntry<int, String> entry) {
-            return DropdownMenuItem<String>(
-              value: entry.value,
-              child: Text(entry.value),
-            );
-          }).toList(),
-          onChanged: (String? value) {
-            if (value != null) {
-              setState(() {
-                selectedText = value;
-                selectedIndex = widget.selectTexts.indexOf(value);
-              });
-              widget.onItemSelected(selectedIndex, value);
-            }
-          },
+          value: selectedValue ?? widget.initialValue,
+          items:
+              widget.selectTexts.asMap().entries.map((
+                MapEntry<int, String> entry,
+              ) {
+                return DropdownMenuItem<String>(
+                  value: entry.value,
+                  child: Text(entry.value),
+                );
+              }).toList(),
+          onChanged: widget.onChanged,
+          onSaved: widget.onSaved,
+          validator: widget.validator,
         ),
       ],
     );

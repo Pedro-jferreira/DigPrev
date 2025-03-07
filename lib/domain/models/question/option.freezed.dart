@@ -22,7 +22,7 @@ Option _$OptionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Option {
   int? get id => throw _privateConstructorUsedError;
-  String? get question => throw _privateConstructorUsedError;
+  String? get text => throw _privateConstructorUsedError;
   double? get valueScore => throw _privateConstructorUsedError;
   String? get intensity => throw _privateConstructorUsedError;
   int? get days => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $OptionCopyWith<$Res> {
   @useResult
   $Res call({
     int? id,
-    String? question,
+    String? text,
     double? valueScore,
     String? intensity,
     int? days,
@@ -66,7 +66,7 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
   @override
   $Res call({
     Object? id = freezed,
-    Object? question = freezed,
+    Object? text = freezed,
     Object? valueScore = freezed,
     Object? intensity = freezed,
     Object? days = freezed,
@@ -78,10 +78,10 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
                         as int?,
-            question:
-                freezed == question
-                    ? _value.question
-                    : question // ignore: cast_nullable_to_non_nullable
+            text:
+                freezed == text
+                    ? _value.text
+                    : text // ignore: cast_nullable_to_non_nullable
                         as String?,
             valueScore:
                 freezed == valueScore
@@ -114,7 +114,7 @@ abstract class _$$OptionImplCopyWith<$Res> implements $OptionCopyWith<$Res> {
   @useResult
   $Res call({
     int? id,
-    String? question,
+    String? text,
     double? valueScore,
     String? intensity,
     int? days,
@@ -136,7 +136,7 @@ class __$$OptionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? question = freezed,
+    Object? text = freezed,
     Object? valueScore = freezed,
     Object? intensity = freezed,
     Object? days = freezed,
@@ -148,10 +148,10 @@ class __$$OptionImplCopyWithImpl<$Res>
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
                     as int?,
-        question:
-            freezed == question
-                ? _value.question
-                : question // ignore: cast_nullable_to_non_nullable
+        text:
+            freezed == text
+                ? _value.text
+                : text // ignore: cast_nullable_to_non_nullable
                     as String?,
         valueScore:
             freezed == valueScore
@@ -178,7 +178,7 @@ class __$$OptionImplCopyWithImpl<$Res>
 class _$OptionImpl implements _Option {
   const _$OptionImpl({
     required this.id,
-    required this.question,
+    required this.text,
     required this.valueScore,
     required this.intensity,
     required this.days,
@@ -190,7 +190,7 @@ class _$OptionImpl implements _Option {
   @override
   final int? id;
   @override
-  final String? question;
+  final String? text;
   @override
   final double? valueScore;
   @override
@@ -200,7 +200,7 @@ class _$OptionImpl implements _Option {
 
   @override
   String toString() {
-    return 'Option(id: $id, question: $question, valueScore: $valueScore, intensity: $intensity, days: $days)';
+    return 'Option(id: $id, text: $text, valueScore: $valueScore, intensity: $intensity, days: $days)';
   }
 
   @override
@@ -209,8 +209,7 @@ class _$OptionImpl implements _Option {
         (other.runtimeType == runtimeType &&
             other is _$OptionImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.question, question) ||
-                other.question == question) &&
+            (identical(other.text, text) || other.text == text) &&
             (identical(other.valueScore, valueScore) ||
                 other.valueScore == valueScore) &&
             (identical(other.intensity, intensity) ||
@@ -221,7 +220,7 @@ class _$OptionImpl implements _Option {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, question, valueScore, intensity, days);
+      Object.hash(runtimeType, id, text, valueScore, intensity, days);
 
   /// Create a copy of Option
   /// with the given fields replaced by the non-null parameter values.
@@ -240,7 +239,7 @@ class _$OptionImpl implements _Option {
 abstract class _Option implements Option {
   const factory _Option({
     required final int? id,
-    required final String? question,
+    required final String? text,
     required final double? valueScore,
     required final String? intensity,
     required final int? days,
@@ -251,7 +250,7 @@ abstract class _Option implements Option {
   @override
   int? get id;
   @override
-  String? get question;
+  String? get text;
   @override
   double? get valueScore;
   @override
