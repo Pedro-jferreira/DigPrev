@@ -17,10 +17,6 @@ class LoginViewModel extends ChangeNotifier {
         credentials.email,
         credentials.senha
     );
-    if (result.isError()){
-      print('login não sucedido');
-    }
-    print('<<<<<result>>>>>' + result.toString());
     return result;
   }
 

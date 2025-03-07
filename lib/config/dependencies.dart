@@ -2,6 +2,7 @@ import 'package:digprev_flutter/data/repositories/responseCardRepository/respons
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepositoryRemote.dart';
 import 'package:digprev_flutter/data/repositories/stageRepository/stageRepository.dart';
 import 'package:digprev_flutter/data/repositories/stageRepository/stageRepositoryRemote.dart';
+import 'package:digprev_flutter/data/repositories/userRepository/authNotifier.dart';
 import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
@@ -60,6 +61,9 @@ List<SingleChildWidget> get providersRemote {
     ),
     ChangeNotifierProvider(
       create: (context) => FormViewModel(repository: context.read()),
+    ),
+    ChangeNotifierProvider(
+      create: (context) => AuthNotifier(authRepository: context.read()),
     ),
   ];
 }
