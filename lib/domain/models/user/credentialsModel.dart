@@ -1,17 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CredentialsModel extends ChangeNotifier{
   String nome;
   String email;
   String cpf;
   String senha;
+  DateTime dataNascimento;
 
   CredentialsModel({
     this.nome = '',
     this.email = '',
     this.cpf = '',
-    this.senha = ''
-  });
+    this.senha = '',
+    DateTime? dataNascimento,
+  }) : dataNascimento = dataNascimento ?? DateTime.now();
 
   void setNome(String nome){
     this.nome = nome;
@@ -33,10 +35,15 @@ class CredentialsModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  void setDataNascimento(DateTime dataNascimento){
+    this.dataNascimento = dataNascimento;
+    notifyListeners();
+  }
+
   @override
   String toString(){
     return 'CredentialsModel(nome: $nome, email: $email, '
-        'cpf: $cpf, senha: $senha';
+        'cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento';
   }
 }
 

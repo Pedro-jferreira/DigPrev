@@ -12,10 +12,11 @@ class LoginViewModel extends ChangeNotifier {
   String? _errorMessage;
 
   Future<Result<void>> login((String, String) credentials) async {
-    final (email, password) = credentials;
-    final result = await _authRepository.loginUsuario(
-      email,
-      password
+    final (String email, String password) = credentials;
+    final ResultDart<UserModel, Exception> result = await
+      _authRepository.loginUsuario(
+        email,
+        password
     );
     if (result.isError()){
       print('login não sucedido');
@@ -27,18 +28,17 @@ class LoginViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    UserModel user = UserModel (
+    final UserModel user = UserModel (
       id: '1',
       nome: credentials.nome,
       cpf: credentials.cpf,
       senha: credentials.senha,
       email: credentials.email,
-      dataNascimento: DateTime(2025, 01, 01)
+      dataNascimento: credentials.dataNascimento
     );
 
     try {
-      var result = await _authRepository.cadastrarUsuario(user);
-      print("o retorno" + result.toString());
+      await _authRepository.cadastrarUsuario(user);
       _isLoading = false;
       notifyListeners();
     } catch(e) {

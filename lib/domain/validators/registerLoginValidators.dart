@@ -2,31 +2,34 @@ import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 
 class UserValidator extends LucidValidator<CredentialsModel>{
-  final credentials = CredentialsModel();
+  final CredentialsModel credentials = CredentialsModel();
   UserValidator(){
-    final pattern = (r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$');
-    ruleFor((user) => user.nome, key: 'nome')
+    final String pattern = (r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$');
+    ruleFor((CredentialsModel user) => user.nome, key: 'nome')
         .notEmpty()
         .matchesPattern(pattern);
-    ruleFor((user) => user.email, key: 'email')
+    ruleFor((CredentialsModel user) => user.email, key: 'email')
         .notEmpty()
         .validEmail();
-    ruleFor((user) => user.cpf, key: 'cpf')
+    ruleFor((CredentialsModel user) => user.cpf, key: 'cpf')
         .notEmpty()
         .validCPF();
-    ruleFor((user) => user.senha, key: 'senha')
+    ruleFor((CredentialsModel user) => user.senha, key: 'senha')
         .notEmpty()
         .mustHaveUppercase()
         .mustHaveLowercase()
         .mustHaveNumber()
         .minLength(6);
+    ruleFor((CredentialsModel user) => user.dataNascimento,
+        key: 'dataNascimento')
+        .isNotNull();
   }
 }
 
 class NomeValidator extends LucidValidator<String> {
   NomeValidator() {
-    final pattern = (r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$');
-    ruleFor((nome) => nome, key: '')
+    final String pattern = (r'^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$');
+    ruleFor((String nome) => nome, key: '')
         .notEmpty()
         .matchesPattern(pattern);
   }
@@ -34,7 +37,7 @@ class NomeValidator extends LucidValidator<String> {
 
 class EmailValidator extends LucidValidator<String> {
   EmailValidator() {
-    ruleFor((email) => email, key: '')
+    ruleFor((String email) => email, key: '')
         .notEmpty()
         .validEmail();
   }
@@ -42,7 +45,7 @@ class EmailValidator extends LucidValidator<String> {
 
 class CPFValidator extends LucidValidator<String> {
   CPFValidator() {
-    ruleFor((cpf) => cpf, key: 'cpf')
+    ruleFor((String cpf) => cpf, key: 'cpf')
         .notEmpty()
         .validCPF();
   }
@@ -50,7 +53,7 @@ class CPFValidator extends LucidValidator<String> {
 
 class SenhaValidator extends LucidValidator<String> {
   SenhaValidator() {
-    ruleFor((senha) => senha, key: '')
+    ruleFor((String senha) => senha, key: '')
         .notEmpty()
         .mustHaveUppercase()
         .mustHaveLowercase()
@@ -59,13 +62,20 @@ class SenhaValidator extends LucidValidator<String> {
   }
 }
 
+class DataNascimentoValidator extends LucidValidator<DateTime> {
+  DataNascimentoValidator() {
+    ruleFor((DateTime dataNascimento) => dataNascimento, key: '')
+        .isNotNull();
+  }
+}
+
 class LoginValidator extends LucidValidator<LoginModel>{
   final LoginModel loginModel = LoginModel();
   LoginValidator(){
-    ruleFor((user) => user.email, key: 'email')
+    ruleFor((LoginModel user) => user.email, key: 'email')
         .notEmpty()
         .validEmail();
-    ruleFor((user) => user.senha, key: 'senha')
+    ruleFor((LoginModel user) => user.senha, key: 'senha')
         .notEmpty()
         .mustHaveUppercase()
         .mustHaveLowercase()

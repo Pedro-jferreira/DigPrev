@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
+import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
@@ -26,9 +27,11 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final TextEditingController cpfController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
+  final TextEditingController dataNascimentoController =TextEditingController();
   final TextEditingController senhaConfirmController = TextEditingController();
   final UserValidator validator = UserValidator();
   final NomeValidator nomeValidator = NomeValidator();
+  final DataNascimentoValidator dateValidator = DataNascimentoValidator();
   final CPFValidator cpfValidator = CPFValidator();
   final EmailValidator emailValidator = EmailValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
@@ -54,12 +57,13 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
     cpfController.dispose();
     emailController.dispose();
     senhaController.dispose();
+    dataNascimentoController.dispose();
     senhaConfirmController.dispose();
     super.dispose();
   }
 
   bool _validateForm() {
-    final result = validator.validate(credentials);
+    final ValidationResult result = validator.validate(credentials);
     return result.isValid;
   }
 
@@ -146,6 +150,16 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       onValueChange: credentials.setEmail,
                     ),
                     const SizedBox(height: 10),
+                    DatePickerWidget(
+                      title: 'Data de Nascimento' ,
+                      supportingText: 'Ex: 01/01/2001',
+                        tooltipText: 'Escolha através do calendário a sua data'
+                            'de nascimento.',
+                        onDateSelected: (DateTime date) {
+                          credentials.setDataNascimento(date);
+                        }
+                    ),
+                    const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(
                       title: 'Senha',
                       placeholder: 'Digite sua Senha',
@@ -196,11 +210,10 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       width: double.infinity,
                       child: ListenableBuilder(
                         listenable: credentials,
-                        builder: (context, child) {
+                        builder: (BuildContext context, Widget? child) {
                           return ElevatedButton(
                             onPressed: _validateForm() ? () {
                               widget.onLoginPressed();
-                              print('<-----form------>' + credentials.toString());
                               loginViewModel.cadastrar(credentials);
                             } : null,
                             style: ElevatedButton.styleFrom(

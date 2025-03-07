@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +25,10 @@ import 'package:intl/intl.dart';
 
  © 2025 Pedro Ferreira*/
 class DatePickerWidget extends StatefulWidget {
-  final String labelText;
+  final String? labelText;
+  final String title;
+  final String supportingText;
+  final String tooltipText;
   final DateTime? initialDate;
   final DateTime? firstDate;
   final DateTime? lastDate;
@@ -32,9 +36,12 @@ class DatePickerWidget extends StatefulWidget {
   final ValueChanged<DateTime> onDateSelected;
 
   const DatePickerWidget({
-    required this.labelText,
     required this.onDateSelected,
+    required this.title,
+    required this.supportingText,
+    required this.tooltipText,
     super.key,
+    this.labelText,
     this.initialDate,
     this.firstDate,
     this.lastDate,
@@ -82,19 +89,29 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator:widget.validator,
-      canRequestFocus: false,
-      controller: _dateController,
-      readOnly: true,
-      decoration: InputDecoration(
-        labelText: widget.labelText,
-        border: const OutlineInputBorder(),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.calendar_month),
-          onPressed: _selectDate,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TitleToolTip(
+          title: widget.title,
+          tooltipText: widget.tooltipText,
         ),
-      ),
+        TextFormField(
+          validator:widget.validator,
+          canRequestFocus: false,
+          controller: _dateController,
+          readOnly: true,
+          decoration: InputDecoration(
+            helperText: widget.supportingText,
+            labelText: widget.title,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.calendar_month),
+              onPressed: _selectDate,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

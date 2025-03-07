@@ -34,7 +34,8 @@ class OutlinedTextFieldComponent extends StatefulWidget {
       _OutlinedTextFieldComponentState();
 }
 
-class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent> {
+class _OutlinedTextFieldComponentState extends
+  State<OutlinedTextFieldComponent> {
   late TextEditingController _controller;
   String? _errorText;
 
@@ -82,7 +83,7 @@ class _OutlinedTextFieldComponentState extends State<OutlinedTextFieldComponent>
           validator: widget.validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           keyboardType: widget.keyboardType,
-          onChanged: (value) {
+          onChanged: (String value) {
             widget.onValueChange(value);
             if (widget.validator != null) {
               setState(() {

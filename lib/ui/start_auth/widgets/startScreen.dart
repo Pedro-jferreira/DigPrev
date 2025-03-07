@@ -31,7 +31,7 @@ class _StartScreenState extends State<StartScreen>
     _controller.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {  // Verifica se o widget ainda está na árvore
+      if (mounted) {
         context.go('/login');
       }
     });
@@ -47,16 +47,20 @@ class _StartScreenState extends State<StartScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-      body: FadeTransition(
-        opacity: _fadeAnimation,
-        child: const Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            InitialImage(),
-            const SizedBox(height: 10),
-            InitialText(),
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          FadeTransition(
+            opacity: _fadeAnimation,
+            child: const Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                InitialImage(),
+                const SizedBox(height: 10),
+                InitialText(),
+              ],
+            )
+          ),
+        ],
       ),
     );
   }
