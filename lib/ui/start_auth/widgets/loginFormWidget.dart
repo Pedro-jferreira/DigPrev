@@ -2,15 +2,19 @@ import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
+import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 
 class LoginFormComponent extends StatefulWidget {
   final ValueChanged<bool>? onFormValidationChanged;
   final VoidCallback onRegisterPressed;
+  final LoginViewModel loginViewModel;
 
   const LoginFormComponent({
-    required this.onRegisterPressed, Key? key,
+    required this.onRegisterPressed,
+    required this.loginViewModel,
+    Key? key,
     this.onFormValidationChanged,
   }) : super(key: key);
 
@@ -133,8 +137,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                           builder: (BuildContext context, Widget? child) {
                             return ElevatedButton(
                               onPressed: _validateForm() ? () {
-                                print('<-----form------>' + loginModel.toString());
-                                //authViewModel.login(user)
+                                widget.loginViewModel.login(loginModel);
                               } : null,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context)

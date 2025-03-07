@@ -11,16 +11,16 @@ class LoginViewModel extends ChangeNotifier {
   bool _isLoading = false;
   String? _errorMessage;
 
-  Future<Result<void>> login((String, String) credentials) async {
-    final (String email, String password) = credentials;
+  Future<Result<void>> login(LoginModel credentials) async {
     final ResultDart<UserModel, Exception> result = await
       _authRepository.loginUsuario(
-        email,
-        password
+        credentials.email,
+        credentials.senha
     );
     if (result.isError()){
       print('login não sucedido');
     }
+    print('<<<<<result>>>>>' + result.toString());
     return result;
   }
 

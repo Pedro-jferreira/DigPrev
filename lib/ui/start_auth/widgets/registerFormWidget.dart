@@ -1,5 +1,3 @@
-import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
-import 'package:digprev_flutter/data/services/fireStore/authService.dart';
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
@@ -12,9 +10,12 @@ import 'package:lucid_validation/src/types/validation_result.dart';
 class RegisterFormComponent extends StatefulWidget {
   final ValueChanged<bool>? onFormValidationChanged;
   final VoidCallback onLoginPressed;
+  final LoginViewModel loginViewModel;
 
   const RegisterFormComponent({
-    required this.onLoginPressed, Key? key,
+    required this.onLoginPressed,
+    required this.loginViewModel,
+    Key? key,
     this.onFormValidationChanged,
   }) : super(key: key);
 
@@ -37,8 +38,6 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final SenhaValidator senhaValidator = SenhaValidator();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final CredentialsModel credentials = CredentialsModel();
-  final LoginViewModel loginViewModel = LoginViewModel(authRepository:
-    AuthRepositoryRemote(authService: AuthService()));
 
   bool isNomeError = false;
   String errorNome = '';
@@ -214,7 +213,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                           return ElevatedButton(
                             onPressed: _validateForm() ? () {
                               widget.onLoginPressed();
-                              loginViewModel.cadastrar(credentials);
+                              widget.loginViewModel.cadastrar(credentials);
                             } : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context)

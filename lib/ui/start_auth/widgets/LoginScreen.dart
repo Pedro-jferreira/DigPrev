@@ -10,6 +10,7 @@ class LoginScreen extends StatefulWidget {
     Key? key, this.onNavigateToLogin }) : super(key: key);
 
   final LoginViewModel loginViewModel;
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -71,8 +72,10 @@ class _LoginScreenState extends State<LoginScreen>
             children: <Widget>[
               const InitialText(),
               isLoginForm ?
-              LoginFormComponent(onRegisterPressed: _switchToRegisterForm)
-                  : RegisterFormComponent(onLoginPressed: _switchToLoginForm),
+              LoginFormComponent(onRegisterPressed: _switchToRegisterForm,
+                loginViewModel: widget.loginViewModel,)
+                  : RegisterFormComponent(onLoginPressed: _switchToLoginForm,
+                      loginViewModel: widget.loginViewModel,)
             ],
           ),
         ),
