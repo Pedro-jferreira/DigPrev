@@ -7,7 +7,7 @@ part 'option.g.dart';
 class Option with _$Option {
   const factory Option({
     required int? id,
-    required String? question,
+    required String? text,
     required double? valueScore,
     required String? intensity,
     required int? days,

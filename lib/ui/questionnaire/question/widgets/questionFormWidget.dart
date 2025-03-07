@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/dynamicFormField.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
 import 'package:flutter/material.dart';
@@ -32,17 +32,14 @@ class _QuestionFormState extends State<QuestionFormWidget> {
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < widget.questions.length; i++) {
-      _focusNodes.add(FocusNode());
-    }
   }
 
-  @override
+ @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        _navigateToTextField(0);
+        _navigateToTextField(5);
       }
     });
   }
@@ -56,17 +53,14 @@ class _QuestionFormState extends State<QuestionFormWidget> {
     super.dispose();
   }
 
+
   void _navigateToTextField(int index) {
     if (index >= 0 && index < widget.questions.length) {
-      final FocusNode focusNode = _focusNodes[index];
-      final BuildContext? context = focusNode.context;
-      if (context != null) {
-        Scrollable.ensureVisible(
-          context,
-          duration: const Duration(milliseconds: 500),
-        );
-        FocusScope.of(context).requestFocus(focusNode);
-      }
+      _scrollController.animateTo(
+        index.toDouble() ,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
@@ -81,12 +75,9 @@ class _QuestionFormState extends State<QuestionFormWidget> {
           itemCount: widget.questions.length + 1,
           itemBuilder: (BuildContext context, int index) {
             if (index < widget.questions.length) {
-              final FocusNode currentFocusNode = _focusNodes[index];
-              final FocusNode nextFocusNode =
-                  index + 1 < _focusNodes.length
-                      ? _focusNodes[index + 1]
-                      : FocusNode();
               final Question question = widget.questions[index];
+
+              final Answer? answer = widget.viewModel.questionAndAnswer[question];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,
@@ -94,11 +85,11 @@ class _QuestionFormState extends State<QuestionFormWidget> {
                 ),
                 child: _buildDynamicFormField(
                   question,
-                  currentFocusNode,
-                  nextFocusNode,
+                  answer!
                 ),
               );
             } else {
+
               return NavigationButtonsWidget(
                 onNext: widget.onNext,
                 onPrevious: widget.onPrevious,
@@ -112,28 +103,14 @@ class _QuestionFormState extends State<QuestionFormWidget> {
 
   Widget _buildDynamicFormField(
       Question question,
-      FocusNode currentFocusNode,
-      FocusNode nextFocusNode,
+      Answer answer,
       ) {
-    return FutureBuilder<Answer?>(
-      future: widget.viewModel.fetchAnswerByQuestionId(question.id.toString()),
-      builder: (BuildContext context, AsyncSnapshot<Answer?> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if(snapshot.data != null){
-          return DynamicFormField(
-            question: question,
-            focusNode: currentFocusNode,
-            nextFocusNode: nextFocusNode,
-            viewModel: widget.viewModel,
-            answer: snapshot.data!,
-          );
-        }
-        else return const Center( child: Text(' deu erradp'),);
-      },
+    return DynamicFormField(
+      question: question,
+      viewModel: widget.viewModel,
+      answer: answer,
     );
   }
+
 
 }

@@ -1,7 +1,7 @@
 import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/outlinedTextFieldWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
 import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
@@ -89,12 +89,12 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    OutlinedTextFieldComponent(
-                      title: 'Nome',
-                      placeholder: 'Digite seu Nome Aqui',
+                    TextFieldWidget(
+                      labelText: 'Nome',
+                      placeholderText: 'Digite seu Nome Aqui',
                       supportingText: 'Ex: José da Silva',
                       toolTipText: 'Digite o seu nome completo',
-                      onValueChange: credentials.setNome,
+                      onChanged: credentials.setNome,
                       validator: (String? value) {
                         final ValidationResult result = nomeValidator
                             .validate(value ?? '');
@@ -108,9 +108,9 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    OutlinedTextFieldComponent(
-                      title: 'CPF',
-                      placeholder: 'Digite seu CPF',
+                    TextFieldWidget(
+                      labelText: 'CPF',
+                      placeholderText: 'Digite seu CPF',
                       supportingText: 'Ex: 000.000.000-00',
                       toolTipText: 'Digite seu CPF corretamente',
                       validator: (String? value) {
@@ -125,11 +125,11 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                             'ex: 000.000.000-00';
                         return errorCpf;
                       },
-                      onValueChange: credentials.setCpf,
+                      onChanged: credentials.setCpf,
                     ),
-                    OutlinedTextFieldComponent(
-                      title: 'Email',
-                      placeholder: 'Digite seu e-mail',
+                    TextFieldWidget(
+                      labelText: 'Email',
+                      placeholderText: 'Digite seu e-mail',
                       supportingText: 'Ex: joaosilva@gmail.com',
                       toolTipText: 'Digite seu e-mail corretamente',
                       validator: (String? value) {
@@ -143,7 +143,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         errorEmail = 'E-mail inválido, ex: joaosilva@gmail.com';
                         return errorEmail;
                       },
-                      onValueChange: credentials.setEmail,
+                      onChanged: credentials.setEmail,
                     ),
                     const SizedBox(height: 10),
                     OutlinedPasswordTextFieldComponent(

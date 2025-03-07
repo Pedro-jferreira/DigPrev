@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/questionFormWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
@@ -117,7 +117,6 @@ class SectionPageState extends State<SectionPageWidget> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final double availableHeight = constraints.maxHeight;
-
         return Column(
           children: <Widget>[
             if (widget.viewModel.loadComand.isSuccess)

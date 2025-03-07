@@ -8,7 +8,7 @@ part of 'option.dart';
 
 _$OptionImpl _$$OptionImplFromJson(Map<String, dynamic> json) => _$OptionImpl(
   id: (json['id'] as num?)?.toInt(),
-  question: json['question'] as String?,
+  text: json['text'] as String?,
   valueScore: (json['valueScore'] as num?)?.toDouble(),
   intensity: json['intensity'] as String?,
   days: (json['days'] as num?)?.toInt(),
@@ -17,7 +17,7 @@ _$OptionImpl _$$OptionImplFromJson(Map<String, dynamic> json) => _$OptionImpl(
 Map<String, dynamic> _$$OptionImplToJson(_$OptionImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'question': instance.question,
+      'text': instance.text,
       'valueScore': instance.valueScore,
       'intensity': instance.intensity,
       'days': instance.days,

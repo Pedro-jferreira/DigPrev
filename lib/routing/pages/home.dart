@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stagePageWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
