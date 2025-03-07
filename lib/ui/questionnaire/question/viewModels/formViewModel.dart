@@ -78,25 +78,30 @@ class FormViewModel extends ChangeNotifier {
 
   Map<Question, Answer> get questionAndAnswer => _questionAndAnswer;
 
-  late final Command1<bool, List<Question>> joinQuestionCommand;
+  late final Command1<Map<Question, Answer>, List<Question>>
+  joinQuestionCommand = Command1<Map<Question, Answer>, List<Question>>(
+    _joinQuestionAndAnswer,
+  );
+
 
   AsyncResult<Map<Question, Answer>> _joinQuestionAndAnswer(
     List<Question> questions,
   ) async {
     try {
       final List<Answer> answers = _getAllAnswer();
-      Map<Question, Answer> questionAnswerMap = <Question, Answer>{};
-
+      final Map<Question, Answer> questionAnswerMap = <Question, Answer>{};
       for (Question question in questions) {
         final Answer answer = answers.firstWhere(
           (Answer answer) => answer.questionRef == question.id,
         );
         questionAnswerMap[question] = answer;
       }
-
-      return Success(questionAnswerMap);
+      _questionAndAnswer = questionAnswerMap;
+      return Success<Map<Question, Answer>, Exception>(questionAnswerMap);
     } catch (e) {
-      return Failure(Exception('Não foi possível unir: $e'));
+      return Failure<Map<Question, Answer>, Exception>(
+        Exception('Não foi possível unir: $e'),
+      );
     }
   }
 
