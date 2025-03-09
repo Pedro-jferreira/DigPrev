@@ -8,21 +8,23 @@ import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/utils/navigatorContainerWithPageView.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:result_dart/result_dart.dart';
 
 GoRouter router({required AuthNotifier authNotifier}) {
   return GoRouter(
-    initialLocation: AppRoutes.quiz.path,
+    initialLocation: AppRoutes.start.path,
     refreshListenable: authNotifier,
     redirect: (context, state) {
       final isAuthenticated = authNotifier.isAuthenticated;
       final isLoginRoute = state.matchedLocation == AppRoutes.login.path;
+      final currentRoute = state.matchedLocation;
 
-      if(!isAuthenticated){
-        return AppRoutes.login.path;
+      if(AppRoutes.isAuthenticated(currentRoute)){
+        print('<<<isauth>>> ${isAuthenticated}, ${currentRoute}');
+        if(!isAuthenticated){
+          return AppRoutes.login.path;
+        }
       }
       if(isLoginRoute){
         return AppRoutes.quiz.path;

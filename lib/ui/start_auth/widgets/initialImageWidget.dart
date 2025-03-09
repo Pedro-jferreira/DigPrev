@@ -5,28 +5,23 @@ class InitialImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
+    return ShaderMask(
+        blendMode: BlendMode.darken,
+        shaderCallback: (Rect rect) =>
+            const RadialGradient(
+                radius: 0.8,
+                focalRadius: 5,
+                colors: <Color>[
+                  Colors.transparent,
+                  Color(0xff022242)
+                ]
+            ).createShader(rect),
+        child: Image.asset(
           'lib/assets/images/front-view-girl-sitting-table.png',
           width: double.infinity,
           fit: BoxFit.cover,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.black.withBlue(5), // Sombra no topo
-                Colors.black.withAlpha(5),           // Centro transparente
-                Colors.black.withBlue(5), // Sombra embaixo
-              ],
-            ),
-          ),
-        ),
-      ],
+          colorBlendMode: BlendMode.darken,
+        )
     );
-
   }
 }

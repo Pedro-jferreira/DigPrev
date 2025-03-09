@@ -52,7 +52,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
   Widget build(BuildContext context) {
     return Card(
         color: Theme.of(context).colorScheme.primaryContainer,
-        margin: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(20),
         child: Form(
           key: _formKey,
           onChanged: _validateForm,

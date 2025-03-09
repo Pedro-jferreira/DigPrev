@@ -18,11 +18,13 @@ class AppRoutes {
   static const AppRoute start = AppRoute(
       path: '/',
       name: 'start',
+      requiredLogin: false,
       appRoutes: <AppRoute>[login]
   );
   //login
   static const AppRoute login = AppRoute(
       path: '/login',
+      requiredLogin: false,
       name: 'login'
   );
 
@@ -50,17 +52,30 @@ class AppRoutes {
         )
         .isScrollable;
   }
+
+  static bool isAuthenticated(String path) {
+    return allRoutes
+        .firstWhere(
+          (AppRoute route) => route.path == path,
+      orElse:
+          () =>
+      const AppRoute(name: 'default', path: '', requiredLogin: true),
+    )
+    .requiredLogin;
+  }
 }
 
 class AppRoute {
   final String path;
   final String name;
   final bool isScrollable;
+  final bool requiredLogin;
   final List<AppRoute>? appRoutes;
 
   const AppRoute({
     required this.path,
     required this.name,
+    this.requiredLogin = true,
     this.isScrollable = true,
     this.appRoutes,
   });

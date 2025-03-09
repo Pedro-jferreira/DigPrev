@@ -14,7 +14,7 @@ class InitialText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 80),
+          padding: const EdgeInsets.symmetric(vertical: 45),
           child: Column(
             children: <Widget> [
               Text(
