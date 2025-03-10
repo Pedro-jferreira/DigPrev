@@ -21,17 +21,17 @@ class InitialText extends StatelessWidget {
                 titleText,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontWeight: FontWeight.w600, // SemiBold
+                  color: Theme.of(context).colorScheme.tertiaryFixed,
+                  fontWeight: FontWeight.w600,
                   fontSize: 40,
                 ),
               ),
-              const SizedBox(height: 34), // Equivalente ao Spacer
+              const SizedBox(height: 34),
               Text(
                 subtitleText,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.tertiaryFixed,
                   fontWeight: FontWeight.normal,
                   fontSize: 28,
                 ),

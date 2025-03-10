@@ -71,7 +71,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   Widget build(BuildContext context) {
     String? senhaDigitada = '';
     return Card(
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: Theme.of(context).colorScheme.surface,
       margin: const EdgeInsets.all(10),
       child: Form(
         key: _formKey,
@@ -88,7 +88,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -206,6 +206,24 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       },
                     ),
                     const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text('Se já tiver cadastro, '),
+                        TextButton(
+                          onPressed: () {
+                            widget.onLoginPressed();
+                          },
+                          child: Text(
+                            'clique aqui.',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
                     SizedBox(
                       width: double.infinity,
                       child: ListenableBuilder(
@@ -232,16 +250,6 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         }
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    const ExplanatoryTextWidget(
-                        labelText: 'Selecione o número que melhor representa '
-                            'sua resposta',
-                        explanatoryText: ['Totalmente verdade',
-                          'Verdade, na maioria das vezes',
-                          'Falso, na maioria das vezes',
-                          'Totalmente falso'
-                        ]
-                    )
                   ],
                 ),
               ),

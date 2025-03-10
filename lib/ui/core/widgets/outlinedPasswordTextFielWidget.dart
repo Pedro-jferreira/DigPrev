@@ -81,7 +81,6 @@ class _OutlinedPasswordTextFieldComponentState
             }
           },
           decoration: InputDecoration(
-            labelText: widget.title,
             hintText: widget.placeholder,
             helperText: widget.supportingText,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
