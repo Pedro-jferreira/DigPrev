@@ -71,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen>
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               const InitialText(),
+              const SizedBox(height: 30),
               isLoginForm ?
               LoginFormComponent(onRegisterPressed: _switchToRegisterForm,
                 loginViewModel: widget.loginViewModel,)

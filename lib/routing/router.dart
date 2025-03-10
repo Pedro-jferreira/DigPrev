@@ -1,5 +1,4 @@
 import 'package:digprev_flutter/data/repositories/userRepository/authNotifier.dart';
-import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/routing/pages/home.dart';
 import 'package:digprev_flutter/routing/pages/login.dart';
 import 'package:digprev_flutter/routing/pages/profile.dart';
@@ -8,24 +7,25 @@ import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
 import 'package:provider/provider.dart';
 
 
 GoRouter router({required AuthNotifier authNotifier}) {
   return GoRouter(
-    initialLocation: AppRoutes.quiz.path,
+    initialLocation: AppRoutes.start.path,
     refreshListenable: authNotifier,
     redirect: (context, state) {
       final isAuthenticated = authNotifier.isAuthenticated;
       final isLoginRoute = state.matchedLocation == AppRoutes.login.path;
+      final currentRoute = state.matchedLocation;
 
-      if(!isAuthenticated){
-        return AppRoutes.login.path;
+      if(AppRoutes.isAuthenticated(currentRoute)){
+        if(!isAuthenticated){
+          return AppRoutes.login.path;
+        }
       }
       if(isLoginRoute){
         return AppRoutes.quiz.path;

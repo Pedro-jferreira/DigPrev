@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/initialImageWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _StartScreenState extends State<StartScreen>
 
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        context.go('/login');
+        context.goNamed(AppRoutes.login.name);
       }
     });
   }
