@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/home/widgets/dummy.dart';
+import 'package:digprev_flutter/ui/core/widgets/dummy.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

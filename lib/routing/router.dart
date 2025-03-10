@@ -6,12 +6,15 @@ import 'package:digprev_flutter/routing/pages/profile.dart';
 import 'package:digprev_flutter/routing/pages/report.dart';
 import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/utils/navigatorContainerWithPageView.dart';
+import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:result_dart/result_dart.dart';
+import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
+import 'package:provider/provider.dart';
+
 
 GoRouter router({required AuthNotifier authNotifier}) {
   return GoRouter(
@@ -38,7 +41,10 @@ GoRouter router({required AuthNotifier authNotifier}) {
               BuildContext context,
               GoRouterState state,
               StatefulNavigationShell child,
-            ) => HomePageWidget(child: child),
+            ) => HomePageWidget(
+              child: child,
+              viewModel: context.watch<HomeViewModel>(),
+            ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
           StatefulShellBranch(routes: <RouteBase>[PostsRoute()]),
@@ -52,6 +58,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
           return NavigatorContainerWithPageView(
             navigationShell: navigationShell,
             children: children,
+            viewModel: context.watch<HomeViewModel>(),
           );
         },
       ),

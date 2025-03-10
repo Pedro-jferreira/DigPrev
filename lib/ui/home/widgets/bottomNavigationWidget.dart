@@ -1,60 +1,29 @@
+import 'package:digprev_flutter/ui/home/widgets/appNavigationItem.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavigationWidget extends StatefulWidget {
-  const BottomNavigationWidget({
-    required this.onTap,
-    required this.currentIndex,
-    Key? key,
-  }) : super(key: key);
+class BottomNavigationWidget extends StatelessWidget {
   final ValueChanged<int> onTap;
   final int currentIndex;
 
-  @override
-  _BottomNavigationComponentState createState() =>
-      _BottomNavigationComponentState();
-}
-
-class _BottomNavigationComponentState extends State<BottomNavigationWidget> {
-  final List<Map<String, dynamic>> items = [
-    {
-      'route': '/home',
-      'label': 'Início',
-      'icon': Icons.home,
-      'outlinedIcon': Icons.home_outlined,
-    },
-    {
-      'route': '/reports',
-      'label': 'Relatórios',
-      'icon': Icons.leaderboard,
-      'outlinedIcon': Icons.leaderboard_outlined,
-    },
-    {
-      'route': '/profile',
-      'label': 'Perfil',
-      'icon': Icons.person,
-      'outlinedIcon': Icons.person_outline,
-    },
-  ];
+  const BottomNavigationWidget({
+    required this.onTap,
+    required this.currentIndex,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: widget.currentIndex,
-      onTap: widget.onTap,
-      backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-      selectedItemColor: Theme.of(context).colorScheme.primaryContainer,
-      unselectedItemColor: Theme.of(context).colorScheme.secondaryContainer,
-      elevation: 2,
-      // Sombra equivalente a shadow(8.dp)
+      selectedItemColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      currentIndex: currentIndex,
+      onTap: onTap,
       items:
-          items.map((item) {
-            bool isSelected = items.indexOf(item) == widget.currentIndex;
+          getNavigationDestinations().map((AppNavigationItem destination) {
             return BottomNavigationBarItem(
-              icon: Icon(
-                isSelected ? item['icon'] : item['outlinedIcon'],
-                size: 24,
-              ),
-              label: item['label'],
+              label: destination.label,
+              icon: Icon(destination.icon),
+              activeIcon: Icon(destination.selectedIcon)
             );
           }).toList(),
     );
