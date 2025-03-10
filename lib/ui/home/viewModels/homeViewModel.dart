@@ -5,6 +5,13 @@ class HomeViewModel extends ChangeNotifier {
   HomeLayoutState _layoutType = HomeLayoutState.mobile;
   HomeLayoutState get layoutType => _layoutType;
 
+  bool _leading = false;
+  bool get  leading => _leading;
+
+  void setLeadingState(BuildContext context) {
+
+  }
+
   void updateLayout(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     if (width >= 1024) {

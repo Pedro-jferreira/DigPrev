@@ -32,7 +32,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   Widget buildBottomBarScaffold() {
     return Scaffold(
-      appBar: TopBarWidget(),
+      appBar: TopBarWidget(leading: widget.viewModel.leading,),
       body: widget.child,
       bottomNavigationBar: BottomNavigationWidget(
         currentIndex: widget.child.currentIndex,
@@ -93,6 +93,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.didChangeDependencies();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.viewModel.updateLayout(context);
       widget.viewModel.updateLayout(context);
     });
   }
