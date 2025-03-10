@@ -1,4 +1,3 @@
-import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
@@ -102,12 +101,13 @@ class SectionPageState extends State<SectionPageWidget> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final double availableHeight = constraints.maxHeight;
+        final double availableWidth = constraints.maxWidth;
         return Column(
           children: <Widget>[
             if (widget.viewModel.loadComand.isSuccess)
               SizedBox(
                 height: availableHeight * 0.1,
-                width: double.infinity,
+                width: availableWidth,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Align(
@@ -122,7 +122,7 @@ class SectionPageState extends State<SectionPageWidget> {
             if(_sections.length > 1)
             SizedBox(
               height: availableHeight * 0.11,
-              width: double.infinity,
+              width: availableWidth,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: _sections.length < 3 ? 70 : 0,
@@ -142,12 +142,14 @@ class SectionPageState extends State<SectionPageWidget> {
                 scrollDirection: Axis.horizontal,
                 itemCount: _sections.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return QuestionFormWidget(
-                    key: ValueKey(_sections[index].id),
-                    questions: _sections[index].questions,
-                    onPrevious: onPrevious,
-                    onNext: onNext,
-                    viewModel: widget.formViewModel,
+                  return SizedBox(
+                    width: availableWidth, // Garante que cada item ocupe a largura total da tela
+                    child: QuestionFormWidget(
+                      questions: _sections[index].questions,
+                      onPrevious: onPrevious,
+                      onNext: onNext,
+                      viewModel: widget.formViewModel,
+                    ),
                   );
                 },
               ),

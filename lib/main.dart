@@ -2,6 +2,8 @@ import 'package:digprev_flutter/config/dependencies.dart';
 import 'package:digprev_flutter/config/firebase_options.dart';
 import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/routing/router.dart';
+import 'package:digprev_flutter/ui/core/theme/theme.dart';
+import 'package:digprev_flutter/ui/core/theme/util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,15 +20,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    final TextTheme textTheme = createTextTheme(context, "Raleway", "Raleway");
+    final MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp.router(
       title: 'DigPrev',
-
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true
-      ),
-
-
+      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
       supportedLocales: const <Locale>[
         Locale('pt', 'BR'),
         Locale('en', 'US'),
