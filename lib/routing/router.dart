@@ -1,15 +1,17 @@
 import 'package:digprev_flutter/data/repositories/userRepository/authNotifier.dart';
-import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/routing/pages/home.dart';
 import 'package:digprev_flutter/routing/pages/login.dart';
 import 'package:digprev_flutter/routing/pages/profile.dart';
 import 'package:digprev_flutter/routing/pages/report.dart';
 import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/utils/navigatorContainerWithPageView.dart';
+import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
+import 'package:provider/provider.dart';
+
 
 GoRouter router({required AuthNotifier authNotifier}) {
   return GoRouter(
@@ -21,7 +23,6 @@ GoRouter router({required AuthNotifier authNotifier}) {
       final currentRoute = state.matchedLocation;
 
       if(AppRoutes.isAuthenticated(currentRoute)){
-        print('<<<isauth>>> ${isAuthenticated}, ${currentRoute}');
         if(!isAuthenticated){
           return AppRoutes.login.path;
         }
@@ -40,7 +41,10 @@ GoRouter router({required AuthNotifier authNotifier}) {
               BuildContext context,
               GoRouterState state,
               StatefulNavigationShell child,
-            ) => HomePageWidget(child: child),
+            ) => HomePageWidget(
+              child: child,
+              viewModel: context.watch<HomeViewModel>(),
+            ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
           StatefulShellBranch(routes: <RouteBase>[PostsRoute()]),
@@ -54,6 +58,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
           return NavigatorContainerWithPageView(
             navigationShell: navigationShell,
             children: children,
+            viewModel: context.watch<HomeViewModel>(),
           );
         },
       ),

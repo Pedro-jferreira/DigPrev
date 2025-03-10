@@ -28,6 +28,7 @@ UsePageViewReturn usePageView(StatefulNavigationShell navigationShell) {
     }
     return null;
   }, <Object?>[navigationShell.currentIndex]);
+
   final Null Function(dynamic index) onPageChanged = useCallback((
     dynamic index,
   ) {

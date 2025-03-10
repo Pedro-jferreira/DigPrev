@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class TopBarWidget extends StatefulWidget implements PreferredSizeWidget {
-  const TopBarWidget({Key? key}) : super(key: key);
+  final bool? leading;
+
+  const TopBarWidget({this.leading, Key? key}) : super(key: key);
 
   @override
   _TopBarComponentState createState() => _TopBarComponentState();
@@ -24,19 +26,18 @@ class _TopBarComponentState extends State<TopBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       leading:
-          GoRouter.of(context).canPop()
+          widget.leading == true
               ? IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => GoRouter.of(context).pop(),
               )
               : null,
       elevation: 3,
-      // Equivalente ao shadow(8.dp)
-      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       foregroundColor: Theme.of(context).colorScheme.primary,
-      shadowColor: Theme.of(context).colorScheme.onSurfaceVariant,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
+      shadowColor: Theme.of(context).colorScheme.shadow,
       toolbarHeight: 60,
-      // Define a altura da AppBar
       title: Padding(
         padding: const EdgeInsets.only(left: 10),
         child: Text(
@@ -44,7 +45,7 @@ class _TopBarComponentState extends State<TopBarWidget> {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
             fontSize: 24,
             color: Theme.of(context).colorScheme.primary,
           ),
@@ -61,7 +62,6 @@ class _TopBarComponentState extends State<TopBarWidget> {
                   ? Icons
                       .notifications_active // Ícone quando há notificações
                   : Icons.notifications, // Ícone padrão
-              color: Theme.of(context).colorScheme.surfaceTint,
             ),
           ),
         ),
