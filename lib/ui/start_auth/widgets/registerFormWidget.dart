@@ -236,7 +236,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                     const ExplanatoryTextWidget(
                         labelText: 'Selecione o número que melhor representa '
                             'sua resposta',
-                        explanatoryText: ['Totalmente verdade',
+                        explanatoryText: <String>['Totalmente verdade',
                           'Verdade, na maioria das vezes',
                           'Falso, na maioria das vezes',
                           'Totalmente falso'

@@ -22,7 +22,6 @@ class QuestionnaireViewModel extends ChangeNotifier {
     _stagesSubscription = _stageRepository.observeAll().listen(
       (List<Stage> newStages) {
         _stages = newStages;
-        newStages.map( (stage)=> print(stage.toJson()));
         notifyListeners();
       },
       onError:
