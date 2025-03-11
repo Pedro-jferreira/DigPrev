@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class MaterialTheme {
   final TextTheme textTheme;
@@ -344,12 +344,12 @@ class MaterialTheme {
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
     ),
-    scaffoldBackgroundColor: colorScheme.background,
+    scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
   );
 
 
-  List<ExtendedColor> get extendedColors => [
+  List<ExtendedColor> get extendedColors => <ExtendedColor>[
   ];
 }
 

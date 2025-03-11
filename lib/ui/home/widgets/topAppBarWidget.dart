@@ -10,7 +10,7 @@ class TopBarWidget extends StatefulWidget implements PreferredSizeWidget {
   _TopBarComponentState createState() => _TopBarComponentState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(60); // Define a altura preferida
+  Size get preferredSize => const Size.fromHeight(60);
 }
 
 class _TopBarComponentState extends State<TopBarWidget> {
@@ -25,13 +25,12 @@ class _TopBarComponentState extends State<TopBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading:
-          widget.leading == true
-              ? IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => GoRouter.of(context).pop(),
-              )
-              : null,
+      leading:  widget.leading == true
+          ? IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => GoRouter.of(context).pop(),
+      )
+          : null,
       elevation: 3,
       foregroundColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).colorScheme.surface,
