@@ -15,6 +15,15 @@ class AppRoutes {
     canPop: true,
   );
 
+  static const AppRoute report = AppRoute(
+      path: '/report',
+      name: 'report'
+  );
+  static const AppRoute profile =AppRoute(
+      path: '/profile',
+      name: 'profile'
+  );
+
   //start
   static const AppRoute start = AppRoute(
       path: '/',
@@ -29,17 +38,13 @@ class AppRoutes {
       name: 'login'
   );
 
-  //relatorios
-  static const AppRoute posts = AppRoute(path: '/posts', name: 'posts');
 
-  // profile
-  static const AppRoute profile = AppRoute(path: '/profile', name: 'profile');
 
   static final List<AppRoute> allRoutes = <AppRoute>[
     start,
     quiz,
     section,
-    posts,
+    report,
     profile,
   ];
 

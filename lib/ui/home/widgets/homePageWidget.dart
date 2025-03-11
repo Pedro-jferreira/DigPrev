@@ -25,14 +25,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late bool showNavigationDrawer;
 
-
   void openDrawer() {
     scaffoldKey.currentState!.openDrawer();
   }
 
   Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
-      appBar: TopBarWidget(leading: widget.viewModel.showLeading,),
+      appBar: TopBarWidget(leading: widget.viewModel.showLeading),
       body: widget.child,
       bottomNavigationBar: BottomNavigationWidget(
         currentIndex: widget.child.currentIndex,
@@ -46,22 +45,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       key: scaffoldKey,
       body: Row(
         children: <Widget>[
-        NavigationRailWidget(
-              selectedIndex: widget.child.currentIndex,
-              onDestinationSelected:
-                  (int index) => widget.child.goBranch(index),
-              showLeading: widget.viewModel.showLeading,
-              onPressed: () {
-                openDrawer();
-              },
-            ),
+          NavigationRailWidget(
+            selectedIndex: widget.child.currentIndex,
+            onDestinationSelected: (int index) => widget.child.goBranch(index),
+            onPressed: () {
+              openDrawer();
+            },
+          ),
           Expanded(child: Center(child: widget.child)),
         ],
       ),
       drawer: NavigationDrawerWidget(
         selectedIndex: widget.child.currentIndex,
-        onDestinationSelected:
-            (int index) => widget.child.goBranch(index),
+        onDestinationSelected: (int index) => widget.child.goBranch(index),
+
       ),
     );
   }
@@ -70,12 +67,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       body: Row(
         children: <Widget>[
-         NavigationDrawerWidget(
-              selectedIndex: widget.child.currentIndex,
-              onDestinationSelected:
-                  (int index) => widget.child.goBranch(index),
+          NavigationDrawerWidget(
+            selectedIndex: widget.child.currentIndex,
+            onDestinationSelected: (int index) => widget.child.goBranch(index),
+          ),
+
+
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: widget.child,
+              ),
             ),
-          Expanded(child: Center(child: widget.child)),
+          ),
         ],
       ),
     );
@@ -86,15 +91,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.didChangeDependencies();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.viewModel.updateLayout(context);
-      widget.viewModel.updateShowLeading(context);
-      widget.viewModel.updateIsScrollable(context);
-      setState(() {
-      });
+      widget.viewModel.initState(context);
+      setState(() {});
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {

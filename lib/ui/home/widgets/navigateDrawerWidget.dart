@@ -1,40 +1,88 @@
 import 'package:digprev_flutter/ui/home/widgets/appNavigationItem.dart';
+import 'package:digprev_flutter/ui/start_auth/logout/widgets/logoutWidget.dart';
 import 'package:flutter/material.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
-  final int selectedIndex;
-
   const NavigationDrawerWidget({
     required this.selectedIndex,
     required this.onDestinationSelected,
+
     super.key,
   });
 
+  final int selectedIndex;
   final Function(int) onDestinationSelected;
 
   @override
   Widget build(BuildContext context) {
-    return NavigationDrawer(
-      indicatorColor: Theme.of(context).colorScheme.primary,
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
-      surfaceTintColor:Theme.of(context).colorScheme.surface ,
-      onDestinationSelected: onDestinationSelected,
-      selectedIndex: selectedIndex,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
-          child: Text('DigPrev', style: Theme.of(context).textTheme.titleSmall),
+    final List<AppNavigationItem> destinations = getNavigationDestinations();
+    return Drawer(
+      elevation: 20.0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: <Widget>[
+            Header(context),
+            Expanded(
+              child: ListView.builder(
+                itemCount: destinations.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index < destinations.length) {
+                    final AppNavigationItem destination = destinations[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      // Padding entre os itens
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        leading: Icon(destination.icon),
+                        title: Text(destination.label),
+                        onTap: () => onDestinationSelected(index),
+                        selected: selectedIndex == index,
+                        selectedColor:
+                            Theme.of(context).colorScheme.primaryFixed,
+                        selectedTileColor:
+                            Theme.of(context).colorScheme.primary,
+                      ),
+                    );
+                  } else
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Divider(),
+                    );
+                },
+              ),
+            ),
+
+            LogoutWidget(onLogout: () {}, isExtended: true),
+            const SizedBox(height: 20),
+          ],
         ),
-        ...getNavigationDestinations().map((
-          AppNavigationItem destination,
-        ) {
-          return NavigationDrawerDestination(
-            label: Text(destination.label),
-            icon: Icon(destination.icon),
-          );
-        }),
+      ),
+    );
+  }
+
+  Widget Header(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        const SizedBox(height: 30),
+        Text(
+          'DigPrev',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          'Saúde Digital Alimentar', // Substitua com seu subtítulo
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+        const SizedBox(height: 10),
         const Padding(
-          padding: EdgeInsets.fromLTRB(28, 16, 28, 10),
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Divider(),
         ),
       ],

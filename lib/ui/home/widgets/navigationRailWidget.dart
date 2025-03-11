@@ -1,17 +1,15 @@
 import 'package:digprev_flutter/ui/home/widgets/appNavigationItem.dart';
+import 'package:digprev_flutter/ui/start_auth/logout/widgets/logoutWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class NavigationRailWidget extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
-  final bool showLeading;
   final Function() onPressed;
 
   const NavigationRailWidget({
     required this.selectedIndex,
     required this.onDestinationSelected,
-    required this.showLeading,
     required this.onPressed,
     super.key,
   });
@@ -32,15 +30,25 @@ class NavigationRailWidget extends StatelessWidget {
       onDestinationSelected: onDestinationSelected,
       leading: Column(
         children: <Widget>[
-          showLeading
-              ? IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () => GoRouter.of(context).pop(),
-              )
-              : const SizedBox(),
           IconButton(
             icon: const Icon(Icons.menu_rounded),
             onPressed: onPressed,
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 2,
+              right: 2,
+              top: 20,
+            ),
+            child: Text(
+              'DigPrev',
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ],
       ),
@@ -50,19 +58,7 @@ class NavigationRailWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: () {},
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                ),
-              ),
+              LogoutWidget(onLogout: () {}, isExtended: false),
               const SizedBox(height: 20),
             ],
           ),
