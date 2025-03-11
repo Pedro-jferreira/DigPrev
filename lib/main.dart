@@ -20,8 +20,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final brightness = View.of(context).platformDispatcher.platformBrightness;
-    final TextTheme textTheme = createTextTheme(context, "Raleway", "Raleway");
+    final Brightness brightness =
+        View.of(context).platformDispatcher.platformBrightness;
+    final TextTheme textTheme = createTextTheme(context, 'Raleway', 'Raleway');
     final MaterialTheme theme = MaterialTheme(textTheme);
     return MaterialApp.router(
       title: 'DigPrev',
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         Locale('en', 'US'),
         Locale('es', 'ES'),
       ],
-      localizationsDelegates: const <LocalizationsDelegate>[
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,

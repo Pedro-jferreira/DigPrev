@@ -8,7 +8,6 @@ import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:result_command/result_command.dart';
 
 class DynamicFormField extends StatelessWidget {
   const DynamicFormField({

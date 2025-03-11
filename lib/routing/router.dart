@@ -17,17 +17,15 @@ GoRouter router({required AuthNotifier authNotifier}) {
   return GoRouter(
     initialLocation: AppRoutes.start.path,
     refreshListenable: authNotifier,
-    redirect: (context, state) {
-      final isAuthenticated = authNotifier.isAuthenticated;
-      final isLoginRoute = state.matchedLocation == AppRoutes.login.path;
-      final currentRoute = state.matchedLocation;
+    redirect: (BuildContext context, GoRouterState state) {
+      final bool isAuthenticated = authNotifier.isAuthenticated;
+      final bool isLoginRoute = state.matchedLocation == AppRoutes.login.path;
+      final String currentRoute = state.matchedLocation;
 
-      if(AppRoutes.isAuthenticated(currentRoute)){
-        if(!isAuthenticated){
+      if(AppRoutes.requiredLogin(currentRoute) && !isAuthenticated){
           return AppRoutes.login.path;
-        }
       }
-      if(isLoginRoute){
+      if(isLoginRoute && isAuthenticated){
         return AppRoutes.quiz.path;
       }
       return null;

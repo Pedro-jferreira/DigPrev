@@ -25,7 +25,7 @@ class SectionPageWidget extends StatefulWidget {
 }
 
 class SectionPageState extends State<SectionPageWidget> {
-   List<Section> _sections = <Section>[];
+  List<Section> _sections = <Section>[];
   final ScrollController _scrollController = ScrollController();
   int _currentPage = 0;
 
@@ -43,26 +43,22 @@ class SectionPageState extends State<SectionPageWidget> {
     super.dispose();
   }
 
-
-   void _onCommandStateChanged() {
+  void _onCommandStateChanged() {
     final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
         _sections = snapshot.value.sections!;
       });
-    } else if (snapshot is FailureCommand<Stage>) {
-    }
+    } else if (snapshot is FailureCommand<Stage>) {}
   }
-
-
-
 
   void onNext() {
     setState(() {
       if (_currentPage < _sections.length - 1) {
         _currentPage++;
         _scrollToPage(_currentPage);
-      } else GoRouter.of(context).pop();
+      } else
+        GoRouter.of(context).pop();
     });
   }
 
@@ -71,7 +67,8 @@ class SectionPageState extends State<SectionPageWidget> {
       if (_currentPage > 0) {
         _currentPage--;
         _scrollToPage(_currentPage);
-      }else GoRouter.of(context).pop();
+      } else
+        GoRouter.of(context).pop();
     });
   }
 
@@ -95,8 +92,10 @@ class SectionPageState extends State<SectionPageWidget> {
   Widget build(BuildContext context) {
     if (widget.viewModel.loadComand.isRunning) {
       return const Center(child: CircularProgressIndicator());
-    } else if(widget.viewModel.loadComand.isFailure){
-      return const Center(child: Text('falha ao carregar os dados tente novamente mais tarde'));
+    } else if (widget.viewModel.loadComand.isFailure) {
+      return const Center(
+        child: Text('falha ao carregar os dados tente novamente mais tarde'),
+      );
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -119,22 +118,22 @@ class SectionPageState extends State<SectionPageWidget> {
                   ),
                 ),
               ),
-            if(_sections.length > 1)
-            SizedBox(
-              height: availableHeight * 0.11,
-              width: availableWidth,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: _sections.length < 3 ? 70 : 0,
-                ),
-                child: StepperIndicatorWidget(
-                  currentStep: _currentPage,
-                  totalSteps: _sections.length,
-                  canMarkStepComplete: _isStepCompleted,
-                  onStepTapped: _scrollToPage,
+            if (_sections.length > 1)
+              SizedBox(
+                height: availableHeight * 0.11,
+                width: availableWidth,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: _sections.length < 3 ? 70 : 0,
+                  ),
+                  child: StepperIndicatorWidget(
+                    currentStep: _currentPage,
+                    totalSteps: _sections.length,
+                    canMarkStepComplete: _isStepCompleted,
+                    onStepTapped: _scrollToPage,
+                  ),
                 ),
               ),
-            ),
             Expanded(
               child: ListView.builder(
                 controller: _scrollController,
@@ -143,7 +142,7 @@ class SectionPageState extends State<SectionPageWidget> {
                 itemCount: _sections.length,
                 itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
-                    width: availableWidth, // Garante que cada item ocupe a largura total da tela
+                    width: availableWidth,
                     child: QuestionFormWidget(
                       questions: _sections[index].questions,
                       onPrevious: onPrevious,

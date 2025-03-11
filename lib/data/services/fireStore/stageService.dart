@@ -12,13 +12,13 @@ class StageService {
           await db.collection(path).where('id', isEqualTo: id).limit(1).get();
 
       if (querySnapshot.docs.isEmpty) {
-        return Failure(Exception('Documento não encontrado'));
+        return Failure<Stage, Exception>(Exception('Documento não encontrado'));
       }
 
       final Stage stage = Stage.fromJson(querySnapshot.docs.first.data());
-      return Success(stage);
+      return Success<Stage, Exception>(stage);
     } catch (e) {
-      return Failure(Exception(e.toString()));
+      return Failure<Stage, Exception>(Exception(e.toString()));
     }
   }
 

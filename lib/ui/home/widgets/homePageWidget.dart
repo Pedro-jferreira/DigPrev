@@ -24,15 +24,15 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late bool showNavigationDrawer;
-  bool showLeading = false;
+
 
   void openDrawer() {
     scaffoldKey.currentState!.openDrawer();
   }
 
-  Widget buildBottomBarScaffold() {
+  Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
-      appBar: TopBarWidget(),
+      appBar: TopBarWidget(leading: widget.viewModel.showLeading,),
       body: widget.child,
       bottomNavigationBar: BottomNavigationWidget(
         currentIndex: widget.child.currentIndex,
@@ -41,24 +41,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-  Widget buildNavigationRailScaffold() {
+  Widget buildNavigationRailScaffold(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       body: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: NavigationRailWidget(
+        NavigationRailWidget(
               selectedIndex: widget.child.currentIndex,
               onDestinationSelected:
                   (int index) => widget.child.goBranch(index),
-              showLeading: showLeading,
+              showLeading: widget.viewModel.showLeading,
               onPressed: () {
                 openDrawer();
               },
             ),
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
           Expanded(child: Center(child: widget.child)),
         ],
       ),
@@ -74,14 +70,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       body: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: NavigationDrawerWidget(
+         NavigationDrawerWidget(
               selectedIndex: widget.child.currentIndex,
               onDestinationSelected:
                   (int index) => widget.child.goBranch(index),
             ),
-          ),
           Expanded(child: Center(child: widget.child)),
         ],
       ),
@@ -94,24 +87,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.viewModel.updateLayout(context);
+      widget.viewModel.updateShowLeading(context);
+      widget.viewModel.updateIsScrollable(context);
+      setState(() {
+      });
     });
   }
 
-  Widget buildLayout(HomeLayoutState layoutType, BuildContext context) {
-    switch (layoutType) {
-      case HomeLayoutState.desktop:
-        return buildNavigationDrawerScaffold(context);
-      case HomeLayoutState.tablet:
-        return buildNavigationRailScaffold();
-      case HomeLayoutState.smallTablet:
-        return buildBottomBarScaffold();
-      case HomeLayoutState.mobile:
-      return buildBottomBarScaffold();
-    }
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    return buildLayout(widget.viewModel.layoutType, context);
+    switch (widget.viewModel.layoutType) {
+      case HomeLayoutState.desktop:
+        return buildNavigationDrawerScaffold(context);
+      case HomeLayoutState.tablet:
+        return buildNavigationRailScaffold(context);
+      case HomeLayoutState.smallTablet:
+        return buildBottomBarScaffold(context);
+      case HomeLayoutState.mobile:
+        return buildBottomBarScaffold(context);
+    }
   }
 }
