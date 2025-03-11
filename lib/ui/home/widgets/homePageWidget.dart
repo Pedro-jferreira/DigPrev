@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/homeLayoutState.dart';
+import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/bottomNavigationWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/navigateDrawerWidget.dart';
@@ -99,13 +99,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     switch (widget.viewModel.layoutType) {
-      case HomeLayoutState.desktop:
+      case LayoutState.desktop:
         return buildNavigationDrawerScaffold(context);
-      case HomeLayoutState.tablet:
+      case LayoutState.tablet:
         return buildNavigationRailScaffold(context);
-      case HomeLayoutState.smallTablet:
+      case LayoutState.smallTablet:
         return buildBottomBarScaffold(context);
-      case HomeLayoutState.mobile:
+      case LayoutState.mobile:
         return buildBottomBarScaffold(context);
     }
   }

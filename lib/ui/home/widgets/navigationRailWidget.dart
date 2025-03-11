@@ -52,14 +52,14 @@ class NavigationRailWidget extends StatelessWidget {
           ),
         ],
       ),
-      trailing: Expanded(
+      trailing: const Expanded(
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              LogoutWidget(onLogout: () {}, isExtended: false),
-              const SizedBox(height: 20),
+              LogoutWidget( isExtended: false),
+              SizedBox(height: 20),
             ],
           ),
         ),

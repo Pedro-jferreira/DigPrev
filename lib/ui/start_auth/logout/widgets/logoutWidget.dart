@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LogoutWidget extends StatelessWidget {
-  final VoidCallback onLogout;
+
   final bool isExtended;
 
   const LogoutWidget({
-    required this.onLogout,
+
     required this.isExtended,
     Key? key,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class LogoutWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return ElevatedButton(
-          onPressed: onLogout,
+          onPressed: (){},
           style: ElevatedButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: Theme.of(context).colorScheme.primaryFixed,

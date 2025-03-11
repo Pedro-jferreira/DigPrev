@@ -1,4 +1,4 @@
-enum HomeLayoutState {
+enum LayoutState {
   mobile,
   smallTablet,
   tablet,

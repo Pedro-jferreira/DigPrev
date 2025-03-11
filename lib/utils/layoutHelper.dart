@@ -1,29 +1,29 @@
-import 'package:digprev_flutter/ui/core/enum/homeLayoutState.dart';
+import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
 import 'package:flutter/material.dart';
 
-HomeLayoutState getLayoutType(BuildContext context) {
+LayoutState getLayoutType(BuildContext context) {
   final double width = MediaQuery.of(context).size.width;
 
   if (width >= 1024) {
-    return HomeLayoutState.desktop;
+    return LayoutState.desktop;
   } else if (width >= 800) {
-    return HomeLayoutState.tablet;
+    return LayoutState.tablet;
   } else if (width >= 550) {
-    return HomeLayoutState.smallTablet;
+    return LayoutState.smallTablet;
   } else {
-    return HomeLayoutState.mobile;
+    return LayoutState.mobile;
   }
 }
 
-double getContentWidth(BoxConstraints constraints, HomeLayoutState layoutType) {
+double getContentWidth(BoxConstraints constraints, LayoutState layoutType) {
   switch (layoutType) {
-    case HomeLayoutState.mobile:
+    case LayoutState.mobile:
       return constraints.maxWidth * 0.95;
-    case HomeLayoutState.smallTablet:
+    case LayoutState.smallTablet:
       return constraints.maxWidth * 0.85;
-    case HomeLayoutState.tablet:
+    case LayoutState.tablet:
       return constraints.maxWidth * 0.75;
-    case HomeLayoutState.desktop:
+    case LayoutState.desktop:
       return constraints.maxWidth * 0.65;
   }
 }

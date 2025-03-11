@@ -1,13 +1,13 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/core/enum/homeLayoutState.dart';
+import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
 import 'package:digprev_flutter/utils/layoutHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  HomeLayoutState _layoutType = HomeLayoutState.mobile;
+  LayoutState _layoutType = LayoutState.mobile;
 
-  HomeLayoutState get layoutType => _layoutType;
+  LayoutState get layoutType => _layoutType;
 
   bool _showLeading = false;
   bool get showLeading => _showLeading;
@@ -38,8 +38,8 @@ class HomeViewModel extends ChangeNotifier {
 
   void _updateLayout(BuildContext context) {
     _layoutType = getLayoutType(context);
-    if (_layoutType == HomeLayoutState.desktop ||
-        _layoutType == HomeLayoutState.tablet)
+    if (_layoutType == LayoutState.desktop ||
+        _layoutType == LayoutState.tablet)
       _scrollDirection = Axis.vertical;
     else
       _scrollDirection = Axis.horizontal;

@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/homeLayoutState.dart';
+import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/usePageView.dart';
 import 'package:digprev_flutter/utils/layoutHelper.dart';
@@ -43,8 +43,8 @@ class NavigatorContainerWithPageView extends HookWidget {
                 );
                 return Column(
                   children: <Widget>[
-                    if(viewModel.layoutType == HomeLayoutState.desktop||
-                        viewModel.layoutType == HomeLayoutState.tablet)
+                    if(viewModel.layoutType == LayoutState.desktop||
+                        viewModel.layoutType == LayoutState.tablet)
                     TopBar(context),
                     Expanded(
                       child: Center(

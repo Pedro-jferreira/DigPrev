@@ -55,7 +55,7 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
             ),
 
-            LogoutWidget(onLogout: () {}, isExtended: true),
+            const LogoutWidget( isExtended: true),
             const SizedBox(height: 20),
           ],
         ),
