@@ -5,16 +5,13 @@ List<AppNavigationItem> getNavigationDestinations() {
      const AppNavigationItem(
       'Início',
       Icons.home,
-      Icons.home,
     ),
     const AppNavigationItem(
       'Relatórios',
       Icons.leaderboard,
-      Icons.leaderboard,
     ),
     const AppNavigationItem(
       'Perfil',
-      Icons.person,
       Icons.person,
     ),
   ];
@@ -23,7 +20,7 @@ List<AppNavigationItem> getNavigationDestinations() {
 class AppNavigationItem {
   final String label;
   final IconData icon;
-  final IconData selectedIcon;
 
-  const AppNavigationItem(this.label, this.icon, this.selectedIcon);
+
+  const AppNavigationItem(this.label, this.icon,);
 }
