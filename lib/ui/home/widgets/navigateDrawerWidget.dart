@@ -15,7 +15,6 @@ class NavigationDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationDrawer(
-
       indicatorColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       surfaceTintColor:Theme.of(context).colorScheme.surface ,
@@ -24,7 +23,7 @@ class NavigationDrawerWidget extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.fromLTRB(28, 16, 16, 10),
-          child: Text('Header', style: Theme.of(context).textTheme.titleSmall),
+          child: Text('DigPrev', style: Theme.of(context).textTheme.titleSmall),
         ),
         ...getNavigationDestinations().map((
           AppNavigationItem destination,
@@ -32,7 +31,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           return NavigationDrawerDestination(
             label: Text(destination.label),
             icon: Icon(destination.icon),
-            selectedIcon: Icon(destination.selectedIcon),
           );
         }),
         const Padding(
