@@ -1,6 +1,4 @@
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class ExplanatoryTextWidget extends StatefulWidget {
   final String labelText;
