@@ -8,6 +8,7 @@ class StagePageWidget extends StatefulWidget {
   const StagePageWidget({required this.viewModel, super.key});
 
   final QuestionnaireViewModel viewModel;
+
   @override
   State<StagePageWidget> createState() => _StagePageWidgetState();
 }
@@ -15,23 +16,25 @@ class StagePageWidget extends StatefulWidget {
 class _StagePageWidgetState extends State<StagePageWidget> {
   int _currentStageIndex = 0;
   List<Stage> _stages = <Stage>[];
+
   @override
   void initState() {
     super.initState();
     widget.viewModel.init();
     widget.viewModel.addListener(_onStagesChanged);
   }
+
   @override
   void dispose() {
     super.dispose();
     widget.viewModel.removeListener(_onStagesChanged);
   }
+
   void _onStagesChanged() {
     setState(() {
       _stages = widget.viewModel.stages;
     });
   }
-
 
   void _onProgressStateChanged(int index, ProgressState state) {
     if (state == ProgressState.Complete && index == _currentStageIndex) {
@@ -47,6 +50,8 @@ class _StagePageWidgetState extends State<StagePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.viewModel.stages.isEmpty)
+      return const Center(child: CircularProgressIndicator());
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final double availableHeight = constraints.maxHeight;
