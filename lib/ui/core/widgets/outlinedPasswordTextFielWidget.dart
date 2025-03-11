@@ -13,7 +13,7 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
   final Function(String) onValueChange;
 
   const OutlinedPasswordTextFieldComponent({
-    Key? key,
+    required this.onValueChange, Key? key,
     this.title = '',
     this.value = '',
     this.placeholder = '',
@@ -22,7 +22,6 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
     this.tooltipText = '',
     this.errorText = '',
     this.validator,
-    required this.onValueChange,
   }) : super(key: key);
 
   @override
@@ -34,7 +33,6 @@ class _OutlinedPasswordTextFieldComponentState
     extends State<OutlinedPasswordTextFieldComponent> {
   late TextEditingController _controller;
   bool passwordVisible = false;
-  String? _errorText;
 
   @override
   void initState() {
@@ -48,16 +46,6 @@ class _OutlinedPasswordTextFieldComponentState
     super.dispose();
   }
 
-  void _onTextChanged(String input) {
-    String newValue = input;
-    setState(() {
-      _controller.text = newValue;
-      _controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: _controller.text.length),
-      );
-    });
-    widget.onValueChange(newValue);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +60,10 @@ class _OutlinedPasswordTextFieldComponentState
           obscureText: !passwordVisible,
           validator: widget.validator,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          onChanged: (value) {
+          onChanged: (String value) {
             widget.onValueChange(value);
             if (widget.validator != null) {
               setState(() {
-                _errorText = widget.validator!(value);
               });
             }
           },
