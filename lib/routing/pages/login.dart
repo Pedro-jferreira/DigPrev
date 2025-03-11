@@ -11,7 +11,7 @@ class LoginRoute extends GoRoute{
     name: AppRoutes.login.name,
     path: AppRoutes.login.path,
     pageBuilder: (BuildContext context, GoRouterState state) {
-      return MaterialPage(
+      return MaterialPage<dynamic>(
         child: LoginScreen(loginViewModel: context.watch<LoginViewModel>()),
       );
     },
