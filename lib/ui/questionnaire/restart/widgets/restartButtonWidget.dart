@@ -38,7 +38,7 @@ class _RestartButtonWidgetState extends State<RestartButtonWidget>
     return FloatingActionButton(
       onPressed: _onPressed,
       child: RotationTransition(
-        turns: _controller.drive(Tween(begin: 1.0, end: 0.0)),
+        turns: _controller.drive(Tween<double>(begin: 1.0, end: 0.0)),
         child: const Icon(Icons.replay),
       ),
     );
