@@ -40,7 +40,7 @@ class _StagewidgetState extends State<Stagewidget> {
   }
 
   void _updateProgress() {
-    final double valueByViewModel = 0.0;
+    final double valueByViewModel = 0.2;
     if (valueByViewModel != _progress) {
       setState(() {
         _progress = valueByViewModel;

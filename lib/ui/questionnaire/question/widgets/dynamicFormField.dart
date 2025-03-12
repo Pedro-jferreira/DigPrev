@@ -90,7 +90,20 @@ class DynamicFormField extends StatelessWidget {
         );
 
       case InputType.SIM_NAO:
-        return Text(question.question);
+        return RadioButtonWidget(
+          initialSelection:
+          (answer.answers.isNotEmpty)
+              ? answer.answers.first.text
+              : null,
+          labelText: question.question,
+          toolTipText: question.tooltipText,
+          onSaved: onSaved,
+          validator: validator,
+          onChanged: _onItemSelected,
+          radioTexts:
+          question.options?.map((Option option) => option.text!).toList() ??
+              <String>[],
+        );
       case InputType.DATE:
         return Text(question.question);
       case InputType.NUMBER_INPUT:

@@ -175,7 +175,7 @@ class MaterialTheme {
       brightness: Brightness.dark,
       primary: Color(0xff1351b4),
       surfaceTint: Color(0xffb0c6ff),
-      onPrimary: Color(0xff002d6f),
+      onPrimary: Color(0xffffffff),
       primaryContainer: Color(0xffb0c6ff),
       onPrimaryContainer: Color(0xffb8cbff),
       secondary: Color(0xff168821),

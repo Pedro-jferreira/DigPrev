@@ -21,32 +21,38 @@ class StepperIndicatorWidget extends StatefulWidget {
 class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
   @override
   Widget build(BuildContext context) {
-    return Stepper(
-      onStepTapped: widget.onStepTapped,
-      key: ValueKey<int>(widget.totalSteps),
-      currentStep: widget.currentStep,
-      stepIconWidth: 30.0,
-      stepIconHeight:30.0 ,
-      elevation: 0,
-      controlsBuilder:
-          (BuildContext context, ControlsDetails details) =>
-              const SizedBox.shrink(),
-      type: StepperType.horizontal,
-      steps: List<Step>.generate(
-        widget.totalSteps,
-        (int index) {
-          final StepState state  = widget.canMarkStepComplete(index)
-              ? StepState.complete
-              : (index == widget.currentStep
-              ? StepState.editing
-              : StepState.indexed);
+    return Theme(
+      data: ThemeData(
+        canvasColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        colorScheme: Theme.of(context).colorScheme.copyWith(
+          secondary:  Theme.of(context).colorScheme.primary,
+          background: Theme.of(context).colorScheme.surfaceBright,
+        ),
+      ),
+      child: Stepper(
+        onStepTapped: widget.onStepTapped,
+        key: ValueKey<int>(widget.totalSteps),
+        currentStep: widget.currentStep,
+        elevation: 0,
+        controlsBuilder:
+            (BuildContext context, ControlsDetails details) =>
+                const SizedBox.shrink(),
+        type: StepperType.horizontal,
+        steps: List<Step>.generate(widget.totalSteps, (int index) {
+          final StepState state =
+              widget.canMarkStepComplete(index)
+                  ? StepState.complete
+                  : (index == widget.currentStep
+                      ? StepState.editing
+                      : StepState.indexed);
           return Step(
             title: const SizedBox.shrink(),
             content: const SizedBox.shrink(),
             isActive: index <= widget.currentStep,
-            state: state
+            state: state,
           );
         }),
+      ),
     );
   }
 }

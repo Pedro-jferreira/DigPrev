@@ -65,7 +65,7 @@ class _StagePageWidgetState extends State<StagePageWidget> {
                 itemCount: _stages.length,
                 itemBuilder: (BuildContext contex, int index) {
                   return Stagewidget(
-                    isAvailable: _currentStageIndex == index,
+                    isAvailable: true,
                     stage: _stages[index],
                     onProgressStateChanged: (ProgressState state) {
                       _onProgressStateChanged(index, state);

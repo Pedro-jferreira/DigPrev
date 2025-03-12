@@ -7,6 +7,7 @@ import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
@@ -42,6 +43,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
             ) => HomePageWidget(
               child: child,
               viewModel: context.watch<HomeViewModel>(),
+              restartViewModel: context.watch<RestartViewModel>(),
             ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
