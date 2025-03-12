@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/homeLayoutState.dart';
+import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/bottomNavigationWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/navigateDrawerWidget.dart';
@@ -24,15 +24,14 @@ class HomePageWidget extends StatefulWidget {
 class _HomePageWidgetState extends State<HomePageWidget> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late bool showNavigationDrawer;
-  bool showLeading = false;
 
   void openDrawer() {
     scaffoldKey.currentState!.openDrawer();
   }
 
-  Widget buildBottomBarScaffold() {
+  Widget buildBottomBarScaffold(BuildContext context) {
     return Scaffold(
-      appBar: TopBarWidget(),
+      appBar: TopBarWidget(leading: widget.viewModel.showLeading),
       body: widget.child,
       bottomNavigationBar: BottomNavigationWidget(
         currentIndex: widget.child.currentIndex,
@@ -41,31 +40,25 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
-  Widget buildNavigationRailScaffold() {
+  Widget buildNavigationRailScaffold(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
       body: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: NavigationRailWidget(
-              selectedIndex: widget.child.currentIndex,
-              onDestinationSelected:
-                  (int index) => widget.child.goBranch(index),
-              showLeading: showLeading,
-              onPressed: () {
-                openDrawer();
-              },
-            ),
+          NavigationRailWidget(
+            selectedIndex: widget.child.currentIndex,
+            onDestinationSelected: (int index) => widget.child.goBranch(index),
+            onPressed: () {
+              openDrawer();
+            },
           ),
-          const VerticalDivider(thickness: 1, width: 1),
           Expanded(child: Center(child: widget.child)),
         ],
       ),
       drawer: NavigationDrawerWidget(
         selectedIndex: widget.child.currentIndex,
-        onDestinationSelected:
-            (int index) => widget.child.goBranch(index),
+        onDestinationSelected: (int index) => widget.child.goBranch(index),
+
       ),
     );
   }
@@ -74,15 +67,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     return Scaffold(
       body: Row(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: NavigationDrawerWidget(
-              selectedIndex: widget.child.currentIndex,
-              onDestinationSelected:
-                  (int index) => widget.child.goBranch(index),
+          NavigationDrawerWidget(
+            selectedIndex: widget.child.currentIndex,
+            onDestinationSelected: (int index) => widget.child.goBranch(index),
+          ),
+
+
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: widget.child,
+              ),
             ),
           ),
-          Expanded(child: Center(child: widget.child)),
         ],
       ),
     );
@@ -93,25 +91,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.didChangeDependencies();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.viewModel.updateLayout(context);
+      widget.viewModel.initState(context);
+      setState(() {});
     });
-  }
-
-  Widget buildLayout(HomeLayoutState layoutType, BuildContext context) {
-    switch (layoutType) {
-      case HomeLayoutState.desktop:
-        return buildNavigationDrawerScaffold(context);
-      case HomeLayoutState.tablet:
-        return buildNavigationRailScaffold();
-      case HomeLayoutState.smallTablet:
-        return buildBottomBarScaffold();
-      case HomeLayoutState.mobile:
-      return buildBottomBarScaffold();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return buildLayout(widget.viewModel.layoutType, context);
+    switch (widget.viewModel.layoutType) {
+      case LayoutState.desktop:
+        return buildNavigationDrawerScaffold(context);
+      case LayoutState.tablet:
+        return buildNavigationRailScaffold(context);
+      case LayoutState.smallTablet:
+        return buildBottomBarScaffold(context);
+      case LayoutState.mobile:
+        return buildBottomBarScaffold(context);
+    }
   }
 }

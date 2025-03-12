@@ -12,6 +12,16 @@ class AppRoutes {
     path: 'section/:id',
     name: 'section',
     isScrollable: false,
+    canPop: true,
+  );
+
+  static const AppRoute report = AppRoute(
+      path: '/report',
+      name: 'report'
+  );
+  static const AppRoute profile =AppRoute(
+      path: '/profile',
+      name: 'profile'
   );
 
   //start
@@ -28,41 +38,37 @@ class AppRoutes {
       name: 'login'
   );
 
-  //relatorios
-  static const AppRoute posts = AppRoute(path: '/posts', name: 'posts');
 
-  // profile
-  static const AppRoute profile = AppRoute(path: '/profile', name: 'profile');
 
   static final List<AppRoute> allRoutes = <AppRoute>[
     start,
     quiz,
     section,
-    posts,
+    report,
     profile,
   ];
 
   static bool isScrollableForName(String name) {
-    return allRoutes
-        .firstWhere(
-          (AppRoute route) => route.name == name,
-          orElse:
-              () =>
-                  const AppRoute(name: 'default', path: '', isScrollable: true),
-        )
-        .isScrollable;
+    for(AppRoute route in allRoutes){
+      if(route.name == name && route.isScrollable == true) return true;
+    }
+    return false;
   }
 
-  static bool isAuthenticated(String path) {
-    return allRoutes
-        .firstWhere(
-          (AppRoute route) => route.path == path,
-      orElse:
-          () =>
-      const AppRoute(name: 'default', path: '', requiredLogin: true),
-    )
-    .requiredLogin;
+  static bool requiredLogin(String path) {
+    for(AppRoute route in allRoutes){
+      if(route.path == path && route.requiredLogin == true) return true;
+    }
+    return false;
   }
+
+  static bool canPopForName(String name) {
+    for(AppRoute route in allRoutes){
+      if(route.name == name && route.canPop == true) return true;
+    }
+    return false;
+  }
+
 }
 
 class AppRoute {
@@ -70,6 +76,7 @@ class AppRoute {
   final String name;
   final bool isScrollable;
   final bool requiredLogin;
+  final bool canPop;
   final List<AppRoute>? appRoutes;
 
   const AppRoute({
@@ -77,6 +84,7 @@ class AppRoute {
     required this.name,
     this.requiredLogin = true,
     this.isScrollable = true,
+    this.canPop = false,
     this.appRoutes,
   });
 }

@@ -15,59 +15,70 @@ import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewMod
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 List<SingleChildWidget> get providersRemote {
   return <SingleChildWidget>[
-    Provider(create: (context) => StageService()),
-    Provider(create: (context) => ResponseCardService()),
-    Provider(create: (context) => AuthService()),
-    Provider(
+    Provider<StageService>(create: (BuildContext context) => StageService()),
+    Provider<ResponseCardService>(
+      create: (BuildContext context) => ResponseCardService(),
+    ),
+    Provider<AuthService>(create: (BuildContext context) => AuthService()),
+    Provider<StageRepository>(
       create:
-          (context) =>
+          (BuildContext context) =>
               StageRepositoryRemote(stageServie: context.read())
                   as StageRepository,
     ),
-    Provider(
+    Provider<ResponseCardRepository>(
       create:
-          (context) =>
+          (BuildContext context) =>
               ResponseCardRepositoryRemote(responseCardService: context.read())
                   as ResponseCardRepository,
     ),
-    Provider(
+    Provider<AuthRepository>(
       create:
-          (context) =>
+          (BuildContext context) =>
               AuthRepositoryRemote(authService: context.read())
                   as AuthRepository,
     ),
-    Provider(
+    Provider<ResponseCardGenerator>(
       create:
-          (context) =>
+          (BuildContext context) =>
               ResponseCardGeneratorImpl(
                     stageRepository: context.read(),
                     responseCardRepository: context.read(),
                   )
                   as ResponseCardGenerator,
     ),
-    ChangeNotifierProvider(
+    ChangeNotifierProvider<QuestionnaireViewModel>(
       create:
-          (context) => QuestionnaireViewModel(stageRepository: context.read()),
+          (BuildContext context) =>
+              QuestionnaireViewModel(stageRepository: context.read()),
     ),
-    ChangeNotifierProvider(
-      create: (context) => SectionViewModel(stageRepository: context.read()),
+    ChangeNotifierProvider<SectionViewModel>(
+      create:
+          (BuildContext context) =>
+              SectionViewModel(stageRepository: context.read()),
     ),
-    ChangeNotifierProvider(
-      create: (context) => LoginViewModel(authRepository: context.read()),
+    ChangeNotifierProvider<LoginViewModel>(
+      create:
+          (BuildContext context) =>
+              LoginViewModel(authRepository: context.read()),
     ),
-    ChangeNotifierProvider(
-      create: (context) => FormViewModel(repository: context.read()),
+    ChangeNotifierProvider<FormViewModel>(
+      create:
+          (BuildContext context) => FormViewModel(repository: context.read()),
     ),
-    ChangeNotifierProvider(
-      create: (context) => AuthNotifier(authRepository: context.read()),
+    ChangeNotifierProvider<AuthNotifier>(
+      create:
+          (BuildContext context) =>
+              AuthNotifier(authRepository: context.read()),
     ),
-    ChangeNotifierProvider(
-      create: (context) => HomeViewModel(),
+    ChangeNotifierProvider<HomeViewModel>(
+      create: (BuildContext context) => HomeViewModel(),
     ),
   ];
 }

@@ -16,6 +16,7 @@ class BottomNavigationWidget extends StatelessWidget {
     return BottomNavigationBar(
       selectedItemColor: Theme.of(context).colorScheme.primary,
       backgroundColor: Theme.of(context).colorScheme.surface,
+      elevation: 10.0,
       currentIndex: currentIndex,
       onTap: onTap,
       items:
@@ -23,7 +24,6 @@ class BottomNavigationWidget extends StatelessWidget {
             return BottomNavigationBarItem(
               label: destination.label,
               icon: Icon(destination.icon),
-              activeIcon: Icon(destination.selectedIcon)
             );
           }).toList(),
     );

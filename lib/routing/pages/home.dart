@@ -11,21 +11,22 @@ import 'package:provider/provider.dart';
 class HomeRoute extends GoRoute {
   HomeRoute()
     : super(
-        name: AppRoutes.quiz.name ,
+        name: AppRoutes.quiz.name,
         path: AppRoutes.quiz.path,
         pageBuilder:
-            (BuildContext context, GoRouterState state) => MaterialPage(
-              child: StagePageWidget(
-                viewModel: context.watch<QuestionnaireViewModel>(),
-              ),
-            ),
+            (BuildContext context, GoRouterState state) =>
+                MaterialPage<dynamic>(
+                  child: StagePageWidget(
+                    viewModel: context.watch<QuestionnaireViewModel>(),
+                  ),
+                ),
         routes: <RouteBase>[
           GoRoute(
             name: AppRoutes.section.name,
             path: AppRoutes.section.path,
             pageBuilder: (BuildContext context, GoRouterState state) {
               final String id = state.pathParameters['id']!;
-              return MaterialPage(
+              return MaterialPage<dynamic>(
                 child: SectionPageWidget(
                   stageId: id,
                   viewModel: context.watch<SectionViewModel>(),

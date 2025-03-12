@@ -31,7 +31,7 @@ class _StartScreenState extends State<StartScreen>
 
     _controller.forward();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future<Null>.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         context.goNamed(AppRoutes.login.name);
       }

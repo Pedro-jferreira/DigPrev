@@ -7,7 +7,7 @@ class StartViewModel extends ChangeNotifier {
   bool get shouldNavigate => _shouldNavigate;
 
   StartViewModel() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future<Null>.delayed(const Duration(seconds: 3), () {
       _shouldNavigate = true;
       notifyListeners();
     });

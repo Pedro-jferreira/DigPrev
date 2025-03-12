@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 class MaterialTheme {
   final TextTheme textTheme;
@@ -34,7 +34,7 @@ class MaterialTheme {
       scrim: Color(0xff000000),
       inverseSurface: Color(0xff2e3037),
       inversePrimary: Color(0xffb0c6ff),
-      primaryFixed: Color(0xffd9e2ff),
+      primaryFixed: Color(0xffffffff),
       onPrimaryFixed: Color(0xff001945),
       primaryFixedDim: Color(0xffb0c6ff),
       onPrimaryFixedVariant: Color(0xff00429c),
@@ -199,7 +199,7 @@ class MaterialTheme {
       scrim: Color(0xff000000),
       inverseSurface: Color(0xffe2e2eb),
       inversePrimary: Color(0xff225abd),
-      primaryFixed: Color(0xffd9e2ff),
+      primaryFixed: Color(0xffffffff),
       onPrimaryFixed: Color(0xff001945),
       primaryFixedDim: Color(0xffb0c6ff),
       onPrimaryFixedVariant: Color(0xff00429c),
@@ -344,12 +344,12 @@ class MaterialTheme {
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
     ),
-    scaffoldBackgroundColor: colorScheme.background,
+    scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
   );
 
 
-  List<ExtendedColor> get extendedColors => [
+  List<ExtendedColor> get extendedColors => <ExtendedColor>[
   ];
 }
 
