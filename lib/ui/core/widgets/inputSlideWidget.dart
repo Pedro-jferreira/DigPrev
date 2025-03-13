@@ -1,4 +1,4 @@
-
+import 'package:digprev_flutter/ui/core/enum/unicodeState.dart';
 import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/slideWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
@@ -48,6 +48,7 @@ class _InputSlideWidgetState extends State<InputSlideWidget> {
         ExplanatoryTextWidget(
           explanatoryText: widget.explanatoryTexts,
           valueMax: widget.selectTexts.length,
+          state: UnicodeState.Enum,
         ),
         SliderWidget(
           max: widget.selectTexts.length,
