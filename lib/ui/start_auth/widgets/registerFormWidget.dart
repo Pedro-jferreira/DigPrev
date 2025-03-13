@@ -1,5 +1,4 @@
 import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';

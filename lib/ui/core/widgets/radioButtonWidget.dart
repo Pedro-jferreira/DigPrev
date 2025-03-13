@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ class RadioButtonWidget extends FormField<String>{
     required List<String> radioTexts,
     required FormFieldSetter<String> onChanged,
     String? initialSelection,
+    List<String>? explanatoryTexts,
     FormFieldSetter<String>? onSaved,
     FormFieldValidator<String>? validator,
     Key? key,
@@ -38,6 +40,7 @@ class RadioButtonWidgetStateful extends StatefulWidget {
   final String tooltipText;
   final String? initialSelection;
   final List<String> radioTexts;
+  final List<String>? explanatoryTexts;
   final Function(String?) onChanged;
   final FormFieldState<String> state;
 
@@ -47,6 +50,7 @@ class RadioButtonWidgetStateful extends StatefulWidget {
     required this.radioTexts,
     required this.onChanged,
     required this.state,
+    this.explanatoryTexts,
     this.initialSelection,
   });
 
@@ -80,6 +84,10 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        if (widget.explanatoryTexts?.isNotEmpty ?? false)
+          ExplanatoryTextWidget(
+            explanatoryText: widget.explanatoryTexts!,
+          ),
         TitleToolTip(title:widget.labelText,
         tooltipText: widget.tooltipText,),
         Column(
