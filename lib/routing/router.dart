@@ -13,25 +13,41 @@ import 'package:go_router/go_router.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
 import 'package:provider/provider.dart';
 
-
 GoRouter router({required AuthNotifier authNotifier}) {
+  Future<String> getInitialRoute() async {
+    final bool isAuthenticated = authNotifier.isAuthenticated;
+
+    if (isAuthenticated) {
+      return AppRoutes.quiz.path;
+    } else {
+      return AppRoutes.login.path;
+    }
+  }
+
   return GoRouter(
-    initialLocation: AppRoutes.start.path,
+    initialLocation: '/',
     refreshListenable: authNotifier,
+    restorationScopeId: 'app',
     redirect: (BuildContext context, GoRouterState state) {
       final bool isAuthenticated = authNotifier.isAuthenticated;
       final bool isLoginRoute = state.matchedLocation == AppRoutes.login.path;
       final String currentRoute = state.matchedLocation;
 
-      if(AppRoutes.requiredLogin(currentRoute) && !isAuthenticated){
-          return AppRoutes.login.path;
+      if (AppRoutes.requiredLogin(currentRoute) && !isAuthenticated) {
+        return AppRoutes.login.path;
       }
-      if(isLoginRoute && isAuthenticated){
+      if (isLoginRoute && isAuthenticated) {
         return AppRoutes.quiz.path;
       }
       return null;
     },
     routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+        redirect: (BuildContext context, GoRouterState state) async {
+          return await getInitialRoute();
+        },
+      ),
       StartRoute(),
       LoginRoute(),
       StatefulShellRoute(

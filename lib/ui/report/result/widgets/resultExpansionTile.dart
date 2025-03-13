@@ -24,10 +24,9 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
   Widget build(BuildContext context) {
     final String formattedDate = DateFormat('dd/MM/yyyy').format(widget.responseCard.date);
     return Card(
-      elevation: 5,
+      clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
-        shape: LinearBorder.none,
-      collapsedShape: LinearBorder.none,
+          shape: const Border(),
         title: Text(formattedDate),
         leading: Container(
           width: 25,

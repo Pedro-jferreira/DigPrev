@@ -26,7 +26,7 @@ class AppRoutes {
 
   //start
   static const AppRoute start = AppRoute(
-      path: '/',
+      path: '/start',
       name: 'start',
       requiredLogin: false,
       appRoutes: <AppRoute>[login]

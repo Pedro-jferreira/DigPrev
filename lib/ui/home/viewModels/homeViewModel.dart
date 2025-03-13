@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/utils/layoutHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

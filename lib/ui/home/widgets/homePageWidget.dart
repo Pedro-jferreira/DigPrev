@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/bottomNavigationWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/navigateDrawerWidget.dart';

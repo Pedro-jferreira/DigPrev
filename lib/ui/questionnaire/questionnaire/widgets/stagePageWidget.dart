@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/ui/core/enum/progressState.dart';
+import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stageWidget.dart';
 import 'package:flutter/material.dart';
