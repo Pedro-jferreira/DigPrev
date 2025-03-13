@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/unicodeState.dart';
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:flutter/material.dart';
 
 class ExplanatoryTextWidget extends StatefulWidget {

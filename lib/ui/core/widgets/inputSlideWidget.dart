@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/unicodeState.dart';
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/slideWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
