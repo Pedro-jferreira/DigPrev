@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class SliderWidget extends StatefulWidget {
   final int min;
   final int max;
@@ -7,7 +8,7 @@ class SliderWidget extends StatefulWidget {
   const SliderWidget({
     required this.onValueChanged,
     this.max = 8,
-    this.min = 1
+    this.min = 1,
   });
 
   @override
@@ -36,7 +37,8 @@ class _SliderWidgetState extends State<SliderWidget> {
             value: _value,
             min: widget.min.toDouble(),
             max: widget.max.toDouble(),
-            divisions: widget.max - widget.min,  // Divisões sem o zero
+            divisions: widget.max - widget.min,
+            // Divisões sem o zero
             onChanged: (double value) {
               setState(() {
                 _value = value;
@@ -51,14 +53,17 @@ class _SliderWidgetState extends State<SliderWidget> {
             final double tickSpacing = sliderWidth / (widget.max - widget.min);
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(widget.max - widget.min + 1, (int index) {
+              children: List<Widget>.generate(widget.max - widget.min + 1, (
+                int index,
+              ) {
                 return Container(
                   width: tickSpacing,
                   child: Text(
-                    '${widget.min + index}',  // Exibição do valor começando de 'min'
+                    '${widget.min + index}',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontSize: 14, fontWeight: FontWeight.bold
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 );

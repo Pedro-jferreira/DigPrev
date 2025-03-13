@@ -5,14 +5,13 @@ import 'package:digprev_flutter/routing/router.dart';
 import 'package:digprev_flutter/ui/core/theme/themePreference.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MultiProvider(providers: providersRemote, child: MyApp()));
+  runApp(MultiProvider(providers: providersRemote, child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -23,9 +22,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  Brightness _brightness =
-      SchedulerBinding.instance.platformDispatcher.platformBrightness;
-
   @override
   void initState() {
     super.initState();

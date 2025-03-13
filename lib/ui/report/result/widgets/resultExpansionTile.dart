@@ -63,7 +63,7 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: <Widget>[
                 IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.share_rounded,

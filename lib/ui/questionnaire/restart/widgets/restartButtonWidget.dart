@@ -1,6 +1,5 @@
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class RestartButtonWidget extends StatefulWidget {
   const RestartButtonWidget({required this.viewModel,super.key});

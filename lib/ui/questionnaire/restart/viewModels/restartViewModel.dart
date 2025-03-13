@@ -1,7 +1,4 @@
-import 'dart:async';
-
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepository.dart';
-import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
 import 'package:flutter/material.dart';

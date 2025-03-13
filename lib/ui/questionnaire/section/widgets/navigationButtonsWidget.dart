@@ -19,7 +19,7 @@ class NavigationButtonsWidget extends StatelessWidget {
         children: <Widget>[
           FilledButton.icon(
             onPressed: onPrevious,
-            icon:  const Icon(Icons.arrow_back,), // Ícone de seta para a esquerda
+            icon:  const Icon(Icons.arrow_back,),
             label: const Text('Voltar'),
           ),
           FilledButton.icon(

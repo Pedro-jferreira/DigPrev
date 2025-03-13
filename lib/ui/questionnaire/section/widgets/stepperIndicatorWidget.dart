@@ -26,7 +26,7 @@ class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
         canvasColor: Theme.of(context).colorScheme.surfaceContainerLow,
         colorScheme: Theme.of(context).colorScheme.copyWith(
           secondary:  Theme.of(context).colorScheme.primary,
-          background: Theme.of(context).colorScheme.surfaceBright,
+          surface: Theme.of(context).colorScheme.surfaceBright,
         ),
       ),
       child: Stepper(

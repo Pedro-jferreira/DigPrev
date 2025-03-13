@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
+import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/ui/report/result/widgets/resultExpansionTile.dart';
 import 'package:digprev_flutter/ui/report/widgets/resultIndicatorCardWidget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class reportPageWidget extends StatelessWidget {
       id: '',
       userRef: '',
       date: DateTime.now(),
-      sections: [],
+      sections: <SectionAnswer>[],
       isCalculated: true,
       isCompleted: true,
     );
@@ -25,7 +26,6 @@ class reportPageWidget extends StatelessWidget {
     ];
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final double availableHeight = constraints.maxHeight;
         return Column(
           children: <Widget>[
             SizedBox(

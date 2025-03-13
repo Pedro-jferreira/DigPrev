@@ -39,15 +39,14 @@ class DynamicFormField extends StatelessWidget {
   }
 
   Future<void> _onItemSelected(String? value) async {
-    if(value != null){
+    if (value != null) {
       final Option option = question.optionsQuestions.firstWhere(
-            (Option opt) => opt.text == value,
+        (Option opt) => opt.text == value,
       );
       final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
       await viewModel.update(answerUpdate, question.id.toString());
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,28 +59,27 @@ class DynamicFormField extends StatelessWidget {
           supportingText: question.supportingText,
           onChanged: _onItemSelected,
           initialValue:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           selectTexts:
-          question.optionsQuestions.map((Option option) => option.text!).toList(),
+              question.optionsQuestions
+                  .map((Option option) => option.text!)
+                  .toList(),
           onSaved: onSaved,
           validator: validator,
-
         );
       case InputType.RADIOBUTTON:
         return RadioButtonWidget(
           initialSelection:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           labelText: question.question,
           toolTipText: question.tooltipText,
           onSaved: onSaved,
           validator: validator,
           onChanged: _onItemSelected,
           radioTexts:
-              question.optionsQuestions.map((Option option) => option.text!).toList(),
+              question.optionsQuestions
+                  .map((Option option) => option.text!)
+                  .toList(),
         );
 
       case InputType.NUMBERFIELD:
@@ -90,9 +88,7 @@ class DynamicFormField extends StatelessWidget {
           placeholderText: question.placeholder,
           supportingText: question.supportingText,
           initialValue:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           keyboardType: TextInputType.number,
           onSaved: onSaved,
           onChanged: _onChange,
@@ -105,5 +101,4 @@ class DynamicFormField extends StatelessWidget {
         return Text(question.question);
     }
   }
-
 }
