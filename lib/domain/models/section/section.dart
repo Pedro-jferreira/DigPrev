@@ -15,7 +15,7 @@ class Section with _$Section {
     required int? maxValue,
     required TypeCalculate typeCalculate,
     required List<StageLabel>? textUnderBar,
-    required List<Question> questions,
+    required List<Question>? questions,
   }) = _Section;
 
   factory Section.fromJson(Map<String, dynamic> json) =>

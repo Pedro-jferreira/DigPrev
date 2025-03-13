@@ -26,7 +26,7 @@ mixin _$Section {
   int? get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
   List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
-  List<Question> get questions => throw _privateConstructorUsedError;
+  List<Question>? get questions => throw _privateConstructorUsedError;
 
   /// Serializes this Section to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $SectionCopyWith<$Res> {
     int? maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
-    List<Question> questions,
+    List<Question>? questions,
   });
 }
 
@@ -72,7 +72,7 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
     Object? maxValue = freezed,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
-    Object? questions = null,
+    Object? questions = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -102,10 +102,10 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                     : textUnderBar // ignore: cast_nullable_to_non_nullable
                         as List<StageLabel>?,
             questions:
-                null == questions
+                freezed == questions
                     ? _value.questions
                     : questions // ignore: cast_nullable_to_non_nullable
-                        as List<Question>,
+                        as List<Question>?,
           )
           as $Val,
     );
@@ -126,7 +126,7 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
     int? maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
-    List<Question> questions,
+    List<Question>? questions,
   });
 }
 
@@ -149,7 +149,7 @@ class __$$SectionImplCopyWithImpl<$Res>
     Object? maxValue = freezed,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
-    Object? questions = null,
+    Object? questions = freezed,
   }) {
     return _then(
       _$SectionImpl(
@@ -179,10 +179,10 @@ class __$$SectionImplCopyWithImpl<$Res>
                 : textUnderBar // ignore: cast_nullable_to_non_nullable
                     as List<StageLabel>?,
         questions:
-            null == questions
+            freezed == questions
                 ? _value._questions
                 : questions // ignore: cast_nullable_to_non_nullable
-                    as List<Question>,
+                    as List<Question>?,
       ),
     );
   }
@@ -197,7 +197,7 @@ class _$SectionImpl implements _Section {
     required this.maxValue,
     required this.typeCalculate,
     required final List<StageLabel>? textUnderBar,
-    required final List<Question> questions,
+    required final List<Question>? questions,
   }) : _textUnderBar = textUnderBar,
        _questions = questions;
 
@@ -222,12 +222,14 @@ class _$SectionImpl implements _Section {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Question> _questions;
+  final List<Question>? _questions;
   @override
-  List<Question> get questions {
+  List<Question>? get questions {
+    final value = _questions;
+    if (value == null) return null;
     if (_questions is EqualUnmodifiableListView) return _questions;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_questions);
+    return EqualUnmodifiableListView(value);
   }
 
   @override
@@ -289,7 +291,7 @@ abstract class _Section implements Section {
     required final int? maxValue,
     required final TypeCalculate typeCalculate,
     required final List<StageLabel>? textUnderBar,
-    required final List<Question> questions,
+    required final List<Question>? questions,
   }) = _$SectionImpl;
 
   factory _Section.fromJson(Map<String, dynamic> json) = _$SectionImpl.fromJson;
@@ -305,7 +307,7 @@ abstract class _Section implements Section {
   @override
   List<StageLabel>? get textUnderBar;
   @override
-  List<Question> get questions;
+  List<Question>? get questions;
 
   /// Create a copy of Section
   /// with the given fields replaced by the non-null parameter values.

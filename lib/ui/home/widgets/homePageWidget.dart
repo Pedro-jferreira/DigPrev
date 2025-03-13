@@ -109,8 +109,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.didChangeDependencies();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.viewModel.initState(context);
-      setState(() {});
+      if (mounted)
+        widget.viewModel.initState(context);
     });
   }
 

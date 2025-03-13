@@ -48,8 +48,7 @@ class _QuestionFormState extends State<QuestionFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (
-    widget.viewModel.responseCard == null) {
+    if (widget.viewModel.responseCard == null) {
       return Form(
         key: _formKey,
         child: SizedBox(

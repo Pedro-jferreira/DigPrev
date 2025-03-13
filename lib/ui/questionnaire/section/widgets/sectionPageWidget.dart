@@ -112,7 +112,7 @@ class SectionPageState extends State<SectionPageWidget> {
                       return  SizedBox(
 
                           child: QuestionFormWidget(
-                            questions: _sections[index].questions,
+                            questions: _sections[index].questions!,
                             onPrevious: onPrevious,
                             onNext: onNext,
                             viewModel: widget.formViewModel,
