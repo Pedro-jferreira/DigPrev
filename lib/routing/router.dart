@@ -7,30 +7,47 @@ import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/homePageWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/navigatorContainerWithPageView.dart';
 import 'package:provider/provider.dart';
 
-
 GoRouter router({required AuthNotifier authNotifier}) {
+  Future<String> getInitialRoute() async {
+    final bool isAuthenticated = authNotifier.isAuthenticated;
+
+    if (isAuthenticated) {
+      return AppRoutes.quiz.path;
+    } else {
+      return AppRoutes.login.path;
+    }
+  }
+
   return GoRouter(
-    initialLocation: AppRoutes.start.path,
+    initialLocation: '/quiz',
     refreshListenable: authNotifier,
+    restorationScopeId: 'app',
     redirect: (BuildContext context, GoRouterState state) {
-      final bool isAuthenticated = authNotifier.isAuthenticated;
+/*      final bool isAuthenticated = authNotifier.isAuthenticated;
       final bool isLoginRoute = state.matchedLocation == AppRoutes.login.path;
       final String currentRoute = state.matchedLocation;
 
-      if(AppRoutes.requiredLogin(currentRoute) && !isAuthenticated){
-          return AppRoutes.login.path;
+      if (AppRoutes.requiredLogin(currentRoute) && !isAuthenticated) {
+        return AppRoutes.login.path;
       }
-      if(isLoginRoute && isAuthenticated){
+      if (isLoginRoute && isAuthenticated) {
         return AppRoutes.quiz.path;
-      }
+      }*/
       return null;
     },
     routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+        redirect: (BuildContext context, GoRouterState state) async {
+          return await getInitialRoute();
+        },
+      ),
       StartRoute(),
       LoginRoute(),
       StatefulShellRoute(
@@ -42,6 +59,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
             ) => HomePageWidget(
               child: child,
               viewModel: context.watch<HomeViewModel>(),
+              restartViewModel: context.watch<RestartViewModel>(),
             ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),

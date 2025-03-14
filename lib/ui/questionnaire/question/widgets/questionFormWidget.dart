@@ -31,11 +31,12 @@ class _QuestionFormState extends State<QuestionFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
   StreamSubscription<Result<ResponseCard>>? _subscription;
+  late Map<Question, Answer> _questionAndAnswer;
 
   @override
   void initState() {
-    super.initState();
     _subscription = widget.viewModel.observerPending(widget.questions);
+    super.initState();
   }
 
   @override
@@ -47,12 +48,10 @@ class _QuestionFormState extends State<QuestionFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewModel.questionAndAnswer.isEmpty ||
-        widget.viewModel.responseCard == null) {
+    if (widget.viewModel.responseCard == null) {
       return Form(
         key: _formKey,
         child: SizedBox(
-          width: MediaQuery.of(context).size.width,
           child: ListView(children: <Widget>[const LinearProgressIndicator()]),
         ),
       );
@@ -60,15 +59,16 @@ class _QuestionFormState extends State<QuestionFormWidget> {
     return Form(
       key: _formKey,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width,
         child: ListView.builder(
           controller: _scrollController,
           itemCount: widget.questions.length + 1,
           itemBuilder: (BuildContext context, int index) {
+            _questionAndAnswer = widget.viewModel.joinQuestionAndAnswer(
+              widget.questions,
+            );
             if (index < widget.questions.length) {
               final Question question = widget.questions[index];
-              final Answer answer =
-                  widget.viewModel.questionAndAnswer[question]!;
+              final Answer answer = _questionAndAnswer[question]!;
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,

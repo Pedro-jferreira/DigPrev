@@ -13,6 +13,7 @@ import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseC
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -79,6 +80,11 @@ List<SingleChildWidget> get providersRemote {
     ),
     ChangeNotifierProvider<HomeViewModel>(
       create: (BuildContext context) => HomeViewModel(),
+    ),
+    ChangeNotifierProvider<RestartViewModel>(
+      create: (BuildContext context) => RestartViewModel(
+          cardGenerator: context.read(),
+          repository: context.read()),
     ),
   ];
 }

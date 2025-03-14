@@ -1,7 +1,9 @@
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:flutter/material.dart';
 
 class RestartButtonWidget extends StatefulWidget {
-  const RestartButtonWidget({super.key});
+  const RestartButtonWidget({required this.viewModel,super.key});
+  final RestartViewModel viewModel;
 
   @override
   State<RestartButtonWidget> createState() =>
@@ -23,12 +25,12 @@ class _RestartButtonWidgetState extends State<RestartButtonWidget>
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
   void _onPressed() {
-    if (!_controller.isAnimating) {
+    widget.viewModel.generateCardResponse.execute();
+    if ( widget.viewModel.generateCardResponse.isRunning) {
       _controller.repeat();
     }
   }

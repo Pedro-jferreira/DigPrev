@@ -1,4 +1,5 @@
-import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
+
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:flutter/material.dart';
 
 LayoutState getLayoutType(BuildContext context) {

@@ -26,7 +26,7 @@ class SectionPageWidget extends StatefulWidget {
 
 class SectionPageState extends State<SectionPageWidget> {
   List<Section> _sections = <Section>[];
-  final ScrollController _scrollController = ScrollController();
+  final PageController _scrollController = PageController();
   int _currentPage = 0;
 
   @override
@@ -99,63 +99,76 @@ class SectionPageState extends State<SectionPageWidget> {
     }
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        final double availableHeight = constraints.maxHeight;
-        final double availableWidth = constraints.maxWidth;
-        return Column(
-          children: <Widget>[
-            if (widget.viewModel.loadComand.isSuccess)
-              SizedBox(
-                height: availableHeight * 0.1,
-                width: availableWidth,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      _sections[_currentPage].title,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
+        return Card(
+          child: Column(
+            children: <Widget>[
+              Header(),
+              Expanded(
+                child: PageView.builder(
+                    controller: _scrollController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _sections.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return  SizedBox(
+
+                          child: QuestionFormWidget(
+                            questions: _sections[index].questions!,
+                            onPrevious: onPrevious,
+                            onNext: onNext,
+                            viewModel: widget.formViewModel,
+                          ),
+                        );
+                    },
                   ),
                 ),
-              ),
-            if (_sections.length > 1)
-              SizedBox(
-                height: availableHeight * 0.11,
-                width: availableWidth,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: _sections.length < 3 ? 70 : 0,
-                  ),
-                  child: StepperIndicatorWidget(
-                    currentStep: _currentPage,
-                    totalSteps: _sections.length,
-                    canMarkStepComplete: _isStepCompleted,
-                    onStepTapped: _scrollToPage,
-                  ),
-                ),
-              ),
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                itemCount: _sections.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    width: availableWidth,
-                    child: QuestionFormWidget(
-                      questions: _sections[index].questions,
-                      onPrevious: onPrevious,
-                      onNext: onNext,
-                      viewModel: widget.formViewModel,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+
+            ],
+          ),
         );
       },
+    );
+  }
+
+  Widget Header() {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 50, maxHeight: 136),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Ajusta ao tamanho dos filhos
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 20 ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  _sections[_currentPage].title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
+            if (_sections.length > 1)
+              Flexible(
+                child: StepperIndicatorWidget(
+                  currentStep: _currentPage,
+                  totalSteps: _sections.length,
+                  canMarkStepComplete: _isStepCompleted,
+                  onStepTapped: _scrollToPage,
+                ),
+              ),
+            if(_sections.length <= 1)const SizedBox(
+              height: 10,
+            ),
+            const Divider(),
+          ],
+        ),
+      ),
     );
   }
 }

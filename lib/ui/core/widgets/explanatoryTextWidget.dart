@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/enum/unicodeState.dart';
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:flutter/material.dart';
 
 class ExplanatoryTextWidget extends StatefulWidget {
@@ -47,19 +47,19 @@ class _ExplanatoryTextWidgetState extends State<ExplanatoryTextWidget> {
           String prefix;
           switch (widget.state) {
             case UnicodeState.Ball:
-              prefix = "•"; // Bolinha Unicode
+              prefix = '•'; // Bolinha Unicode
               break;
             case UnicodeState.Hifen:
-              prefix = "-"; // Hífen
+              prefix = '-'; // Hífen
               break;
             case UnicodeState.Enum:
               final int index = isLast && widget.valueMax != null
                   ? widget.valueMax!
                   : entry.key + 1;
-              prefix = "$index -"; // Mantém numeração
+              prefix = '$index -'; // Mantém numeração
               break;
             default: // UnicodeState.Enum (ou qualquer outro padrão)
-              prefix = ""; // Hífen
+              prefix = ''; // Hífen
               break;
           }
           final String text = entry.value;

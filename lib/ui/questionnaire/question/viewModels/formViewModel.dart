@@ -27,7 +27,6 @@ class FormViewModel extends ChangeNotifier {
         (Exception onFailure) => null,
       );
       notifyListeners();
-      _joinQuestionAndAnswer(questions);
     });
   }
 
@@ -47,8 +46,7 @@ class FormViewModel extends ChangeNotifier {
     }
   }
 
-  void _joinQuestionAndAnswer(List<Question> questions) {
-    if (_responseCard != null) {
+  Map<Question, Answer> joinQuestionAndAnswer(List<Question> questions) {
       final List<Answer> answers = _getAllAnswer();
       final Map<Question, Answer> questionAnswerMap = <Question, Answer>{};
 
@@ -59,9 +57,7 @@ class FormViewModel extends ChangeNotifier {
           }
         }
       }
-      _questionAndAnswer = questionAnswerMap;
-      notifyListeners();
-    }
+      return questionAnswerMap;
   }
 
   List<Answer> _getAllAnswer() {

@@ -9,7 +9,9 @@ class LoginViewModel extends ChangeNotifier {
       : _authRepository = authRepository;
   final AuthRepository _authRepository;
   bool _isLoading = false;
+  bool get isLoading => _isLoading;
   String? _errorMessage;
+  String? get errorMessage => _errorMessage;
 
   Future<Result<void>> login(LoginModel credentials) async {
     final ResultDart<UserModel, Exception> result = await

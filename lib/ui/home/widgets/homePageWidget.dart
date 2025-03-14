@@ -1,19 +1,23 @@
-import 'package:digprev_flutter/ui/core/enum/layoutState.dart';
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/bottomNavigationWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/navigateDrawerWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/navigationRailWidget.dart';
 import 'package:digprev_flutter/ui/home/widgets/topAppBarWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePageWidget extends StatefulWidget {
   final StatefulNavigationShell child;
   final HomeViewModel viewModel;
+  final RestartViewModel restartViewModel;
 
   const HomePageWidget({
     required this.child,
     required this.viewModel,
+    required this.restartViewModel,
     super.key,
   });
 
@@ -37,6 +41,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         currentIndex: widget.child.currentIndex,
         onTap: (int index) => widget.child.goBranch(index),
       ),
+      floatingActionButton: floatingActionButton(),
     );
   }
 
@@ -58,9 +63,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       drawer: NavigationDrawerWidget(
         selectedIndex: widget.child.currentIndex,
         onDestinationSelected: (int index) => widget.child.goBranch(index),
-
       ),
+      floatingActionButton: floatingActionButton(),
     );
+  }
+
+  Widget? floatingActionButton() {
+    if (widget.restartViewModel.responseCard == null)
+      return RestartButtonWidget(viewModel: widget.restartViewModel);
+
+    return null;
   }
 
   Widget buildNavigationDrawerScaffold(BuildContext context) {
@@ -72,7 +84,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             onDestinationSelected: (int index) => widget.child.goBranch(index),
           ),
 
-
           Expanded(
             child: Center(
               child: Padding(
@@ -83,7 +94,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ),
         ],
       ),
+      floatingActionButton: floatingActionButton(),
     );
+  }
+
+  @override
+  void initState() {
+    widget.restartViewModel.observerPending();
+    super.initState();
   }
 
   @override
@@ -91,8 +109,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.didChangeDependencies();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.viewModel.initState(context);
-      setState(() {});
+      if (mounted)
+        widget.viewModel.initState(context);
     });
   }
 

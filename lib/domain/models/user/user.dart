@@ -3,11 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user.freezed.dart';
+
 part 'user.g.dart';
 
 @freezed
 class UserModel with _$UserModel {
-  const factory UserModel ({
+  const factory UserModel({
     required String? id,
     required String nome,
     required String cpf,
@@ -16,7 +17,8 @@ class UserModel with _$UserModel {
     required String email,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }
 // criar classe/documento termos de consentimento com data, body e titulo
 // aqui criar a lista de termos, os checks dos termos e telefone

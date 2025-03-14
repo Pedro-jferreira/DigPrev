@@ -21,14 +21,16 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Question {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  int get counter => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
   String get placeholder => throw _privateConstructorUsedError;
   String get supportingText => throw _privateConstructorUsedError;
   String get tooltipText => throw _privateConstructorUsedError;
   InputType get inputType => throw _privateConstructorUsedError;
-  List<String>? get explanatoryTexts => throw _privateConstructorUsedError;
-  List<Option>? get options => throw _privateConstructorUsedError;
+  List<ExplanatoryTexts>? get explanatoryTexts =>
+      throw _privateConstructorUsedError;
+  List<Option> get optionsQuestions => throw _privateConstructorUsedError;
 
   /// Serializes this Question to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,14 +48,15 @@ abstract class $QuestionCopyWith<$Res> {
       _$QuestionCopyWithImpl<$Res, Question>;
   @useResult
   $Res call({
-    int id,
+    String id,
+    int counter,
     String question,
     String placeholder,
     String supportingText,
     String tooltipText,
     InputType inputType,
-    List<String>? explanatoryTexts,
-    List<Option>? options,
+    List<ExplanatoryTexts>? explanatoryTexts,
+    List<Option> optionsQuestions,
   });
 }
 
@@ -73,13 +76,14 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
   @override
   $Res call({
     Object? id = null,
+    Object? counter = null,
     Object? question = null,
     Object? placeholder = null,
     Object? supportingText = null,
     Object? tooltipText = null,
     Object? inputType = null,
     Object? explanatoryTexts = freezed,
-    Object? options = freezed,
+    Object? optionsQuestions = null,
   }) {
     return _then(
       _value.copyWith(
@@ -87,6 +91,11 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                 null == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            counter:
+                null == counter
+                    ? _value.counter
+                    : counter // ignore: cast_nullable_to_non_nullable
                         as int,
             question:
                 null == question
@@ -117,12 +126,12 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                 freezed == explanatoryTexts
                     ? _value.explanatoryTexts
                     : explanatoryTexts // ignore: cast_nullable_to_non_nullable
-                        as List<String>?,
-            options:
-                freezed == options
-                    ? _value.options
-                    : options // ignore: cast_nullable_to_non_nullable
-                        as List<Option>?,
+                        as List<ExplanatoryTexts>?,
+            optionsQuestions:
+                null == optionsQuestions
+                    ? _value.optionsQuestions
+                    : optionsQuestions // ignore: cast_nullable_to_non_nullable
+                        as List<Option>,
           )
           as $Val,
     );
@@ -139,14 +148,15 @@ abstract class _$$QuestionImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    int id,
+    String id,
+    int counter,
     String question,
     String placeholder,
     String supportingText,
     String tooltipText,
     InputType inputType,
-    List<String>? explanatoryTexts,
-    List<Option>? options,
+    List<ExplanatoryTexts>? explanatoryTexts,
+    List<Option> optionsQuestions,
   });
 }
 
@@ -165,13 +175,14 @@ class __$$QuestionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? counter = null,
     Object? question = null,
     Object? placeholder = null,
     Object? supportingText = null,
     Object? tooltipText = null,
     Object? inputType = null,
     Object? explanatoryTexts = freezed,
-    Object? options = freezed,
+    Object? optionsQuestions = null,
   }) {
     return _then(
       _$QuestionImpl(
@@ -179,6 +190,11 @@ class __$$QuestionImplCopyWithImpl<$Res>
             null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        counter:
+            null == counter
+                ? _value.counter
+                : counter // ignore: cast_nullable_to_non_nullable
                     as int,
         question:
             null == question
@@ -209,12 +225,12 @@ class __$$QuestionImplCopyWithImpl<$Res>
             freezed == explanatoryTexts
                 ? _value._explanatoryTexts
                 : explanatoryTexts // ignore: cast_nullable_to_non_nullable
-                    as List<String>?,
-        options:
-            freezed == options
-                ? _value._options
-                : options // ignore: cast_nullable_to_non_nullable
-                    as List<Option>?,
+                    as List<ExplanatoryTexts>?,
+        optionsQuestions:
+            null == optionsQuestions
+                ? _value._optionsQuestions
+                : optionsQuestions // ignore: cast_nullable_to_non_nullable
+                    as List<Option>,
       ),
     );
   }
@@ -225,21 +241,24 @@ class __$$QuestionImplCopyWithImpl<$Res>
 class _$QuestionImpl implements _Question {
   const _$QuestionImpl({
     required this.id,
+    required this.counter,
     required this.question,
     required this.placeholder,
     required this.supportingText,
     required this.tooltipText,
     required this.inputType,
-    required final List<String>? explanatoryTexts,
-    required final List<Option>? options,
+    required final List<ExplanatoryTexts>? explanatoryTexts,
+    required final List<Option> optionsQuestions,
   }) : _explanatoryTexts = explanatoryTexts,
-       _options = options;
+       _optionsQuestions = optionsQuestions;
 
   factory _$QuestionImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuestionImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
+  @override
+  final int counter;
   @override
   final String question;
   @override
@@ -250,9 +269,9 @@ class _$QuestionImpl implements _Question {
   final String tooltipText;
   @override
   final InputType inputType;
-  final List<String>? _explanatoryTexts;
+  final List<ExplanatoryTexts>? _explanatoryTexts;
   @override
-  List<String>? get explanatoryTexts {
+  List<ExplanatoryTexts>? get explanatoryTexts {
     final value = _explanatoryTexts;
     if (value == null) return null;
     if (_explanatoryTexts is EqualUnmodifiableListView)
@@ -261,19 +280,18 @@ class _$QuestionImpl implements _Question {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Option>? _options;
+  final List<Option> _optionsQuestions;
   @override
-  List<Option>? get options {
-    final value = _options;
-    if (value == null) return null;
-    if (_options is EqualUnmodifiableListView) return _options;
+  List<Option> get optionsQuestions {
+    if (_optionsQuestions is EqualUnmodifiableListView)
+      return _optionsQuestions;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_optionsQuestions);
   }
 
   @override
   String toString() {
-    return 'Question(id: $id, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, options: $options)';
+    return 'Question(id: $id, counter: $counter, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, optionsQuestions: $optionsQuestions)';
   }
 
   @override
@@ -282,6 +300,7 @@ class _$QuestionImpl implements _Question {
         (other.runtimeType == runtimeType &&
             other is _$QuestionImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.counter, counter) || other.counter == counter) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             (identical(other.placeholder, placeholder) ||
@@ -296,7 +315,10 @@ class _$QuestionImpl implements _Question {
               other._explanatoryTexts,
               _explanatoryTexts,
             ) &&
-            const DeepCollectionEquality().equals(other._options, _options));
+            const DeepCollectionEquality().equals(
+              other._optionsQuestions,
+              _optionsQuestions,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -304,13 +326,14 @@ class _$QuestionImpl implements _Question {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    counter,
     question,
     placeholder,
     supportingText,
     tooltipText,
     inputType,
     const DeepCollectionEquality().hash(_explanatoryTexts),
-    const DeepCollectionEquality().hash(_options),
+    const DeepCollectionEquality().hash(_optionsQuestions),
   );
 
   /// Create a copy of Question
@@ -329,21 +352,24 @@ class _$QuestionImpl implements _Question {
 
 abstract class _Question implements Question {
   const factory _Question({
-    required final int id,
+    required final String id,
+    required final int counter,
     required final String question,
     required final String placeholder,
     required final String supportingText,
     required final String tooltipText,
     required final InputType inputType,
-    required final List<String>? explanatoryTexts,
-    required final List<Option>? options,
+    required final List<ExplanatoryTexts>? explanatoryTexts,
+    required final List<Option> optionsQuestions,
   }) = _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
       _$QuestionImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
+  @override
+  int get counter;
   @override
   String get question;
   @override
@@ -355,9 +381,9 @@ abstract class _Question implements Question {
   @override
   InputType get inputType;
   @override
-  List<String>? get explanatoryTexts;
+  List<ExplanatoryTexts>? get explanatoryTexts;
   @override
-  List<Option>? get options;
+  List<Option> get optionsQuestions;
 
   /// Create a copy of Question
   /// with the given fields replaced by the non-null parameter values.

@@ -29,32 +29,28 @@ class DynamicFormField extends StatelessWidget {
 
   Future<void> _onChange(String value) async {
     final Option option = Option(
-      id: 0,
+      counter: 0,
       text: value,
       valueScore: null,
       intensity: null,
-      days: null,
     );
     final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
     await viewModel.update(answerUpdate, question.id.toString());
   }
 
   Future<void> _onItemSelected(String? value) async {
-    if(value != null){
-      final Option option = question.options!.firstWhere(
-            (Option opt) => opt.text == value,
+    if (value != null) {
+      final Option option = question.optionsQuestions.firstWhere(
+        (Option opt) => opt.text == value,
       );
       final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
       await viewModel.update(answerUpdate, question.id.toString());
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     switch (question.inputType) {
-      case InputType.TEXT_INPUT:
-        return Text(question.question);
       case InputType.SELECT:
         return SelectWidget(
           labelText: question.question,
@@ -63,45 +59,36 @@ class DynamicFormField extends StatelessWidget {
           supportingText: question.supportingText,
           onChanged: _onItemSelected,
           initialValue:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           selectTexts:
-          question.options?.map((Option option) => option.text!).toList() ??
-              <String>[],
+              question.optionsQuestions
+                  .map((Option option) => option.text!)
+                  .toList(),
           onSaved: onSaved,
           validator: validator,
-
         );
-      case InputType.RADIO_BUTTOM:
+      case InputType.RADIOBUTTON:
         return RadioButtonWidget(
           initialSelection:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           labelText: question.question,
           toolTipText: question.tooltipText,
           onSaved: onSaved,
           validator: validator,
           onChanged: _onItemSelected,
           radioTexts:
-              question.options?.map((Option option) => option.text!).toList() ??
-              <String>[],
+              question.optionsQuestions
+                  .map((Option option) => option.text!)
+                  .toList(),
         );
 
-      case InputType.SIM_NAO:
-        return Text(question.question);
-      case InputType.DATE:
-        return Text(question.question);
-      case InputType.NUMBER_INPUT:
+      case InputType.NUMBERFIELD:
         return TextFieldWidget(
           labelText: question.question,
           placeholderText: question.placeholder,
           supportingText: question.supportingText,
           initialValue:
-              (answer.answers.isNotEmpty)
-                  ? answer.answers.first.text
-                  : null,
+              (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           keyboardType: TextInputType.number,
           onSaved: onSaved,
           onChanged: _onChange,
@@ -110,7 +97,8 @@ class DynamicFormField extends StatelessWidget {
             FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
           ],
         );
+      case InputType.SLIDER:
+        return Text(question.question);
     }
   }
-
 }

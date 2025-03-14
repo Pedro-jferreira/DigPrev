@@ -4,7 +4,7 @@ import 'package:result_dart/result_dart.dart';
 
 class StageService {
   final FirebaseFirestore db = FirebaseFirestore.instance;
-  final String path = 'questionarios';
+  final String path = 'questionario_backup';
 
   AsyncResult<Stage> findById(int id) async {
     try {
