@@ -18,3 +18,5 @@ class UserModel with _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
 }
+// criar classe/documento termos de consentimento com data, body e titulo
+// aqui criar a lista de termos, os checks dos termos e telefone
