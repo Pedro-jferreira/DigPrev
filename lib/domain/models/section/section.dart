@@ -10,12 +10,14 @@ part 'section.g.dart';
 @freezed
 class Section with _$Section {
   const factory Section({
-    required int id,
+    required double id,
     required String title,
     required int? maxValue,
     required TypeCalculate typeCalculate,
     required List<StageLabel>? textUnderBar,
     required List<Question> questions,
+    required List<Section>? subSections,
+    required bool? hasChart,
   }) = _Section;
 
   factory Section.fromJson(Map<String, dynamic> json) =>
