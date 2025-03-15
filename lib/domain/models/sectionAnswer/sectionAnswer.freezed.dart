@@ -25,6 +25,8 @@ mixin _$SectionAnswer {
   String get title => throw _privateConstructorUsedError;
   String get sectionRef => throw _privateConstructorUsedError;
   List<Answer> get answers => throw _privateConstructorUsedError;
+  List<SectionAnswer>? get subSectionsAnswers =>
+      throw _privateConstructorUsedError;
   double get score => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
 
@@ -50,6 +52,7 @@ abstract class $SectionAnswerCopyWith<$Res> {
     String title,
     String sectionRef,
     List<Answer> answers,
+    List<SectionAnswer>? subSectionsAnswers,
     double score,
     bool isCalculated,
   });
@@ -74,6 +77,7 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
     Object? title = null,
     Object? sectionRef = null,
     Object? answers = null,
+    Object? subSectionsAnswers = freezed,
     Object? score = null,
     Object? isCalculated = null,
   }) {
@@ -99,6 +103,11 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
                     ? _value.answers
                     : answers // ignore: cast_nullable_to_non_nullable
                         as List<Answer>,
+            subSectionsAnswers:
+                freezed == subSectionsAnswers
+                    ? _value.subSectionsAnswers
+                    : subSectionsAnswers // ignore: cast_nullable_to_non_nullable
+                        as List<SectionAnswer>?,
             score:
                 null == score
                     ? _value.score
@@ -129,6 +138,7 @@ abstract class _$$SectionAnswerImplCopyWith<$Res>
     String title,
     String sectionRef,
     List<Answer> answers,
+    List<SectionAnswer>? subSectionsAnswers,
     double score,
     bool isCalculated,
   });
@@ -152,6 +162,7 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
     Object? title = null,
     Object? sectionRef = null,
     Object? answers = null,
+    Object? subSectionsAnswers = freezed,
     Object? score = null,
     Object? isCalculated = null,
   }) {
@@ -177,6 +188,11 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
                 ? _value._answers
                 : answers // ignore: cast_nullable_to_non_nullable
                     as List<Answer>,
+        subSectionsAnswers:
+            freezed == subSectionsAnswers
+                ? _value._subSectionsAnswers
+                : subSectionsAnswers // ignore: cast_nullable_to_non_nullable
+                    as List<SectionAnswer>?,
         score:
             null == score
                 ? _value.score
@@ -200,9 +216,11 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     required this.title,
     required this.sectionRef,
     required final List<Answer> answers,
+    required final List<SectionAnswer>? subSectionsAnswers,
     required this.score,
     required this.isCalculated,
-  }) : _answers = answers;
+  }) : _answers = answers,
+       _subSectionsAnswers = subSectionsAnswers;
 
   factory _$SectionAnswerImpl.fromJson(Map<String, dynamic> json) =>
       _$$SectionAnswerImplFromJson(json);
@@ -221,6 +239,17 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     return EqualUnmodifiableListView(_answers);
   }
 
+  final List<SectionAnswer>? _subSectionsAnswers;
+  @override
+  List<SectionAnswer>? get subSectionsAnswers {
+    final value = _subSectionsAnswers;
+    if (value == null) return null;
+    if (_subSectionsAnswers is EqualUnmodifiableListView)
+      return _subSectionsAnswers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final double score;
   @override
@@ -228,7 +257,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
 
   @override
   String toString() {
-    return 'SectionAnswer(id: $id, title: $title, sectionRef: $sectionRef, answers: $answers, score: $score, isCalculated: $isCalculated)';
+    return 'SectionAnswer(id: $id, title: $title, sectionRef: $sectionRef, answers: $answers, subSectionsAnswers: $subSectionsAnswers, score: $score, isCalculated: $isCalculated)';
   }
 
   @override
@@ -241,6 +270,10 @@ class _$SectionAnswerImpl implements _SectionAnswer {
             (identical(other.sectionRef, sectionRef) ||
                 other.sectionRef == sectionRef) &&
             const DeepCollectionEquality().equals(other._answers, _answers) &&
+            const DeepCollectionEquality().equals(
+              other._subSectionsAnswers,
+              _subSectionsAnswers,
+            ) &&
             (identical(other.score, score) || other.score == score) &&
             (identical(other.isCalculated, isCalculated) ||
                 other.isCalculated == isCalculated));
@@ -254,6 +287,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
     title,
     sectionRef,
     const DeepCollectionEquality().hash(_answers),
+    const DeepCollectionEquality().hash(_subSectionsAnswers),
     score,
     isCalculated,
   );
@@ -278,6 +312,7 @@ abstract class _SectionAnswer implements SectionAnswer {
     required final String title,
     required final String sectionRef,
     required final List<Answer> answers,
+    required final List<SectionAnswer>? subSectionsAnswers,
     required final double score,
     required final bool isCalculated,
   }) = _$SectionAnswerImpl;
@@ -293,6 +328,8 @@ abstract class _SectionAnswer implements SectionAnswer {
   String get sectionRef;
   @override
   List<Answer> get answers;
+  @override
+  List<SectionAnswer>? get subSectionsAnswers;
   @override
   double get score;
   @override
