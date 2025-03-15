@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
-import 'package:digprev_flutter/utils/layoutHelper.dart';
+import 'package:digprev_flutter/utils/helpers/layoutHelper.dart';
+import 'package:digprev_flutter/utils/helpers/sliverAppBarHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,32 +10,8 @@ class SliverAppBarWidget extends StatelessWidget {
     super.key,
     this.onStretchTrigger,
   });
-
   final String title;
   final Future<void> Function()? onStretchTrigger;
-
-  (double? collapsedHeight, double expandedHeight) calculateAppBarHeights(
-    String title,
-    bool hasLeading,
-  ) {
-    final double? maxValueCollapsed = hasLeading ? 80.0 : null;
-    final double maxExpandedHeight = hasLeading ? 180.0 : 130.0;
-    final int length = title.length;
-
-    double? finalValueCollapsed = maxValueCollapsed;
-    double? finalValueExpanded = maxExpandedHeight;
-    if (length <= 30) {
-      finalValueCollapsed = hasLeading ? null : null;
-      finalValueExpanded = hasLeading ? 100 : 100;
-    } else if (length > 30 && length <= 40) {
-      finalValueExpanded = hasLeading ? 170 : 120;
-    }
-
-    return (
-      finalValueCollapsed,
-      finalValueExpanded,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +21,7 @@ class SliverAppBarWidget extends StatelessWidget {
     final (
       double? collapsedHeight,
       double expandedHeight,
-    ) = calculateAppBarHeights(title, hasLeading);
+    ) = SliverAppBarHelper.calculateAppBarHeights(title, hasLeading);
 
     return SliverAppBar(
       automaticallyImplyLeading: false,

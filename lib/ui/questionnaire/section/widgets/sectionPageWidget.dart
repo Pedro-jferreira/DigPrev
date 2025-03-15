@@ -47,7 +47,7 @@ class SectionPageState extends State<SectionPageWidget> {
     final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
-        _sections = snapshot.value.sections!;
+        _sections = snapshot.value.sections;
       });
     } else if (snapshot is FailureCommand<Stage>) {}
   }
@@ -104,7 +104,7 @@ class SectionPageState extends State<SectionPageWidget> {
           child: Stack(
             children: <Widget>[
                 Column(
-                  children: [
+                  children: <Widget>[
                     if (hasStepper)
                       const SizedBox(height: 67,),
                     Expanded(
