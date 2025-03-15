@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
-import 'package:digprev_flutter/utils/helpers/layoutHelper.dart';
+import 'package:digprev_flutter/utils/layoutUtils.dart';
 import 'package:digprev_flutter/utils/helpers/sliverAppBarHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +15,7 @@ class SliverAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LayoutState layout = getLayoutType(context);
+    final LayoutState layout = determineLayoutState(context);
     final bool hasLeading =
         (layout == LayoutState.mobile || layout == LayoutState.smallTablet);
     final (

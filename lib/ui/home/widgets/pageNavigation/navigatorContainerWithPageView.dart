@@ -1,7 +1,7 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
 import 'package:digprev_flutter/ui/home/widgets/pageNavigation/usePageView.dart';
-import 'package:digprev_flutter/utils/helpers/layoutHelper.dart';
+import 'package:digprev_flutter/utils/layoutUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +37,7 @@ class NavigatorContainerWithPageView extends HookWidget {
           children.map((Widget widget) {
             return LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                final double contentWidth = getContentWidth(
+                final double contentWidth = calculateContentWidth(
                   constraints,
                   viewModel.layoutType,
                 );
