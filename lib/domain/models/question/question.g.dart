@@ -23,6 +23,10 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
           (json['optionsQuestions'] as List<dynamic>)
               .map((e) => Option.fromJson(e as Map<String, dynamic>))
               .toList(),
+      disableQuestions:
+          (json['disableQuestions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
     );
 
 Map<String, dynamic> _$$QuestionImplToJson(
@@ -38,6 +42,7 @@ Map<String, dynamic> _$$QuestionImplToJson(
   'explanatoryTexts':
       instance.explanatoryTexts?.map((e) => e.toJson()).toList(),
   'optionsQuestions': instance.optionsQuestions.map((e) => e.toJson()).toList(),
+  'disableQuestions': instance.disableQuestions,
 };
 
 const _$InputTypeEnumMap = {
@@ -45,4 +50,6 @@ const _$InputTypeEnumMap = {
   InputType.RADIOBUTTON: 'RADIOBUTTON',
   InputType.NUMBERFIELD: 'NUMBERFIELD',
   InputType.SLIDER: 'SLIDER',
+  InputType.SIM_NAO: 'SIM_NAO',
+  InputType.FREQUENCY_TIME: 'FREQUENCY_TIME',
 };

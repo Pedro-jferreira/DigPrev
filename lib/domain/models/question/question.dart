@@ -19,6 +19,7 @@ class Question with _$Question {
     required InputType inputType,
     required List<ExplanatoryTexts>? explanatoryTexts,
     required List<Option> optionsQuestions,
+    required List<String>? disableQuestions
   }) = _Question;
 
   factory Question.fromJson(Map<String, dynamic> json) =>

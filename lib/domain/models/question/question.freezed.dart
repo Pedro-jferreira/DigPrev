@@ -31,6 +31,7 @@ mixin _$Question {
   List<ExplanatoryTexts>? get explanatoryTexts =>
       throw _privateConstructorUsedError;
   List<Option> get optionsQuestions => throw _privateConstructorUsedError;
+  List<String>? get disableQuestions => throw _privateConstructorUsedError;
 
   /// Serializes this Question to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -57,6 +58,7 @@ abstract class $QuestionCopyWith<$Res> {
     InputType inputType,
     List<ExplanatoryTexts>? explanatoryTexts,
     List<Option> optionsQuestions,
+    List<String>? disableQuestions,
   });
 }
 
@@ -84,6 +86,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? inputType = null,
     Object? explanatoryTexts = freezed,
     Object? optionsQuestions = null,
+    Object? disableQuestions = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -132,6 +135,11 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                     ? _value.optionsQuestions
                     : optionsQuestions // ignore: cast_nullable_to_non_nullable
                         as List<Option>,
+            disableQuestions:
+                freezed == disableQuestions
+                    ? _value.disableQuestions
+                    : disableQuestions // ignore: cast_nullable_to_non_nullable
+                        as List<String>?,
           )
           as $Val,
     );
@@ -157,6 +165,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
     InputType inputType,
     List<ExplanatoryTexts>? explanatoryTexts,
     List<Option> optionsQuestions,
+    List<String>? disableQuestions,
   });
 }
 
@@ -183,6 +192,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? inputType = null,
     Object? explanatoryTexts = freezed,
     Object? optionsQuestions = null,
+    Object? disableQuestions = freezed,
   }) {
     return _then(
       _$QuestionImpl(
@@ -231,6 +241,11 @@ class __$$QuestionImplCopyWithImpl<$Res>
                 ? _value._optionsQuestions
                 : optionsQuestions // ignore: cast_nullable_to_non_nullable
                     as List<Option>,
+        disableQuestions:
+            freezed == disableQuestions
+                ? _value._disableQuestions
+                : disableQuestions // ignore: cast_nullable_to_non_nullable
+                    as List<String>?,
       ),
     );
   }
@@ -249,8 +264,10 @@ class _$QuestionImpl implements _Question {
     required this.inputType,
     required final List<ExplanatoryTexts>? explanatoryTexts,
     required final List<Option> optionsQuestions,
+    required final List<String>? disableQuestions,
   }) : _explanatoryTexts = explanatoryTexts,
-       _optionsQuestions = optionsQuestions;
+       _optionsQuestions = optionsQuestions,
+       _disableQuestions = disableQuestions;
 
   factory _$QuestionImpl.fromJson(Map<String, dynamic> json) =>
       _$$QuestionImplFromJson(json);
@@ -289,9 +306,20 @@ class _$QuestionImpl implements _Question {
     return EqualUnmodifiableListView(_optionsQuestions);
   }
 
+  final List<String>? _disableQuestions;
+  @override
+  List<String>? get disableQuestions {
+    final value = _disableQuestions;
+    if (value == null) return null;
+    if (_disableQuestions is EqualUnmodifiableListView)
+      return _disableQuestions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'Question(id: $id, counter: $counter, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, optionsQuestions: $optionsQuestions)';
+    return 'Question(id: $id, counter: $counter, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, optionsQuestions: $optionsQuestions, disableQuestions: $disableQuestions)';
   }
 
   @override
@@ -318,6 +346,10 @@ class _$QuestionImpl implements _Question {
             const DeepCollectionEquality().equals(
               other._optionsQuestions,
               _optionsQuestions,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._disableQuestions,
+              _disableQuestions,
             ));
   }
 
@@ -334,6 +366,7 @@ class _$QuestionImpl implements _Question {
     inputType,
     const DeepCollectionEquality().hash(_explanatoryTexts),
     const DeepCollectionEquality().hash(_optionsQuestions),
+    const DeepCollectionEquality().hash(_disableQuestions),
   );
 
   /// Create a copy of Question
@@ -361,6 +394,7 @@ abstract class _Question implements Question {
     required final InputType inputType,
     required final List<ExplanatoryTexts>? explanatoryTexts,
     required final List<Option> optionsQuestions,
+    required final List<String>? disableQuestions,
   }) = _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
@@ -384,6 +418,8 @@ abstract class _Question implements Question {
   List<ExplanatoryTexts>? get explanatoryTexts;
   @override
   List<Option> get optionsQuestions;
+  @override
+  List<String>? get disableQuestions;
 
   /// Create a copy of Question
   /// with the given fields replaced by the non-null parameter values.
