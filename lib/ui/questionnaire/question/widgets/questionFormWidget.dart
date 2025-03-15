@@ -1,18 +1,11 @@
 import 'dart:async';
 
-import 'package:digprev_flutter/domain/models/answer/answer.dart';
-import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/widgets/dynamicFormField.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/sliverAppBarWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/question/widgets/sliverListQuestion.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
-import 'package:digprev_flutter/utils/layoutHelper.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:result_dart/result_dart.dart';
 
 class QuestionFormWidget extends StatefulWidget {
