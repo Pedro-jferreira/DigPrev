@@ -17,8 +17,8 @@ _$SectionImpl _$$SectionImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => StageLabel.fromJson(e as Map<String, dynamic>))
               .toList(),
       questions:
-          (json['questions'] as List<dynamic>?)
-              ?.map((e) => Question.fromJson(e as Map<String, dynamic>))
+          (json['questions'] as List<dynamic>)
+              .map((e) => Question.fromJson(e as Map<String, dynamic>))
               .toList(),
     );
 
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$SectionImplToJson(_$SectionImpl instance) =>
       'maxValue': instance.maxValue,
       'typeCalculate': _$TypeCalculateEnumMap[instance.typeCalculate]!,
       'textUnderBar': instance.textUnderBar?.map((e) => e.toJson()).toList(),
-      'questions': instance.questions?.map((e) => e.toJson()).toList(),
+      'questions': instance.questions.map((e) => e.toJson()).toList(),
     };
 
 const _$TypeCalculateEnumMap = {

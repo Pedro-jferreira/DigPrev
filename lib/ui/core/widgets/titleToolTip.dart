@@ -1,5 +1,5 @@
 
-import 'package:digprev_flutter/ui/core/widgets/toolTipWidget.dart';
+import 'package:digprev_flutter/ui/core/widgets/toolTipButtonWidget.dart';
 import 'package:flutter/material.dart';
 
 class TitleToolTip extends StatelessWidget {
@@ -13,24 +13,26 @@ class TitleToolTip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      color: Colors.red,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 5),
+              padding: const EdgeInsets.only(left: 5, top: 5),
               child: Text(
                 title,
                 style: Theme.of(context).textTheme.titleMedium,
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                softWrap: true, // Permite a quebra de linha
               ),
             ),
           ),
-          ToolTipWidget(labelText: tooltipText),
+      ToolTipButtonWidget(labelText: tooltipText),
+
         ],
-      );
+      ),
+    );
   }
 }
 
