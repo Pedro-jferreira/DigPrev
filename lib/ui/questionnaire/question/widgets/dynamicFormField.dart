@@ -69,7 +69,7 @@ class DynamicFormField extends StatelessWidget {
           validator: validator,
         );
       case InputType.RADIOBUTTON:
-        List<String>? texts = [];
+        List<String>? texts = <String>[];
         if (question.explanatoryTexts != null ) {
           for(ExplanatoryTexts explanatoryTexts in question.explanatoryTexts!){
             if(explanatoryTexts.explanatoryText != null){
