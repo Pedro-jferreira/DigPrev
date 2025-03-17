@@ -69,6 +69,18 @@ class DataNascimentoValidator extends LucidValidator<DateTime> {
   }
 }
 
+class TelefoneValidator extends LucidValidator<String> {
+  TelefoneValidator() {
+    final String pattern = (r'^[0-9]+$');
+    ruleFor((String telefone) => telefone, key: '')
+        .isNotNull()
+        .notEmpty()
+        .maxLength(11)
+        .minLength(11)
+        .matchesPattern(pattern);
+  }
+}
+
 class LoginValidator extends LucidValidator<LoginModel>{
   final LoginModel loginModel = LoginModel();
   LoginValidator(){

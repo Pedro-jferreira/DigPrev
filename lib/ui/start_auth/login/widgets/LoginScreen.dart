@@ -1,7 +1,7 @@
-import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/RegisterFormWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/loginFormWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/start_auth/login/widgets/registerFormWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/start/widgets/introTextWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/login/widgets/loginFormWidget.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

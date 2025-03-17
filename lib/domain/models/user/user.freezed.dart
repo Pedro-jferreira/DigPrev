@@ -21,13 +21,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get nome => throw _privateConstructorUsedError;
   String get cpf => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
+  String get telefone => throw _privateConstructorUsedError;
+  List<ConsentFormModel>? get consentForms =>
+      throw _privateConstructorUsedError;
+  List<String>? get acceptedConsentForms => throw _privateConstructorUsedError;
 
   /// Serializes this UserModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,12 +49,15 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call({
-    String? id,
+    String id,
     String nome,
     String cpf,
     String senha,
     @TimestampSerializer() DateTime dataNascimento,
     String email,
+    String telefone,
+    List<ConsentFormModel>? consentForms,
+    List<String>? acceptedConsentForms,
   });
 }
 
@@ -69,20 +76,23 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? nome = null,
     Object? cpf = null,
     Object? senha = null,
     Object? dataNascimento = null,
     Object? email = null,
+    Object? telefone = null,
+    Object? consentForms = freezed,
+    Object? acceptedConsentForms = freezed,
   }) {
     return _then(
       _value.copyWith(
             id:
-                freezed == id
+                null == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as String,
             nome:
                 null == nome
                     ? _value.nome
@@ -108,6 +118,21 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
                     ? _value.email
                     : email // ignore: cast_nullable_to_non_nullable
                         as String,
+            telefone:
+                null == telefone
+                    ? _value.telefone
+                    : telefone // ignore: cast_nullable_to_non_nullable
+                        as String,
+            consentForms:
+                freezed == consentForms
+                    ? _value.consentForms
+                    : consentForms // ignore: cast_nullable_to_non_nullable
+                        as List<ConsentFormModel>?,
+            acceptedConsentForms:
+                freezed == acceptedConsentForms
+                    ? _value.acceptedConsentForms
+                    : acceptedConsentForms // ignore: cast_nullable_to_non_nullable
+                        as List<String>?,
           )
           as $Val,
     );
@@ -124,12 +149,15 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String? id,
+    String id,
     String nome,
     String cpf,
     String senha,
     @TimestampSerializer() DateTime dataNascimento,
     String email,
+    String telefone,
+    List<ConsentFormModel>? consentForms,
+    List<String>? acceptedConsentForms,
   });
 }
 
@@ -147,20 +175,23 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
     Object? nome = null,
     Object? cpf = null,
     Object? senha = null,
     Object? dataNascimento = null,
     Object? email = null,
+    Object? telefone = null,
+    Object? consentForms = freezed,
+    Object? acceptedConsentForms = freezed,
   }) {
     return _then(
       _$UserModelImpl(
         id:
-            freezed == id
+            null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as String,
         nome:
             null == nome
                 ? _value.nome
@@ -186,6 +217,21 @@ class __$$UserModelImplCopyWithImpl<$Res>
                 ? _value.email
                 : email // ignore: cast_nullable_to_non_nullable
                     as String,
+        telefone:
+            null == telefone
+                ? _value.telefone
+                : telefone // ignore: cast_nullable_to_non_nullable
+                    as String,
+        consentForms:
+            freezed == consentForms
+                ? _value._consentForms
+                : consentForms // ignore: cast_nullable_to_non_nullable
+                    as List<ConsentFormModel>?,
+        acceptedConsentForms:
+            freezed == acceptedConsentForms
+                ? _value._acceptedConsentForms
+                : acceptedConsentForms // ignore: cast_nullable_to_non_nullable
+                    as List<String>?,
       ),
     );
   }
@@ -201,13 +247,17 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     required this.senha,
     @TimestampSerializer() required this.dataNascimento,
     required this.email,
-  });
+    required this.telefone,
+    final List<ConsentFormModel>? consentForms,
+    final List<String>? acceptedConsentForms,
+  }) : _consentForms = consentForms,
+       _acceptedConsentForms = acceptedConsentForms;
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
-  final String? id;
+  final String id;
   @override
   final String nome;
   @override
@@ -219,10 +269,32 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   final DateTime dataNascimento;
   @override
   final String email;
+  @override
+  final String telefone;
+  final List<ConsentFormModel>? _consentForms;
+  @override
+  List<ConsentFormModel>? get consentForms {
+    final value = _consentForms;
+    if (value == null) return null;
+    if (_consentForms is EqualUnmodifiableListView) return _consentForms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _acceptedConsentForms;
+  @override
+  List<String>? get acceptedConsentForms {
+    final value = _acceptedConsentForms;
+    if (value == null) return null;
+    if (_acceptedConsentForms is EqualUnmodifiableListView)
+      return _acceptedConsentForms;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email)';
+    return 'UserModel(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email, telefone: $telefone, consentForms: $consentForms, acceptedConsentForms: $acceptedConsentForms)';
   }
 
   @override
@@ -235,7 +307,10 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('cpf', cpf))
       ..add(DiagnosticsProperty('senha', senha))
       ..add(DiagnosticsProperty('dataNascimento', dataNascimento))
-      ..add(DiagnosticsProperty('email', email));
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('telefone', telefone))
+      ..add(DiagnosticsProperty('consentForms', consentForms))
+      ..add(DiagnosticsProperty('acceptedConsentForms', acceptedConsentForms));
   }
 
   @override
@@ -249,13 +324,33 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
             (identical(other.senha, senha) || other.senha == senha) &&
             (identical(other.dataNascimento, dataNascimento) ||
                 other.dataNascimento == dataNascimento) &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.telefone, telefone) ||
+                other.telefone == telefone) &&
+            const DeepCollectionEquality().equals(
+              other._consentForms,
+              _consentForms,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._acceptedConsentForms,
+              _acceptedConsentForms,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, nome, cpf, senha, dataNascimento, email);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    nome,
+    cpf,
+    senha,
+    dataNascimento,
+    email,
+    telefone,
+    const DeepCollectionEquality().hash(_consentForms),
+    const DeepCollectionEquality().hash(_acceptedConsentForms),
+  );
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.
@@ -273,19 +368,22 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel({
-    required final String? id,
+    required final String id,
     required final String nome,
     required final String cpf,
     required final String senha,
     @TimestampSerializer() required final DateTime dataNascimento,
     required final String email,
+    required final String telefone,
+    final List<ConsentFormModel>? consentForms,
+    final List<String>? acceptedConsentForms,
   }) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
-  String? get id;
+  String get id;
   @override
   String get nome;
   @override
@@ -297,6 +395,12 @@ abstract class _UserModel implements UserModel {
   DateTime get dataNascimento;
   @override
   String get email;
+  @override
+  String get telefone;
+  @override
+  List<ConsentFormModel>? get consentForms;
+  @override
+  List<String>? get acceptedConsentForms;
 
   /// Create a copy of UserModel
   /// with the given fields replaced by the non-null parameter values.

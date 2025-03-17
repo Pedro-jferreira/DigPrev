@@ -3,7 +3,7 @@ import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.d
 import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
-import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/src/types/validation_result.dart';
 
@@ -30,12 +30,14 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   final TextEditingController senhaController = TextEditingController();
   final TextEditingController dataNascimentoController =TextEditingController();
   final TextEditingController senhaConfirmController = TextEditingController();
+  final TextEditingController telefoneController = TextEditingController();
   final UserValidator validator = UserValidator();
   final NomeValidator nomeValidator = NomeValidator();
   final DataNascimentoValidator dateValidator = DataNascimentoValidator();
   final CPFValidator cpfValidator = CPFValidator();
   final EmailValidator emailValidator = EmailValidator();
   final SenhaValidator senhaValidator = SenhaValidator();
+  final TelefoneValidator telefoneValidator = TelefoneValidator();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final CredentialsModel credentials = CredentialsModel();
 
@@ -49,6 +51,8 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
   String errorSenha = '';
   bool isSenhaConfirmError = false;
   String errorSenhaConfirm = '';
+  bool isTelefoneError = false;
+  String errorTelefone = '';
 
   @override
   void dispose() {
@@ -58,6 +62,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
     senhaController.dispose();
     dataNascimentoController.dispose();
     senhaConfirmController.dispose();
+    telefoneController.dispose();
     super.dispose();
   }
 
@@ -130,6 +135,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       },
                       onChanged: credentials.setCpf,
                     ),
+                    const SizedBox(height: 10),
                     TextFieldWidget(
                       labelText: 'Email',
                       placeholderText: 'Digite seu e-mail',
@@ -147,6 +153,26 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         return errorEmail;
                       },
                       onChanged: credentials.setEmail,
+                    ),
+                    const SizedBox(height: 10),
+                    TextFieldWidget(
+                      labelText: 'Telefone',
+                      keyboardType: TextInputType.number,
+                      placeholderText: 'Digite seu telefone',
+                      supportingText: 'Ex: (00) 00000-0000',
+                      toolTipText: 'Digite seu telefone corretamente',
+                      validator: (String? value) {
+                        final ValidationResult result = telefoneValidator
+                            .validate(value ?? '');
+                        if (result.isValid) {
+                          isTelefoneError == false;
+                          return null;
+                        }
+                        isTelefoneError == true;
+                        errorTelefone = 'Telefone inválido, ex: (00) 00000-0000';
+                        return errorTelefone;
+                      },
+                      onChanged: credentials.setTelefone,
                     ),
                     const SizedBox(height: 10),
                     DatePickerWidget(

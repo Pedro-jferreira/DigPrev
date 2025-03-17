@@ -2,7 +2,7 @@ import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
 import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
 import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
-import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/lucid_validation.dart';
 

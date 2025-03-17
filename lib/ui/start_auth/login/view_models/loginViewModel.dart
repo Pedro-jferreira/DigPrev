@@ -32,7 +32,10 @@ class LoginViewModel extends ChangeNotifier {
       cpf: credentials.cpf,
       senha: credentials.senha,
       email: credentials.email,
-      dataNascimento: credentials.dataNascimento
+      dataNascimento: credentials.dataNascimento,
+      telefone: credentials.telefone,
+      consentForms: [],
+      acceptedConsentForms: []
     );
 
     try {

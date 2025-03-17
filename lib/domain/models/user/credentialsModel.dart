@@ -6,12 +6,14 @@ class CredentialsModel extends ChangeNotifier{
   String cpf;
   String senha;
   DateTime dataNascimento;
+  String telefone;
 
   CredentialsModel({
     this.nome = '',
     this.email = '',
     this.cpf = '',
     this.senha = '',
+    this.telefone = '',
     DateTime? dataNascimento,
   }) : dataNascimento = dataNascimento ?? DateTime.now();
 
@@ -40,10 +42,16 @@ class CredentialsModel extends ChangeNotifier{
     notifyListeners();
   }
 
+  void setTelefone(String telefone){
+    this.telefone = telefone;
+    notifyListeners();
+  }
+
   @override
   String toString(){
     return 'CredentialsModel(nome: $nome, email: $email, '
-        'cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento';
+        'cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, '
+        'telefone: $telefone';
   }
 }
 

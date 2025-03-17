@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/initialImageWidget.dart';
-import 'package:digprev_flutter/ui/start_auth/widgets/introTextWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/start/widgets/initialImageWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/start/widgets/introTextWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

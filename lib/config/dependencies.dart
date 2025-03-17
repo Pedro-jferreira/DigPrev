@@ -15,7 +15,8 @@ import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewMod
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
-import 'package:digprev_flutter/ui/start_auth/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -68,6 +69,11 @@ List<SingleChildWidget> get providersRemote {
       create:
           (BuildContext context) =>
               LoginViewModel(authRepository: context.read()),
+    ),
+    ChangeNotifierProvider<UsersViewModel>(
+      create:
+          (BuildContext context) =>
+          UsersViewModel(authRepository: context.read()),
     ),
     ChangeNotifierProvider<FormViewModel>(
       create:

@@ -7,6 +7,7 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   final String path = 'users';
+  String? _userId;
 
   Stream<Result<User>> get authStatesChanges =>
       _firebaseAuth.authStateChanges().map((User? user) {
@@ -21,11 +22,12 @@ class AuthService {
         return Success<User, FirebaseAuthException>(user);
       });
 
+  String? get userId => _userId;
+
   AsyncResult<UserModel> findById(String id) async {
     try {
       final DocumentSnapshot<Map<String, dynamic>> document =
           await db.collection(path).doc(id).get();
-
       if (!document.exists || document.data() == null) {
         return Failure<UserModel, FirebaseException>(
           FirebaseException(
@@ -84,6 +86,7 @@ class AuthService {
       final UserCredential result = await _firebaseAuth
           .signInWithEmailAndPassword(email: email, password: password);
       final User? firebaseUser = result.user;
+      _userId = firebaseUser?.uid;
       if (firebaseUser == null) {
         return Failure<UserModel, FirebaseException>(
           FirebaseException(
