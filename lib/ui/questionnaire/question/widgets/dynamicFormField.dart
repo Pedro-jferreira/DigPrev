@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
+import 'package:digprev_flutter/domain/models/question/explanatoryTexts.dart';
 import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
@@ -68,6 +69,15 @@ class DynamicFormField extends StatelessWidget {
           validator: validator,
         );
       case InputType.RADIOBUTTON:
+        List<String>? texts = <String>[];
+        if (question.explanatoryTexts != null ) {
+          for(ExplanatoryTexts explanatoryTexts in question.explanatoryTexts!){
+            if(explanatoryTexts.explanatoryText != null){
+              texts.add(explanatoryTexts.explanatoryText!);
+            }
+          }
+        } else texts = null;
+
         return RadioButtonWidget(
           initialSelection:
               (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
@@ -76,6 +86,7 @@ class DynamicFormField extends StatelessWidget {
           onSaved: onSaved,
           validator: validator,
           onChanged: _onItemSelected,
+          explanatoryTexts: texts,
           radioTexts:
               question.optionsQuestions
                   .map((Option option) => option.text!)

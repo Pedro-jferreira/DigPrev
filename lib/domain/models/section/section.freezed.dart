@@ -21,12 +21,14 @@ Section _$SectionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Section {
-  int get id => throw _privateConstructorUsedError;
+  double get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   int? get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
   List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
-  List<Question>? get questions => throw _privateConstructorUsedError;
+  List<Question> get questions => throw _privateConstructorUsedError;
+  List<Section>? get subSections => throw _privateConstructorUsedError;
+  bool? get hasChart => throw _privateConstructorUsedError;
 
   /// Serializes this Section to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,12 +45,14 @@ abstract class $SectionCopyWith<$Res> {
       _$SectionCopyWithImpl<$Res, Section>;
   @useResult
   $Res call({
-    int id,
+    double id,
     String title,
     int? maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
-    List<Question>? questions,
+    List<Question> questions,
+    List<Section>? subSections,
+    bool? hasChart,
   });
 }
 
@@ -72,7 +76,9 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
     Object? maxValue = freezed,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
-    Object? questions = freezed,
+    Object? questions = null,
+    Object? subSections = freezed,
+    Object? hasChart = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -80,7 +86,7 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                 null == id
                     ? _value.id
                     : id // ignore: cast_nullable_to_non_nullable
-                        as int,
+                        as double,
             title:
                 null == title
                     ? _value.title
@@ -102,10 +108,20 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                     : textUnderBar // ignore: cast_nullable_to_non_nullable
                         as List<StageLabel>?,
             questions:
-                freezed == questions
+                null == questions
                     ? _value.questions
                     : questions // ignore: cast_nullable_to_non_nullable
-                        as List<Question>?,
+                        as List<Question>,
+            subSections:
+                freezed == subSections
+                    ? _value.subSections
+                    : subSections // ignore: cast_nullable_to_non_nullable
+                        as List<Section>?,
+            hasChart:
+                freezed == hasChart
+                    ? _value.hasChart
+                    : hasChart // ignore: cast_nullable_to_non_nullable
+                        as bool?,
           )
           as $Val,
     );
@@ -121,12 +137,14 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
   @override
   @useResult
   $Res call({
-    int id,
+    double id,
     String title,
     int? maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
-    List<Question>? questions,
+    List<Question> questions,
+    List<Section>? subSections,
+    bool? hasChart,
   });
 }
 
@@ -149,7 +167,9 @@ class __$$SectionImplCopyWithImpl<$Res>
     Object? maxValue = freezed,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
-    Object? questions = freezed,
+    Object? questions = null,
+    Object? subSections = freezed,
+    Object? hasChart = freezed,
   }) {
     return _then(
       _$SectionImpl(
@@ -157,7 +177,7 @@ class __$$SectionImplCopyWithImpl<$Res>
             null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                    as int,
+                    as double,
         title:
             null == title
                 ? _value.title
@@ -179,10 +199,20 @@ class __$$SectionImplCopyWithImpl<$Res>
                 : textUnderBar // ignore: cast_nullable_to_non_nullable
                     as List<StageLabel>?,
         questions:
-            freezed == questions
+            null == questions
                 ? _value._questions
                 : questions // ignore: cast_nullable_to_non_nullable
-                    as List<Question>?,
+                    as List<Question>,
+        subSections:
+            freezed == subSections
+                ? _value._subSections
+                : subSections // ignore: cast_nullable_to_non_nullable
+                    as List<Section>?,
+        hasChart:
+            freezed == hasChart
+                ? _value.hasChart
+                : hasChart // ignore: cast_nullable_to_non_nullable
+                    as bool?,
       ),
     );
   }
@@ -197,15 +227,18 @@ class _$SectionImpl implements _Section {
     required this.maxValue,
     required this.typeCalculate,
     required final List<StageLabel>? textUnderBar,
-    required final List<Question>? questions,
+    required final List<Question> questions,
+    required final List<Section>? subSections,
+    required this.hasChart,
   }) : _textUnderBar = textUnderBar,
-       _questions = questions;
+       _questions = questions,
+       _subSections = subSections;
 
   factory _$SectionImpl.fromJson(Map<String, dynamic> json) =>
       _$$SectionImplFromJson(json);
 
   @override
-  final int id;
+  final double id;
   @override
   final String title;
   @override
@@ -222,19 +255,30 @@ class _$SectionImpl implements _Section {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<Question>? _questions;
+  final List<Question> _questions;
   @override
-  List<Question>? get questions {
-    final value = _questions;
-    if (value == null) return null;
+  List<Question> get questions {
     if (_questions is EqualUnmodifiableListView) return _questions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_questions);
+  }
+
+  final List<Section>? _subSections;
+  @override
+  List<Section>? get subSections {
+    final value = _subSections;
+    if (value == null) return null;
+    if (_subSections is EqualUnmodifiableListView) return _subSections;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
+  final bool? hasChart;
+
+  @override
   String toString() {
-    return 'Section(id: $id, title: $title, maxValue: $maxValue, typeCalculate: $typeCalculate, textUnderBar: $textUnderBar, questions: $questions)';
+    return 'Section(id: $id, title: $title, maxValue: $maxValue, typeCalculate: $typeCalculate, textUnderBar: $textUnderBar, questions: $questions, subSections: $subSections, hasChart: $hasChart)';
   }
 
   @override
@@ -255,7 +299,13 @@ class _$SectionImpl implements _Section {
             const DeepCollectionEquality().equals(
               other._questions,
               _questions,
-            ));
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._subSections,
+              _subSections,
+            ) &&
+            (identical(other.hasChart, hasChart) ||
+                other.hasChart == hasChart));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -268,6 +318,8 @@ class _$SectionImpl implements _Section {
     typeCalculate,
     const DeepCollectionEquality().hash(_textUnderBar),
     const DeepCollectionEquality().hash(_questions),
+    const DeepCollectionEquality().hash(_subSections),
+    hasChart,
   );
 
   /// Create a copy of Section
@@ -286,18 +338,20 @@ class _$SectionImpl implements _Section {
 
 abstract class _Section implements Section {
   const factory _Section({
-    required final int id,
+    required final double id,
     required final String title,
     required final int? maxValue,
     required final TypeCalculate typeCalculate,
     required final List<StageLabel>? textUnderBar,
-    required final List<Question>? questions,
+    required final List<Question> questions,
+    required final List<Section>? subSections,
+    required final bool? hasChart,
   }) = _$SectionImpl;
 
   factory _Section.fromJson(Map<String, dynamic> json) = _$SectionImpl.fromJson;
 
   @override
-  int get id;
+  double get id;
   @override
   String get title;
   @override
@@ -307,7 +361,11 @@ abstract class _Section implements Section {
   @override
   List<StageLabel>? get textUnderBar;
   @override
-  List<Question>? get questions;
+  List<Question> get questions;
+  @override
+  List<Section>? get subSections;
+  @override
+  bool? get hasChart;
 
   /// Create a copy of Section
   /// with the given fields replaced by the non-null parameter values.

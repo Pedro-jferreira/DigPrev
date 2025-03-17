@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
+import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ResultExpansionTileWidget extends StatefulWidget {
   const ResultExpansionTileWidget({
@@ -22,12 +22,11 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final String formattedDate = DateFormat('dd/MM/yyyy').format(widget.responseCard.date);
     return Card(
       clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
           shape: const Border(),
-        title: Text(formattedDate),
+        title: Text(formatDate(widget.responseCard.date)),
         leading: Container(
           width: 25,
           height: 25,

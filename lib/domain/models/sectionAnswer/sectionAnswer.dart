@@ -11,8 +11,10 @@ class SectionAnswer with _$SectionAnswer {
     required String title,
     required String sectionRef,
     required List<Answer> answers,
+    required List<SectionAnswer>? subSectionsAnswers,
     required double score,
     required bool isCalculated,
+    required bool? hasChart,
   }) = _SectionAnswer;
 
   factory SectionAnswer.fromJson(Map<String, dynamic> json) =>

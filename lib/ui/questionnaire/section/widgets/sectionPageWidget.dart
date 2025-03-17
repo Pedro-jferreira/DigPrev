@@ -26,7 +26,7 @@ class SectionPageWidget extends StatefulWidget {
 
 class SectionPageState extends State<SectionPageWidget> {
   List<Section> _sections = <Section>[];
-  final PageController _scrollController = PageController();
+  final PageController _pageController = PageController();
   int _currentPage = 0;
 
   @override
@@ -47,7 +47,7 @@ class SectionPageState extends State<SectionPageWidget> {
     final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
-        _sections = snapshot.value.sections!;
+        _sections = snapshot.value.sections;
       });
     } else if (snapshot is FailureCommand<Stage>) {}
   }
@@ -56,7 +56,7 @@ class SectionPageState extends State<SectionPageWidget> {
     setState(() {
       if (_currentPage < _sections.length - 1) {
         _currentPage++;
-        _scrollToPage(_currentPage);
+        jumpToPage(_currentPage);
       } else
         GoRouter.of(context).pop();
     });
@@ -66,20 +66,19 @@ class SectionPageState extends State<SectionPageWidget> {
     setState(() {
       if (_currentPage > 0) {
         _currentPage--;
-        _scrollToPage(_currentPage);
+        jumpToPage(_currentPage);
       } else
         GoRouter.of(context).pop();
     });
   }
 
-  void _scrollToPage(int page) {
+  void jumpToPage(int page) {
+    _pageController.animateToPage(
+      page,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
     setState(() {
-      final double screenWidth = MediaQuery.of(context).size.width;
-      _scrollController.animateTo(
-        page * screenWidth,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
       _currentPage = page;
     });
   }
@@ -97,31 +96,36 @@ class SectionPageState extends State<SectionPageWidget> {
         child: Text('falha ao carregar os dados tente novamente mais tarde'),
       );
     }
+    final bool hasStepper = (_sections.length > 1);
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Card(
-          child: Column(
+          clipBehavior: Clip.antiAlias,
+          child: Stack(
             children: <Widget>[
-              Header(),
-              Expanded(
-                child: PageView.builder(
-                    controller: _scrollController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: _sections.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return  SizedBox(
-
-                          child: QuestionFormWidget(
-                            questions: _sections[index].questions!,
-                            onPrevious: onPrevious,
-                            onNext: onNext,
-                            viewModel: widget.formViewModel,
-                          ),
+                Column(
+                  children: <Widget>[
+                    if (hasStepper)
+                      const SizedBox(height: 67,),
+                    Expanded(
+                      child: PageView.builder(
+                      controller: _pageController,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: _sections.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return QuestionFormWidget(
+                          section: _sections[index],
+                          onPrevious: onPrevious,
+                          onNext: onNext,
+                          viewModel: widget.formViewModel,
                         );
-                    },
-                  ),
+                      },
+                      ),
+                    ),
+                  ],
                 ),
-
+              if (hasStepper)
+                Header(),
             ],
           ),
         );
@@ -131,42 +135,19 @@ class SectionPageState extends State<SectionPageWidget> {
 
   Widget Header() {
     return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 50, maxHeight: 136),
+      constraints: const BoxConstraints(maxHeight: 72),
       child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surfaceContainerLow,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+        margin: EdgeInsets.zero,
+        width: double.infinity,
+        color: Theme.of(context).colorScheme.tertiary,
+        child: FractionallySizedBox(
+          widthFactor: _sections.length == 2 ? 0.7 : 1.0,
+          child: StepperIndicatorWidget(
+            currentStep: _currentPage.toInt(),
+            totalSteps: _sections.length,
+            canMarkStepComplete: _isStepCompleted,
+            onStepTapped: jumpToPage,
           ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min, // Ajusta ao tamanho dos filhos
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20 ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _sections[_currentPage].title,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              ),
-            ),
-            if (_sections.length > 1)
-              Flexible(
-                child: StepperIndicatorWidget(
-                  currentStep: _currentPage,
-                  totalSteps: _sections.length,
-                  canMarkStepComplete: _isStepCompleted,
-                  onStepTapped: _scrollToPage,
-                ),
-              ),
-            if(_sections.length <= 1)const SizedBox(
-              height: 10,
-            ),
-            const Divider(),
-          ],
         ),
       ),
     );

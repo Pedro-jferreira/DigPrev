@@ -2,7 +2,8 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:flutter/material.dart';
 
-LayoutState getLayoutType(BuildContext context) {
+/// Determina o tipo de layout com base na largura da tela.
+LayoutState determineLayoutState(BuildContext context) {
   final double width = MediaQuery.of(context).size.width;
 
   if (width >= 1024) {
@@ -16,7 +17,8 @@ LayoutState getLayoutType(BuildContext context) {
   }
 }
 
-double getContentWidth(BoxConstraints constraints, LayoutState layoutType) {
+/// Calcula a largura ideal do conteúdo com base no layout atual.
+double calculateContentWidth(BoxConstraints constraints, LayoutState layoutType) {
   switch (layoutType) {
     case LayoutState.mobile:
       return constraints.maxWidth * 0.95;

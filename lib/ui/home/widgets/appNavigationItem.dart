@@ -4,15 +4,15 @@ List<AppNavigationItem> getNavigationDestinations() {
   return <AppNavigationItem>[
      const AppNavigationItem(
       'Início',
-      Icons.home,
+      Icons.home_rounded,
     ),
     const AppNavigationItem(
       'Relatórios',
-      Icons.leaderboard,
+      Icons.assignment,
     ),
     const AppNavigationItem(
-      'Perfil',
-      Icons.person,
+      'Dados',
+      Icons.admin_panel_settings,
     ),
   ];
 }

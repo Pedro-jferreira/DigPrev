@@ -15,6 +15,10 @@ _$SectionAnswerImpl _$$SectionAnswerImplFromJson(Map<String, dynamic> json) =>
           (json['answers'] as List<dynamic>)
               .map((e) => Answer.fromJson(e as Map<String, dynamic>))
               .toList(),
+      subSectionsAnswers:
+          (json['subSectionsAnswers'] as List<dynamic>?)
+              ?.map((e) => SectionAnswer.fromJson(e as Map<String, dynamic>))
+              .toList(),
       score: (json['score'] as num).toDouble(),
       isCalculated: json['isCalculated'] as bool,
     );
@@ -25,6 +29,8 @@ Map<String, dynamic> _$$SectionAnswerImplToJson(_$SectionAnswerImpl instance) =>
       'title': instance.title,
       'sectionRef': instance.sectionRef,
       'answers': instance.answers.map((e) => e.toJson()).toList(),
+      'subSectionsAnswers':
+          instance.subSectionsAnswers?.map((e) => e.toJson()).toList(),
       'score': instance.score,
       'isCalculated': instance.isCalculated,
     };

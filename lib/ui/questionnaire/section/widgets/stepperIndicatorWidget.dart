@@ -23,10 +23,13 @@ class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
-        canvasColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        canvasColor: Theme.of(context).colorScheme.tertiary,
+
+        disabledColor: Colors.orange,
         colorScheme: Theme.of(context).colorScheme.copyWith(
-          secondary:  Theme.of(context).colorScheme.primary,
-          surface: Theme.of(context).colorScheme.surfaceBright,
+          primary: Theme.of(context).colorScheme.primary,
+          secondary: Theme.of(context).colorScheme.secondary,
+
         ),
       ),
       child: Stepper(
@@ -38,6 +41,7 @@ class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
             (BuildContext context, ControlsDetails details) =>
                 const SizedBox.shrink(),
         type: StepperType.horizontal,
+        margin: EdgeInsets.zero,
         steps: List<Step>.generate(widget.totalSteps, (int index) {
           final StepState state =
               widget.canMarkStepComplete(index)
@@ -45,11 +49,22 @@ class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
                   : (index == widget.currentStep
                       ? StepState.editing
                       : StepState.indexed);
+          Color? iconColor;
+          Color? textColor;
+          if (index > widget.currentStep) {
+            iconColor = Theme.of(context).colorScheme.surface;
+            textColor = Theme.of(context).colorScheme.onSurface;
+          }
+
           return Step(
             title: const SizedBox.shrink(),
             content: const SizedBox.shrink(),
             isActive: index <= widget.currentStep,
             state: state,
+            stepStyle: StepStyle(
+              color: iconColor,
+              indexStyle: TextStyle(color: textColor),
+            ),
           );
         }),
       ),
