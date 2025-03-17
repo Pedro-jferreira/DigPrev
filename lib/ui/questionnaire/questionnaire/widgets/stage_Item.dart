@@ -4,12 +4,12 @@ import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Stagewidget extends StatefulWidget {
+class StageItem extends StatefulWidget {
   final Stage stage;
   final bool? isAvailable;
   final Function(ProgressState) onProgressStateChanged;
 
-  const Stagewidget({
+  const StageItem({
     required this.stage,
     required this.onProgressStateChanged,
     this.isAvailable = true,
@@ -17,10 +17,10 @@ class Stagewidget extends StatefulWidget {
   });
 
   @override
-  State<Stagewidget> createState() => _StagewidgetState();
+  State<StageItem> createState() => _StageItemState();
 }
 
-class _StagewidgetState extends State<Stagewidget> {
+class _StageItemState extends State<StageItem> {
   ProgressState _progressState = ProgressState.NotStarted;
   double _progress = 0.0;
 

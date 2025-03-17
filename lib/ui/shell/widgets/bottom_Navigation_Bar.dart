@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/home/widgets/appNavigationItem.dart';
+import 'package:digprev_flutter/ui/shell/widgets/appNavigationItem.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigationWidget extends StatelessWidget {

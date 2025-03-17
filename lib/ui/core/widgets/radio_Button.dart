@@ -1,9 +1,9 @@
-import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
-class RadioButtonWidget extends FormField<String>{
-  RadioButtonWidget({
+class RadioButton extends FormField<String>{
+  RadioButton({
     required String labelText,
     required String toolTipText,
     required List<String> radioTexts,
@@ -85,7 +85,7 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if (widget.explanatoryTexts?.isNotEmpty ?? false)
-          ExplanatoryTextWidget(
+          ExplanatoryText(
             explanatoryText: widget.explanatoryTexts!,
           ),
         TitleToolTip(title:widget.labelText,

@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +24,7 @@ import 'package:intl/intl.dart';
  - `lastDate` será 10 anos à frente da data atual.
 
  © 2025 Pedro Ferreira*/
-class DatePickerWidget extends StatefulWidget {
+class DatePicker extends StatefulWidget {
   final String? labelText;
   final String title;
   final String supportingText;
@@ -35,7 +35,7 @@ class DatePickerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<DateTime> onDateSelected;
 
-  const DatePickerWidget({
+  const DatePicker({
     required this.onDateSelected,
     required this.title,
     required this.supportingText,
@@ -49,10 +49,10 @@ class DatePickerWidget extends StatefulWidget {
   });
 
   @override
-  State<DatePickerWidget> createState() => _DatePickerWidgetState();
+  State<DatePicker> createState() => _DatePickerState();
 }
 
-class _DatePickerWidgetState extends State<DatePickerWidget> {
+class _DatePickerState extends State<DatePicker> {
   DateTime? selectedDate;
   final TextEditingController _dateController = TextEditingController();
 

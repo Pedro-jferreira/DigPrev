@@ -1,19 +1,19 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/widgets/questionFormWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/widgets/stepperIndicatorWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/questionFormWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/stepperIndicatorWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:result_command/result_command.dart';
 
-class SectionPageWidget extends StatefulWidget {
+class FormScreen extends StatefulWidget {
   final String stageId;
   final SectionViewModel viewModel;
   final FormViewModel formViewModel;
 
-  const SectionPageWidget({
+  const FormScreen({
     required this.stageId,
     required this.viewModel,
     required this.formViewModel,
@@ -21,10 +21,10 @@ class SectionPageWidget extends StatefulWidget {
   });
 
   @override
-  State<SectionPageWidget> createState() => SectionPageState();
+  State<FormScreen> createState() => SectionPageState();
 }
 
-class SectionPageState extends State<SectionPageWidget> {
+class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
   final PageController _pageController = PageController();
   int _currentPage = 0;

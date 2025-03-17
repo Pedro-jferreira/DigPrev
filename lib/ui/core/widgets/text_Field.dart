@@ -1,8 +1,8 @@
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TextFieldWidget extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final String labelText;
   final String toolTipText;
   final String placeholderText;
@@ -16,7 +16,7 @@ class TextFieldWidget extends StatefulWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
 
-  const TextFieldWidget({
+  const CustomTextField({
     required this.labelText,
     required this.toolTipText,
     required this.placeholderText,
@@ -33,10 +33,10 @@ class TextFieldWidget extends StatefulWidget {
   });
 
   @override
-  _TextFieldWidgetState createState() => _TextFieldWidgetState();
+  _CustomTextFieldState createState() => _CustomTextFieldState();
 }
 
-class _TextFieldWidgetState extends State<TextFieldWidget>{
+class _CustomTextFieldState extends State<CustomTextField>{
   @override
   Widget build(BuildContext context) {
     return Column(

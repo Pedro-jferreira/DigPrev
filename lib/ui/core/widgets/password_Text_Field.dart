@@ -1,7 +1,7 @@
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
-class OutlinedPasswordTextFieldComponent extends StatefulWidget {
+class PasswordTextField extends StatefulWidget {
   final String title;
   final String value;
   final String placeholder;
@@ -12,7 +12,7 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final Function(String) onValueChange;
 
-  const OutlinedPasswordTextFieldComponent({
+  const PasswordTextField({
     required this.onValueChange, Key? key,
     this.title = '',
     this.value = '',
@@ -25,12 +25,12 @@ class OutlinedPasswordTextFieldComponent extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _OutlinedPasswordTextFieldComponentState createState() =>
-      _OutlinedPasswordTextFieldComponentState();
+  _PasswordTextFieldState createState() =>
+      _PasswordTextFieldState();
 }
 
-class _OutlinedPasswordTextFieldComponentState
-    extends State<OutlinedPasswordTextFieldComponent> {
+class _PasswordTextFieldState
+    extends State<PasswordTextField> {
   late TextEditingController _controller;
   bool passwordVisible = false;
 

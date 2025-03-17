@@ -3,10 +3,10 @@ import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
 import 'package:digprev_flutter/domain/models/question/explanatoryTexts.dart';
 import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
-import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/radioButtonWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/selectWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/core/widgets/text_Field.dart';
+import 'package:digprev_flutter/ui/core/widgets/radio_Button.dart';
+import 'package:digprev_flutter/ui/core/widgets/select.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -53,7 +53,7 @@ class DynamicFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (question.inputType) {
       case InputType.SELECT:
-        return SelectWidget(
+        return Select(
           labelText: question.question,
           tooltipText: question.tooltipText,
           placeholderText: question.placeholder,
@@ -78,7 +78,7 @@ class DynamicFormField extends StatelessWidget {
           }
         } else texts = null;
 
-        return RadioButtonWidget(
+        return RadioButton(
           initialSelection:
               (answer.answers.isNotEmpty) ? answer.answers.first.text : null,
           labelText: question.question,
@@ -94,7 +94,7 @@ class DynamicFormField extends StatelessWidget {
         );
 
       case InputType.NUMBERFIELD:
-        return TextFieldWidget(
+        return CustomTextField(
           labelText: question.question,
           placeholderText: question.placeholder,
           supportingText: question.supportingText,

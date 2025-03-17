@@ -1,8 +1,9 @@
-import 'package:digprev_flutter/ui/core/widgets/datePickerWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/outlinedPasswordTextFielWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/textFieldWidget.dart';
+
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:digprev_flutter/domain/validators/registerLoginValidators.dart';
+import 'package:digprev_flutter/ui/core/widgets/date_Picker.dart';
+import 'package:digprev_flutter/ui/core/widgets/password_Text_Field.dart';
+import 'package:digprev_flutter/ui/core/widgets/text_Field.dart';
 import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:lucid_validation/src/types/validation_result.dart';
@@ -97,7 +98,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    TextFieldWidget(
+                    CustomTextField(
                       labelText: 'Nome',
                       placeholderText: 'Digite seu Nome Aqui',
                       supportingText: 'Ex: José da Silva',
@@ -116,7 +117,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       },
                     ),
                     const SizedBox(height: 10),
-                    TextFieldWidget(
+                    CustomTextField(
                       labelText: 'CPF',
                       placeholderText: 'Digite seu CPF',
                       supportingText: 'Ex: 000.000.000-00',
@@ -136,7 +137,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       onChanged: credentials.setCpf,
                     ),
                     const SizedBox(height: 10),
-                    TextFieldWidget(
+                    CustomTextField(
                       labelText: 'Email',
                       placeholderText: 'Digite seu e-mail',
                       supportingText: 'Ex: joaosilva@gmail.com',
@@ -155,7 +156,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       onChanged: credentials.setEmail,
                     ),
                     const SizedBox(height: 10),
-                    TextFieldWidget(
+                    CustomTextField(
                       labelText: 'Telefone',
                       keyboardType: TextInputType.number,
                       placeholderText: 'Digite seu telefone',
@@ -175,7 +176,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       onChanged: credentials.setTelefone,
                     ),
                     const SizedBox(height: 10),
-                    DatePickerWidget(
+                    DatePicker(
                       title: 'Data de Nascimento' ,
                       supportingText: 'Ex: 01/01/2001',
                         tooltipText: 'Escolha através do calendário a sua data'
@@ -185,7 +186,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         }
                     ),
                     const SizedBox(height: 10),
-                    OutlinedPasswordTextFieldComponent(
+                    PasswordTextField(
                       title: 'Senha',
                       placeholder: 'Digite sua Senha',
                       supportingText: 'Mínimo de 6 caracteres',
@@ -207,7 +208,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                       onValueChange: credentials.setSenha,
                     ),
                     const SizedBox(height: 10),
-                    OutlinedPasswordTextFieldComponent(
+                    PasswordTextField(
                       title: 'Confirme sua senha',
                       placeholder: 'Digite sua Senha',
                       supportingText: 'Mínimo de 6 caracteres',

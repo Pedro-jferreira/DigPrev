@@ -3,7 +3,7 @@ class SliverAppBarHelper{
       String title,
       bool hasLeading,
       ) {
-    final double? maxValueCollapsed = hasLeading ? 80.0 : null;
+    final double? maxValueCollapsed = hasLeading ? 80.0 : 80.0;
     final double maxExpandedHeight = hasLeading ? 180.0 : 130.0;
     final int length = title.length;
 

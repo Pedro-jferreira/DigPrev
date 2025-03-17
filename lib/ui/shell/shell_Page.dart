@@ -1,9 +1,9 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
-import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
-import 'package:digprev_flutter/ui/home/widgets/bottomNavigationWidget.dart';
-import 'package:digprev_flutter/ui/home/widgets/navigateDrawerWidget.dart';
-import 'package:digprev_flutter/ui/home/widgets/navigationRailWidget.dart';
-import 'package:digprev_flutter/ui/home/widgets/topAppBarWidget.dart';
+import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
+import 'package:digprev_flutter/ui/shell/widgets/bottom_Navigation_Bar.dart';
+import 'package:digprev_flutter/ui/shell/widgets/navigate_Drawer.dart';
+import 'package:digprev_flutter/ui/shell/widgets/navigation_Rail.dart';
+import 'package:digprev_flutter/ui/shell/widgets/top_App_Bar.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
 import 'package:flutter/material.dart';

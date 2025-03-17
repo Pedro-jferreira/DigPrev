@@ -10,11 +10,11 @@ import 'package:digprev_flutter/data/services/fireStore/responseCardService.dart
 import 'package:digprev_flutter/data/services/fireStore/stageService.dart';
 import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
 import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGeneratorImpl.dart';
-import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
+import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:flutter/src/widgets/framework.dart';

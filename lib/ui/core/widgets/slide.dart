@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class SliderWidget extends StatefulWidget {
+class CustomSlider extends StatefulWidget {
   final int min;
   final int max;
   final ValueChanged<String> onValueChanged;
 
-  const SliderWidget({
+  const CustomSlider({
     required this.onValueChanged,
     this.max = 8,
     this.min = 1,
   });
 
   @override
-  _SliderWidgetState createState() => _SliderWidgetState();
+  _CustomSliderState createState() => _CustomSliderState();
 }
 
-class _SliderWidgetState extends State<SliderWidget> {
+class _CustomSliderState extends State<CustomSlider> {
   double _value = 1;
 
   @override

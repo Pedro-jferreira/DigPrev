@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ToolTipButtonWidget extends StatelessWidget {
+class ToolTipButton extends StatelessWidget {
   final String labelText;
 
-  const ToolTipButtonWidget({
+  const ToolTipButton({
     required this.labelText,
     super.key,
   });

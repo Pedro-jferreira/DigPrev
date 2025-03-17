@@ -1,7 +1,7 @@
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
-class SelectWidget extends StatefulWidget {
+class Select extends StatefulWidget {
   final String labelText;
   final String tooltipText;
   final String placeholderText;
@@ -12,7 +12,7 @@ class SelectWidget extends StatefulWidget {
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
 
-  const SelectWidget({
+  const Select({
     required this.labelText,
     required this.tooltipText,
     required this.placeholderText,
@@ -30,7 +30,7 @@ class SelectWidget extends StatefulWidget {
   _SelectComponentState createState() => _SelectComponentState();
 }
 
-class _SelectComponentState extends State<SelectWidget> {
+class _SelectComponentState extends State<Select> {
   String? selectedValue;
   late int selectedIndex;
 

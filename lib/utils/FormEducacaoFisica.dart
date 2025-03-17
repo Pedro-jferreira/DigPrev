@@ -19,6 +19,7 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
         maxValue: 0,
         typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
         textUnderBar: <StageLabel>[],
+        hasChart: false,
         questions: <Question>[
           Question(
               id: ObjectId().hexString,
@@ -138,7 +139,7 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
               counter: 5,
               disableQuestions: <String>[]
           ),
-        ],
+        ], subSections: null,
     );
     final Section s2 = Section(
       id: 5,
@@ -146,6 +147,7 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
       maxValue: 0,
       typeCalculate: TypeCalculate.ATIVIDADE_FISICA,
       textUnderBar: <StageLabel>[],
+      hasChart: false,
       questions: <Question>[
         Question(
             id: ObjectId().hexString,
@@ -275,7 +277,7 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
             counter: 5,
             disableQuestions: <String>[]
         ),
-      ]
+      ], subSections: null
     );
     final Section s3 = Section(
         id: 6,
@@ -331,7 +333,8 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
               counter: 2,
               disableQuestions: <String>[]
           ),
-        ]
+        ], subSections: null,
+        hasChart: false
     );
     final Section s4 = Section(
         id: 7,
@@ -379,7 +382,8 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
               counter: 2,
               disableQuestions: <String>[]
           ),
-        ]
+        ], subSections: null,
+        hasChart: false
     );
     final Section s5 = Section(
         id: 8,
@@ -420,7 +424,8 @@ class FormEducacaoFisicaWidget extends StatelessWidget {
               counter: 2,
               disableQuestions: <String>[]
           ),
-        ]
+        ], subSections: null,
+        hasChart: false
     );
 
     return const Placeholder();

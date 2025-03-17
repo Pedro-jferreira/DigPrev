@@ -1,10 +1,10 @@
 import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
-import 'package:digprev_flutter/ui/core/widgets/explanatoryTextWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/slideWidget.dart';
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
+import 'package:digprev_flutter/ui/core/widgets/slide.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
-class InputSlideWidget extends StatefulWidget {
+class InputSlider extends StatefulWidget {
   final String labelText;
   final String tooltipText;
   final String supportingText;
@@ -14,7 +14,7 @@ class InputSlideWidget extends StatefulWidget {
   final Function(String?) onChanged;
   final FormFieldSetter<String>? onSaved;
 
-  const InputSlideWidget({
+  const InputSlider({
     required this.labelText,
     required this.tooltipText,
     required this.supportingText,
@@ -28,10 +28,10 @@ class InputSlideWidget extends StatefulWidget {
 
 
   @override
-  _InputSlideWidgetState createState() => _InputSlideWidgetState();
+  _InputSliderState createState() => _InputSliderState();
 }
 
-class _InputSlideWidgetState extends State<InputSlideWidget> {
+class _InputSliderState extends State<InputSlider> {
   String? selectedValue;
 
   @override
@@ -45,12 +45,12 @@ class _InputSlideWidgetState extends State<InputSlideWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TitleToolTip(title: widget.labelText, tooltipText: widget.tooltipText),
-        ExplanatoryTextWidget(
+        ExplanatoryText(
           explanatoryText: widget.explanatoryTexts,
           valueMax: widget.selectTexts.length,
           state: UnicodeState.Enum,
         ),
-        SliderWidget(
+        CustomSlider(
           max: widget.selectTexts.length,
           onValueChanged: (String value) {
             setState(() {

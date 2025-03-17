@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
-import 'package:digprev_flutter/ui/home/viewModels/homeViewModel.dart';
-import 'package:digprev_flutter/ui/home/widgets/pageNavigation/usePageView.dart';
+import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
+import 'package:digprev_flutter/ui/shell/widgets/pageNavigation/usePageView.dart';
 import 'package:digprev_flutter/utils/layoutUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
-import 'package:digprev_flutter/ui/core/widgets/titleToolTip.dart';
+import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
 class ResultIndicatorCardWidget extends StatelessWidget {

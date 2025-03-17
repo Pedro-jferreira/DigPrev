@@ -21,6 +21,7 @@ _$SectionAnswerImpl _$$SectionAnswerImplFromJson(Map<String, dynamic> json) =>
               .toList(),
       score: (json['score'] as num).toDouble(),
       isCalculated: json['isCalculated'] as bool,
+      hasChart: json['hasChart'] as bool?,
     );
 
 Map<String, dynamic> _$$SectionAnswerImplToJson(_$SectionAnswerImpl instance) =>
@@ -33,4 +34,5 @@ Map<String, dynamic> _$$SectionAnswerImplToJson(_$SectionAnswerImpl instance) =>
           instance.subSectionsAnswers?.map((e) => e.toJson()).toList(),
       'score': instance.score,
       'isCalculated': instance.isCalculated,
+      'hasChart': instance.hasChart,
     };

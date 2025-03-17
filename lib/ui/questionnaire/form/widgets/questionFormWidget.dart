@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/widgets/sliverAppBarWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/widgets/sliverListQuestion.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/sliverAppBarWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/sliverListQuestion.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';
 

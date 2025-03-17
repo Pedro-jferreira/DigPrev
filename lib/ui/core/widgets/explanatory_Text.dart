@@ -1,14 +1,14 @@
 import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:flutter/material.dart';
 
-class ExplanatoryTextWidget extends StatefulWidget {
+class ExplanatoryText extends StatefulWidget {
   final String? labelText;
   final int? valueMax;
   final int? valueMin;
   final UnicodeState? state;
   final List<String> explanatoryText;
 
-  const ExplanatoryTextWidget({
+  const ExplanatoryText({
     required this.explanatoryText,
     this.state,
     this.valueMax,
@@ -18,10 +18,10 @@ class ExplanatoryTextWidget extends StatefulWidget {
   });
 
   @override
-  _ExplanatoryTextWidgetState createState() => _ExplanatoryTextWidgetState();
+  _ExplanatoryTextState createState() => _ExplanatoryTextState();
 }
 
-class _ExplanatoryTextWidgetState extends State<ExplanatoryTextWidget> {
+class _ExplanatoryTextState extends State<ExplanatoryText> {
   @override
   Widget build(BuildContext context) {
     return Column(

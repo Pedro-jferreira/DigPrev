@@ -1,8 +1,8 @@
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/viewModels/formViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/question/widgets/dynamicFormField.dart';
-import 'package:digprev_flutter/ui/questionnaire/section/widgets/navigationButtonsWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/dynamicFormField.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/navigationButtonsWidget.dart';
 import 'package:flutter/material.dart';
 
 class SliverListQuestion extends StatelessWidget {

@@ -1,19 +1,19 @@
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stageWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stage_Item.dart';
 import 'package:flutter/material.dart';
 
-class StagePageWidget extends StatefulWidget {
-  const StagePageWidget({required this.viewModel, super.key});
+class StageScreen extends StatefulWidget {
+  const StageScreen({required this.viewModel, super.key});
 
   final QuestionnaireViewModel viewModel;
 
   @override
-  State<StagePageWidget> createState() => _StagePageWidgetState();
+  State<StageScreen> createState() => _StageScreenState();
 }
 
-class _StagePageWidgetState extends State<StagePageWidget> {
+class _StageScreenState extends State<StageScreen> {
   int _currentStageIndex = 0;
   List<Stage> _stages = <Stage>[];
 
@@ -64,7 +64,7 @@ class _StagePageWidgetState extends State<StagePageWidget> {
               child: ListView.builder(
                 itemCount: _stages.length,
                 itemBuilder: (BuildContext contex, int index) {
-                  return Stagewidget(
+                  return StageItem(
                     stage: _stages[index],
                     onProgressStateChanged: (ProgressState state) {
                       _onProgressStateChanged(index, state);
