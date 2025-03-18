@@ -23,12 +23,12 @@ Section _$SectionFromJson(Map<String, dynamic> json) {
 mixin _$Section {
   double get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  int? get maxValue => throw _privateConstructorUsedError;
+  double get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
   List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
   List<Section>? get subSections => throw _privateConstructorUsedError;
-  bool? get hasChart => throw _privateConstructorUsedError;
+  bool get hasChart => throw _privateConstructorUsedError;
 
   /// Serializes this Section to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,12 +47,12 @@ abstract class $SectionCopyWith<$Res> {
   $Res call({
     double id,
     String title,
-    int? maxValue,
+    double maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
     List<Question> questions,
     List<Section>? subSections,
-    bool? hasChart,
+    bool hasChart,
   });
 }
 
@@ -73,12 +73,12 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? maxValue = freezed,
+    Object? maxValue = null,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
     Object? questions = null,
     Object? subSections = freezed,
-    Object? hasChart = freezed,
+    Object? hasChart = null,
   }) {
     return _then(
       _value.copyWith(
@@ -93,10 +93,10 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                     : title // ignore: cast_nullable_to_non_nullable
                         as String,
             maxValue:
-                freezed == maxValue
+                null == maxValue
                     ? _value.maxValue
                     : maxValue // ignore: cast_nullable_to_non_nullable
-                        as int?,
+                        as double,
             typeCalculate:
                 null == typeCalculate
                     ? _value.typeCalculate
@@ -118,10 +118,10 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                     : subSections // ignore: cast_nullable_to_non_nullable
                         as List<Section>?,
             hasChart:
-                freezed == hasChart
+                null == hasChart
                     ? _value.hasChart
                     : hasChart // ignore: cast_nullable_to_non_nullable
-                        as bool?,
+                        as bool,
           )
           as $Val,
     );
@@ -139,12 +139,12 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
   $Res call({
     double id,
     String title,
-    int? maxValue,
+    double maxValue,
     TypeCalculate typeCalculate,
     List<StageLabel>? textUnderBar,
     List<Question> questions,
     List<Section>? subSections,
-    bool? hasChart,
+    bool hasChart,
   });
 }
 
@@ -164,12 +164,12 @@ class __$$SectionImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? title = null,
-    Object? maxValue = freezed,
+    Object? maxValue = null,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
     Object? questions = null,
     Object? subSections = freezed,
-    Object? hasChart = freezed,
+    Object? hasChart = null,
   }) {
     return _then(
       _$SectionImpl(
@@ -184,10 +184,10 @@ class __$$SectionImplCopyWithImpl<$Res>
                 : title // ignore: cast_nullable_to_non_nullable
                     as String,
         maxValue:
-            freezed == maxValue
+            null == maxValue
                 ? _value.maxValue
                 : maxValue // ignore: cast_nullable_to_non_nullable
-                    as int?,
+                    as double,
         typeCalculate:
             null == typeCalculate
                 ? _value.typeCalculate
@@ -209,10 +209,10 @@ class __$$SectionImplCopyWithImpl<$Res>
                 : subSections // ignore: cast_nullable_to_non_nullable
                     as List<Section>?,
         hasChart:
-            freezed == hasChart
+            null == hasChart
                 ? _value.hasChart
                 : hasChart // ignore: cast_nullable_to_non_nullable
-                    as bool?,
+                    as bool,
       ),
     );
   }
@@ -242,7 +242,7 @@ class _$SectionImpl implements _Section {
   @override
   final String title;
   @override
-  final int? maxValue;
+  final double maxValue;
   @override
   final TypeCalculate typeCalculate;
   final List<StageLabel>? _textUnderBar;
@@ -274,7 +274,7 @@ class _$SectionImpl implements _Section {
   }
 
   @override
-  final bool? hasChart;
+  final bool hasChart;
 
   @override
   String toString() {
@@ -340,12 +340,12 @@ abstract class _Section implements Section {
   const factory _Section({
     required final double id,
     required final String title,
-    required final int? maxValue,
+    required final double maxValue,
     required final TypeCalculate typeCalculate,
     required final List<StageLabel>? textUnderBar,
     required final List<Question> questions,
     required final List<Section>? subSections,
-    required final bool? hasChart,
+    required final bool hasChart,
   }) = _$SectionImpl;
 
   factory _Section.fromJson(Map<String, dynamic> json) = _$SectionImpl.fromJson;
@@ -355,7 +355,7 @@ abstract class _Section implements Section {
   @override
   String get title;
   @override
-  int? get maxValue;
+  double get maxValue;
   @override
   TypeCalculate get typeCalculate;
   @override
@@ -365,7 +365,7 @@ abstract class _Section implements Section {
   @override
   List<Section>? get subSections;
   @override
-  bool? get hasChart;
+  bool get hasChart;
 
   /// Create a copy of Section
   /// with the given fields replaced by the non-null parameter values.

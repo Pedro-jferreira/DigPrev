@@ -12,12 +12,12 @@ class Section with _$Section {
   const factory Section({
     required double id,
     required String title,
-    required int? maxValue,
+    required double maxValue,
     required TypeCalculate typeCalculate,
     required List<StageLabel>? textUnderBar,
     required List<Question> questions,
     required List<Section>? subSections,
-    required bool? hasChart,
+    required bool hasChart,
   }) = _Section;
 
   factory Section.fromJson(Map<String, dynamic> json) =>
