@@ -10,7 +10,7 @@ class ResponseCard with _$ResponseCard {
   const factory ResponseCard({
     required String id,
     required String? userRef,
-    @TimestampConverter() required DateTime date,
+    @TimestampSerializer() required DateTime date,
    required List<SectionAnswer> sections,
     required bool isCalculated,
     required bool isCompleted,

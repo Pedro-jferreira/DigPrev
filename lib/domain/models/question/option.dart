@@ -6,11 +6,10 @@ part 'option.g.dart';
 @freezed
 class Option with _$Option {
   const factory Option({
-    required int? id,
-    required String? question,
+    required int counter,
+    required String? text,
     required double? valueScore,
     required String? intensity,
-    required int? days,
   }) = _Option;
 
   factory Option.fromJson(Map<String, dynamic> json) => _$OptionFromJson(json);

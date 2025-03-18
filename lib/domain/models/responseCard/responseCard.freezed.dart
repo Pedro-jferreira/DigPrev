@@ -23,7 +23,7 @@ ResponseCard _$ResponseCardFromJson(Map<String, dynamic> json) {
 mixin _$ResponseCard {
   String get id => throw _privateConstructorUsedError;
   String? get userRef => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get date => throw _privateConstructorUsedError;
   List<SectionAnswer> get sections => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $ResponseCardCopyWith<$Res> {
   $Res call({
     String id,
     String? userRef,
-    @TimestampConverter() DateTime date,
+    @TimestampSerializer() DateTime date,
     List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
@@ -128,7 +128,7 @@ abstract class _$$ResponseCardImplCopyWith<$Res>
   $Res call({
     String id,
     String? userRef,
-    @TimestampConverter() DateTime date,
+    @TimestampSerializer() DateTime date,
     List<SectionAnswer> sections,
     bool isCalculated,
     bool isCompleted,
@@ -199,7 +199,7 @@ class _$ResponseCardImpl implements _ResponseCard {
   const _$ResponseCardImpl({
     required this.id,
     required this.userRef,
-    @TimestampConverter() required this.date,
+    @TimestampSerializer() required this.date,
     required final List<SectionAnswer> sections,
     required this.isCalculated,
     required this.isCompleted,
@@ -213,7 +213,7 @@ class _$ResponseCardImpl implements _ResponseCard {
   @override
   final String? userRef;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   final DateTime date;
   final List<SectionAnswer> _sections;
   @override
@@ -278,7 +278,7 @@ abstract class _ResponseCard implements ResponseCard {
   const factory _ResponseCard({
     required final String id,
     required final String? userRef,
-    @TimestampConverter() required final DateTime date,
+    @TimestampSerializer() required final DateTime date,
     required final List<SectionAnswer> sections,
     required final bool isCalculated,
     required final bool isCompleted,
@@ -292,7 +292,7 @@ abstract class _ResponseCard implements ResponseCard {
   @override
   String? get userRef;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get date;
   @override
   List<SectionAnswer> get sections;

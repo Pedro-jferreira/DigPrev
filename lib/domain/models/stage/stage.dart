@@ -11,8 +11,8 @@ class Stage with _$Stage {
     required int id,
     required String title,
     required String description,
-    @TimestampConverter() required DateTime creationDate,
-    required List<Section>? sections,
+    @TimestampSerializer() required DateTime creationDate,
+    required List<Section> sections,
   }) = _Stage;
 
   factory Stage.fromJson(Map<String, dynamic> json) => _$StageFromJson(json);

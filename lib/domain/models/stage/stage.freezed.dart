@@ -24,9 +24,9 @@ mixin _$Stage {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get creationDate => throw _privateConstructorUsedError;
-  List<Section>? get sections => throw _privateConstructorUsedError;
+  List<Section> get sections => throw _privateConstructorUsedError;
 
   /// Serializes this Stage to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,8 +46,8 @@ abstract class $StageCopyWith<$Res> {
     int id,
     String title,
     String description,
-    @TimestampConverter() DateTime creationDate,
-    List<Section>? sections,
+    @TimestampSerializer() DateTime creationDate,
+    List<Section> sections,
   });
 }
 
@@ -70,7 +70,7 @@ class _$StageCopyWithImpl<$Res, $Val extends Stage>
     Object? title = null,
     Object? description = null,
     Object? creationDate = null,
-    Object? sections = freezed,
+    Object? sections = null,
   }) {
     return _then(
       _value.copyWith(
@@ -95,10 +95,10 @@ class _$StageCopyWithImpl<$Res, $Val extends Stage>
                     : creationDate // ignore: cast_nullable_to_non_nullable
                         as DateTime,
             sections:
-                freezed == sections
+                null == sections
                     ? _value.sections
                     : sections // ignore: cast_nullable_to_non_nullable
-                        as List<Section>?,
+                        as List<Section>,
           )
           as $Val,
     );
@@ -117,8 +117,8 @@ abstract class _$$StageImplCopyWith<$Res> implements $StageCopyWith<$Res> {
     int id,
     String title,
     String description,
-    @TimestampConverter() DateTime creationDate,
-    List<Section>? sections,
+    @TimestampSerializer() DateTime creationDate,
+    List<Section> sections,
   });
 }
 
@@ -140,7 +140,7 @@ class __$$StageImplCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? creationDate = null,
-    Object? sections = freezed,
+    Object? sections = null,
   }) {
     return _then(
       _$StageImpl(
@@ -165,10 +165,10 @@ class __$$StageImplCopyWithImpl<$Res>
                 : creationDate // ignore: cast_nullable_to_non_nullable
                     as DateTime,
         sections:
-            freezed == sections
+            null == sections
                 ? _value._sections
                 : sections // ignore: cast_nullable_to_non_nullable
-                    as List<Section>?,
+                    as List<Section>,
       ),
     );
   }
@@ -181,8 +181,8 @@ class _$StageImpl implements _Stage {
     required this.id,
     required this.title,
     required this.description,
-    @TimestampConverter() required this.creationDate,
-    required final List<Section>? sections,
+    @TimestampSerializer() required this.creationDate,
+    required final List<Section> sections,
   }) : _sections = sections;
 
   factory _$StageImpl.fromJson(Map<String, dynamic> json) =>
@@ -195,16 +195,14 @@ class _$StageImpl implements _Stage {
   @override
   final String description;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   final DateTime creationDate;
-  final List<Section>? _sections;
+  final List<Section> _sections;
   @override
-  List<Section>? get sections {
-    final value = _sections;
-    if (value == null) return null;
+  List<Section> get sections {
     if (_sections is EqualUnmodifiableListView) return _sections;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_sections);
   }
 
   @override
@@ -256,8 +254,8 @@ abstract class _Stage implements Stage {
     required final int id,
     required final String title,
     required final String description,
-    @TimestampConverter() required final DateTime creationDate,
-    required final List<Section>? sections,
+    @TimestampSerializer() required final DateTime creationDate,
+    required final List<Section> sections,
   }) = _$StageImpl;
 
   factory _Stage.fromJson(Map<String, dynamic> json) = _$StageImpl.fromJson;
@@ -269,10 +267,10 @@ abstract class _Stage implements Stage {
   @override
   String get description;
   @override
-  @TimestampConverter()
+  @TimestampSerializer()
   DateTime get creationDate;
   @override
-  List<Section>? get sections;
+  List<Section> get sections;
 
   /// Create a copy of Stage
   /// with the given fields replaced by the non-null parameter values.

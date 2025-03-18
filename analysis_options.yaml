@@ -20,3 +20,7 @@ linter:
     lines_longer_than_80_chars: true
     prefer_function_declarations_over_variables: true
 
+# Excluindo todas as classes geradas pelo freezed dentro de lib/domain/models/
+analyzer:
+  exclude:
+    - lib/domain/models/**/*.dart

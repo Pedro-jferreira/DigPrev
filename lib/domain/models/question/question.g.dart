@@ -9,6 +9,7 @@ part of 'question.dart';
 _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
     _$QuestionImpl(
       id: json['id'] as String,
+      counter: (json['counter'] as num).toInt(),
       question: json['question'] as String,
       placeholder: json['placeholder'] as String,
       supportingText: json['supportingText'] as String,
@@ -16,31 +17,39 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
       inputType: $enumDecode(_$InputTypeEnumMap, json['inputType']),
       explanatoryTexts:
           (json['explanatoryTexts'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => ExplanatoryTexts.fromJson(e as Map<String, dynamic>))
               .toList(),
-      options:
-          (json['options'] as List<dynamic>?)
-              ?.map((e) => Option.fromJson(e as Map<String, dynamic>))
+      optionsQuestions:
+          (json['optionsQuestions'] as List<dynamic>)
+              .map((e) => Option.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      disableQuestions:
+          (json['disableQuestions'] as List<dynamic>?)
+              ?.map((e) => e as String)
               .toList(),
     );
 
-Map<String, dynamic> _$$QuestionImplToJson(_$QuestionImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'question': instance.question,
-      'placeholder': instance.placeholder,
-      'supportingText': instance.supportingText,
-      'tooltipText': instance.tooltipText,
-      'inputType': _$InputTypeEnumMap[instance.inputType]!,
-      'explanatoryTexts': instance.explanatoryTexts,
-      'options': instance.options?.map((e) => e.toJson()).toList(),
-    };
+Map<String, dynamic> _$$QuestionImplToJson(
+  _$QuestionImpl instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'counter': instance.counter,
+  'question': instance.question,
+  'placeholder': instance.placeholder,
+  'supportingText': instance.supportingText,
+  'tooltipText': instance.tooltipText,
+  'inputType': _$InputTypeEnumMap[instance.inputType]!,
+  'explanatoryTexts':
+      instance.explanatoryTexts?.map((e) => e.toJson()).toList(),
+  'optionsQuestions': instance.optionsQuestions.map((e) => e.toJson()).toList(),
+  'disableQuestions': instance.disableQuestions,
+};
 
 const _$InputTypeEnumMap = {
   InputType.SELECT: 'SELECT',
-  InputType.RADIO_BUTTOM: 'RADIO_BUTTOM',
-  InputType.TEXT_INPUT: 'TEXT_INPUT',
+  InputType.RADIOBUTTON: 'RADIOBUTTON',
+  InputType.NUMBERFIELD: 'NUMBERFIELD',
+  InputType.SLIDER: 'SLIDER',
   InputType.SIM_NAO: 'SIM_NAO',
-  InputType.DATE: 'DATE',
-  InputType.NUMBER_INPUT: 'NUMBER_INPUT',
+  InputType.FREQUENCY_TIME: 'FREQUENCY_TIME',
 };
