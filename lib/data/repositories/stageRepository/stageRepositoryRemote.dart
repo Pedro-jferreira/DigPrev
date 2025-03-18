@@ -18,4 +18,14 @@ class StageRepositoryRemote implements StageRepository {
   Stream<List<Stage>> observeAll() {
     return _stageService.observerAll();
   }
+
+  @override
+  AsyncResult<Stage> update(int id, Stage stage) {
+    return _stageService.update(id, stage);
+  }
+
+  @override
+  AsyncResult<List<Stage>> fetchAll() {
+   return _stageService.fetchAll();
+  }
 }
