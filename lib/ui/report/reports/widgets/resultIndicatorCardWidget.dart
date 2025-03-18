@@ -1,6 +1,7 @@
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
+import 'package:segmented_progress_bar/segmented_progress_bar.dart';
 
 class ResultIndicatorCardWidget extends StatelessWidget {
   final double maxValue;
@@ -32,6 +33,28 @@ class ResultIndicatorCardWidget extends StatelessWidget {
     });
   }
 
+  List<ProgressSegment> dynamicSegments(BuildContext context) {
+    final Color baseColor =
+        Theme.of(context).colorScheme.primary; // Cor base para gerar variações
+    final List<Color> stageColors = _generateColorVariants(
+      baseColor,
+      stages.length,
+    );
+
+    return List<ProgressSegment>.generate(stages.length, (int index) {
+      final StageLabel stage = stages[index];
+
+      // Calcula o tamanho do segmento proporcional ao maxValue
+      final double stageSize = (stage.max - stage.min) / maxValue * 100;
+
+      return ProgressSegment(
+        value: stageSize, // Tamanho proporcional
+        color: stageColors[index], // Cor gerada automaticamente
+        label: '', // Pode ser ajustado se precisar de um nome
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Color baseColor = Theme.of(context).colorScheme.primary;
@@ -45,22 +68,45 @@ class ResultIndicatorCardWidget extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TitleToolTip(title: title, tooltipText: tooltipText),
-            CustomPaint(
-              size: const Size(double.infinity, 30),
-              painter: BarPainter(
-                maxValue,
-                indicatorValue,
-                stages,
-                stageColors,
-                context,
-              ),
-            ),
             const SizedBox(height: 16),
-            getSteps(stageColors, stages, context)
-            // Adicionando a legenda
+            _buildChart(),
+            const SizedBox(height: 16),
+            getSteps(stageColors, stages, context),
           ],
         ),
       ),
+    );
+  }
+  Widget _buildChart(){
+   return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double indicatorPosition =
+            (indicatorValue / maxValue) * constraints.maxWidth;
+
+        // Verificações de limites
+        if (indicatorValue < 0) {
+          indicatorPosition = 0;
+        } else if (indicatorValue >= maxValue) {
+          indicatorPosition = constraints.maxWidth - 15;
+        }
+        return Stack(
+          alignment: Alignment.centerLeft,
+          children: <Widget>[
+            SegmentedProgressBar(segments: dynamicSegments(context)),
+            Positioned(
+              left: indicatorPosition ,
+              child: Container(
+                width: 15,
+                height: 15,
+                decoration:  BoxDecoration(
+                  color: Theme.of(context).colorScheme.secondary,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -95,53 +141,4 @@ Widget getSteps(
       );
     }),
   );
-}
-
-class BarPainter extends CustomPainter {
-  final double maxValue;
-  final double indicatorValue;
-  final List<StageLabel> stages;
-  final List<Color> stageColors;
-  final BuildContext context;
-
-  BarPainter(
-    this.maxValue,
-    this.indicatorValue,
-    this.stages,
-    this.stageColors,
-    this.context,
-  );
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double barHeight = size.height / 2;
-    double startX = 0;
-
-    // Desenha os estágios coloridos
-    for (int i = 0; i < stages.length; i++) {
-      final StageLabel stage = stages[i];
-      final double stageWidth = (stage.max - stage.min) / maxValue * size.width;
-      final Paint stagePaint = Paint()..color = stageColors[i];
-
-      canvas.drawRRect(
-        RRect.fromRectAndRadius(
-          Rect.fromLTWH(startX, size.height / 4, stageWidth, barHeight),
-          const Radius.circular(10),
-        ),
-        stagePaint,
-      );
-
-      startX += stageWidth;
-    }
-
-    double indicatorX = (indicatorValue / maxValue) * size.width;
-    indicatorX = indicatorX.clamp(0, size.width);
-
-    final Paint indicatorPaint =
-        Paint()..color = Theme.of(context).colorScheme.secondary;
-    canvas.drawCircle(Offset(indicatorX, size.height / 2), 10, indicatorPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
