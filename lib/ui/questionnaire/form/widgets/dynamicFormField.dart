@@ -111,9 +111,9 @@ class DynamicFormField extends StatelessWidget {
       case InputType.SLIDER:
         return Text(question.question);
       case InputType.SIM_NAO:
-        return Text(question.question); //colocado pra parar de bugar
+        return Text(question.question);
       case InputType.FREQUENCY_TIME:
-        return Text(question.question); // colocado pra parar de bugar
+        return Text(question.question);
     }
   }
 }

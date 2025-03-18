@@ -4,6 +4,7 @@ import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.d
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/stage_Screens.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,8 @@ class HomeRoute extends GoRoute {
                 MaterialPage<dynamic>(
                   child: StageScreen(
                     viewModel: context.watch<QuestionnaireViewModel>(),
+                    responseCardViewModel:
+                        context.watch<ResponseCardViewModel>(),
                   ),
                 ),
         routes: <RouteBase>[

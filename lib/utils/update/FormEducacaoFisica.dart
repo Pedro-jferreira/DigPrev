@@ -61,7 +61,6 @@ class _FormEducacaoFisicaWidgetState extends State<FormEducacaoFisicaWidget> {
           return section;
         }).toList(),
       );
-      print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<${_stage.id}');
       widget.viewModel.update(_stage.id, _stage);
     }
 

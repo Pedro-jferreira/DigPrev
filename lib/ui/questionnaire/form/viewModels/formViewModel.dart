@@ -63,6 +63,13 @@ class FormViewModel extends ChangeNotifier {
     final List<Answer> answers = <Answer>[];
     if (_responseCard != null) {
       for (SectionAnswer sections in _responseCard!.sections) {
+        if(sections.subSectionsAnswers !=null){
+          for (SectionAnswer sections in sections.subSectionsAnswers!) {
+            for (Answer answer in sections.answers) {
+              answers.add(answer);
+            }
+          }
+        }
         for (Answer answer in sections.answers) {
           answers.add(answer);
         }

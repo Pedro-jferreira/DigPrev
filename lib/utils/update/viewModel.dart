@@ -19,9 +19,8 @@ class ViewModel extends ChangeNotifier {
 
   update(int id, Stage stage){
     _stageRepository.update(id, stage).fold(
-        (onSuccess) {print("deu Certo");},
-        (onError){print("deu error");
-        });
+        (Stage onSuccess) => onSuccess,
+        (Exception onError)=> onError);
   }
 
 }
