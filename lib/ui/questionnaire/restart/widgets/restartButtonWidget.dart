@@ -43,6 +43,9 @@ class _RestartButtonWidgetState extends State<RestartButtonWidget>
         turns: _controller.drive(Tween<double>(begin: 1.0, end: 0.0)),
         child: const Icon(Icons.replay),
       ),
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
+      foregroundColor: Theme.of(context).colorScheme.primaryFixed,
+
     );
   }
 }

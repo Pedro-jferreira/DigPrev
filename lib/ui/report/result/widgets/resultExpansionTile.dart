@@ -1,6 +1,8 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
+import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ResultExpansionTileWidget extends StatefulWidget {
   const ResultExpansionTileWidget({
@@ -25,7 +27,7 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
-          shape: const Border(),
+        shape: const Border(),
         title: Text(formatDate(widget.responseCard.date)),
         leading: Container(
           width: 25,
@@ -65,11 +67,16 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
               children: <Widget>[
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.share_rounded,
-                  color: Theme.of(context).colorScheme.primary,),
+                  icon: Icon(
+                    Icons.share_rounded,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
                 FilledButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(AppRoutes.resultChart.name,
+                        pathParameters: <String, String>{'id': '${widget.responseCard.id}'});
+                  },
                   icon: const Icon(Icons.visibility_rounded),
                   label: const Text('Ver Resultados'),
                 ),
