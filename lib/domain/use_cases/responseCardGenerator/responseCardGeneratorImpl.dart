@@ -56,7 +56,7 @@ class ResponseCardGeneratorImpl implements ResponseCardGenerator {
     return SectionAnswer(
       id: ObjectId().hexString,
       title: section.title,
-      sectionRef: section.id.toString(),
+      sectionRef: section.id,
       answers: answers,
       subSectionsAnswers: subSectionsAnswers,
       score: 0.0,

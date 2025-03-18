@@ -36,7 +36,7 @@ class ResponseCardService {
 
       final DocumentReference<Map<String, dynamic>> document =
           querySnapshot.docs.first.reference;
-      await document.set(responseCard.toJson(), SetOptions(merge: false));
+      await document.set(responseCard.toJson(), SetOptions(merge: true));
       return Success<ResponseCard, Exception>(responseCard);
     } catch (e) {
       return Failure<ResponseCard, Exception>(Exception(e.toString()));
