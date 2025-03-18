@@ -23,13 +23,13 @@ SectionAnswer _$SectionAnswerFromJson(Map<String, dynamic> json) {
 mixin _$SectionAnswer {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get sectionRef => throw _privateConstructorUsedError;
+  double get sectionRef => throw _privateConstructorUsedError;
   List<Answer> get answers => throw _privateConstructorUsedError;
   List<SectionAnswer>? get subSectionsAnswers =>
       throw _privateConstructorUsedError;
   double get score => throw _privateConstructorUsedError;
   bool get isCalculated => throw _privateConstructorUsedError;
-  bool? get hasChart => throw _privateConstructorUsedError;
+  bool get hasChart => throw _privateConstructorUsedError;
 
   /// Serializes this SectionAnswer to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,12 +51,12 @@ abstract class $SectionAnswerCopyWith<$Res> {
   $Res call({
     String id,
     String title,
-    String sectionRef,
+    double sectionRef,
     List<Answer> answers,
     List<SectionAnswer>? subSectionsAnswers,
     double score,
     bool isCalculated,
-    bool? hasChart,
+    bool hasChart,
   });
 }
 
@@ -82,7 +82,7 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
     Object? subSectionsAnswers = freezed,
     Object? score = null,
     Object? isCalculated = null,
-    Object? hasChart = freezed,
+    Object? hasChart = null,
   }) {
     return _then(
       _value.copyWith(
@@ -100,7 +100,7 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
                 null == sectionRef
                     ? _value.sectionRef
                     : sectionRef // ignore: cast_nullable_to_non_nullable
-                        as String,
+                        as double,
             answers:
                 null == answers
                     ? _value.answers
@@ -122,10 +122,10 @@ class _$SectionAnswerCopyWithImpl<$Res, $Val extends SectionAnswer>
                     : isCalculated // ignore: cast_nullable_to_non_nullable
                         as bool,
             hasChart:
-                freezed == hasChart
+                null == hasChart
                     ? _value.hasChart
                     : hasChart // ignore: cast_nullable_to_non_nullable
-                        as bool?,
+                        as bool,
           )
           as $Val,
     );
@@ -144,12 +144,12 @@ abstract class _$$SectionAnswerImplCopyWith<$Res>
   $Res call({
     String id,
     String title,
-    String sectionRef,
+    double sectionRef,
     List<Answer> answers,
     List<SectionAnswer>? subSectionsAnswers,
     double score,
     bool isCalculated,
-    bool? hasChart,
+    bool hasChart,
   });
 }
 
@@ -174,7 +174,7 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
     Object? subSectionsAnswers = freezed,
     Object? score = null,
     Object? isCalculated = null,
-    Object? hasChart = freezed,
+    Object? hasChart = null,
   }) {
     return _then(
       _$SectionAnswerImpl(
@@ -192,7 +192,7 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
             null == sectionRef
                 ? _value.sectionRef
                 : sectionRef // ignore: cast_nullable_to_non_nullable
-                    as String,
+                    as double,
         answers:
             null == answers
                 ? _value._answers
@@ -214,10 +214,10 @@ class __$$SectionAnswerImplCopyWithImpl<$Res>
                 : isCalculated // ignore: cast_nullable_to_non_nullable
                     as bool,
         hasChart:
-            freezed == hasChart
+            null == hasChart
                 ? _value.hasChart
                 : hasChart // ignore: cast_nullable_to_non_nullable
-                    as bool?,
+                    as bool,
       ),
     );
   }
@@ -246,7 +246,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   @override
   final String title;
   @override
-  final String sectionRef;
+  final double sectionRef;
   final List<Answer> _answers;
   @override
   List<Answer> get answers {
@@ -271,7 +271,7 @@ class _$SectionAnswerImpl implements _SectionAnswer {
   @override
   final bool isCalculated;
   @override
-  final bool? hasChart;
+  final bool hasChart;
 
   @override
   String toString() {
@@ -331,12 +331,12 @@ abstract class _SectionAnswer implements SectionAnswer {
   const factory _SectionAnswer({
     required final String id,
     required final String title,
-    required final String sectionRef,
+    required final double sectionRef,
     required final List<Answer> answers,
     required final List<SectionAnswer>? subSectionsAnswers,
     required final double score,
     required final bool isCalculated,
-    required final bool? hasChart,
+    required final bool hasChart,
   }) = _$SectionAnswerImpl;
 
   factory _SectionAnswer.fromJson(Map<String, dynamic> json) =
@@ -347,7 +347,7 @@ abstract class _SectionAnswer implements SectionAnswer {
   @override
   String get title;
   @override
-  String get sectionRef;
+  double get sectionRef;
   @override
   List<Answer> get answers;
   @override
@@ -357,7 +357,7 @@ abstract class _SectionAnswer implements SectionAnswer {
   @override
   bool get isCalculated;
   @override
-  bool? get hasChart;
+  bool get hasChart;
 
   /// Create a copy of SectionAnswer
   /// with the given fields replaced by the non-null parameter values.
