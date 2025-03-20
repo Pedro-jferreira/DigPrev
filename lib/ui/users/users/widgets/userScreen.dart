@@ -1,14 +1,15 @@
 
+import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/editCardWidget.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/informationCardWidget.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/titleAndActionWidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+  final UsersViewModel usersViewModel;
+  const UserScreen({required this.usersViewModel, super.key});
 
   @override
   State<UserScreen> createState() => _UserScreenState();
@@ -18,20 +19,13 @@ class _UserScreenState extends State<UserScreen> {
   @override
   void initState() {
     super.initState();
-
-    final User? user = FirebaseAuth.instance.currentUser;
-
-    Future.microtask(() {
-      final authViewModel = context.read<UsersViewModel>();
-      authViewModel.findUserById(user!.uid);
-    });
+    Future.microtask(() => context.read<UsersViewModel>().loadCurrentUser());
   }
   @override
   Widget build(BuildContext context) {
     return Consumer<UsersViewModel>(
-      builder: (context, users, child){
-        final user = users.user;
-
+      builder: (BuildContext context, UsersViewModel users, Widget? child){
+        final CredentialsModel? user = users.user;
         if (user == null) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -39,15 +33,15 @@ class _UserScreenState extends State<UserScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: Column(
-                children: [
+                children: <Widget>[
                   Card(
-                      margin: const EdgeInsets.all(20),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          const TitleActionWidget(
+                          TitleActionWidget(
                               withAction: false,
-                              title: 'Dados Cadastrais'
+                              title: 'Dados Cadastrais',
+                            usersViewModel: widget.usersViewModel,
                           ),
                           InformationCardWidget(
                               iconType: 'nome',
@@ -67,14 +61,15 @@ class _UserScreenState extends State<UserScreen> {
                         ],
                       ),
                   ),
-                  EditCardWidget(user: user),
+                  const SizedBox(height: 10),
+                  EditCardWidget(user: user,
+                    usersViewModel: widget.usersViewModel),
                 ],
               ),
             ),
           ),
         );
       },
-
     );
   }
 }

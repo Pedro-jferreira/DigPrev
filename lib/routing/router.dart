@@ -29,7 +29,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
     refreshListenable: authNotifier,
     restorationScopeId: 'app',
     redirect: (BuildContext context, GoRouterState state) {
-/*      final bool isAuthenticated = authNotifier.isAuthenticated;
+      final bool isAuthenticated = authNotifier.isAuthenticated;
       final bool isLoginRoute = state.matchedLocation == AppRoutes.login.path;
       final String currentRoute = state.matchedLocation;
 
@@ -38,7 +38,7 @@ GoRouter router({required AuthNotifier authNotifier}) {
       }
       if (isLoginRoute && isAuthenticated) {
         return AppRoutes.quiz.path;
-      }*/
+      }
       return null;
     },
     routes: <RouteBase>[

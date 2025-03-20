@@ -69,6 +69,40 @@ class AuthService {
     }
   }
 
+  Future<void> updateUser(UserModel user) async {
+    try {
+      final User? firebaseUser = FirebaseAuth.instance.currentUser;
+
+      if (firebaseUser == null) {
+        throw FirebaseAuthException(
+          code: 'user-not-found',
+          message: 'Nenhum usuário autenticado!',
+        );
+      }
+
+      String newEmail = firebaseUser.email ?? '';
+      if (user.email != firebaseUser.email) {
+        try {
+          await firebaseUser.verifyBeforeUpdateEmail(user.email);
+          newEmail = user.email;
+        } on FirebaseAuthException catch (e) {
+          print('Erro ao atualizar e-mail no Firebase: ${e.message}');
+        }
+      }
+
+      await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).update({
+        'email': newEmail,
+        'telefone': user.telefone,
+      });
+
+      print('Usuário atualizado no Firestore!');
+    } on FirebaseException catch (e) {
+      print('Erro ao atualizar Firestore: ${e.message}');
+      rethrow;
+    }
+  }
+
+
   AsyncResult<UserModel> save(UserModel user) async {
     try {
       final DocumentReference<Map<String, dynamic>> document = db
