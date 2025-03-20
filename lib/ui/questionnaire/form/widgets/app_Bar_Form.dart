@@ -30,12 +30,12 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
     final bool hasStepper = (sections.length > 1);
     final LayoutState layout = determineLayoutState(context);
     final bool hasLeading =
-    (layout == LayoutState.mobile || layout == LayoutState.smallTablet);// Exemplo de responsividade
+    (layout == LayoutState.mobile || layout == LayoutState.smallTablet);
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.tertiary,
-        borderRadius: BorderRadius.circular(12), // Define o arredondamento das bordas
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         children: <Widget>[
@@ -86,7 +86,7 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize {
     final bool hasStepper = (sections.length > 1);
-    final double stepperHeight = hasStepper? 72.0: 0; // Altura definida no SizedBox do stepper
-    return Size.fromHeight(kToolbarHeight + stepperHeight); // 8 para espaçamento extra
+    final double stepperHeight = hasStepper? 72.0: 0;
+    return Size.fromHeight(kToolbarHeight + stepperHeight);
   }
 }

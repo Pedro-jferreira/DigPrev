@@ -28,7 +28,7 @@ class FormScreen extends StatefulWidget {
 class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
   final PageController _pageController = PageController();
-  final List<GlobalKey<FormState>> _formKeys = [];
+  final List<GlobalKey<FormState>> _formKeys = <GlobalKey<FormState>>[];
   int _currentPage = 0;
 
   @override
@@ -120,7 +120,10 @@ class SectionPageState extends State<FormScreen> {
     }
 
     _formKeys.addAll(
-      List.generate(_sections.length, (int index) => GlobalKey<FormState>()),
+      List<GlobalKey<FormState>>.generate(
+        _sections.length,
+        (int index) => GlobalKey<FormState>(),
+      ),
     );
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -150,11 +153,5 @@ class SectionPageState extends State<FormScreen> {
         ),
       ),
     );
-  }
-  Future<void> _refresh() async {
-    await widget.viewModel.loadComand.execute(
-      int.parse(widget.stageId),
-    ); // Recarrega os dados
-    setState(() {}); // Força a reconstrução da tela
   }
 }

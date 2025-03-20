@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/form/widgets/app_Bar_Form.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/list_Question.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';

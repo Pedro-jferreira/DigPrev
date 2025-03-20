@@ -111,7 +111,7 @@ class DynamicFormField extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
           ],
-          validator: (value) {
+          validator: (String? value) {
             if (validator != null) {
               return validator!(value);
             }

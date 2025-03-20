@@ -15,28 +15,34 @@ class ListQuestion extends StatefulWidget {
 
     super.key,
   });
+
   final Map<Question, Answer> questionAndAnswer;
   final FormViewModel viewModel;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
+
   @override
   State<ListQuestion> createState() => _ListQuestionState();
 }
 
 class _ListQuestionState extends State<ListQuestion> {
   final ItemScrollController itemScrollController = ItemScrollController();
-  final ScrollOffsetController scrollOffsetController = ScrollOffsetController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener = ScrollOffsetListener.create();
+  final ScrollOffsetController scrollOffsetController =
+      ScrollOffsetController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+  final ScrollOffsetListener scrollOffsetListener =
+      ScrollOffsetListener.create();
   late List<Question> questions;
 
   @override
   void initState() {
     super.initState();
-    questions = widget.questionAndAnswer.keys.toList()
-      ..sort((Question a, Question b) => a.counter.compareTo(b.counter));
+    questions =
+        widget.questionAndAnswer.keys.toList()
+          ..sort((Question a, Question b) => a.counter.compareTo(b.counter));
 
- /*   WidgetsBinding.instance.addPostFrameCallback((_) {
+    /*   WidgetsBinding.instance.addPostFrameCallback((_) {
         Future.delayed(const Duration(milliseconds: 100), () {
           scrollToQuestion(5);
         });
@@ -46,22 +52,23 @@ class _ListQuestionState extends State<ListQuestion> {
   void scrollToQuestion(int index) {
     if (index >= 0 && index < questions.length) {
       itemScrollController.scrollTo(
-          index: index,
-          duration: const Duration(seconds: 2),
-          curve: Curves.easeInOutCubic);
+        index: index,
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeInOutCubic,
+      );
     }
   }
+
   @override
   Widget build(BuildContext context) {
-
     return ScrollablePositionedList.builder(
       itemScrollController: itemScrollController,
       scrollOffsetController: scrollOffsetController,
       itemPositionsListener: itemPositionsListener,
       scrollOffsetListener: scrollOffsetListener,
-      itemCount:   questions.length + 1,
+      itemCount: questions.length + 1,
       itemBuilder: (BuildContext context, int index) {
-        if (index <   questions.length) {
+        if (index < questions.length) {
           final Question question = questions[index];
           final Answer answer = widget.questionAndAnswer[question]!;
 
@@ -73,7 +80,6 @@ class _ListQuestionState extends State<ListQuestion> {
             child: _buildDynamicFormField(question, answer),
           );
         } else {
-          print('entrei aqui');
           return NavigationButtons(
             onPrevious: widget.onPrevious,
             onNext: widget.onNext,
@@ -83,7 +89,7 @@ class _ListQuestionState extends State<ListQuestion> {
     );
   }
 
-  Widget _buildDynamicFormField(Question question, Answer answer,) {
+  Widget _buildDynamicFormField(Question question, Answer answer) {
     return DynamicFormField(
       question: question,
       viewModel: widget.viewModel,

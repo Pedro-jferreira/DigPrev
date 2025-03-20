@@ -29,19 +29,21 @@ class HomeViewModel extends ChangeNotifier {
 
   void _updateShowLeading(BuildContext context) {
     final String name = GoRouterState.of(context).topRoute!.name.toString();
-    final bool layout = (_layoutType == LayoutState.tablet ||
-        _layoutType == LayoutState.desktop);
-    _showLeading =
-        (AppRoutes.canPopForName(name) && layout);
+    final bool layout =
+        (_layoutType == LayoutState.tablet ||
+            _layoutType == LayoutState.desktop);
+    _showLeading = (AppRoutes.canPopForName(name) && layout);
 
     notifyListeners();
   }
 
   void _updateIsScrollable(BuildContext context) {
     final String name = GoRouterState.of(context).topRoute!.name.toString();
-    if (_layoutType == LayoutState.desktop || _layoutType == LayoutState.tablet){
+    if (_layoutType == LayoutState.desktop ||
+        _layoutType == LayoutState.tablet) {
       _isScrollable = false;
-    }else _isScrollable = AppRoutes.isScrollableForName(name);
+    } else
+      _isScrollable = AppRoutes.isScrollableForName(name);
     notifyListeners();
   }
 

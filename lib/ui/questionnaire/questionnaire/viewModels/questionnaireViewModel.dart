@@ -20,7 +20,7 @@ class QuestionnaireViewModel extends ChangeNotifier {
   Future<Null> refresh() async{
     _stagesSubscription?.pause();
     _stages = <Stage>[];
-    return  await Future.delayed(const Duration(seconds: 2), () {
+    return  await Future<Null>.delayed(const Duration(seconds: 2), () {
       _observeStages();
       _stagesSubscription?.resume();
     });
