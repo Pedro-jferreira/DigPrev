@@ -12,11 +12,15 @@ import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseC
 import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGeneratorImpl.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
+import 'package:digprev_flutter/ui/report/reports/viewModels/Report_VielModel.dart';
+import 'package:digprev_flutter/ui/report/result/viewModels/result_ViewModel.dart';
 import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
+import 'package:digprev_flutter/utils/update/viewModel.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -60,6 +64,12 @@ List<SingleChildWidget> get providersRemote {
           (BuildContext context) =>
               QuestionnaireViewModel(stageRepository: context.read()),
     ),
+
+    ChangeNotifierProvider<ResponseCardViewModel>(
+      create:
+          (BuildContext context) =>
+              ResponseCardViewModel(repository: context.read()),
+    ),
     ChangeNotifierProvider<SectionViewModel>(
       create:
           (BuildContext context) =>
@@ -73,7 +83,7 @@ List<SingleChildWidget> get providersRemote {
     ChangeNotifierProvider<UsersViewModel>(
       create:
           (BuildContext context) =>
-          UsersViewModel(authRepository: context.read()),
+              UsersViewModel(authRepository: context.read()),
     ),
     ChangeNotifierProvider<FormViewModel>(
       create:
@@ -88,9 +98,26 @@ List<SingleChildWidget> get providersRemote {
       create: (BuildContext context) => HomeViewModel(),
     ),
     ChangeNotifierProvider<RestartViewModel>(
-      create: (BuildContext context) => RestartViewModel(
-          cardGenerator: context.read(),
-          repository: context.read()),
+      create:
+          (BuildContext context) => RestartViewModel(
+            cardGenerator: context.read(),
+            repository: context.read(),
+          ),
+    ),
+    ChangeNotifierProvider<ResultViewModel>(
+      create:
+          (BuildContext context) => ResultViewModel(repository: context.read()),
+    ),
+    ChangeNotifierProvider<ReportViewModel>(
+      create:
+          (BuildContext context) => ReportViewModel(
+            responseCardRepository: context.read(),
+            stageRepository: context.read(),
+          ),
+    ),
+    ChangeNotifierProvider<ViewModel>(
+      create:
+          (BuildContext context) => ViewModel(stageRepository: context.read()),
     ),
   ];
 }

@@ -4,6 +4,7 @@ import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.d
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/questionFormWidget.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/stepperIndicatorWidget.dart';
+import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:result_command/result_command.dart';
@@ -47,7 +48,7 @@ class SectionPageState extends State<FormScreen> {
     final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
-        _sections = snapshot.value.sections;
+        _sections = SectionHelper.flattenSections(snapshot.value);
       });
     } else if (snapshot is FailureCommand<Stage>) {}
   }

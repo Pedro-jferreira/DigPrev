@@ -22,6 +22,22 @@ class StageService {
     }
   }
 
+  AsyncResult<List<Stage>> fetchAll() async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+          await db.collection(path).get();
+
+      final List<Stage> stages =
+          snapshot.docs.map((QueryDocumentSnapshot<Map<String, dynamic>> doc) {
+            return Stage.fromJson(doc.data());
+          }).toList();
+
+      return Success<List<Stage>, Exception>(stages);
+    } catch (e) {
+      return Failure<List<Stage>, Exception>(Exception(e.toString()));
+    }
+  }
+
   Stream<List<Stage>> observerAll() {
     return db.collection(path).snapshots().map((
       QuerySnapshot<Map<String, dynamic>> snapshot,
@@ -33,5 +49,23 @@ class StageService {
         return Stage.fromJson(data);
       }).toList();
     });
+  }
+
+  AsyncResult<Stage> update(int id, Stage stage) async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await db.collection(path).where('id', isEqualTo: id).limit(1).get();
+
+      if (querySnapshot.docs.isEmpty) {
+        return Failure<Stage, Exception>(Exception('Documento não encontrado'));
+      }
+
+      final DocumentReference<Map<String, dynamic>> document =
+          querySnapshot.docs.first.reference;
+      await document.set(stage.toJson(), SetOptions(merge: true));
+      return Success<Stage, Exception>(stage);
+    } catch (e) {
+      return Failure<Stage, Exception>(Exception(e.toString()));
+    }
   }
 }

@@ -1,13 +1,24 @@
+import 'dart:async';
+
+import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stage_Item.dart';
+import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
 import 'package:flutter/material.dart';
+import 'package:result_dart/result_dart.dart';
 
 class StageScreen extends StatefulWidget {
-  const StageScreen({required this.viewModel, super.key});
+  const StageScreen({
+    required this.viewModel,
+    required this.responseCardViewModel,
+    super.key,
+  });
 
   final QuestionnaireViewModel viewModel;
+  final ResponseCardViewModel responseCardViewModel;
 
   @override
   State<StageScreen> createState() => _StageScreenState();
@@ -16,18 +27,21 @@ class StageScreen extends StatefulWidget {
 class _StageScreenState extends State<StageScreen> {
   int _currentStageIndex = 0;
   List<Stage> _stages = <Stage>[];
+  StreamSubscription<Result<ResponseCard>>? _subscription;
 
   @override
   void initState() {
     super.initState();
     widget.viewModel.init();
     widget.viewModel.addListener(_onStagesChanged);
+    _subscription = widget.responseCardViewModel.observerPending();
   }
 
   @override
   void dispose() {
-    super.dispose();
     widget.viewModel.removeListener(_onStagesChanged);
+    _subscription?.cancel();
+    super.dispose();
   }
 
   void _onStagesChanged() {
@@ -50,7 +64,8 @@ class _StageScreenState extends State<StageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewModel.stages.isEmpty)
+    if (widget.viewModel.stages.isEmpty ||
+        widget.responseCardViewModel.responseCard == null)
       return const Center(child: CircularProgressIndicator());
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -66,6 +81,8 @@ class _StageScreenState extends State<StageScreen> {
                 itemBuilder: (BuildContext contex, int index) {
                   return StageItem(
                     stage: _stages[index],
+                    isAvailable: (_currentStageIndex== index),
+                    viewModel: widget.responseCardViewModel,
                     onProgressStateChanged: (ProgressState state) {
                       _onProgressStateChanged(index, state);
                     },

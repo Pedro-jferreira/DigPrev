@@ -9,12 +9,12 @@ class SectionAnswer with _$SectionAnswer {
   const factory SectionAnswer({
     required String id,
     required String title,
-    required String sectionRef,
+    required double sectionRef,
     required List<Answer> answers,
     required List<SectionAnswer>? subSectionsAnswers,
     required double score,
     required bool isCalculated,
-    required bool? hasChart,
+    required bool hasChart,
   }) = _SectionAnswer;
 
   factory SectionAnswer.fromJson(Map<String, dynamic> json) =>

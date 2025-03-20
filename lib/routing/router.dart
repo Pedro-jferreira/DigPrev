@@ -42,12 +42,23 @@ GoRouter router({required AuthNotifier authNotifier}) {
       return null;
     },
     routes: <RouteBase>[
+/*      GoRoute(
+        path: '/update',
+        pageBuilder:
+            (BuildContext context, GoRouterState state) =>
+            MaterialPage<dynamic>(
+              child: FormEducacaoFisicaWidget(
+                viewModel: context.watch<ViewModel>(),
+              ),
+            ),
+      ),*/
       GoRoute(
         path: '/',
         redirect: (BuildContext context, GoRouterState state) async {
           return await getInitialRoute();
         },
       ),
+
       StartRoute(),
       LoginRoute(),
       StatefulShellRoute(

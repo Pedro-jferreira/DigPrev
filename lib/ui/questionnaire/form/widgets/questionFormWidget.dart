@@ -33,7 +33,7 @@ class _QuestionFormState extends State<QuestionFormWidget> {
 
   @override
   void initState() {
-    _subscription = widget.viewModel.observerPending(widget.section.questions);
+    _subscription = widget.viewModel.observerPending();
     super.initState();
   }
 

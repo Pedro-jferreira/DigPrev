@@ -11,15 +11,14 @@ class FormViewModel extends ChangeNotifier {
   FormViewModel({required ResponseCardRepository repository})
     : _repository = repository;
   final ResponseCardRepository _repository;
+
   ResponseCard? _responseCard;
-
   ResponseCard? get responseCard => _responseCard;
-  Map<Question, Answer> _questionAndAnswer = <Question, Answer>{};
 
+  Map<Question, Answer> _questionAndAnswer = <Question, Answer>{};
   Map<Question, Answer> get questionAndAnswer => _questionAndAnswer;
 
   StreamSubscription<Result<ResponseCard>> observerPending(
-    List<Question> questions,
   ) {
     return _repository.observerPending().listen((Result<ResponseCard> onData) {
       _responseCard = onData.fold(
@@ -64,6 +63,13 @@ class FormViewModel extends ChangeNotifier {
     final List<Answer> answers = <Answer>[];
     if (_responseCard != null) {
       for (SectionAnswer sections in _responseCard!.sections) {
+        if(sections.subSectionsAnswers !=null){
+          for (SectionAnswer sections in sections.subSectionsAnswers!) {
+            for (Answer answer in sections.answers) {
+              answers.add(answer);
+            }
+          }
+        }
         for (Answer answer in sections.answers) {
           answers.add(answer);
         }
