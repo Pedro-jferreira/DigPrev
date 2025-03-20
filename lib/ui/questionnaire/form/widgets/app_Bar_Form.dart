@@ -1,5 +1,7 @@
 import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/stepper_Indicator.dart';
+import 'package:digprev_flutter/utils/layoutUtils.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,7 +28,9 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final bool hasStepper = (sections.length > 1);
-    final bool hasLeading = MediaQuery.of(context).size.width < 600; // Exemplo de responsividade
+    final LayoutState layout = determineLayoutState(context);
+    final bool hasLeading =
+    (layout == LayoutState.mobile || layout == LayoutState.smallTablet);// Exemplo de responsividade
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -34,7 +38,7 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
         borderRadius: BorderRadius.circular(12), // Define o arredondamento das bordas
       ),
       child: Column(
-        children: [
+        children: <Widget>[
           AppBar(
 
             automaticallyImplyLeading: false,

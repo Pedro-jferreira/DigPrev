@@ -39,7 +39,9 @@ class HomeViewModel extends ChangeNotifier {
 
   void _updateIsScrollable(BuildContext context) {
     final String name = GoRouterState.of(context).topRoute!.name.toString();
-    _isScrollable = AppRoutes.isScrollableForName(name);
+    if (_layoutType == LayoutState.desktop || _layoutType == LayoutState.tablet){
+      _isScrollable = false;
+    }else _isScrollable = AppRoutes.isScrollableForName(name);
     notifyListeners();
   }
 

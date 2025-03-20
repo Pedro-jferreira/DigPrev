@@ -1,5 +1,5 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/report/reports/reportPageWidget.dart';
+import 'package:digprev_flutter/ui/report/reports/report_Screen.dart';
 import 'package:digprev_flutter/ui/report/reports/viewModels/Report_VielModel.dart';
 import 'package:digprev_flutter/ui/report/result/resultPageWidget.dart';
 import 'package:digprev_flutter/ui/report/result/viewModels/result_ViewModel.dart';

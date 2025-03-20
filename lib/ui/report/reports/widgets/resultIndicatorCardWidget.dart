@@ -63,6 +63,8 @@ class ResultIndicatorCardWidget extends StatelessWidget {
       stages.length,
     );
     return Card(
+      elevation: 20,
+      shadowColor: Theme.of(context).colorScheme.shadow,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

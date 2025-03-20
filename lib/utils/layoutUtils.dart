@@ -21,7 +21,7 @@ LayoutState determineLayoutState(BuildContext context) {
 double calculateContentWidth(BoxConstraints constraints, LayoutState layoutType) {
   switch (layoutType) {
     case LayoutState.mobile:
-      return constraints.maxWidth * 0.95;
+      return constraints.maxWidth * 1.0;
     case LayoutState.smallTablet:
       return constraints.maxWidth * 0.85;
     case LayoutState.tablet:

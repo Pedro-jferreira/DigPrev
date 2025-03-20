@@ -7,7 +7,7 @@ import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questi
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stage_Item.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restart_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';
 
@@ -86,9 +86,10 @@ class _StageScreenState extends State<StageScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: availableHeight * 0.55,
+                  height: availableHeight * 0.6,
                   width: double.infinity,
                   child: ListView.builder(
+
                     itemCount: _stages.length,
                     itemBuilder: (BuildContext contex, int index) {
                       return StageItem(

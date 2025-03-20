@@ -79,7 +79,7 @@ class SectionPageState extends State<FormScreen> {
       GoRouter.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Por favor, preencha corretamente antes de avançar.'),
         ),
       );
@@ -98,7 +98,7 @@ class SectionPageState extends State<FormScreen> {
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Por favor, preencha corretamente antes de avançar.'),
         ),
       );
