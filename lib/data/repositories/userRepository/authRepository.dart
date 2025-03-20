@@ -7,6 +7,8 @@ abstract class AuthRepository {
 
   AsyncResult<UserModel> cadastrarUsuario(UserModel user);
 
+  Future<void> atualizarUsuario(UserModel user);
+
   AsyncResult<UserModel> loginUsuario(String email, String password);
 
   Stream<Result<User>> get authStatesChanges;

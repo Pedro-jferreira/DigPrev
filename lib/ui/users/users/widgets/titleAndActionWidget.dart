@@ -1,12 +1,15 @@
 
+import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:flutter/material.dart';
 
 class TitleActionWidget extends StatefulWidget {
   final String title;
   final bool withAction;
   final VoidCallback? onTapAction;
+  final UsersViewModel usersViewModel;
   const TitleActionWidget({required this.withAction,
-    required this.title, super.key, this.onTapAction});
+    required this.title, required this.usersViewModel, super.key,
+    this.onTapAction});
 
   @override
   State<TitleActionWidget> createState() => _TitleActionWidgetState();
@@ -36,7 +39,6 @@ class _TitleActionWidgetState extends State<TitleActionWidget> {
                   setState(() {
                     isEditing = !isEditing;
                   });
-
                   if (widget.onTapAction != null) {
                     widget.onTapAction!();
                   }

@@ -32,4 +32,9 @@ class AuthRepositoryRemote implements AuthRepository {
 
   @override
   Stream<Result<User>> get authStatesChanges => _authService.authStatesChanges;
+
+  @override
+  Future<void> atualizarUsuario(UserModel user) {
+    return _authService.updateUser(user);
+  }
 }
