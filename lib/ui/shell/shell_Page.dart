@@ -4,20 +4,16 @@ import 'package:digprev_flutter/ui/shell/widgets/bottom_Navigation_Bar.dart';
 import 'package:digprev_flutter/ui/shell/widgets/navigate_Drawer.dart';
 import 'package:digprev_flutter/ui/shell/widgets/navigation_Rail.dart';
 import 'package:digprev_flutter/ui/shell/widgets/top_App_Bar.dart';
-import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restartButtonWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePageWidget extends StatefulWidget {
   final StatefulNavigationShell child;
   final HomeViewModel viewModel;
-  final RestartViewModel restartViewModel;
 
   const HomePageWidget({
     required this.child,
     required this.viewModel,
-    required this.restartViewModel,
     super.key,
   });
 
@@ -41,7 +37,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         currentIndex: widget.child.currentIndex,
         onTap: (int index) => widget.child.goBranch(index),
       ),
-      floatingActionButton: floatingActionButton(),
     );
   }
 
@@ -64,16 +59,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         selectedIndex: widget.child.currentIndex,
         onDestinationSelected: (int index) => widget.child.goBranch(index),
       ),
-      floatingActionButton: floatingActionButton(),
+
     );
   }
 
-  Widget? floatingActionButton() {
-    if (widget.restartViewModel.responseCard == null)
-      return RestartButtonWidget(viewModel: widget.restartViewModel);
-
-    return null;
-  }
 
   Widget buildNavigationDrawerScaffold(BuildContext context) {
     return Scaffold(
@@ -94,13 +83,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ),
         ],
       ),
-      floatingActionButton: floatingActionButton(),
     );
   }
 
   @override
   void initState() {
-    widget.restartViewModel.observerPending();
     super.initState();
   }
 

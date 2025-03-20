@@ -30,6 +30,7 @@ dependencies:
   flutter_localization: ^0.3.1
   flutter_hooks: ^0.21.2
   segmented_progress_bar: ^1.2.0
+  scrollable_positioned_list: ^0.3.8
 
 
 

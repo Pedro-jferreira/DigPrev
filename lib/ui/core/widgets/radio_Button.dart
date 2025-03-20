@@ -19,6 +19,7 @@ class RadioButton extends FormField<String>{
     initialValue: initialSelection,
     validator: validator,
     onSaved: onSaved,
+    autovalidateMode: AutovalidateMode.onUserInteraction,
     builder: (FormFieldState<String> state){
       return RadioButtonWidgetStateful(
         labelText: labelText,
@@ -81,6 +82,8 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasError = widget.state.hasError; // 🔴 Verifica se há erro
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -88,23 +91,39 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
           ExplanatoryText(
             explanatoryText: widget.explanatoryTexts!,
           ),
-        TitleToolTip(title:widget.labelText,
-        tooltipText: widget.tooltipText,),
+        TitleToolTip(
+          title: widget.labelText,
+          tooltipText: widget.tooltipText,
+        ),
         Column(
           children: widget.radioTexts.map((String text) {
             return RadioListTile<String>(
-              title: Text(text, style: Theme.of(context).textTheme.titleSmall),
+              title: Text(
+                text,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: hasError ? Colors.red : null, // 🔴 Deixa o texto vermelho se houver erro
+                ),
+              ),
               value: text,
               groupValue: selectedOption,
               onChanged: (String? value) {
                 setState(() {
                   selectedOption = value;
                 });
+                widget.state.didChange(value); // Atualiza o estado do form
                 widget.onChanged(value);
               },
             );
           }).toList(),
         ),
+        if (hasError) // 🔴 Exibe mensagem de erro caso a validação falhe
+          Padding(
+            padding: const EdgeInsets.only(top: 5.0, left: 10.0),
+            child: Text(
+              widget.state.errorText!,
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
       ],
     );
   }

@@ -2,8 +2,8 @@ import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
-import 'package:digprev_flutter/ui/questionnaire/form/widgets/questionFormWidget.dart';
-import 'package:digprev_flutter/ui/questionnaire/form/widgets/stepperIndicatorWidget.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/form.dart';
+import 'package:digprev_flutter/ui/questionnaire/form/widgets/app_Bar_Form.dart';
 import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -28,6 +28,7 @@ class FormScreen extends StatefulWidget {
 class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
   final PageController _pageController = PageController();
+  final List<GlobalKey<FormState>> _formKeys = [];
   int _currentPage = 0;
 
   @override
@@ -56,32 +57,52 @@ class SectionPageState extends State<FormScreen> {
   void onNext() {
     setState(() {
       if (_currentPage < _sections.length - 1) {
-        _currentPage++;
-        jumpToPage(_currentPage);
+        final int page = _currentPage + 1;
+        jumpToPage(page);
       } else
-        GoRouter.of(context).pop();
+        canPop();
     });
   }
 
   void onPrevious() {
     setState(() {
       if (_currentPage > 0) {
-        _currentPage--;
-        jumpToPage(_currentPage);
+        final int page = _currentPage - 1;
+        jumpToPage(page);
       } else
-        GoRouter.of(context).pop();
+        canPop();
     });
   }
 
+  void canPop() {
+    if (_formKeys[_currentPage].currentState?.validate() ?? false) {
+      GoRouter.of(context).pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor, preencha corretamente antes de avançar.'),
+        ),
+      );
+    }
+  }
+
   void jumpToPage(int page) {
-    _pageController.animateToPage(
-      page,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-    setState(() {
-      _currentPage = page;
-    });
+    if (_formKeys[_currentPage].currentState?.validate() ?? false) {
+      _pageController.animateToPage(
+        page,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+      setState(() {
+        _currentPage = page;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor, preencha corretamente antes de avançar.'),
+        ),
+      );
+    }
   }
 
   bool _isStepCompleted(int step) {
@@ -94,63 +115,46 @@ class SectionPageState extends State<FormScreen> {
       return const Center(child: CircularProgressIndicator());
     } else if (widget.viewModel.loadComand.isFailure) {
       return const Center(
-        child: Text('falha ao carregar os dados tente novamente mais tarde'),
+        child: Text('Falha ao carregar os dados. Tente novamente mais tarde'),
       );
     }
-    final bool hasStepper = (_sections.length > 1);
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Card(
-          clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    if (hasStepper)
-                      const SizedBox(height: 67,),
-                    Expanded(
-                      child: PageView.builder(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: _sections.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return QuestionFormWidget(
-                          section: _sections[index],
-                          onPrevious: onPrevious,
-                          onNext: onNext,
-                          viewModel: widget.formViewModel,
-                        );
-                      },
-                      ),
-                    ),
-                  ],
-                ),
-              if (hasStepper)
-                Header(),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
-  Widget Header() {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 72),
-      child: Container(
-        margin: EdgeInsets.zero,
-        width: double.infinity,
-        color: Theme.of(context).colorScheme.tertiary,
-        child: FractionallySizedBox(
-          widthFactor: _sections.length == 2 ? 0.7 : 1.0,
-          child: StepperIndicatorWidget(
-            currentStep: _currentPage.toInt(),
-            totalSteps: _sections.length,
-            canMarkStepComplete: _isStepCompleted,
-            onStepTapped: jumpToPage,
-          ),
+    _formKeys.addAll(
+      List.generate(_sections.length, (int index) => GlobalKey<FormState>()),
+    );
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+        appBar: AppBarForm(
+          sections: _sections,
+          currentStep: _currentPage.toInt(),
+          totalSteps: _sections.length,
+          canMarkStepComplete: _isStepCompleted,
+          onStepTapped: jumpToPage,
+        ),
+
+        body: PageView.builder(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: _sections.length,
+          itemBuilder: (BuildContext context, int index) {
+            return FormQuestions(
+              formKey: _formKeys[index],
+              section: _sections[index],
+              onPrevious: onPrevious,
+              onNext: onNext,
+              viewModel: widget.formViewModel,
+            );
+          },
         ),
       ),
     );
+  }
+  Future<void> _refresh() async {
+    await widget.viewModel.loadComand.execute(
+      int.parse(widget.stageId),
+    ); // Recarrega os dados
+    setState(() {}); // Força a reconstrução da tela
   }
 }

@@ -1,10 +1,8 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/report/reports/viewModels/Report_VielModel.dart';
-import 'package:digprev_flutter/ui/report/reports/widgets/resultIndicatorCardWidget.dart';
 import 'package:digprev_flutter/ui/report/reports/widgets/sliver_List_Results.dart';
 import 'package:digprev_flutter/ui/report/reports/widgets/sliver_app_Bar_Result.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
@@ -26,7 +24,7 @@ class reportPageWidget extends StatefulWidget {
 }
 
 class _reportPageWidgetState extends State<reportPageWidget> {
-  List<Stage> _stages = [];
+  List<Stage> _stages = <Stage>[];
   late ResponseCard _responseCard;
 
   void _onFetchStage() {

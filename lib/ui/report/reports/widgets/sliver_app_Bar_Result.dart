@@ -39,7 +39,7 @@ class SliverAppBarResult extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(12.0))
       ),
       title: Title(context),
-      actions: [
+      actions: <Widget>[
     Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: IconButton(

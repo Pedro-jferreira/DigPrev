@@ -16,7 +16,7 @@ class PostsRoute extends GoRoute {
             (BuildContext context, GoRouterState state) =>
                 MaterialPage<dynamic>(child: ResultPageWidget(viewModel:
                 context.watch<ResultViewModel>())),
-    routes: [
+    routes: <RouteBase>[
       GoRoute(name: AppRoutes.resultChart.name,
       path:AppRoutes.resultChart.path,
       pageBuilder:  (BuildContext context, GoRouterState state) {

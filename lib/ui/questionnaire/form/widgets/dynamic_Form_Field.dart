@@ -15,7 +15,6 @@ class DynamicFormField extends StatelessWidget {
     required this.question,
     required this.answer,
     required this.viewModel,
-    this.focusNode,
     this.onSaved,
     this.validator,
     super.key,
@@ -25,7 +24,6 @@ class DynamicFormField extends StatelessWidget {
   final Answer answer;
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
-  final FocusNode? focusNode;
   final FormViewModel viewModel;
 
   Future<void> _onChange(String value) async {
@@ -48,6 +46,12 @@ class DynamicFormField extends StatelessWidget {
       await viewModel.update(answerUpdate, question.id.toString());
     }
   }
+  String? _validateNotEmpty(String? value) {
+    if (value == null || value.trim().isEmpty ) {
+      return 'Este campo não pode estar vazio.';
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,7 @@ class DynamicFormField extends StatelessWidget {
                   .map((Option option) => option.text!)
                   .toList(),
           onSaved: onSaved,
-          validator: validator,
+          validator: _validateNotEmpty,
         );
       case InputType.RADIOBUTTON:
         List<String>? texts = <String>[];
@@ -84,7 +88,7 @@ class DynamicFormField extends StatelessWidget {
           labelText: question.question,
           toolTipText: question.tooltipText,
           onSaved: onSaved,
-          validator: validator,
+          validator: _validateNotEmpty,
           onChanged: _onItemSelected,
           explanatoryTexts: texts,
           radioTexts:
@@ -107,6 +111,12 @@ class DynamicFormField extends StatelessWidget {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
           ],
+          validator: (value) {
+            if (validator != null) {
+              return validator!(value);
+            }
+            return _validateNotEmpty(value); // 🔥 Aplica validação
+          },
         );
       case InputType.SLIDER:
         return Text(question.question);

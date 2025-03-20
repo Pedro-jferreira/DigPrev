@@ -17,6 +17,14 @@ class QuestionnaireViewModel extends ChangeNotifier {
   void init(){
     _observeStages();
   }
+  Future<Null> refresh() async{
+    _stagesSubscription?.pause();
+    _stages = <Stage>[];
+    return  await Future.delayed(const Duration(seconds: 2), () {
+      _observeStages();
+      _stagesSubscription?.resume();
+    });
+}
 
   void _observeStages() {
     _stagesSubscription = _stageRepository.observeAll().listen(
