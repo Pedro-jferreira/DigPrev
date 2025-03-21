@@ -40,6 +40,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
+
   Widget buildNavigationRailScaffold(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,

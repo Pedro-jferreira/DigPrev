@@ -55,6 +55,8 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
             surfaceTintColor: Colors.transparent,
             title:Text(
                   sections[currentStep].title,
+                  softWrap: true,
+                  maxLines: 3,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primaryFixed,
                   ),

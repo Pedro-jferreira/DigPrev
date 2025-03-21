@@ -31,6 +31,35 @@ class FormViewModel extends ChangeNotifier {
 
   Future<void> update(Answer value, String questionId) async {
     if (_responseCard != null) {
+      final List<SectionAnswer> updatedSections =[];
+      for(SectionAnswer section in  _responseCard!.sections){
+        final List<SectionAnswer> updatedSubSections = <SectionAnswer>[];
+        if(section.subSectionsAnswers != null){
+          for(SectionAnswer subS in section.subSectionsAnswers!){
+            subS = subS.copyWith(
+              answers: subS.answers.map((Answer answer){
+                return (answer.questionRef == questionId) ? value : answer;
+              }).toList(),
+            );
+            updatedSubSections.add(subS);
+          }
+        }
+        section = section.copyWith(
+          answers:
+          section.answers.map((Answer answer) {
+            return (answer.questionRef == questionId) ? value : answer;
+          }).toList(),
+          subSectionsAnswers: updatedSubSections.isEmpty ?
+          null: updatedSubSections
+        );
+        updatedSections.add(section);
+      }
+      _responseCard = _responseCard!.copyWith(sections: updatedSections);
+      await _repository.update(_responseCard!.id, _responseCard!);
+    }
+
+
+/*    if (_responseCard != null) {
       final List<SectionAnswer> updatedSections =
           _responseCard!.sections.map((SectionAnswer section) {
             return section.copyWith(
@@ -42,7 +71,7 @@ class FormViewModel extends ChangeNotifier {
           }).toList();
       _responseCard = _responseCard!.copyWith(sections: updatedSections);
       await _repository.update(_responseCard!.id, _responseCard!);
-    }
+    }*/
   }
 
   Map<Question, Answer> joinQuestionAndAnswer(List<Question> questions) {

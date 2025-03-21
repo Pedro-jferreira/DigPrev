@@ -73,9 +73,17 @@ class _StageScreenState extends State<StageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewModel.stages.isEmpty ||
-        widget.responseCardViewModel.responseCard == null)
+    if (widget.viewModel.stages.isEmpty )
       return const Center(child: CircularProgressIndicator());
+    if(widget.responseCardViewModel.responseCard == null){
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text('Sem Questionarios Pendentes, clique no botão abaixo para '),
+          RestartButton(viewModel: widget.restartViewModel)],
+        ),
+      );
+    }
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refresh,
@@ -108,8 +116,6 @@ class _StageScreenState extends State<StageScreen> {
           },
         ),
       ),
-
-      floatingActionButton: RestartButton(viewModel: widget.restartViewModel,),
     );
   }
 }

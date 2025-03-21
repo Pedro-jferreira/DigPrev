@@ -10,6 +10,10 @@ class Option with _$Option {
     required String? text,
     required double? valueScore,
     required String? intensity,
+    required int? days,
+    required int? hours,
+    required int? minutess,
+    required bool? noneOption
   }) = _Option;
 
   factory Option.fromJson(Map<String, dynamic> json) => _$OptionFromJson(json);

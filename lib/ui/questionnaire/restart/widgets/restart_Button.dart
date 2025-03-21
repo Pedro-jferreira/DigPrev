@@ -38,8 +38,7 @@ class _RestartButtonState extends State<RestartButton>
 
   @override
   Widget build(BuildContext context) {
-    return widget.viewModel.responseCard == null
-        ? FloatingActionButton(
+   return FloatingActionButton(
       onPressed: _onPressed,
       child: RotationTransition(
         turns: _controller.drive(Tween<double>(begin: 1.0, end: 0.0)),
@@ -47,7 +46,6 @@ class _RestartButtonState extends State<RestartButton>
       ),
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       foregroundColor: Theme.of(context).colorScheme.primaryFixed,
-    )
-        : const SizedBox.shrink();
+    );
   }
 }

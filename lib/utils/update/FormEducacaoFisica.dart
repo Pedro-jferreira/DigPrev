@@ -1,5 +1,6 @@
+import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
+import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/utils/update/viewModel.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _FormEducacaoFisicaWidgetState extends State<FormEducacaoFisicaWidget> {
   void initState() {
     super.initState();
     widget.viewModel.loadComand.addListener(_onCommandStateChanged);
-    widget.viewModel.loadComand.execute(4);
+    widget.viewModel.loadComand.execute(2);
   }
 
   @override
@@ -42,34 +43,36 @@ class _FormEducacaoFisicaWidgetState extends State<FormEducacaoFisicaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final List<StageLabel> s2 = <StageLabel>[
-      const StageLabel(min: 0, max: 80, label: 'Sem Preocupação Com a Forma'),
-      const StageLabel(
-        min: 81,
-        max: 110,
-        label: 'Leve Preocupação Com a Forma',
-      ),
-      const StageLabel(
-        min: 111,
-        max: 140,
-        label: 'Preocupação Moderada Com a Forma',
-      ),
-      const StageLabel(
-        min: 141,
-        max: 204,
-        label: 'Preocupação Marcante Com a Forma',
-      ),
+    List<Option> options = [
+
     ];
 
+
     if (widget.viewModel.loadComand.isSuccess) {
-      _stage = _stage.copyWith(
-        sections:
-            _stage.sections.map((Section section) {
-              if (section.id == 7) {
-                return section.copyWith(textUnderBar: s2);
-              }
-              return section;
+      List<Section> sectionsUp = _stage.sections.map((section) {
+        List<Section> subSectionsUp = section.subSections?.map((subS) {
+          return subS.copyWith(
+            questions: subS.questions.map((question) {
+              return question.inputType == InputType.SIM_NAO
+                  ? question.copyWith(optionsQuestions: options)
+                  : question;
             }).toList(),
+          );
+        }).toList() ?? [];
+
+        return section.copyWith(
+          subSections: subSectionsUp,
+          questions: section.questions.map((question) {
+            return question.inputType == InputType.SIM_NAO
+                ? question.copyWith(optionsQuestions: options)
+                : question;
+          }).toList(),
+        );
+      }).toList();
+
+
+      _stage = _stage.copyWith(
+        sections: sectionsUp
       );
       widget.viewModel.update(_stage.id, _stage);
     }
