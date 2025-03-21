@@ -5,6 +5,7 @@ import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewMode
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/stage_Screens.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
+import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class HomeRoute extends GoRoute {
                     viewModel: context.watch<QuestionnaireViewModel>(),
                     responseCardViewModel:
                         context.watch<ResponseCardViewModel>(),
+                    restartViewModel: context.watch<RestartViewModel>(),
                   ),
                 ),
         routes: <RouteBase>[

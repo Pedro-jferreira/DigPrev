@@ -50,9 +50,8 @@ class ResponseCardViewModel extends ChangeNotifier {
 
       final int filledAnswers =
           allAnswers.where((Answer a) => a.answers.isNotEmpty).length;
-      print(  filledAnswers / allAnswers.length);
 
-      return filledAnswers / allAnswers.length;;
+      return filledAnswers / allAnswers.length;
     }
 
     return 0.0;

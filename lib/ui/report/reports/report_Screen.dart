@@ -1,12 +1,10 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/ui/report/reports/viewModels/Report_VielModel.dart';
-import 'package:digprev_flutter/ui/report/reports/widgets/resultIndicatorCardWidget.dart';
-import 'package:digprev_flutter/ui/report/reports/widgets/sliver_List_Results.dart';
-import 'package:digprev_flutter/ui/report/reports/widgets/sliver_app_Bar_Result.dart';
+import 'package:digprev_flutter/ui/report/reports/viewModels/Report_ViewModel.dart';
+import 'package:digprev_flutter/ui/report/reports/widgets/List_Results.dart';
+import 'package:digprev_flutter/ui/report/reports/widgets/app_Bar_Result.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:result_command/result_command.dart';
@@ -26,7 +24,7 @@ class reportPageWidget extends StatefulWidget {
 }
 
 class _reportPageWidgetState extends State<reportPageWidget> {
-  List<Stage> _stages = [];
+  List<Stage> _stages = <Stage>[];
   late ResponseCard _responseCard;
 
   void _onFetchStage() {
@@ -70,19 +68,19 @@ class _reportPageWidgetState extends State<reportPageWidget> {
     if (widget.viewModel.findByIdCommand.isRunning ||
         widget.viewModel.loadComand.isRunning) {
       return const Center(child: CircularProgressIndicator());
-    }else{
-    final Map<Section, SectionAnswer> sectionAnswers =  widget.viewModel
-        .joinSectionAndAnswer(_stages, _responseCard);
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
+    } else {
+      final Map<Section, SectionAnswer> sectionAnswers = widget.viewModel
+          .joinSectionAndAnswer(_stages, _responseCard);
 
-        return CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBarResult(title: formatDate(_responseCard.date)),
-            SliverListResults(sectionAnswers: sectionAnswers),
-          ],
-        );
-      },
-    );}
+      return Card(
+        clipBehavior: Clip.antiAlias,
+        color: Theme.of(context).colorScheme.surfaceContainerHigh  ,
+        child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh ,
+          appBar: AppBarResult(title: formatDate(_responseCard.date)),
+          body: ListViewResults(sectionAnswers: sectionAnswers),
+        ),
+      );
+    }
   }
 }

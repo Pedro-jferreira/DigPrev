@@ -4,8 +4,8 @@ import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class ResultExpansionTileWidget extends StatefulWidget {
-  const ResultExpansionTileWidget({
+class ResultExpansionTile extends StatefulWidget {
+  const ResultExpansionTile({
     required this.responseCard,
     required this.index,
     super.key,
@@ -15,11 +15,10 @@ class ResultExpansionTileWidget extends StatefulWidget {
   final ResponseCard responseCard;
 
   @override
-  State<ResultExpansionTileWidget> createState() =>
-      _ResultExpansionTileWidgetState();
+  State<ResultExpansionTile> createState() => _ResultExpansionTileState();
 }
 
-class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
+class _ResultExpansionTileState extends State<ResultExpansionTile> {
   bool _customTileExpanded = false;
 
   @override
@@ -74,8 +73,12 @@ class _ResultExpansionTileWidgetState extends State<ResultExpansionTileWidget> {
                 ),
                 FilledButton.icon(
                   onPressed: () {
-                    context.pushNamed(AppRoutes.resultChart.name,
-                        pathParameters: <String, String>{'id': '${widget.responseCard.id}'});
+                    context.pushNamed(
+                      AppRoutes.resultChart.name,
+                      pathParameters: <String, String>{
+                        'id': '${widget.responseCard.id}',
+                      },
+                    );
                   },
                   icon: const Icon(Icons.visibility_rounded),
                   label: const Text('Ver Resultados'),

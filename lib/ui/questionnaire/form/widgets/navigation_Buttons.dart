@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class NavigationButtonsWidget extends StatelessWidget {
+class NavigationButtons extends StatelessWidget {
   final VoidCallback onPrevious;
   final VoidCallback onNext;
 
-  const NavigationButtonsWidget({
+  const NavigationButtons({
     required this.onPrevious,
     required this.onNext,
     super.key

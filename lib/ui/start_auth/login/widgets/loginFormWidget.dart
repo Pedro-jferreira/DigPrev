@@ -160,7 +160,7 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                                     ),
                                     backgroundColor: errorMessage != null ?
                                       Colors.red : Colors.green,
-                                    duration: const Duration(seconds: 10),
+                                    duration: const Duration(seconds: 5),
                                   ),
                                 );
                               }

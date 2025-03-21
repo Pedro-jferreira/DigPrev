@@ -1,4 +1,3 @@
-
 import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:flutter/material.dart';
 
@@ -18,10 +17,13 @@ LayoutState determineLayoutState(BuildContext context) {
 }
 
 /// Calcula a largura ideal do conteúdo com base no layout atual.
-double calculateContentWidth(BoxConstraints constraints, LayoutState layoutType) {
+double calculateContentWidth(
+  BoxConstraints constraints,
+  LayoutState layoutType,
+) {
   switch (layoutType) {
     case LayoutState.mobile:
-      return constraints.maxWidth * 0.95;
+      return constraints.maxWidth * 1.0;
     case LayoutState.smallTablet:
       return constraints.maxWidth * 0.85;
     case LayoutState.tablet:

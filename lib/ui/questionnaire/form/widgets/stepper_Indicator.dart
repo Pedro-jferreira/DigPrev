@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class StepperIndicatorWidget extends StatefulWidget {
+class StepperIndicator extends StatefulWidget {
   final int currentStep;
   final int totalSteps;
   final bool Function(int step) canMarkStepComplete;
   final ValueChanged<int>? onStepTapped;
 
-  const StepperIndicatorWidget({
+  const StepperIndicator({
     required this.currentStep,
     required this.totalSteps,
     required this.canMarkStepComplete,
@@ -15,10 +15,10 @@ class StepperIndicatorWidget extends StatefulWidget {
   });
 
   @override
-  State<StepperIndicatorWidget> createState() => _StepperIndicatorWidgetState();
+  State<StepperIndicator> createState() => _StepperIndicatorState();
 }
 
-class _StepperIndicatorWidgetState extends State<StepperIndicatorWidget> {
+class _StepperIndicatorState extends State<StepperIndicator> {
   @override
   Widget build(BuildContext context) {
     return Theme(

@@ -63,6 +63,8 @@ class ResultIndicatorCardWidget extends StatelessWidget {
       stages.length,
     );
     return Card(
+      elevation: 20,
+      shadowColor: Theme.of(context).colorScheme.shadow,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -122,19 +124,28 @@ Widget getSteps(
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: 16,
-              height: 16,
-              decoration: BoxDecoration(
-                color: stageColors[index],
-                borderRadius: BorderRadius.circular(4),
+            Padding(
+              padding: const EdgeInsets.only(top: 3.0),
+              child: Container(
+                width: 16,
+                height: 16,
+                decoration: BoxDecoration(
+                  color: stageColors[index],
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
             ),
             const SizedBox(width: 4),
-            Text(
-              stages[index].label,
-              style: Theme.of(context).textTheme.titleMedium,
+            Expanded(
+              child: Text(
+                stages[index].label,
+                style: Theme.of(context).textTheme.titleMedium,
+                softWrap: true,
+                maxLines: 2,
+
+              ),
             ),
           ],
         ),

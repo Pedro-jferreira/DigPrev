@@ -41,24 +41,58 @@ class NavigatorContainerWithPageView extends HookWidget {
                   constraints,
                   viewModel.layoutType,
                 );
-                return Column(
-                  children: <Widget>[
-                    if(viewModel.layoutType == LayoutState.desktop||
-                        viewModel.layoutType == LayoutState.tablet)
-                    TopBar(context),
-                    Expanded(
-                      child: Center(
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                            maxWidth: contentWidth,
-                            maxHeight: constraints.maxHeight,
-                          ),
-                          child: widget,
+                if(viewModel.layoutType == LayoutState.desktop||
+                    viewModel.layoutType == LayoutState.tablet){
+                  return Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10, ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            viewModel.showLeading?
+                            IconButton(
+                              icon: const Icon(Icons.arrow_back),
+                              onPressed: () => GoRouter.of(context).pop(),
+                            ):  const SizedBox(),
+                            Expanded(
+                              child: Center(
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: contentWidth,
+                                    maxHeight: constraints.maxHeight-20,
+                                  ),
+                                  child: widget,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.notifications),
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
+                      )
+                    ],
+                  );
+                }else{
+                  return Column(
+                    children: <Widget>[
+                  Expanded(
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: contentWidth,
+                          maxHeight: constraints.maxHeight,
+                        ),
+                        child: widget,
                       ),
                     ),
-                  ],
-                );
+                  ),
+                    ]);
+                }
+
               },
             );
           }).toList(),

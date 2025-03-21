@@ -10,7 +10,7 @@ class InputSlider extends StatefulWidget {
   final String supportingText;
   final List<String> explanatoryTexts;
   final List<String> selectTexts;
-  final int? valueMin;
+  final String? valueMin;
   final Function(String?) onChanged;
   final FormFieldSetter<String>? onSaved;
 
@@ -37,6 +37,7 @@ class _InputSliderState extends State<InputSlider> {
   @override
   void initState() {
     super.initState();
+    selectedValue = widget.valueMin;
   }
 
   @override
@@ -51,6 +52,7 @@ class _InputSliderState extends State<InputSlider> {
           state: UnicodeState.Enum,
         ),
         CustomSlider(
+          initialValue: (selectedValue != null) ?double.parse(selectedValue!): 1 ,
           max: widget.selectTexts.length,
           onValueChanged: (String value) {
             setState(() {

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 class StageItem extends StatefulWidget {
   final Stage stage;
+
   final bool? isAvailable;
   final Function(ProgressState) onProgressStateChanged;
   final ResponseCardViewModel viewModel;

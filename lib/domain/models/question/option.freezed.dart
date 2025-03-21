@@ -25,6 +25,10 @@ mixin _$Option {
   String? get text => throw _privateConstructorUsedError;
   double? get valueScore => throw _privateConstructorUsedError;
   String? get intensity => throw _privateConstructorUsedError;
+  int? get days => throw _privateConstructorUsedError;
+  int? get hours => throw _privateConstructorUsedError;
+  int? get minutess => throw _privateConstructorUsedError;
+  bool? get noneOption => throw _privateConstructorUsedError;
 
   /// Serializes this Option to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +44,16 @@ abstract class $OptionCopyWith<$Res> {
   factory $OptionCopyWith(Option value, $Res Function(Option) then) =
       _$OptionCopyWithImpl<$Res, Option>;
   @useResult
-  $Res call({int counter, String? text, double? valueScore, String? intensity});
+  $Res call({
+    int counter,
+    String? text,
+    double? valueScore,
+    String? intensity,
+    int? days,
+    int? hours,
+    int? minutess,
+    bool? noneOption,
+  });
 }
 
 /// @nodoc
@@ -62,6 +75,10 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
     Object? text = freezed,
     Object? valueScore = freezed,
     Object? intensity = freezed,
+    Object? days = freezed,
+    Object? hours = freezed,
+    Object? minutess = freezed,
+    Object? noneOption = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -85,6 +102,26 @@ class _$OptionCopyWithImpl<$Res, $Val extends Option>
                     ? _value.intensity
                     : intensity // ignore: cast_nullable_to_non_nullable
                         as String?,
+            days:
+                freezed == days
+                    ? _value.days
+                    : days // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            hours:
+                freezed == hours
+                    ? _value.hours
+                    : hours // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            minutess:
+                freezed == minutess
+                    ? _value.minutess
+                    : minutess // ignore: cast_nullable_to_non_nullable
+                        as int?,
+            noneOption:
+                freezed == noneOption
+                    ? _value.noneOption
+                    : noneOption // ignore: cast_nullable_to_non_nullable
+                        as bool?,
           )
           as $Val,
     );
@@ -99,7 +136,16 @@ abstract class _$$OptionImplCopyWith<$Res> implements $OptionCopyWith<$Res> {
   ) = __$$OptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int counter, String? text, double? valueScore, String? intensity});
+  $Res call({
+    int counter,
+    String? text,
+    double? valueScore,
+    String? intensity,
+    int? days,
+    int? hours,
+    int? minutess,
+    bool? noneOption,
+  });
 }
 
 /// @nodoc
@@ -120,6 +166,10 @@ class __$$OptionImplCopyWithImpl<$Res>
     Object? text = freezed,
     Object? valueScore = freezed,
     Object? intensity = freezed,
+    Object? days = freezed,
+    Object? hours = freezed,
+    Object? minutess = freezed,
+    Object? noneOption = freezed,
   }) {
     return _then(
       _$OptionImpl(
@@ -143,6 +193,26 @@ class __$$OptionImplCopyWithImpl<$Res>
                 ? _value.intensity
                 : intensity // ignore: cast_nullable_to_non_nullable
                     as String?,
+        days:
+            freezed == days
+                ? _value.days
+                : days // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        hours:
+            freezed == hours
+                ? _value.hours
+                : hours // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        minutess:
+            freezed == minutess
+                ? _value.minutess
+                : minutess // ignore: cast_nullable_to_non_nullable
+                    as int?,
+        noneOption:
+            freezed == noneOption
+                ? _value.noneOption
+                : noneOption // ignore: cast_nullable_to_non_nullable
+                    as bool?,
       ),
     );
   }
@@ -156,6 +226,10 @@ class _$OptionImpl implements _Option {
     required this.text,
     required this.valueScore,
     required this.intensity,
+    required this.days,
+    required this.hours,
+    required this.minutess,
+    required this.noneOption,
   });
 
   factory _$OptionImpl.fromJson(Map<String, dynamic> json) =>
@@ -169,10 +243,18 @@ class _$OptionImpl implements _Option {
   final double? valueScore;
   @override
   final String? intensity;
+  @override
+  final int? days;
+  @override
+  final int? hours;
+  @override
+  final int? minutess;
+  @override
+  final bool? noneOption;
 
   @override
   String toString() {
-    return 'Option(counter: $counter, text: $text, valueScore: $valueScore, intensity: $intensity)';
+    return 'Option(counter: $counter, text: $text, valueScore: $valueScore, intensity: $intensity, days: $days, hours: $hours, minutess: $minutess, noneOption: $noneOption)';
   }
 
   @override
@@ -185,13 +267,28 @@ class _$OptionImpl implements _Option {
             (identical(other.valueScore, valueScore) ||
                 other.valueScore == valueScore) &&
             (identical(other.intensity, intensity) ||
-                other.intensity == intensity));
+                other.intensity == intensity) &&
+            (identical(other.days, days) || other.days == days) &&
+            (identical(other.hours, hours) || other.hours == hours) &&
+            (identical(other.minutess, minutess) ||
+                other.minutess == minutess) &&
+            (identical(other.noneOption, noneOption) ||
+                other.noneOption == noneOption));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, counter, text, valueScore, intensity);
+  int get hashCode => Object.hash(
+    runtimeType,
+    counter,
+    text,
+    valueScore,
+    intensity,
+    days,
+    hours,
+    minutess,
+    noneOption,
+  );
 
   /// Create a copy of Option
   /// with the given fields replaced by the non-null parameter values.
@@ -213,6 +310,10 @@ abstract class _Option implements Option {
     required final String? text,
     required final double? valueScore,
     required final String? intensity,
+    required final int? days,
+    required final int? hours,
+    required final int? minutess,
+    required final bool? noneOption,
   }) = _$OptionImpl;
 
   factory _Option.fromJson(Map<String, dynamic> json) = _$OptionImpl.fromJson;
@@ -225,6 +326,14 @@ abstract class _Option implements Option {
   double? get valueScore;
   @override
   String? get intensity;
+  @override
+  int? get days;
+  @override
+  int? get hours;
+  @override
+  int? get minutess;
+  @override
+  bool? get noneOption;
 
   /// Create a copy of Option
   /// with the given fields replaced by the non-null parameter values.

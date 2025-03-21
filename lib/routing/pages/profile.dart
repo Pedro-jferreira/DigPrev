@@ -1,5 +1,4 @@
 import 'package:digprev_flutter/routing/routes.dart';
-import 'package:digprev_flutter/ui/core/widgets/dummy.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/userScreen.dart';
 import 'package:flutter/material.dart';

@@ -7,7 +7,8 @@ import 'package:digprev_flutter/routing/pages/start.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
 import 'package:digprev_flutter/ui/shell/shell_Page.dart';
-import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
+import 'package:digprev_flutter/utils/update/FormEducacaoFisica.dart';
+import 'package:digprev_flutter/utils/update/viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:digprev_flutter/ui/shell/widgets/pageNavigation/navigatorContainerWithPageView.dart';
@@ -70,7 +71,6 @@ GoRouter router({required AuthNotifier authNotifier}) {
             ) => HomePageWidget(
               child: child,
               viewModel: context.watch<HomeViewModel>(),
-              restartViewModel: context.watch<RestartViewModel>(),
             ),
         branches: <StatefulShellBranch>[
           StatefulShellBranch(routes: <RouteBase>[HomeRoute()]),
