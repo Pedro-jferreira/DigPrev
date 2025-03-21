@@ -63,18 +63,21 @@ class UsersViewModel extends ChangeNotifier {
   }
 
   Future<void> atualizarUser(CredentialsModel credentials) async{
+    final CredentialsModel _userForm = await loadCurrentUser();
     _isLoading = true;
     final UserModel user = UserModel (
         id: '1',
         nome: credentials.nome,
         cpf: credentials.cpf,
         senha: credentials.senha,
-        email: credentials.email,
+        email: credentials.email != '' ? credentials.email :  _userForm.email,
         dataNascimento: credentials.dataNascimento,
-        telefone: credentials.telefone,
+        telefone: credentials.telefone != '' ? credentials.telefone
+            : _userForm.telefone,
         consentForms: [],
         acceptedConsentForms: []
     );
+
     try {
       await _authRepository.atualizarUsuario(user);
       await Future.delayed(Duration(milliseconds: 500));
@@ -86,5 +89,9 @@ class UsersViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<void> logout() async{
+    await _authRepository.logoutUsuario();
   }
 }
