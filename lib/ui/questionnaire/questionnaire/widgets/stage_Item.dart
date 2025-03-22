@@ -63,7 +63,7 @@ class _StageItemState extends State<StageItem> {
           Widget? child,
           ) {
         _progress = responseCardViewModel.getProgress(
-          SectionHelper.flattenSections(widget.stage),
+        widget.stage,
         );
 
         ProgressState newState;

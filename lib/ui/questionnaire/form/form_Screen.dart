@@ -29,6 +29,7 @@ class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
   final PageController _pageController = PageController();
   final List<GlobalKey<FormState>> _formKeys = <GlobalKey<FormState>>[];
+  final List<bool> _completedSteps = [];
   int _currentPage = 0;
 
   @override
@@ -88,6 +89,7 @@ class SectionPageState extends State<FormScreen> {
 
   void jumpToPage(int page) {
     if (_formKeys[_currentPage].currentState?.validate() ?? false) {
+      _completedSteps[_currentPage] = true;
       _pageController.animateToPage(
         page,
         duration: const Duration(milliseconds: 500),
@@ -106,7 +108,8 @@ class SectionPageState extends State<FormScreen> {
   }
 
   bool _isStepCompleted(int step) {
-    return false;
+    if (step < 0 || step >= _completedSteps.length) return false;
+    return _completedSteps[step];
   }
 
   @override
@@ -125,6 +128,7 @@ class SectionPageState extends State<FormScreen> {
         (int index) => GlobalKey<FormState>(),
       ),
     );
+    _completedSteps.addAll(List<bool>.filled(_sections.length, false));
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Scaffold(

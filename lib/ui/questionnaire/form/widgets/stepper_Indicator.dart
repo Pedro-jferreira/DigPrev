@@ -65,6 +65,7 @@ class _StepperIndicatorState extends State<StepperIndicator> {
               color: iconColor,
               indexStyle: TextStyle(color: textColor),
             ),
+
           );
         }),
       ),

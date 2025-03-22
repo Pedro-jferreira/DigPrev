@@ -1,3 +1,5 @@
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
+import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
@@ -5,12 +7,14 @@ class TimeInputField extends StatefulWidget {
   final String title;
   final String tooltip;
   final bool isActive;
+  final List<String>? explanatoryText;
   final Function(int? days, int? hours, int? minutes, bool? isSelect)? onChanged;
   final ({int? days, int? hours, int? minutes, bool isSelect}) initialValues;
 
   const TimeInputField({
     required this.title,
     required this.tooltip,
+    required this.explanatoryText,
     Key? key,
     this.isActive = true,
     this.onChanged,
@@ -93,6 +97,9 @@ class _TimeInputFieldState extends State<TimeInputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TitleToolTip(title: widget.title, tooltipText: widget.tooltip),
+        ExplanatoryText(
+            explanatoryText: widget.explanatoryText!,
+        state: UnicodeState.Ball,),
         Row(
           children: <Widget>[
             Checkbox(
@@ -102,6 +109,9 @@ class _TimeInputFieldState extends State<TimeInputField> {
             const Text('Nenhum.'),
           ],
         ),
+        if(widget.explanatoryText != null)
+
+
         if (!_isNoneSelected)
           Row(
             children: <Widget>[

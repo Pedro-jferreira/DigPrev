@@ -1,3 +1,4 @@
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class RadioButton extends FormField<String> {
              labelText: labelText,
              tooltipText: toolTipText,
              radioTexts: radioTexts,
+             explanatoryTexts: explanatoryTexts,
              initialSelection: state.value,
              onChanged: (String? value) {
                state.didChange(value);
@@ -81,14 +83,16 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
 
   @override
   Widget build(BuildContext context) {
-    final bool hasError = widget.state.hasError; // 🔴 Verifica se há erro
-
+    final bool hasError = widget.state.hasError;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (widget.explanatoryTexts?.isNotEmpty ?? false)
-          ExplanatoryText(explanatoryText: widget.explanatoryTexts!),
         TitleToolTip(title: widget.labelText, tooltipText: widget.tooltipText),
+        if (widget.explanatoryTexts != null)
+          ExplanatoryText(
+            explanatoryText: widget.explanatoryTexts!,
+            state: UnicodeState.Hifen,
+          ),
         Column(
           children:
               widget.radioTexts.map((String text) {

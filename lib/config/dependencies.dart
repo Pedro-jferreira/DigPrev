@@ -8,8 +8,10 @@ import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryR
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
 import 'package:digprev_flutter/data/services/fireStore/responseCardService.dart';
 import 'package:digprev_flutter/data/services/fireStore/stageService.dart';
-import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
-import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGeneratorImpl.dart';
+import 'package:digprev_flutter/domain/useCases/answer_progress/answer_progress.dart';
+import 'package:digprev_flutter/domain/useCases/answer_progress/answer_progress_impl.dart';
+import 'package:digprev_flutter/domain/useCases/responseCardGenerator/responseCardGenerator.dart';
+import 'package:digprev_flutter/domain/useCases/responseCardGenerator/responseCardGeneratorImpl.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
@@ -59,6 +61,13 @@ List<SingleChildWidget> get providersRemote {
                   )
                   as ResponseCardGenerator,
     ),
+    Provider<AnswerProgress>(
+      create:
+          (BuildContext context) =>
+          AnswerProgressImpl(
+      )
+      as AnswerProgress,
+    ),
     ChangeNotifierProvider<QuestionnaireViewModel>(
       create:
           (BuildContext context) =>
@@ -68,12 +77,14 @@ List<SingleChildWidget> get providersRemote {
     ChangeNotifierProvider<ResponseCardViewModel>(
       create:
           (BuildContext context) =>
-              ResponseCardViewModel(repository: context.read()),
+              ResponseCardViewModel(repository: context.read(),
+              answerProgress:  context.read()),
     ),
     ChangeNotifierProvider<SectionViewModel>(
       create:
           (BuildContext context) =>
-              SectionViewModel(stageRepository: context.read()),
+              SectionViewModel(stageRepository: context.read(),
+              answerProgress:  context.read()),
     ),
     ChangeNotifierProvider<LoginViewModel>(
       create:

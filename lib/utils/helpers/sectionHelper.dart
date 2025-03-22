@@ -1,4 +1,6 @@
+import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 
 /// Helper para manipulação e extração de seções dentro de um estágio.
@@ -57,6 +59,25 @@ class SectionHelper {
     }
 
     for (Section section in stage.sections) {
+      extractSections(section);
+    }
+
+    return result;
+  }
+  static List<SectionAnswer> flattenSectionAnswer(ResponseCard responseCard) {
+    final List<SectionAnswer> result = <SectionAnswer>[];
+
+    void extractSections(SectionAnswer section) {
+      if (section.subSectionsAnswers != null && section.subSectionsAnswers!.isNotEmpty) {
+        for (SectionAnswer sub in section.subSectionsAnswers!) {
+          extractSections(sub);
+        }
+      } else {
+        result.add(section);
+      }
+    }
+
+    for (SectionAnswer section in responseCard.sections) {
       extractSections(section);
     }
 

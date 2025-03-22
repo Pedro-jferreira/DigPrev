@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
+import 'package:digprev_flutter/domain/models/enums/inputType.dart';
 import 'package:digprev_flutter/domain/models/question/explanatoryTexts.dart';
 import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

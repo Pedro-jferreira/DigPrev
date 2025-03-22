@@ -1,6 +1,6 @@
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepository.dart';
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
-import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
+import 'package:digprev_flutter/domain/useCases/responseCardGenerator/responseCardGenerator.dart';
 import 'package:flutter/material.dart';
 import 'package:result_command/result_command.dart';
 import 'package:result_dart/result_dart.dart';
