@@ -143,12 +143,29 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                         listenable: loginModel,
                         builder: (BuildContext context, Widget? child) {
                           return ElevatedButton(
-                            onPressed:
-                                _validateForm()
-                                    ? () {
-                                      widget.loginViewModel.login(loginModel);
-                                    }
-                                    : null,
+                            onPressed: _validateForm()
+                                ? () async {
+                              await widget.loginViewModel.login(loginModel);
+                              final String? errorMessage =
+                                  widget.loginViewModel.errorMessage;
+
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      errorMessage != null
+                                          && errorMessage.isNotEmpty
+                                          ? errorMessage
+                                          : 'Usuário logado com sucesso!',
+                                    ),
+                                    backgroundColor: errorMessage != null ?
+                                      Colors.red : Colors.green,
+                                    duration: const Duration(seconds: 5),
+                                  ),
+                                );
+                              }
+                            }
+                                : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,

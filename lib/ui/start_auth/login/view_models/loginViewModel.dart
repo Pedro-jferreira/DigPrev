@@ -19,6 +19,15 @@ class LoginViewModel extends ChangeNotifier {
         credentials.email,
         credentials.senha
     );
+    result.fold(
+        (UserModel onSuccess) {
+          _errorMessage = 'Usuário logado com sucesso!';
+        },
+        (Exception onFailure){
+          _errorMessage = 'As credenciais informadas de e-mail '
+              'ou senha estão incorretas!';
+        }
+    );
     return result;
   }
 

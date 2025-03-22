@@ -64,6 +64,35 @@ class _UserScreenState extends State<UserScreen> {
                   const SizedBox(height: 10),
                   EditCardWidget(user: user,
                     usersViewModel: widget.usersViewModel),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        await widget.usersViewModel.logout();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                        Theme.of(context).colorScheme.primary,
+                        disabledBackgroundColor:
+                        Theme.of(context).colorScheme.outline,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.logout,
+                            color: Theme.of(context).colorScheme.primaryFixed,
+                          ),
+                          const SizedBox(width: 70),
+                          const Text(
+                            'SAIR DO APLICATIVO',
+                            style: TextStyle(color: Color(0xffffffff)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
