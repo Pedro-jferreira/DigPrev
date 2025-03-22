@@ -91,7 +91,7 @@ class DynamicFormField extends StatelessWidget {
       onChanged: _onChange,
       toolTipText: question.tooltipText,
       inputFormatters: <TextInputFormatter>[
-        DecimalTextInputFormatter(decimalPlaces: 2),
+        DecimalTextInputFormatter(),
       ],
       validator: validator ?? _validateNotEmpty,
     );
@@ -190,7 +190,7 @@ class DynamicFormField extends StatelessWidget {
   }
 
   List<String>? _getExplanatoryTexts() {
-    final List<String> texts = [];
+    final List<String> texts = <String>[];
     if(question.explanatoryTexts != null){
       for(ExplanatoryTexts e in question.explanatoryTexts!){
         if(e.explanatoryText != null) {texts.add(e.explanatoryText!);};

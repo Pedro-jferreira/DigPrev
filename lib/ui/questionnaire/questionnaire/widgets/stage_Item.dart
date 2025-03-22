@@ -2,7 +2,6 @@ import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/routing/routes.dart';
 import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
-import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';

@@ -9,13 +9,11 @@ import 'package:result_dart/result_dart.dart';
 
 class SectionViewModel extends ChangeNotifier {
   final StageRepository _stageRepository;
-  final AnswerProgress _answerProgress;
 
   SectionViewModel({
     required StageRepository stageRepository,
     required AnswerProgress answerProgress,
-  }) : _stageRepository = stageRepository,
-       _answerProgress = answerProgress;
+  }) : _stageRepository = stageRepository;
   late final Command1<Stage, int> loadComand = Command1<Stage, int>(_load);
 
   AsyncResult<Stage> _load(int stageId) async {

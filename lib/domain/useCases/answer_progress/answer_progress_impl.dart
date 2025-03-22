@@ -1,4 +1,3 @@
-import 'package:digprev_flutter/data/repositories/stageRepository/stageRepository.dart';
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/enums/inputType.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
@@ -8,7 +7,6 @@ import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/domain/useCases/answer_progress/answer_progress.dart';
 import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
-import 'package:flutter/material.dart';
 
 class AnswerProgressImpl extends AnswerProgress {
   AnswerProgressImpl();
@@ -18,7 +16,7 @@ class AnswerProgressImpl extends AnswerProgress {
     int stageId,
     ResponseCard responseCard,
   ) {
-    final List<Stage> stages = [];
+    final List<Stage> stages = <Stage>[];
     int sectionIndex = -1;
 
     final Stage stage = stages.firstWhere((Stage s) => s.id == stageId);
@@ -39,7 +37,7 @@ class AnswerProgressImpl extends AnswerProgress {
 
   @override
   int getLastAnsweredSectionPosition(SectionAnswer sectionAnswer) {
-    final List<Stage> stages = [];
+    final List<Stage> stages = <Stage>[];
 
     for (Stage stage in stages) {
       for (Section section in stage.sections) {
@@ -81,7 +79,8 @@ class AnswerProgressImpl extends AnswerProgress {
   double getSectionCompletionPercentage(     Section sectionData,
       ResponseCard responseCard,) {
 
-    final List<SectionAnswer> sections = SectionHelper.flattenSectionAnswer(responseCard);
+    final List<SectionAnswer> sections =
+    SectionHelper.flattenSectionAnswer(responseCard);
 
     final SectionAnswer sectionAnswer = sections.firstWhere((SectionAnswer s){
       return s.sectionRef == sectionData.id;

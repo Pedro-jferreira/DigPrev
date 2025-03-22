@@ -36,7 +36,8 @@ class _StageScreenState extends State<StageScreen> {
     super.initState();
     widget.viewModel.init();
     widget.viewModel.addListener(_onStagesChanged);
-    _subscription = widget.responseCardViewModel.observerPending(funcao: widget.viewModel.setCurrentIndex);
+    _subscription = widget.responseCardViewModel.
+    observerPending();
     widget.restartViewModel.observerPending();
   }
 
@@ -54,10 +55,11 @@ class _StageScreenState extends State<StageScreen> {
   }
 
   void _onProgressStateChanged(int index, ProgressState state) {
-    if (state == ProgressState.Complete && index == widget.viewModel.currentStageIndex) {
+    if (state == ProgressState.Complete && index ==
+        widget.viewModel.currentStageIndex) {
       setState(() {
         if (index + 1 < _stages.length) {
-          widget.viewModel.setCurrentIndex(index + 1); // Libera o próximo estágio
+          widget.viewModel.setCurrentIndex(index + 1);
         } else {
           widget.viewModel.setCurrentIndex(-1);
         }
@@ -78,7 +80,10 @@ class _StageScreenState extends State<StageScreen> {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('Sem Questionarios Pendentes, clique no botão abaixo para '),
+          children: <Widget>[
+            const Text(
+                'Sem Questionários Pendentes, clique no botão abaixo para '
+            ),
           RestartButton(viewModel: widget.restartViewModel)],
         ),
       );
@@ -98,10 +103,11 @@ class _StageScreenState extends State<StageScreen> {
                   child: ListView.builder(
 
                     itemCount: _stages.length,
-                    itemBuilder: (BuildContext contex, int index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return StageItem(
                         stage: _stages[index],
-                        isAvailable: (widget.viewModel.currentStageIndex == index),
+                        isAvailable:
+                        (widget.viewModel.currentStageIndex == index),
                         viewModel: widget.responseCardViewModel,
                           onProgressStateChanged: (ProgressState state) {
                             _onProgressStateChanged(index, state);

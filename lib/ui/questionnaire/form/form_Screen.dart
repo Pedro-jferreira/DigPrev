@@ -29,7 +29,7 @@ class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
   final PageController _pageController = PageController();
   final List<GlobalKey<FormState>> _formKeys = <GlobalKey<FormState>>[];
-  final List<bool> _completedSteps = [];
+  final List<bool> _completedSteps = <bool>[];
   int _currentPage = 0;
 
   @override

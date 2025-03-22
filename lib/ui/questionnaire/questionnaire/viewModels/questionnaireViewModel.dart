@@ -18,7 +18,6 @@ class QuestionnaireViewModel extends ChangeNotifier {
   int get currentStageIndex => _currentStageIndex;
   void setCurrentIndex(int index){
     _currentStageIndex = index;
-    notifyListeners();
   }
 
   void init(){

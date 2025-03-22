@@ -53,7 +53,8 @@ class _InputSliderState extends State<InputSlider> {
           state: UnicodeState.Enum,
         ),
         CustomSlider(
-          initialValue: (selectedValue != null) ?double.parse(selectedValue!): 1 ,
+          initialValue: (selectedValue != null) ?
+          double.parse(selectedValue!): 1,
           max: widget.selectTexts.length,
           onValueChanged: (String value) {
             setState(() {

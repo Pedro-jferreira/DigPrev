@@ -68,7 +68,8 @@ class SectionHelper {
     final List<SectionAnswer> result = <SectionAnswer>[];
 
     void extractSections(SectionAnswer section) {
-      if (section.subSectionsAnswers != null && section.subSectionsAnswers!.isNotEmpty) {
+      if (section.subSectionsAnswers != null &&
+          section.subSectionsAnswers!.isNotEmpty) {
         for (SectionAnswer sub in section.subSectionsAnswers!) {
           extractSections(sub);
         }
