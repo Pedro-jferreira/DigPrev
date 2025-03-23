@@ -35,19 +35,19 @@ class SectionPageState extends State<FormScreen> {
   @override
   void initState() {
     super.initState();
-    widget.viewModel.loadComand.addListener(_onCommandStateChanged);
-    widget.viewModel.loadComand.execute(int.parse(widget.stageId));
+    widget.viewModel.loadCommand.addListener(_onCommandStateChanged);
+    widget.viewModel.loadCommand.execute(int.parse(widget.stageId));
   }
 
   @override
   void dispose() {
-    widget.viewModel.loadComand.removeListener(_onCommandStateChanged);
-    widget.viewModel.loadComand.execute;
+    widget.viewModel.loadCommand.removeListener(_onCommandStateChanged);
+    widget.viewModel.loadCommand.execute;
     super.dispose();
   }
 
   void _onCommandStateChanged() {
-    final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
+    final CommandState<Stage> snapshot = widget.viewModel.loadCommand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
         _sections = SectionHelper.flattenSections(snapshot.value);
@@ -114,9 +114,9 @@ class SectionPageState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewModel.loadComand.isRunning) {
+    if (widget.viewModel.loadCommand.isRunning) {
       return const Center(child: CircularProgressIndicator());
-    } else if (widget.viewModel.loadComand.isFailure) {
+    } else if (widget.viewModel.loadCommand.isFailure) {
       return const Center(
         child: Text('Falha ao carregar os dados. Tente novamente mais tarde'),
       );

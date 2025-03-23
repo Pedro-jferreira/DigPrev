@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class TimeInputField extends StatefulWidget {
   final String title;
   final String tooltip;
-  final bool isActive;
+  final bool disabled;
   final List<String>? explanatoryText;
   final Function(int? days, int? hours, int? minutes, bool? isSelect)?
   onChanged;
@@ -17,7 +17,7 @@ class TimeInputField extends StatefulWidget {
     required this.tooltip,
     required this.explanatoryText,
     Key? key,
-    this.isActive = true,
+    this.disabled = false,
     this.onChanged,
     this.initialValues = const (
       days: null,
@@ -110,6 +110,19 @@ class _TimeInputFieldState extends State<TimeInputField> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.disabled && _isNoneSelected) {
+        setState(() {
+          _isNoneSelected = false;
+        });
+        widget.onChanged?.call(
+          int.tryParse(_daysController.text),
+          int.tryParse(_hoursController.text),
+          int.tryParse(_minutesController.text),
+          false,
+        );
+      }
+    });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -122,9 +135,14 @@ class _TimeInputFieldState extends State<TimeInputField> {
           children: <Widget>[
             Checkbox(
               value: _isNoneSelected,
-              onChanged: widget.isActive ? _handleCheckboxChanged : null,
+              onChanged: widget.disabled ?null: _handleCheckboxChanged,
             ),
-            const Text('Nenhum.'),
+             Text('Nenhum.',style:
+            TextStyle(
+                color: widget.disabled ?
+                Theme.of(context).colorScheme.onSurface.withOpacity(0.38):
+                Theme.of(context).colorScheme.onSurface
+            ),),
           ],
         ),
         if (widget.explanatoryText != null)
@@ -134,13 +152,13 @@ class _TimeInputFieldState extends State<TimeInputField> {
                 Expanded(
                   child: TextFormField(
                     controller: _daysController,
-                    enabled: widget.isActive,
+                    enabled: !widget.disabled,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       labelText: 'Dias por semana',
                     ),
                     validator: (String? value) {
-                      if (widget.isActive && (value == null || value.isEmpty)) {
+                      if (!widget.disabled && (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;
@@ -152,11 +170,11 @@ class _TimeInputFieldState extends State<TimeInputField> {
                 Expanded(
                   child: TextFormField(
                     controller: _hoursController,
-                    enabled: widget.isActive,
+                    enabled: !widget.disabled,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Horas'),
                     validator: (String? value) {
-                      if (widget.isActive && (value == null || value.isEmpty)) {
+                      if (!widget.disabled && (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;
@@ -168,11 +186,11 @@ class _TimeInputFieldState extends State<TimeInputField> {
                 Expanded(
                   child: TextFormField(
                     controller: _minutesController,
-                    enabled: widget.isActive,
+                    enabled: !widget.disabled,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Minutos'),
                     validator: (String? value) {
-                      if (widget.isActive && (value == null || value.isEmpty)) {
+                      if (!widget.disabled && (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;

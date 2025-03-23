@@ -13,11 +13,12 @@ import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class DynamicFormField extends StatelessWidget {
+class DynamicFormField extends StatefulWidget {
   const DynamicFormField({
     required this.question,
     required this.answer,
     required this.viewModel,
+    required this.disabled,
     this.onSaved,
     this.validator,
     super.key,
@@ -28,16 +29,23 @@ class DynamicFormField extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final FormFieldValidator<String>? validator;
   final FormViewModel viewModel;
+  final List<String> disabled;
+
+  @override
+  State<DynamicFormField> createState() => _DynamicFormFieldState();
+}
+
+class _DynamicFormFieldState extends State<DynamicFormField> {
 
   @override
   Widget build(BuildContext context) {
-    switch (question.inputType) {
+    switch (widget.question.inputType) {
       case InputType.SELECT:
         return _buildSelect();
       case InputType.RADIOBUTTON:
         return _buildRadioButton();
       case InputType.SIM_NAO:
-        return _buildRadioButton();
+        return _buildRadioButtonYesOrNo();
 
       case InputType.NUMBERFIELD:
         return _buildNumberField();
@@ -52,26 +60,31 @@ class DynamicFormField extends StatelessWidget {
 
   Widget _buildSelect() {
     return Select(
-      labelText: question.question,
-      tooltipText: question.tooltipText,
-      placeholderText: question.placeholder,
-      supportingText: question.supportingText,
+      labelText: widget.question.question,
+      tooltipText: widget.question.tooltipText,
+      placeholderText: widget.question.placeholder,
+      supportingText: widget.question.supportingText,
       onChanged: _onItemSelected,
       initialValue:
-          answer.answers.isNotEmpty ? answer.answers.first.text : null,
+          widget.answer.answers.isNotEmpty
+              ? widget.answer.answers.first.text
+              : null,
       selectTexts: _getOptions(),
-      onSaved: onSaved,
+      onSaved: widget.onSaved,
       validator: _validateNotEmpty,
     );
   }
 
   Widget _buildRadioButton() {
     return RadioButton(
+      disabled: widget.disabled.contains(widget.question.id),
       initialSelection:
-          answer.answers.isNotEmpty ? answer.answers.first.text : null,
-      labelText: question.question,
-      toolTipText: question.tooltipText,
-      onSaved: onSaved,
+          widget.answer.answers.isNotEmpty
+              ? widget.answer.answers.first.text
+              : null,
+      labelText: widget.question.question,
+      toolTipText: widget.question.tooltipText,
+      onSaved: widget.onSaved,
       validator: _validateNotEmpty,
       onChanged: _onItemSelected,
       explanatoryTexts: _getExplanatoryTexts(),
@@ -79,30 +92,58 @@ class DynamicFormField extends StatelessWidget {
     );
   }
 
+  Widget _buildRadioButtonYesOrNo() {
+    final String? initialSelection =
+        widget.answer.answers.isNotEmpty
+            ? widget.answer.answers.first.text
+            : null;
+    if (initialSelection != null) {
+      _dynamicDisabled(widget.answer.answers.first);
+    }
+
+    return RadioButton(
+      disabled: widget.disabled.contains(widget.question.id),
+      initialSelection:
+          widget.answer.answers.isNotEmpty
+              ? widget.answer.answers.first.text
+              : null,
+      labelText: widget.question.question,
+      toolTipText: widget.question.tooltipText,
+      onSaved: widget.onSaved,
+      validator: _validateNotEmpty,
+      onChanged: _onItemSelectedYesOrNo,
+      explanatoryTexts: _getExplanatoryTexts(),
+      radioTexts: _getOptions(),
+    );
+  }
+
   Widget _buildNumberField() {
     return CustomTextField(
-      labelText: question.question,
-      placeholderText: question.placeholder,
-      supportingText: question.supportingText,
+      labelText: widget.question.question,
+      placeholderText: widget.question.placeholder,
+      supportingText: widget.question.supportingText,
       initialValue:
-          answer.answers.isNotEmpty ? answer.answers.first.text : null,
+          widget.answer.answers.isNotEmpty
+              ? widget.answer.answers.first.text
+              : null,
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      onSaved: onSaved,
+      onSaved: widget.onSaved,
       onChanged: _onChange,
-      toolTipText: question.tooltipText,
-      inputFormatters: <TextInputFormatter>[
-        DecimalTextInputFormatter(),
-      ],
-      validator: validator ?? _validateNotEmpty,
+      toolTipText: widget.question.tooltipText,
+      inputFormatters: <TextInputFormatter>[DecimalTextInputFormatter()],
+      validator: widget.validator ?? _validateNotEmpty,
     );
   }
 
   Widget _buildSlider() {
     return InputSlider(
-      valueMin: answer.answers.isNotEmpty ? answer.answers.first.text : null,
-      labelText: question.question,
-      tooltipText: question.tooltipText,
-      supportingText: question.supportingText,
+      valueMin:
+          widget.answer.answers.isNotEmpty
+              ? widget.answer.answers.first.text
+              : null,
+      labelText: widget.question.question,
+      tooltipText: widget.question.tooltipText,
+      supportingText: widget.question.supportingText,
       selectTexts: _getOptions(),
       explanatoryTexts: _getExplanatoryTexts(),
       onChanged: _onItemSelected,
@@ -120,8 +161,9 @@ class DynamicFormField extends StatelessWidget {
       minutess: null,
       noneOption: false,
     );
-    if (answer.answers.isNotEmpty) {
-      option = answer.answers.first;
+    if (widget.answer.answers.isNotEmpty) {
+      option = widget.answer.answers.first;
+      _dynamicDisabled(option);
     }
     return TimeInputField(
       initialValues: (
@@ -130,8 +172,9 @@ class DynamicFormField extends StatelessWidget {
         minutes: option.minutess,
         isSelect: option.noneOption!,
       ),
-      title: question.question,
-      tooltip: question.tooltipText,
+      disabled: widget.disabled.contains(widget.question.id),
+      title: widget.question.question,
+      tooltip: widget.question.tooltipText,
       onChanged: _onChangeTime,
       explanatoryText: _getExplanatoryTexts(),
     );
@@ -148,26 +191,53 @@ class DynamicFormField extends StatelessWidget {
       minutess: null,
       noneOption: null,
     );
-    final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
-    await viewModel.update(answerUpdate, question.id.toString());
+    final Answer answerUpdate = widget.answer.copyWith(
+      answers: <Option>[option],
+    );
+    await widget.viewModel.update(answerUpdate, widget.question.id.toString());
   }
 
   Future<void> _onItemSelected(String? value) async {
     if (value != null) {
-      final Option option = question.optionsQuestions.firstWhere(
+      final Option option = widget.question.optionsQuestions.firstWhere(
         (Option opt) => opt.text == value,
       );
-      final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
-      await viewModel.update(answerUpdate, question.id.toString());
+      final Answer answerUpdate = widget.answer.copyWith(
+        answers: <Option>[option],
+      );
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
+    }
+  }
+
+  Future<void> _onItemSelectedYesOrNo(String? value) async {
+    if (value != null) {
+      final Option option = widget.question.optionsQuestions.firstWhere(
+            (Option opt) => opt.text == value,);
+      final Answer answerUpdate =
+      widget.answer.copyWith(answers: <Option>[option]);
+      await widget.viewModel
+          .update(answerUpdate, widget.question.id.toString());
+      _dynamicDisabled(option);
+    } else {
+      final Answer answerUpdate = widget.answer.copyWith(
+        answers: <Option>[],
+      );
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
     }
   }
 
   Future<void> _onChangeTime(
-    int? days,
-    int? hours,
-    int? minutes,
-    bool? isSelect,
-  ) async {
+      int? days,
+      int? hours,
+      int? minutes,
+      bool? isSelect,
+      ) async {
     final Option option = Option(
       counter: 1,
       text: '',
@@ -178,8 +248,79 @@ class DynamicFormField extends StatelessWidget {
       minutess: minutes,
       noneOption: isSelect,
     );
-    final Answer answerUpdate = answer.copyWith(answers: <Option>[option]);
-    await viewModel.update(answerUpdate, question.id.toString());
+
+    final bool isEmpty =
+        days == null &&
+            hours == null &&
+            minutes == null &&
+            (isSelect == null || isSelect == false);
+    if (isEmpty) {
+      final Answer answerUpdate = widget.answer.copyWith(answers: <Option>[]);
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
+    } else {
+      final Answer answerUpdate = widget.answer.copyWith(
+        answers: <Option>[option],
+      );
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
+    }
+    _dynamicDisabled(option);
+  }
+
+  void addDisabled(String value) {
+    if (!widget.disabled.contains(value)) {
+      setState(() {
+        widget.disabled.add(value);
+      });
+    }
+  }
+
+  void removeDisabled(String value) {
+    setState(() {
+      if (widget.disabled.contains(value)) {
+        setState(() {
+          widget.disabled.remove(value);
+        });
+      }
+    });
+  }
+
+  void _dynamicDisabled(Option option) {
+    if (!widget.disabled.contains(widget.question.id)) {
+      if (widget.question.inputType == InputType.SIM_NAO) {
+        if (option.text == 'Não' && widget.question.disableQuestions != null) {
+          for (String value in widget.question.disableQuestions!) {
+            addDisabled(value);
+          }
+        }
+        if (option.text == 'Sim' && widget.question.disableQuestions != null) {
+          for (String value in widget.question.disableQuestions!) {
+            removeDisabled(value);
+          }
+        }
+      }
+      if (widget.question.inputType == InputType.FREQUENCY_TIME) {
+        if (option.noneOption == true &&
+            widget.question.disableQuestions != null) {
+          for (String value in widget.question.disableQuestions!) {
+            addDisabled(value);
+          }
+        }
+      }
+      if (widget.question.inputType == InputType.FREQUENCY_TIME) {
+        if (option.noneOption == false &&
+            widget.question.disableQuestions != null) {
+          for (String value in widget.question.disableQuestions!) {
+            removeDisabled(value);
+          }
+        }
+      }
+    }
   }
 
   String? _validateNotEmpty(String? value) {
@@ -191,18 +332,20 @@ class DynamicFormField extends StatelessWidget {
 
   List<String>? _getExplanatoryTexts() {
     final List<String> texts = <String>[];
-    if(question.explanatoryTexts != null){
-      for(ExplanatoryTexts e in question.explanatoryTexts!){
-        if(e.explanatoryText != null) {texts.add(e.explanatoryText!);};
-
+    if (widget.question.explanatoryTexts != null) {
+      for (ExplanatoryTexts e in widget.question.explanatoryTexts!) {
+        if (e.explanatoryText != null) {
+          texts.add(e.explanatoryText!);
+        }
+        ;
       }
     }
 
-    return  texts;
+    return texts;
   }
 
   List<String> _getOptions() {
-    return question.optionsQuestions
+    return widget.question.optionsQuestions
         .map((Option option) => option.text!)
         .toList();
   }
