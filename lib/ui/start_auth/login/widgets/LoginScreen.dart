@@ -1,7 +1,10 @@
+import 'package:digprev_flutter/ui/core/states/layoutState.dart';
 import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/login/widgets/registerFormWidget.dart';
+import 'package:digprev_flutter/ui/start_auth/start/widgets/initialImageWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/start/widgets/introTextWidget.dart';
 import 'package:digprev_flutter/ui/start_auth/login/widgets/loginFormWidget.dart';
+import 'package:digprev_flutter/utils/layoutUtils.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -58,27 +61,48 @@ class _LoginScreenState extends State<LoginScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-          left: 20,
-          right: 20,
-          top: 100,
-        ),
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const InitialText(),
-              const SizedBox(height: 30),
-              isLoginForm ?
-              LoginFormComponent(onRegisterPressed: _switchToRegisterForm,
-                loginViewModel: widget.loginViewModel,)
-                  : RegisterFormComponent(onLoginPressed: _switchToLoginForm,
-                      loginViewModel: widget.loginViewModel,)
-            ],
-          ),
+      body: dynamicScreenSize(context),
+    );
+  }
+
+  Widget dynamicScreenSize(BuildContext context) {
+    final LayoutState layoutState = determineLayoutState(context);
+    switch (layoutState) {
+      case LayoutState.mobile:
+        return smallScreen();
+      case LayoutState.smallTablet:
+        return smallScreen();
+      case LayoutState.tablet:
+        return biggerScreen();
+      case LayoutState.desktop:
+        return biggerScreen();
+    }
+  }
+
+  Widget biggerScreen() {
+    return Row(
+      children: <Widget>[
+        const Expanded(child: InitialImage()),
+        Expanded(child: smallScreen())
+      ],
+    );
+  }
+
+  Widget smallScreen() {
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            const InitialText(),
+            isLoginForm ?
+            LoginFormComponent(onRegisterPressed: _switchToRegisterForm,
+              loginViewModel: widget.loginViewModel,)
+                : RegisterFormComponent(onLoginPressed: _switchToLoginForm,
+                              loginViewModel: widget.loginViewModel,)
+          ],
         ),
       ),
     );

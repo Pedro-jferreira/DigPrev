@@ -10,36 +10,32 @@ class InitialText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget> [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 45),
-          child: Column(
-            children: <Widget> [
-              Text(
-                titleText,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.tertiaryFixed,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 40,
-                ),
+    return Center(
+      child:
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget> [
+            Text(
+              titleText,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                color: Theme.of(context).colorScheme.tertiaryFixed,
+                fontWeight: FontWeight.w600,
+                fontSize: 40,
               ),
-              const SizedBox(height: 34),
-              Text(
-                subtitleText,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.tertiaryFixed,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 28,
-                ),
+            ),
+            SizedBox(height: 15),
+            Text(
+              subtitleText,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: Theme.of(context).colorScheme.tertiaryFixed,
+                fontWeight: FontWeight.normal,
+                fontSize: 20,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
     );
   }
 }
