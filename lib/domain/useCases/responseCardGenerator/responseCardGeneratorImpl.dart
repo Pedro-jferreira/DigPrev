@@ -7,7 +7,7 @@ import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
-import 'package:digprev_flutter/domain/use_cases/responseCardGenerator/responseCardGenerator.dart';
+import 'package:digprev_flutter/domain/useCases/responseCardGenerator/responseCardGenerator.dart';
 import 'package:objectid/objectid.dart';
 import 'package:result_dart/src/types.dart';
 

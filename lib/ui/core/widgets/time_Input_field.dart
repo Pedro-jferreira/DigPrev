@@ -1,3 +1,5 @@
+import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
+import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
 
@@ -5,16 +7,24 @@ class TimeInputField extends StatefulWidget {
   final String title;
   final String tooltip;
   final bool isActive;
-  final Function(int? days, int? hours, int? minutes, bool? isSelect)? onChanged;
+  final List<String>? explanatoryText;
+  final Function(int? days, int? hours, int? minutes, bool? isSelect)?
+  onChanged;
   final ({int? days, int? hours, int? minutes, bool isSelect}) initialValues;
 
   const TimeInputField({
     required this.title,
     required this.tooltip,
+    required this.explanatoryText,
     Key? key,
     this.isActive = true,
     this.onChanged,
-    this.initialValues = const (days: null, hours: null, minutes: null, isSelect: false),
+    this.initialValues = const (
+      days: null,
+      hours: null,
+      minutes: null,
+      isSelect: false,
+    ),
   }) : super(key: key);
 
   @override
@@ -32,16 +42,27 @@ class _TimeInputFieldState extends State<TimeInputField> {
     super.initState();
 
     _daysController = TextEditingController(
-        text: widget.initialValues.days != null ? widget.initialValues.days.toString() : '');
+      text:
+          widget.initialValues.days != null
+              ? widget.initialValues.days.toString()
+              : '',
+    );
 
     _hoursController = TextEditingController(
-        text: widget.initialValues.hours != null ? widget.initialValues.hours.toString() : '');
+      text:
+          widget.initialValues.hours != null
+              ? widget.initialValues.hours.toString()
+              : '',
+    );
 
     _minutesController = TextEditingController(
-        text: widget.initialValues.minutes != null ? widget.initialValues.minutes.toString() : '');
+      text:
+          widget.initialValues.minutes != null
+              ? widget.initialValues.minutes.toString()
+              : '',
+    );
 
     _isNoneSelected = widget.initialValues.isSelect;
-
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.onChanged?.call(
@@ -93,6 +114,10 @@ class _TimeInputFieldState extends State<TimeInputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TitleToolTip(title: widget.title, tooltipText: widget.tooltip),
+        ExplanatoryText(
+          explanatoryText: widget.explanatoryText!,
+          state: UnicodeState.Ball,
+        ),
         Row(
           children: <Widget>[
             Checkbox(
@@ -102,58 +127,61 @@ class _TimeInputFieldState extends State<TimeInputField> {
             const Text('Nenhum.'),
           ],
         ),
-        if (!_isNoneSelected)
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: TextFormField(
-                  controller: _daysController,
-                  enabled: widget.isActive,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Dias por semana'),
-                  validator: (String? value) {
-                    if (widget.isActive && (value == null || value.isEmpty)) {
-                      return 'Obrigatório';
-                    }
-                    return null;
-                  },
-                  onChanged: (_) => _handleTextChanged(),
+        if (widget.explanatoryText != null)
+          if (!_isNoneSelected)
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: TextFormField(
+                    controller: _daysController,
+                    enabled: widget.isActive,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: 'Dias por semana',
+                    ),
+                    validator: (String? value) {
+                      if (widget.isActive && (value == null || value.isEmpty)) {
+                        return 'Obrigatório';
+                      }
+                      return null;
+                    },
+                    onChanged: (_) => _handleTextChanged(),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextFormField(
-                  controller: _hoursController,
-                  enabled: widget.isActive,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Horas'),
-                  validator: (String? value) {
-                    if (widget.isActive && (value == null || value.isEmpty)) {
-                      return 'Obrigatório';
-                    }
-                    return null;
-                  },
-                  onChanged: (_) => _handleTextChanged(),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextFormField(
+                    controller: _hoursController,
+                    enabled: widget.isActive,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Horas'),
+                    validator: (String? value) {
+                      if (widget.isActive && (value == null || value.isEmpty)) {
+                        return 'Obrigatório';
+                      }
+                      return null;
+                    },
+                    onChanged: (_) => _handleTextChanged(),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextFormField(
-                  controller: _minutesController,
-                  enabled: widget.isActive,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(labelText: 'Minutos'),
-                  validator: (String? value) {
-                    if (widget.isActive && (value == null || value.isEmpty)) {
-                      return 'Obrigatório';
-                    }
-                    return null;
-                  },
-                  onChanged: (_) => _handleTextChanged(),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TextFormField(
+                    controller: _minutesController,
+                    enabled: widget.isActive,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(labelText: 'Minutos'),
+                    validator: (String? value) {
+                      if (widget.isActive && (value == null || value.isEmpty)) {
+                        return 'Obrigatório';
+                      }
+                      return null;
+                    },
+                    onChanged: (_) => _handleTextChanged(),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
       ],
     );
   }

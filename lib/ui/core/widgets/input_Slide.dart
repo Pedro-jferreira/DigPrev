@@ -8,7 +8,7 @@ class InputSlider extends StatefulWidget {
   final String labelText;
   final String tooltipText;
   final String supportingText;
-  final List<String> explanatoryTexts;
+  final List<String>? explanatoryTexts;
   final List<String> selectTexts;
   final String? valueMin;
   final Function(String?) onChanged;
@@ -46,13 +46,15 @@ class _InputSliderState extends State<InputSlider> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TitleToolTip(title: widget.labelText, tooltipText: widget.tooltipText),
+        if(widget.explanatoryTexts != null)
         ExplanatoryText(
-          explanatoryText: widget.explanatoryTexts,
+          explanatoryText: widget.explanatoryTexts!,
           valueMax: widget.selectTexts.length,
           state: UnicodeState.Enum,
         ),
         CustomSlider(
-          initialValue: (selectedValue != null) ?double.parse(selectedValue!): 1 ,
+          initialValue: (selectedValue != null) ?
+          double.parse(selectedValue!): 1,
           max: widget.selectTexts.length,
           onValueChanged: (String value) {
             setState(() {

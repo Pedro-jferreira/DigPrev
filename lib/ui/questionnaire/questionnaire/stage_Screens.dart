@@ -28,7 +28,6 @@ class StageScreen extends StatefulWidget {
 }
 
 class _StageScreenState extends State<StageScreen> {
-  int _currentStageIndex = 0;
   List<Stage> _stages = <Stage>[];
   StreamSubscription<Result<ResponseCard>>? _subscription;
 
@@ -37,7 +36,8 @@ class _StageScreenState extends State<StageScreen> {
     super.initState();
     widget.viewModel.init();
     widget.viewModel.addListener(_onStagesChanged);
-    _subscription = widget.responseCardViewModel.observerPending();
+    _subscription = widget.responseCardViewModel.
+    observerPending();
     widget.restartViewModel.observerPending();
   }
 
@@ -55,19 +55,19 @@ class _StageScreenState extends State<StageScreen> {
   }
 
   void _onProgressStateChanged(int index, ProgressState state) {
-    if (state == ProgressState.Complete && index == _currentStageIndex) {
+    if (state == ProgressState.Complete && index ==
+        widget.viewModel.currentStageIndex) {
       setState(() {
         if (index + 1 < _stages.length) {
-          _currentStageIndex = index + 1; // Libera o próximo estágio
+          widget.viewModel.setCurrentIndex(index + 1);
         } else {
-          _currentStageIndex = -1; // Todos completos, bloqueia todos
+          widget.viewModel.setCurrentIndex(-1);
         }
       });
     }
   }
   Future<void> _refresh() async {
     await widget.viewModel.refresh();
-    _currentStageIndex = 0;// Recarrega os dados do questionário
     setState(() {}); // Atualiza a tela
   }
 
@@ -76,10 +76,14 @@ class _StageScreenState extends State<StageScreen> {
     if (widget.viewModel.stages.isEmpty )
       return const Center(child: CircularProgressIndicator());
     if(widget.responseCardViewModel.responseCard == null){
+      widget.viewModel.setCurrentIndex(0);
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('Sem Questionarios Pendentes, clique no botão abaixo para '),
+          children: <Widget>[
+            const Text(
+                'Sem Questionários Pendentes, clique no botão abaixo para '
+            ),
           RestartButton(viewModel: widget.restartViewModel)],
         ),
       );
@@ -99,10 +103,11 @@ class _StageScreenState extends State<StageScreen> {
                   child: ListView.builder(
 
                     itemCount: _stages.length,
-                    itemBuilder: (BuildContext contex, int index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return StageItem(
                         stage: _stages[index],
-                        isAvailable: (_currentStageIndex == index),
+                        isAvailable:
+                        (widget.viewModel.currentStageIndex == index),
                         viewModel: widget.responseCardViewModel,
                           onProgressStateChanged: (ProgressState state) {
                             _onProgressStateChanged(index, state);

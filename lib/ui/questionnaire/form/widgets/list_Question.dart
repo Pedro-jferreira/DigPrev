@@ -77,23 +77,26 @@ class _ListQuestionState extends State<ListQuestion> {
               vertical: 8.0,
               horizontal: 16.0,
             ),
-            child: _buildDynamicFormField(question, answer),
+            child: _buildDynamicFormField(question, answer, index),
           );
         } else {
           return NavigationButtons(
             onPrevious: widget.onPrevious,
-            onNext: widget.onNext,
+            onNext:widget.onNext,
           );
         }
       },
+      minCacheExtent:15000 ,
     );
   }
 
-  Widget _buildDynamicFormField(Question question, Answer answer) {
+  Widget _buildDynamicFormField(Question question, Answer answer, int index) {
     return DynamicFormField(
+
       question: question,
       viewModel: widget.viewModel,
       answer: answer,
     );
   }
+
 }

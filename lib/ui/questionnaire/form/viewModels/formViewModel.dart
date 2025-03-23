@@ -31,7 +31,7 @@ class FormViewModel extends ChangeNotifier {
 
   Future<void> update(Answer value, String questionId) async {
     if (_responseCard != null) {
-      final List<SectionAnswer> updatedSections =[];
+      final List<SectionAnswer> updatedSections =<SectionAnswer>[];
       for(SectionAnswer section in  _responseCard!.sections){
         final List<SectionAnswer> updatedSubSections = <SectionAnswer>[];
         if(section.subSectionsAnswers != null){

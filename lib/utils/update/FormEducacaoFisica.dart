@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/domain/models/enuns/inputType.dart';
+import 'package:digprev_flutter/domain/models/enums/inputType.dart';
 import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';

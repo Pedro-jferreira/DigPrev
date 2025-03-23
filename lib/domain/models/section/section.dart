@@ -1,4 +1,4 @@
-import 'package:digprev_flutter/domain/models/enuns/typeCalculate.dart';
+import 'package:digprev_flutter/domain/models/enums/typeCalculate.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
 import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

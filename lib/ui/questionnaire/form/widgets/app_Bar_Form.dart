@@ -53,14 +53,17 @@ class AppBarForm extends StatelessWidget implements PreferredSizeWidget {
             backgroundColor: Theme.of(context).colorScheme.tertiary,
             shadowColor: Theme.of(context).colorScheme.shadow,
             surfaceTintColor: Colors.transparent,
-            title:Text(
-                  sections[currentStep].title,
-                  softWrap: true,
-                  maxLines: 3,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primaryFixed,
+            title:FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                    sections[currentStep].title,
+                    softWrap: true,
+                    maxLines: 3,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primaryFixed,
+                    ),
                   ),
-                ),
+            ),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(12.0),

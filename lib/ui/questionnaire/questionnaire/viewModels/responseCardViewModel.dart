@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepository.dart';
-import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
-import 'package:digprev_flutter/domain/models/section/section.dart';
-import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
+import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/domain/useCases/answer_progress/answer_progress.dart';
 import 'package:flutter/material.dart';
 import 'package:result_dart/result_dart.dart';
 
 class ResponseCardViewModel extends ChangeNotifier {
-  ResponseCardViewModel({required ResponseCardRepository repository})
-    : _repository = repository;
+  ResponseCardViewModel({
+    required ResponseCardRepository repository,
+    required AnswerProgress answerProgress})
+    : _repository = repository, _answerProgress = answerProgress;
   final ResponseCardRepository _repository;
+  final AnswerProgress _answerProgress;
 
   ResponseCard? _responseCard;
 
@@ -27,31 +29,15 @@ class ResponseCardViewModel extends ChangeNotifier {
     });
   }
 
-  double getProgress(List<Section> sections) {
+  double getProgress(Stage stage) {
     if (_responseCard != null) {
-      final List<SectionAnswer> sectionsAnswers = <SectionAnswer>[];
-      for (Section section in sections) {
-        for (SectionAnswer answer in _responseCard!.sections) {
-          if (answer.subSectionsAnswers != null) {
-            for (SectionAnswer subAnswer in answer.subSectionsAnswers!) {
-              if (subAnswer.sectionRef == section.id)
-                sectionsAnswers.add(subAnswer);
-            }
-          }
-          if (answer.sectionRef == section.id) sectionsAnswers.add(answer);
-        }
-      }
-      final List<Answer> allAnswers = <Answer>[];
-      for (SectionAnswer sectionAnswer in sectionsAnswers) {
-        if (sectionAnswer.answers.isNotEmpty)
-          allAnswers.addAll(sectionAnswer.answers);
-      }
-      if (allAnswers.isEmpty) return 0.0;
+      final double progress =_answerProgress.
+      getQuestionnaireCompletionPercentage(
+          stage,
+          responseCard!
+      );
 
-      final int filledAnswers =
-          allAnswers.where((Answer a) => a.answers.isNotEmpty).length;
-
-      return filledAnswers / allAnswers.length;
+     return progress;
     }
 
     return 0.0;
