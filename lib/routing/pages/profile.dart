@@ -1,4 +1,6 @@
 import 'package:digprev_flutter/routing/routes.dart';
+import 'package:digprev_flutter/ui/users/consent/view_models/consentViewModel.dart';
+import 'package:digprev_flutter/ui/users/consent/widgets/consentScreen.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/userScreen.dart';
 import 'package:flutter/material.dart';
@@ -14,5 +16,17 @@ class ProfileRoute extends GoRoute {
             child:
             UserScreen(usersViewModel: context.watch<UsersViewModel>())
         ),
+    routes: [
+      GoRoute(
+        name: 'privacy',
+        path: 'privacy',
+        pageBuilder: (BuildContext context, GoRouterState state)  =>
+            MaterialPage<dynamic>(
+              child:
+                ConsentScreen(consentViewModel:
+                  context.watch<ConsentViewModel>())
+            )
+      )
+    ]
   );
 }

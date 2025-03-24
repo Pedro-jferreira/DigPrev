@@ -5,6 +5,7 @@ import 'package:digprev_flutter/ui/users/users/widgets/editCardWidget.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/informationCardWidget.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/titleAndActionWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -64,7 +65,36 @@ class _UserScreenState extends State<UserScreen> {
                   const SizedBox(height: 10),
                   EditCardWidget(user: user,
                     usersViewModel: widget.usersViewModel),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
+                  Card(
+                    child: InkWell(
+                      onTap: () {
+                        context.go('/profile/privacy');
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Privacidade',
+                              style: Theme.of(context).textTheme
+                                  .titleMedium?.copyWith(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14,
+                              ),
+                            ),
+                            const Icon(
+                              size: 30,
+                              Icons.chevron_right,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
