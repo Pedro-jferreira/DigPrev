@@ -13,81 +13,54 @@ class AnswerProgressImpl extends AnswerProgress {
 
   @override
   (int, int) getLastAnsweredQuestionnairePosition(
-    int stageId,
+    Stage stage,
     ResponseCard responseCard,
   ) {
-    final List<Stage> stages = <Stage>[];
     int sectionIndex = -1;
-
-    final Stage stage = stages.firstWhere((Stage s) => s.id == stageId);
-    for (Section section in stage.sections) {
+    int lastQuestion = 0;
+    for (Section section in SectionHelper.flattenSections(stage)) {
       sectionIndex++;
-      for (SectionAnswer sectionAnswer in responseCard.sections) {
+      for (SectionAnswer sectionAnswer in SectionHelper.flattenSectionAnswer(
+        responseCard,
+      )) {
         if (sectionAnswer.sectionRef == section.id) {
-          final int lastQuestion = getLastAnsweredSectionPosition(
-            sectionAnswer,
+          lastQuestion = _findLastAnsweredQuestion(
+            section,   sectionAnswer,
           );
+
+          if(lastQuestion == 0) continue;
+
           return (sectionIndex, lastQuestion);
         }
       }
     }
 
-    return (0, 0);
+    if(lastQuestion == 0) return (0,0);
+    return (sectionIndex, lastQuestion);
   }
 
-  @override
-  int getLastAnsweredSectionPosition(SectionAnswer sectionAnswer) {
-    final List<Stage> stages = <Stage>[];
 
-    for (Stage stage in stages) {
-      for (Section section in stage.sections) {
-        if (sectionAnswer.sectionRef == section.id) {
-          return _findLastAnsweredQuestion(section, sectionAnswer);
-        }
-      }
-    }
-
-    return 0;
-  }
 
   @override
   double getQuestionnaireCompletionPercentage(
     Stage stage,
     ResponseCard responseCard,
   ) {
-        double total = 0.0;
-        final int sectionCount = SectionHelper.flattenSections(stage).length;
+    double total = 0.0;
+    final int sectionCount = SectionHelper.flattenSections(stage).length;
 
-        for (Section section in SectionHelper.flattenSections(stage)) {
-          final SectionAnswer? sectionAnswer = SectionHelper
-              .flattenSectionAnswer(responseCard)
-              .firstWhere(
-            (SectionAnswer s) => s.sectionRef == section.id,
-          );
+    for (Section section in SectionHelper.flattenSections(stage)) {
+      final SectionAnswer? sectionAnswer = SectionHelper.flattenSectionAnswer(
+        responseCard,
+      ).firstWhere((SectionAnswer s) => s.sectionRef == section.id);
 
-          total += _calculateSectionCompletion(section, sectionAnswer);
-        }
+      total += _calculateSectionCompletion(section, sectionAnswer);
+    }
+    if (sectionCount == 0) return 0.0;
 
-        if (sectionCount == 0) return 0.0;
-
-        // Média de todas as seções
-        return total / sectionCount;
-
+    return total / sectionCount;
   }
 
-  @override
-  double getSectionCompletionPercentage(     Section sectionData,
-      ResponseCard responseCard,) {
-
-    final List<SectionAnswer> sections =
-    SectionHelper.flattenSectionAnswer(responseCard);
-
-    final SectionAnswer sectionAnswer = sections.firstWhere((SectionAnswer s){
-      return s.sectionRef == sectionData.id;
-    });
-
-    return _calculateSectionCompletion(sectionData, sectionAnswer);
-  }
 
   double _calculateSectionCompletion(
     Section section,
@@ -126,7 +99,6 @@ class AnswerProgressImpl extends AnswerProgress {
     return totalAnswered / totalConsidered;
   }
 
-
   int _findLastAnsweredQuestion(Section section, SectionAnswer sectionAnswer) {
     final List<String> disabledQuestions = <String>[];
 
@@ -136,6 +108,8 @@ class AnswerProgressImpl extends AnswerProgress {
           _updateDisabledQuestions(question, answer, disabledQuestions);
 
           if (_isQuestionDisabledOrUnanswered(answer, disabledQuestions)) {
+            print("$disabledQuestions");
+            print('_findLastAnsweredQuestion ${question.counter - 1}');
             return question.counter - 1;
           }
         }
@@ -166,10 +140,9 @@ class AnswerProgressImpl extends AnswerProgress {
     Answer answer,
     List<String> disabledQuestions,
   ) {
-    if (disabledQuestions.contains(answer.questionRef) ||
-        answer.answers.isEmpty) {
-      return true;
-    }
+    if(disabledQuestions.contains(answer.questionRef)) return false;
+    if(answer.answers.isEmpty) return true;
+
     return false;
   }
 }

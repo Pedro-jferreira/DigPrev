@@ -1,5 +1,7 @@
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
+import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/dynamic_Form_Field.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/navigation_Buttons.dart';
@@ -11,7 +13,8 @@ class ListQuestion extends StatefulWidget {
     required this.onPrevious,
     required this.onNext,
     required this.viewModel,
-
+    required this.stage,
+    required this.section,
     super.key,
   });
 
@@ -19,6 +22,8 @@ class ListQuestion extends StatefulWidget {
   final FormViewModel viewModel;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
+  final Stage stage;
+  final Section section;
 
   @override
   State<ListQuestion> createState() => _ListQuestionState();
@@ -43,11 +48,12 @@ class _ListQuestionState extends State<ListQuestion> {
       _questionKeys[question.counter] = GlobalKey();
     }
 
-    /*   WidgetsBinding.instance.addPostFrameCallback((_) {
-        Future.delayed(const Duration(milliseconds: 100), () {
-          scrollToQuestion(5);
+       WidgetsBinding.instance.addPostFrameCallback((_) {
+         if(widget.viewModel.isScroll( widget.stage,widget.section))
+        Future.delayed(const Duration(seconds: 1), () {
+          scrollToQuestion(widget.viewModel.page.$2);
         });
-    });*/
+    });
   }
 
   void scrollToQuestion(int counter) {
