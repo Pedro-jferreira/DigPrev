@@ -76,6 +76,11 @@ class _StageScreenState extends State<StageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_currentStageIndex == -1 && ModalRoute.of(context)?.isCurrent == true) {
+        widget.responseCardViewModel.setComplete();
+      }
+    });
     if (widget.viewModel.stages.isEmpty )
       return const Center(child: CircularProgressIndicator());
     if(widget.responseCardViewModel.responseCard == null){
@@ -85,8 +90,9 @@ class _StageScreenState extends State<StageScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-                'Sem Questionários Pendentes, clique no botão abaixo para '
+                'Sem Questionários Pendentes, clique no botão abaixo para Começar'
             ),
+          SizedBox(height: 40,),
           RestartButton(viewModel: widget.restartViewModel,
             refresh: _refresh
           )],

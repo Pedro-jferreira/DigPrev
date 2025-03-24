@@ -94,15 +94,22 @@ class SectionPageState extends State<FormScreen> {
 
   initialPage(){
     final (int section, int question) page = widget.formViewModel.findLastPage(_stage);
+
+    // Marca todos os steps anteriores como completos
+    for (int i = 0; i < page.$1; i++) {
+      _completedSteps[i] = true;
+    }
+
     _pageController.animateToPage(
       page.$1,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
+
     setState(() {
       _currentPage = page.$1;
+      _isActive = false;
     });
-    _isActive = false;
   }
 
   void jumpToPage(int page) {

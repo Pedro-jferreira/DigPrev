@@ -24,9 +24,9 @@ class ResultViewModel extends ChangeNotifier {
 
   void _startObserving() {
     _subscription = _repository.observerAllCompleted().listen(
-          (List<ResponseCard> onData) {
+      (List<ResponseCard> onData) {
         _isLoading = false;
-        _responseCard = onData;
+        _responseCard = verificarCalculados(onData);
         notifyListeners();
       },
       onError: (dynamic error) {
@@ -34,6 +34,17 @@ class ResultViewModel extends ChangeNotifier {
         notifyListeners();
       },
     );
+  }
+
+  List<ResponseCard> verificarCalculados(List<ResponseCard> responseCards) {
+    responseCards
+        .where((ResponseCard rc) => !rc.isCalculated)
+        .forEach(calcularResponseCard);
+    return responseCards.where((ResponseCard rc) => rc.isCompleted).toList();
+  }
+
+  void calcularResponseCard(ResponseCard responseCard) {
+
   }
 
   void refresh() {

@@ -45,4 +45,6 @@ class QuestionnaireViewModel extends ChangeNotifier {
     _stagesSubscription?.cancel();
     super.dispose();
   }
+
+  void setComplete() {}
 }
