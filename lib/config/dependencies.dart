@@ -110,7 +110,9 @@ List<SingleChildWidget> get providersRemote {
     ),
     ChangeNotifierProvider<FormViewModel>(
       create:
-          (BuildContext context) => FormViewModel(repository: context.read()),
+          (BuildContext context) => FormViewModel(
+              repository: context.read(),
+          answerProgress: context.read()),
     ),
     ChangeNotifierProvider<AuthNotifier>(
       create:

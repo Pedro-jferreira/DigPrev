@@ -9,6 +9,7 @@ class RadioButton extends FormField<String> {
     required String toolTipText,
     required List<String> radioTexts,
     required FormFieldSetter<String> onChanged,
+    bool disabled = false,
     String? initialSelection,
     List<String>? explanatoryTexts,
     FormFieldSetter<String>? onSaved,
@@ -17,7 +18,7 @@ class RadioButton extends FormField<String> {
   }) : super(
          key: key,
          initialValue: initialSelection,
-         validator: validator,
+         validator: disabled? null: validator,
          onSaved: onSaved,
          autovalidateMode: AutovalidateMode.onUserInteraction,
          builder: (FormFieldState<String> state) {
@@ -27,9 +28,12 @@ class RadioButton extends FormField<String> {
              radioTexts: radioTexts,
              explanatoryTexts: explanatoryTexts,
              initialSelection: state.value,
+             disabled: disabled,
              onChanged: (String? value) {
-               state.didChange(value);
-               onChanged(value);
+               if (!disabled) {
+                 state.didChange(value);
+                 onChanged(value);
+               }
              },
              state: state,
            );
@@ -45,6 +49,7 @@ class RadioButtonWidgetStateful extends StatefulWidget {
   final List<String>? explanatoryTexts;
   final Function(String?) onChanged;
   final FormFieldState<String> state;
+  final bool disabled;
 
   const RadioButtonWidgetStateful({
     required this.labelText,
@@ -52,6 +57,7 @@ class RadioButtonWidgetStateful extends StatefulWidget {
     required this.radioTexts,
     required this.onChanged,
     required this.state,
+    this.disabled = false,
     this.explanatoryTexts,
     this.initialSelection,
   });
@@ -66,6 +72,7 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
   @override
   void initState() {
     super.initState();
+
     if (widget.radioTexts.contains(widget.initialSelection)) {
       selectedOption = widget.initialSelection;
     }
@@ -74,6 +81,7 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
   @override
   void didUpdateWidget(covariant RadioButtonWidgetStateful oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (widget.radioTexts.contains(widget.initialSelection)) {
       setState(() {
         selectedOption = widget.initialSelection;
@@ -83,6 +91,18 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.disabled && selectedOption != null) {
+        setState(() {
+          selectedOption = null;
+        });
+        widget.onChanged.call(
+         null
+        );
+      }
+    });
+
+
     final bool hasError = widget.state.hasError;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,17 +120,22 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
                   title: Text(
                     text,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color:
-                          hasError ? Theme.of(context).colorScheme.error : null,
+                      color: widget.disabled
+                          ? Theme.of(context).colorScheme.onSurface.withOpacity(0.38)
+                          : (hasError
+                          ? Theme.of(context).colorScheme.error
+                          : null),
                     ),
                   ),
                   value: text,
                   groupValue: selectedOption,
-                  onChanged: (String? value) {
+                  onChanged: widget.disabled
+                      ? null // Desativa o clique
+                      : (String? value) {
                     setState(() {
                       selectedOption = value;
                     });
-                    widget.state.didChange(value); // Atualiza o estado do form
+                    widget.state.didChange(value);
                     widget.onChanged(value);
                   },
                 );

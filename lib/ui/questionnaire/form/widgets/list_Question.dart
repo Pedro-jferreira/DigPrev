@@ -1,10 +1,11 @@
 import 'package:digprev_flutter/domain/models/answer/answer.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
+import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/dynamic_Form_Field.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/navigation_Buttons.dart';
 import 'package:flutter/material.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class ListQuestion extends StatefulWidget {
   const ListQuestion({
@@ -12,7 +13,8 @@ class ListQuestion extends StatefulWidget {
     required this.onPrevious,
     required this.onNext,
     required this.viewModel,
-
+    required this.stage,
+    required this.section,
     super.key,
   });
 
@@ -20,20 +22,21 @@ class ListQuestion extends StatefulWidget {
   final FormViewModel viewModel;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
+  final Stage stage;
+  final Section section;
 
   @override
   State<ListQuestion> createState() => _ListQuestionState();
 }
 
 class _ListQuestionState extends State<ListQuestion> {
-  final ItemScrollController itemScrollController = ItemScrollController();
-  final ScrollOffsetController scrollOffsetController =
-      ScrollOffsetController();
-  final ItemPositionsListener itemPositionsListener =
-      ItemPositionsListener.create();
-  final ScrollOffsetListener scrollOffsetListener =
-      ScrollOffsetListener.create();
+  final ScrollController _scrollController = ScrollController();
+  final Map<int, GlobalKey> _questionKeys =
+  <int, GlobalKey<State<StatefulWidget>>>{};
+
   late List<Question> questions;
+  List<String> disabled = <String>[
+  ];
 
   @override
   void initState() {
@@ -41,58 +44,64 @@ class _ListQuestionState extends State<ListQuestion> {
     questions =
         widget.questionAndAnswer.keys.toList()
           ..sort((Question a, Question b) => a.counter.compareTo(b.counter));
+    for (Question question in questions) {
+      _questionKeys[question.counter] = GlobalKey();
+    }
 
-    /*   WidgetsBinding.instance.addPostFrameCallback((_) {
-        Future.delayed(const Duration(milliseconds: 100), () {
-          scrollToQuestion(5);
+       WidgetsBinding.instance.addPostFrameCallback((_) {
+         if(widget.viewModel.isScroll( widget.stage,widget.section))
+        Future.delayed(const Duration(seconds: 1), () {
+          scrollToQuestion(widget.viewModel.page.$2);
         });
-    });*/
+    });
   }
 
-  void scrollToQuestion(int index) {
-    if (index >= 0 && index < questions.length) {
-      itemScrollController.scrollTo(
-        index: index,
-        duration: const Duration(seconds: 2),
-        curve: Curves.easeInOutCubic,
+  void scrollToQuestion(int counter) {
+    final GlobalKey<State<StatefulWidget>>? key = _questionKeys[counter];
+    if (key != null) {
+      Scrollable.ensureVisible(
+        key.currentContext!,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return ScrollablePositionedList.builder(
-      itemScrollController: itemScrollController,
-      scrollOffsetController: scrollOffsetController,
-      itemPositionsListener: itemPositionsListener,
-      scrollOffsetListener: scrollOffsetListener,
-      itemCount: questions.length + 1,
-      itemBuilder: (BuildContext context, int index) {
-        if (index < questions.length) {
-          final Question question = questions[index];
-          final Answer answer = widget.questionAndAnswer[question]!;
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              children: <Widget>[
+                ...questions.map((Question question) {
+                  final Answer answer = widget.questionAndAnswer[question]!;
+                  return Padding(
+                    key: _questionKeys[question.counter],
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: _buildDynamicFormField(question, answer),
+                  );
+                }).toList(),
+                NavigationButtons(
+                  onPrevious: widget.onPrevious,
+                  onNext: widget.onNext,
+                ),
+              ],
             ),
-            child: _buildDynamicFormField(question, answer, index),
-          );
-        } else {
-          return NavigationButtons(
-            onPrevious: widget.onPrevious,
-            onNext:widget.onNext,
-          );
-        }
-      },
-      minCacheExtent:15000 ,
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildDynamicFormField(Question question, Answer answer, int index) {
+  Widget _buildDynamicFormField(Question question, Answer answer) {
     return DynamicFormField(
-
+      disabled: disabled,
       question: question,
       viewModel: widget.viewModel,
       answer: answer,

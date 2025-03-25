@@ -30,6 +30,7 @@ class StageScreen extends StatefulWidget {
 class _StageScreenState extends State<StageScreen> {
   List<Stage> _stages = <Stage>[];
   StreamSubscription<Result<ResponseCard>>? _subscription;
+  int _currentStageIndex = 0;
 
   @override
   void initState() {
@@ -56,35 +57,45 @@ class _StageScreenState extends State<StageScreen> {
 
   void _onProgressStateChanged(int index, ProgressState state) {
     if (state == ProgressState.Complete && index ==
-        widget.viewModel.currentStageIndex) {
+        _currentStageIndex) {
       setState(() {
         if (index + 1 < _stages.length) {
-          widget.viewModel.setCurrentIndex(index + 1);
+          _currentStageIndex= index + 1;
         } else {
-          widget.viewModel.setCurrentIndex(-1);
+          _currentStageIndex= -1;
         }
       });
     }
   }
   Future<void> _refresh() async {
     await widget.viewModel.refresh();
+    _currentStageIndex = 0;
+
     setState(() {}); // Atualiza a tela
   }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_currentStageIndex == -1 && ModalRoute.of(context)?.isCurrent == true) {
+        widget.responseCardViewModel.setComplete();
+      }
+    });
     if (widget.viewModel.stages.isEmpty )
       return const Center(child: CircularProgressIndicator());
     if(widget.responseCardViewModel.responseCard == null){
-      widget.viewModel.setCurrentIndex(0);
+      _currentStageIndex = 0;
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-                'Sem Questionários Pendentes, clique no botão abaixo para '
+                'Sem Questionários Pendentes, clique no botão abaixo para Começar'
             ),
-          RestartButton(viewModel: widget.restartViewModel)],
+          SizedBox(height: 40,),
+          RestartButton(viewModel: widget.restartViewModel,
+            refresh: _refresh
+          )],
         ),
       );
     }
@@ -107,7 +118,7 @@ class _StageScreenState extends State<StageScreen> {
                       return StageItem(
                         stage: _stages[index],
                         isAvailable:
-                        (widget.viewModel.currentStageIndex == index),
+                        (  _currentStageIndex == index),
                         viewModel: widget.responseCardViewModel,
                           onProgressStateChanged: (ProgressState state) {
                             _onProgressStateChanged(index, state);

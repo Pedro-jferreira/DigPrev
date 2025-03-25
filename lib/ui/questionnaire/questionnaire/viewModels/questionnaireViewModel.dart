@@ -14,18 +14,14 @@ class QuestionnaireViewModel extends ChangeNotifier {
 
   StreamSubscription<List<Stage>>? _stagesSubscription;
 
-  int _currentStageIndex = 0;
-  int get currentStageIndex => _currentStageIndex;
-  void setCurrentIndex(int index){
-    _currentStageIndex = index;
-  }
+
+
 
   void init(){
     _observeStages();
   }
   Future<Null> refresh() async{
     _stagesSubscription?.pause();
-     _currentStageIndex = 0;
     _stages = <Stage>[];
     return  await Future<Null>.delayed(const Duration(seconds: 2), () {
       _observeStages();
@@ -37,7 +33,6 @@ class QuestionnaireViewModel extends ChangeNotifier {
     _stagesSubscription = _stageRepository.observeAll().listen(
       (List<Stage> newStages) {
         _stages = newStages;
-        _currentStageIndex = 0;
         notifyListeners();
       },
       onError:
@@ -50,4 +45,6 @@ class QuestionnaireViewModel extends ChangeNotifier {
     _stagesSubscription?.cancel();
     super.dispose();
   }
+
+  void setComplete() {}
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
+import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/list_Question.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:result_dart/result_dart.dart';
 
 class FormQuestions extends StatefulWidget {
   final Section section;
+  final Stage stage;
   final VoidCallback onPrevious;
   final VoidCallback onNext;
   final FormViewModel viewModel;
@@ -20,6 +22,7 @@ class FormQuestions extends StatefulWidget {
     required this.viewModel,
     required this.section,
     required this.formKey,
+    required this.stage,
     super.key,
   });
 
@@ -57,6 +60,8 @@ class _QuestionFormState extends State<FormQuestions> {
         onPrevious: widget.onPrevious,
         onNext: widget.onNext,
         viewModel: widget.viewModel,
+        stage: widget.stage,
+        section: widget.section,
       ),
     );
   }

@@ -10,8 +10,9 @@ import 'package:result_dart/result_dart.dart';
 class ResponseCardViewModel extends ChangeNotifier {
   ResponseCardViewModel({
     required ResponseCardRepository repository,
-    required AnswerProgress answerProgress})
-    : _repository = repository, _answerProgress = answerProgress;
+    required AnswerProgress answerProgress,
+  }) : _repository = repository,
+       _answerProgress = answerProgress;
   final ResponseCardRepository _repository;
   final AnswerProgress _answerProgress;
 
@@ -31,17 +32,21 @@ class ResponseCardViewModel extends ChangeNotifier {
 
   double getProgress(Stage stage) {
     if (_responseCard != null) {
-      final double progress =_answerProgress.
-      getQuestionnaireCompletionPercentage(
-          stage,
-          responseCard!
-      );
+      final double progress = _answerProgress
+          .getQuestionnaireCompletionPercentage(stage, responseCard!);
 
-     return progress;
+      return progress;
     }
 
     return 0.0;
   }
 
-
+  void setComplete() {
+    if (_responseCard != null) {
+      _repository.update(
+        _responseCard!.id,
+        _responseCard!.copyWith(isCompleted: true),
+      );
+    }
+  }
 }

@@ -14,14 +14,9 @@ class SectionViewModel extends ChangeNotifier {
     required StageRepository stageRepository,
     required AnswerProgress answerProgress,
   }) : _stageRepository = stageRepository;
-  late final Command1<Stage, int> loadComand = Command1<Stage, int>(_load);
+  late final Command1<Stage, int> loadCommand = Command1<Stage, int>(_load);
 
   AsyncResult<Stage> _load(int stageId) async {
     return _stageRepository.findById(stageId);
-  }
-
-  bool isCompleted(ResponseCard responseCard, Section section) {
-    final double result = 0.8;
-    return (result == 1.0) ? true : false;
   }
 }

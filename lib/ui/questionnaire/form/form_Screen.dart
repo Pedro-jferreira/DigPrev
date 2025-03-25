@@ -27,29 +27,34 @@ class FormScreen extends StatefulWidget {
 
 class SectionPageState extends State<FormScreen> {
   List<Section> _sections = <Section>[];
+  late Stage _stage;
   final PageController _pageController = PageController();
   final List<GlobalKey<FormState>> _formKeys = <GlobalKey<FormState>>[];
   final List<bool> _completedSteps = <bool>[];
   int _currentPage = 0;
+  bool _isActive = true;
 
   @override
   void initState() {
     super.initState();
-    widget.viewModel.loadComand.addListener(_onCommandStateChanged);
-    widget.viewModel.loadComand.execute(int.parse(widget.stageId));
+    widget.viewModel.loadCommand.addListener(_onCommandStateChanged);
+    widget.viewModel.loadCommand.execute(int.parse(widget.stageId));
+
+
   }
 
   @override
   void dispose() {
-    widget.viewModel.loadComand.removeListener(_onCommandStateChanged);
-    widget.viewModel.loadComand.execute;
+    widget.viewModel.loadCommand.removeListener(_onCommandStateChanged);
+    widget.viewModel.loadCommand.execute;
     super.dispose();
   }
 
   void _onCommandStateChanged() {
-    final CommandState<Stage> snapshot = widget.viewModel.loadComand.value;
+    final CommandState<Stage> snapshot = widget.viewModel.loadCommand.value;
     if (snapshot is SuccessCommand<Stage>) {
       setState(() {
+        _stage = snapshot.value;
         _sections = SectionHelper.flattenSections(snapshot.value);
       });
     } else if (snapshot is FailureCommand<Stage>) {}
@@ -87,6 +92,26 @@ class SectionPageState extends State<FormScreen> {
     }
   }
 
+  initialPage(){
+    final (int section, int question) page = widget.formViewModel.findLastPage(_stage);
+
+    // Marca todos os steps anteriores como completos
+    for (int i = 0; i < page.$1; i++) {
+      _completedSteps[i] = true;
+    }
+
+    _pageController.animateToPage(
+      page.$1,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+
+    setState(() {
+      _currentPage = page.$1;
+      _isActive = false;
+    });
+  }
+
   void jumpToPage(int page) {
     if (_formKeys[_currentPage].currentState?.validate() ?? false) {
       _completedSteps[_currentPage] = true;
@@ -114,9 +139,9 @@ class SectionPageState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewModel.loadComand.isRunning) {
+    if (widget.viewModel.loadCommand.isRunning) {
       return const Center(child: CircularProgressIndicator());
-    } else if (widget.viewModel.loadComand.isFailure) {
+    } else if (widget.viewModel.loadCommand.isFailure) {
       return const Center(
         child: Text('Falha ao carregar os dados. Tente novamente mais tarde'),
       );
@@ -129,6 +154,15 @@ class SectionPageState extends State<FormScreen> {
       ),
     );
     _completedSteps.addAll(List<bool>.filled(_sections.length, false));
+    if(_isActive){
+      Future.delayed(const Duration(seconds: 1), () {
+        if (mounted) {
+          initialPage();
+        }
+      });
+    }
+
+
     return Card(
       clipBehavior: Clip.antiAlias,
       child: Scaffold(
@@ -152,6 +186,7 @@ class SectionPageState extends State<FormScreen> {
               onPrevious: onPrevious,
               onNext: onNext,
               viewModel: widget.formViewModel,
+              stage: _stage,
             );
           },
         ),
