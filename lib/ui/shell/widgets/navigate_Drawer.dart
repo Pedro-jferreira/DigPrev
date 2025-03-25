@@ -1,6 +1,7 @@
 import 'package:digprev_flutter/ui/shell/widgets/appNavigationItem.dart';
 import 'package:digprev_flutter/ui/start_auth/logout/widgets/logoutWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   const NavigationDrawerWidget({
@@ -55,7 +56,10 @@ class NavigationDrawerWidget extends StatelessWidget {
               ),
             ),
 
-            const LogoutWidget( isExtended: true),
+            LogoutWidget(
+              isExtended: true,
+              logoutViewModel: context.read()
+              ),
             const SizedBox(height: 20),
           ],
         ),

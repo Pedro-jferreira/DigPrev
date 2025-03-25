@@ -21,6 +21,7 @@ import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/start_auth/login/view_models/loginViewModel.dart';
+import 'package:digprev_flutter/ui/start_auth/logout/viewModels/logoutViewModel.dart';
 import 'package:digprev_flutter/ui/users/consent/view_models/consentViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:digprev_flutter/utils/update/viewModel.dart';
@@ -96,6 +97,11 @@ List<SingleChildWidget> get providersRemote {
       create:
           (BuildContext context) =>
               UsersViewModel(authRepository: context.read()),
+    ),
+    ChangeNotifierProvider<LogoutViewModel>(
+      create:
+          (BuildContext context) =>
+              LogoutViewModel(authRepository: context.read()),
     ),
     ChangeNotifierProvider<ConsentViewModel>(
       create:

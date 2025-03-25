@@ -90,6 +90,7 @@ class _ConsentScreenState extends State<ConsentScreen>
 
   Widget _buildCard(String title, bool isExpanded, VoidCallback onTap) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
         child: Padding(

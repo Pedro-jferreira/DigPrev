@@ -1,5 +1,6 @@
 
 import 'package:digprev_flutter/domain/models/user/credentialsModel.dart';
+import 'package:digprev_flutter/ui/start_auth/logout/widgets/logoutWidget.dart';
 import 'package:digprev_flutter/ui/users/users/view_models/usersViewModel.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/editCardWidget.dart';
 import 'package:digprev_flutter/ui/users/users/widgets/informationCardWidget.dart';
@@ -67,6 +68,7 @@ class _UserScreenState extends State<UserScreen> {
                     usersViewModel: widget.usersViewModel),
                   const SizedBox(height: 10),
                   Card(
+                    clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () {
                         context.go('/profile/privacy');
@@ -95,34 +97,14 @@ class _UserScreenState extends State<UserScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await widget.usersViewModel.logout();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                        Theme.of(context).colorScheme.primary,
-                        disabledBackgroundColor:
-                        Theme.of(context).colorScheme.outline,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.logout,
-                            color: Theme.of(context).colorScheme.primaryFixed,
-                          ),
-                          const SizedBox(width: 70),
-                          const Text(
-                            'SAIR DO APLICATIVO',
-                            style: TextStyle(color: Color(0xffffffff)),
-                          ),
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 100),
+                    child: LogoutWidget(
+                      logoutViewModel: context.read(),
+                      isExtended: true,
+                      centerText: true,
                     ),
-                  ),
+                  )
                 ],
               ),
             ),

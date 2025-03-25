@@ -90,8 +90,4 @@ class UsersViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
-  Future<void> logout() async{
-    await _authRepository.logoutUsuario();
-  }
 }

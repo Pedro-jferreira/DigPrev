@@ -1,6 +1,7 @@
 import 'package:digprev_flutter/ui/shell/widgets/appNavigationItem.dart';
 import 'package:digprev_flutter/ui/start_auth/logout/widgets/logoutWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigationRailWidget extends StatelessWidget {
   final int selectedIndex;
@@ -52,14 +53,17 @@ class NavigationRailWidget extends StatelessWidget {
           ),
         ],
       ),
-      trailing: const Expanded(
+      trailing: Expanded(
         child: Align(
           alignment: Alignment.bottomCenter,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              LogoutWidget( isExtended: false),
-              SizedBox(height: 20),
+              LogoutWidget(
+                  isExtended: false,
+                logoutViewModel: context.read(),
+              ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
