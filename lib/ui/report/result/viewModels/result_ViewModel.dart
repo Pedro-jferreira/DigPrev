@@ -40,7 +40,7 @@ class ResultViewModel extends ChangeNotifier {
     responseCards
         .where((ResponseCard rc) => !rc.isCalculated)
         .forEach(calcularResponseCard);
-    return responseCards.where((ResponseCard rc) => rc.isCompleted).toList();
+    return responseCards.where((ResponseCard rc) => rc.isCalculated).toList();
   }
 
   void calcularResponseCard(ResponseCard responseCard) {

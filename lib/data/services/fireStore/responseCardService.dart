@@ -10,12 +10,13 @@ class ResponseCardService {
 
   AsyncResult<ResponseCard> save(ResponseCard responseCard) async {
     try {
+      final String user =auth.currentUser!.uid;
       final DocumentReference<Map<String, dynamic>> document = db
           .collection(path)
           .doc(responseCard.id);
 
       await document.set(
-        responseCard.toJson(),
+        responseCard.copyWith(userRef: user).toJson(),
       );
       return Success<ResponseCard, Exception>(responseCard);
     } catch (e) {
@@ -25,8 +26,11 @@ class ResponseCardService {
 
   AsyncResult<ResponseCard> update(String id, ResponseCard responseCard) async {
     try {
+      final String user =auth.currentUser!.uid;
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await db.collection(path).where('id', isEqualTo: id).limit(1).get();
+          await db.collection(path)
+              .where('id', isEqualTo: id)
+              .where('userRef', isEqualTo: user).limit(1).get();
 
       if (querySnapshot.docs.isEmpty) {
         return Failure<ResponseCard, Exception>(
@@ -45,8 +49,10 @@ class ResponseCardService {
 
   AsyncResult<ResponseCard> findById(String id) async {
     try {
+      final String user =auth.currentUser!.uid;
       final QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await db.collection(path).where('id', isEqualTo: id).limit(1).get();
+          await db.collection(path).where('id', isEqualTo: id)
+              .where('userRef', isEqualTo: user).limit(1).get();
 
       if (querySnapshot.docs.isEmpty) {
         return Failure<ResponseCard, Exception>(
@@ -64,9 +70,11 @@ class ResponseCardService {
   }
 
   Stream<Result<ResponseCard>> observerById(String id) {
+    final String user =auth.currentUser!.uid;
     return db
         .collection(path)
         .where('id', isEqualTo: id)
+        .where('userRef', isEqualTo: user)
         .limit(1)
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
@@ -85,9 +93,11 @@ class ResponseCardService {
   }
 
   Stream<Result<ResponseCard>> observerPending() {
+    final String user =auth.currentUser!.uid;
     return db
         .collection(path)
         .where('isCompleted', isEqualTo: false)
+        .where('userRef', isEqualTo: user)
         .limit(1)
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
@@ -106,8 +116,10 @@ class ResponseCardService {
   }
 
   Stream<List<ResponseCard>> observerAll() {
+    final String user =auth.currentUser!.uid;
     return db
         .collection(path)
+        .where('userRef', isEqualTo: user)
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
           return snapshot.docs
@@ -123,9 +135,11 @@ class ResponseCardService {
   }
 
   Stream<List<ResponseCard>> observerAllCompleted() {
+    final String user =auth.currentUser!.uid;
     return db
         .collection(path)
         .where('isCompleted', isEqualTo: true)
+        .where('userRef', isEqualTo: user)
         .snapshots()
         .map((QuerySnapshot<Map<String, dynamic>> snapshot) {
           return snapshot.docs

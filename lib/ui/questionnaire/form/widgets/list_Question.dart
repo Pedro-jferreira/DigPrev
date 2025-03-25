@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class ListQuestion extends StatefulWidget {
   const ListQuestion({
+    required this.formKey,
     required this.questionAndAnswer,
     required this.onPrevious,
     required this.onNext,
@@ -24,6 +25,7 @@ class ListQuestion extends StatefulWidget {
   final VoidCallback onNext;
   final Stage stage;
   final Section section;
+  final GlobalKey<FormState> formKey;
 
   @override
   State<ListQuestion> createState() => _ListQuestionState();
@@ -32,11 +34,10 @@ class ListQuestion extends StatefulWidget {
 class _ListQuestionState extends State<ListQuestion> {
   final ScrollController _scrollController = ScrollController();
   final Map<int, GlobalKey> _questionKeys =
-  <int, GlobalKey<State<StatefulWidget>>>{};
+      <int, GlobalKey<State<StatefulWidget>>>{};
 
   late List<Question> questions;
-  List<String> disabled = <String>[
-  ];
+  List<String> disabled = <String>[];
 
   @override
   void initState() {
@@ -48,23 +49,32 @@ class _ListQuestionState extends State<ListQuestion> {
       _questionKeys[question.counter] = GlobalKey();
     }
 
-       WidgetsBinding.instance.addPostFrameCallback((_) {
-         if(widget.viewModel.isScroll( widget.stage,widget.section))
-        Future.delayed(const Duration(seconds: 1), () {
-          scrollToQuestion(widget.viewModel.page.$2);
-        });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.viewModel.isScroll(widget.stage, widget.section))
+        scrollToQuestion(widget.viewModel.page.$2);
     });
   }
 
-  void scrollToQuestion(int counter) {
-    final GlobalKey<State<StatefulWidget>>? key = _questionKeys[counter];
-    if (key != null) {
-      Scrollable.ensureVisible(
-        key.currentContext!,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
+  void scrollToQuestion(int index) {
+    final BuildContext? keyContext = _questionKeys[index]?.currentContext;
+    if (keyContext == null || !mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      final RenderObject? renderBox = keyContext.findRenderObject();
+      if (renderBox is RenderBox) {
+        final Offset position = renderBox.localToGlobal(
+          Offset.zero,
+          ancestor: context.findRenderObject(),
+        );
+        final double offset = position.dy + _scrollController.offset;
+        _scrollController.animateTo(
+          offset,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 
   @override
@@ -88,8 +98,20 @@ class _ListQuestionState extends State<ListQuestion> {
                   );
                 }).toList(),
                 NavigationButtons(
-                  onPrevious: widget.onPrevious,
-                  onNext: widget.onNext,
+                  onPrevious: () {
+                    widget.viewModel.findLastPage(widget.stage);
+                    if (widget.viewModel.page.$2 != 0)
+                      scrollToQuestion(widget.viewModel.page.$2);
+
+                    widget.onPrevious();
+                  },
+                  onNext: () {
+                    widget.viewModel.findLastPage(widget.stage);
+                    if (widget.viewModel.page.$2 != 0)
+                      scrollToQuestion(widget.viewModel.page.$2);
+
+                    widget.onNext();
+                  },
                 ),
               ],
             ),
@@ -107,5 +129,4 @@ class _ListQuestionState extends State<ListQuestion> {
       answer: answer,
     );
   }
-
 }

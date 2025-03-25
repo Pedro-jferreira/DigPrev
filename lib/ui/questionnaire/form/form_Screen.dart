@@ -39,8 +39,6 @@ class SectionPageState extends State<FormScreen> {
     super.initState();
     widget.viewModel.loadCommand.addListener(_onCommandStateChanged);
     widget.viewModel.loadCommand.execute(int.parse(widget.stageId));
-
-
   }
 
   @override
@@ -92,19 +90,15 @@ class SectionPageState extends State<FormScreen> {
     }
   }
 
-  initialPage(){
-    final (int section, int question) page = widget.formViewModel.findLastPage(_stage);
-
-    // Marca todos os steps anteriores como completos
+  initialPage() {
+    final (int section, int question) page = widget.formViewModel.findLastPage(
+      _stage,
+    );
     for (int i = 0; i < page.$1; i++) {
       _completedSteps[i] = true;
     }
 
-    _pageController.animateToPage(
-      page.$1,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
+    _pageController.jumpToPage(page.$1);
 
     setState(() {
       _currentPage = page.$1;
@@ -154,14 +148,13 @@ class SectionPageState extends State<FormScreen> {
       ),
     );
     _completedSteps.addAll(List<bool>.filled(_sections.length, false));
-    if(_isActive){
-      Future.delayed(const Duration(seconds: 1), () {
+    if (_isActive) {
+      Future<Null>.delayed(const Duration(seconds: 1), () {
         if (mounted) {
           initialPage();
         }
       });
     }
-
 
     return Card(
       clipBehavior: Clip.antiAlias,

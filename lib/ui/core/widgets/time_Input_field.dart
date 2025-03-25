@@ -135,14 +135,19 @@ class _TimeInputFieldState extends State<TimeInputField> {
           children: <Widget>[
             Checkbox(
               value: _isNoneSelected,
-              onChanged: widget.disabled ?null: _handleCheckboxChanged,
+              onChanged: widget.disabled ? null : _handleCheckboxChanged,
             ),
-             Text('Nenhum.',style:
-            TextStyle(
-                color: widget.disabled ?
-                Theme.of(context).colorScheme.onSurface.withOpacity(0.38):
-                Theme.of(context).colorScheme.onSurface
-            ),),
+            Text(
+              'Nenhum.',
+              style: TextStyle(
+                color:
+                    widget.disabled
+                        ? Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.38)
+                        : Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
           ],
         ),
         if (widget.explanatoryText != null)
@@ -158,7 +163,8 @@ class _TimeInputFieldState extends State<TimeInputField> {
                       labelText: 'Dias por semana',
                     ),
                     validator: (String? value) {
-                      if (!widget.disabled && (value == null || value.isEmpty)) {
+                      if (!widget.disabled &&
+                          (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;
@@ -174,7 +180,8 @@ class _TimeInputFieldState extends State<TimeInputField> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Horas'),
                     validator: (String? value) {
-                      if (!widget.disabled && (value == null || value.isEmpty)) {
+                      if (!widget.disabled &&
+                          (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;
@@ -190,7 +197,8 @@ class _TimeInputFieldState extends State<TimeInputField> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Minutos'),
                     validator: (String? value) {
-                      if (!widget.disabled && (value == null || value.isEmpty)) {
+                      if (!widget.disabled &&
+                          (value == null || value.isEmpty)) {
                         return 'Obrigatório';
                       }
                       return null;

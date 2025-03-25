@@ -13,31 +13,34 @@ class ResponseCardViewModel extends ChangeNotifier {
     required AnswerProgress answerProgress,
   }) : _repository = repository,
        _answerProgress = answerProgress;
+
   final ResponseCardRepository _repository;
   final AnswerProgress _answerProgress;
 
   ResponseCard? _responseCard;
+  StreamSubscription<Result<ResponseCard>>? _subscription;
 
   ResponseCard? get responseCard => _responseCard;
 
-  StreamSubscription<Result<ResponseCard>> observerPending() {
-    return _repository.observerPending().listen((Result<ResponseCard> onData) {
+  void observerPending() {
+    _subscription = _repository.observerPending().listen((
+      Result<ResponseCard> onData,
+    ) {
       _responseCard = onData.fold(
         (ResponseCard onSuccess) => onSuccess,
         (Exception onFailure) => null,
       );
-      notifyListeners();
+      if (!_disposed) notifyListeners();
     });
   }
 
   double getProgress(Stage stage) {
     if (_responseCard != null) {
-      final double progress = _answerProgress
-          .getQuestionnaireCompletionPercentage(stage, responseCard!);
-
-      return progress;
+      return _answerProgress.getQuestionnaireCompletionPercentage(
+        stage,
+        _responseCard!,
+      );
     }
-
     return 0.0;
   }
 
@@ -48,5 +51,14 @@ class ResponseCardViewModel extends ChangeNotifier {
         _responseCard!.copyWith(isCompleted: true),
       );
     }
+  }
+
+  bool _disposed = false;
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _subscription?.cancel();
+    super.dispose();
   }
 }

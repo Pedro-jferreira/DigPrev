@@ -2,13 +2,17 @@ import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewM
 import 'package:flutter/material.dart';
 
 class RestartButton extends StatefulWidget {
-  const RestartButton({required this.viewModel,required this.refresh, super.key});
+  const RestartButton({
+    required this.viewModel,
+    required this.refresh,
+    super.key,
+  });
+
   final RestartViewModel viewModel;
   final Function() refresh;
 
   @override
-  State<RestartButton> createState() =>
-      _RestartButtonState();
+  State<RestartButton> createState() => _RestartButtonState();
 }
 
 class _RestartButtonState extends State<RestartButton>
@@ -33,14 +37,14 @@ class _RestartButtonState extends State<RestartButton>
   void _onPressed() {
     widget.viewModel.generateCardResponse.execute();
     widget.refresh();
-    if ( widget.viewModel.generateCardResponse.isRunning) {
+    if (widget.viewModel.generateCardResponse.isRunning) {
       _controller.repeat();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-   return FloatingActionButton(
+    return FloatingActionButton(
       onPressed: _onPressed,
       child: RotationTransition(
         turns: _controller.drive(Tween<double>(begin: 1.0, end: 0.0)),

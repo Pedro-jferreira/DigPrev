@@ -52,4 +52,5 @@ const _$InputTypeEnumMap = {
   InputType.SLIDER: 'SLIDER',
   InputType.SIM_NAO: 'SIM_NAO',
   InputType.FREQUENCY_TIME: 'FREQUENCY_TIME',
+  InputType.CHECK_BOX_GROUP: 'CHECK_BOX_GROUP',
 };

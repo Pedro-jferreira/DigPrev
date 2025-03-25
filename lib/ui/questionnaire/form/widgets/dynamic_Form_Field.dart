@@ -3,6 +3,7 @@ import 'package:digprev_flutter/domain/models/enums/inputType.dart';
 import 'package:digprev_flutter/domain/models/question/explanatoryTexts.dart';
 import 'package:digprev_flutter/domain/models/question/option.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
+import 'package:digprev_flutter/ui/core/widgets/check_box_group.dart';
 import 'package:digprev_flutter/ui/core/widgets/input_Slide.dart';
 import 'package:digprev_flutter/ui/core/widgets/text_Field.dart';
 import 'package:digprev_flutter/ui/core/widgets/radio_Button.dart';
@@ -36,7 +37,6 @@ class DynamicFormField extends StatefulWidget {
 }
 
 class _DynamicFormFieldState extends State<DynamicFormField> {
-
   @override
   Widget build(BuildContext context) {
     switch (widget.question.inputType) {
@@ -55,7 +55,33 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
 
       case InputType.FREQUENCY_TIME:
         return _buildFrequencyTime();
+      case InputType.CHECK_BOX_GROUP:
+        return _buildCheckBoxGroup();
     }
+  }
+
+  Widget _buildCheckBoxGroup() {
+    final List<String> initialValue = <String>[];
+
+    if (widget.answer.answers.isNotEmpty) {
+      for (Option option in widget.answer.answers) {
+        initialValue.add(option.text!);
+      }
+    }
+
+    return CheckboxGroup(
+      labelText: widget.question.question,
+      toolTipText: widget.question.tooltipText,
+      initialSelection: initialValue.isNotEmpty ? initialValue : null,
+      checkboxTexts: _getOptions(),
+      onChanged: _onCheckBox,
+      validator: (List<String>? selected) {
+        if (selected == null || selected.isEmpty) {
+          return 'Selecione ao menos uma opção';
+        }
+        return null;
+      },
+    );
   }
 
   Widget _buildSelect() {
@@ -212,19 +238,41 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     }
   }
 
+  Future<void> _onCheckBox(List<String>? select) async {
+    if (select != null) {
+      final List<Option> options =
+          widget.question.optionsQuestions.where((Option a) {
+            return select.contains(a.text);
+          }).toList();
+      final Answer answerUpdate = widget.answer.copyWith(answers: options);
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
+    }else{
+      final Answer answerUpdate = widget.answer.copyWith(answers: []);
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
+    }
+  }
+
   Future<void> _onItemSelectedYesOrNo(String? value) async {
     if (value != null) {
       final Option option = widget.question.optionsQuestions.firstWhere(
-            (Option opt) => opt.text == value,);
-      final Answer answerUpdate =
-      widget.answer.copyWith(answers: <Option>[option]);
-      await widget.viewModel
-          .update(answerUpdate, widget.question.id.toString());
+        (Option opt) => opt.text == value,
+      );
+      final Answer answerUpdate = widget.answer.copyWith(
+        answers: <Option>[option],
+      );
+      await widget.viewModel.update(
+        answerUpdate,
+        widget.question.id.toString(),
+      );
       _dynamicDisabled(option);
     } else {
-      final Answer answerUpdate = widget.answer.copyWith(
-        answers: <Option>[],
-      );
+      final Answer answerUpdate = widget.answer.copyWith(answers: <Option>[]);
       await widget.viewModel.update(
         answerUpdate,
         widget.question.id.toString(),
@@ -233,11 +281,11 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
   }
 
   Future<void> _onChangeTime(
-      int? days,
-      int? hours,
-      int? minutes,
-      bool? isSelect,
-      ) async {
+    int? days,
+    int? hours,
+    int? minutes,
+    bool? isSelect,
+  ) async {
     final Option option = Option(
       counter: 1,
       text: '',
@@ -251,9 +299,9 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
 
     final bool isEmpty =
         days == null &&
-            hours == null &&
-            minutes == null &&
-            (isSelect == null || isSelect == false);
+        hours == null &&
+        minutes == null &&
+        (isSelect == null || isSelect == false);
     if (isEmpty) {
       final Answer answerUpdate = widget.answer.copyWith(answers: <Option>[]);
       await widget.viewModel.update(

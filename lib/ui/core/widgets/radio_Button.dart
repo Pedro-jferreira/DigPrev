@@ -18,7 +18,7 @@ class RadioButton extends FormField<String> {
   }) : super(
          key: key,
          initialValue: initialSelection,
-         validator: disabled? null: validator,
+         validator: disabled ? null : validator,
          onSaved: onSaved,
          autovalidateMode: AutovalidateMode.onUserInteraction,
          builder: (FormFieldState<String> state) {
@@ -96,12 +96,9 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
         setState(() {
           selectedOption = null;
         });
-        widget.onChanged.call(
-         null
-        );
+        widget.onChanged.call(null);
       }
     });
-
 
     final bool hasError = widget.state.hasError;
     return Column(
@@ -120,24 +117,28 @@ class _RadioButtonWidgetState extends State<RadioButtonWidgetStateful> {
                   title: Text(
                     text,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      color: widget.disabled
-                          ? Theme.of(context).colorScheme.onSurface.withOpacity(0.38)
-                          : (hasError
-                          ? Theme.of(context).colorScheme.error
-                          : null),
+                      color:
+                          widget.disabled
+                              ? Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.38)
+                              : (hasError
+                                  ? Theme.of(context).colorScheme.error
+                                  : null),
                     ),
                   ),
                   value: text,
                   groupValue: selectedOption,
-                  onChanged: widget.disabled
-                      ? null // Desativa o clique
-                      : (String? value) {
-                    setState(() {
-                      selectedOption = value;
-                    });
-                    widget.state.didChange(value);
-                    widget.onChanged(value);
-                  },
+                  onChanged:
+                      widget.disabled
+                          ? null // Desativa o clique
+                          : (String? value) {
+                            setState(() {
+                              selectedOption = value;
+                            });
+                            widget.state.didChange(value);
+                            widget.onChanged(value);
+                          },
                 );
               }).toList(),
         ),

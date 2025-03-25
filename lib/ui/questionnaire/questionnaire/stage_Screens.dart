@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
 import 'package:digprev_flutter/ui/core/states/progressState.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/questionnaireViewModel.dart';
@@ -9,7 +8,6 @@ import 'package:digprev_flutter/ui/questionnaire/questionnaire/widgets/stage_Ite
 import 'package:digprev_flutter/ui/questionnaire/restart/viewModels/restartViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/restart/widgets/restart_Button.dart';
 import 'package:flutter/material.dart';
-import 'package:result_dart/result_dart.dart';
 
 class StageScreen extends StatefulWidget {
   const StageScreen({
@@ -29,7 +27,6 @@ class StageScreen extends StatefulWidget {
 
 class _StageScreenState extends State<StageScreen> {
   List<Stage> _stages = <Stage>[];
-  StreamSubscription<Result<ResponseCard>>? _subscription;
   int _currentStageIndex = 0;
 
   @override
@@ -37,15 +34,13 @@ class _StageScreenState extends State<StageScreen> {
     super.initState();
     widget.viewModel.init();
     widget.viewModel.addListener(_onStagesChanged);
-    _subscription = widget.responseCardViewModel.
-    observerPending();
+    widget.responseCardViewModel.observerPending();
     widget.restartViewModel.observerPending();
   }
 
   @override
   void dispose() {
     widget.viewModel.removeListener(_onStagesChanged);
-    _subscription?.cancel();
     super.dispose();
   }
 
@@ -56,17 +51,23 @@ class _StageScreenState extends State<StageScreen> {
   }
 
   void _onProgressStateChanged(int index, ProgressState state) {
-    if (state == ProgressState.Complete && index ==
-        _currentStageIndex) {
-      setState(() {
+    setState(() {
+      // Se o usuário completou o estágio atual, avança
+      if (state == ProgressState.Complete && index == _currentStageIndex) {
         if (index + 1 < _stages.length) {
-          _currentStageIndex= index + 1;
+          _currentStageIndex = index + 1;
         } else {
-          _currentStageIndex= -1;
+          // Chegou no final
+          _currentStageIndex = -1;
         }
-      });
-    }
+      }
+      // Se o usuário regrediu o estágio atual, reavalia onde ele está
+      else if (state == ProgressState.Running) {
+        _currentStageIndex = index;
+      }
+    });
   }
+
   Future<void> _refresh() async {
     await widget.viewModel.refresh();
     _currentStageIndex = 0;
@@ -77,25 +78,32 @@ class _StageScreenState extends State<StageScreen> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_currentStageIndex == -1 && ModalRoute.of(context)?.isCurrent == true) {
+      if (_currentStageIndex == -1 &&
+          ModalRoute.of(context)?.isCurrent == true) {
         widget.responseCardViewModel.setComplete();
       }
     });
-    if (widget.viewModel.stages.isEmpty )
+    if (widget.viewModel.stages.isEmpty)
       return const Center(child: CircularProgressIndicator());
-    if(widget.responseCardViewModel.responseCard == null){
+    if (widget.responseCardViewModel.responseCard == null) {
       _currentStageIndex = 0;
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-                'Sem Questionários Pendentes, clique no botão abaixo para Começar'
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Sem Questionários Pendentes,'
+                    ' clique no botão abaixo para Começar',
+              ),
             ),
-          SizedBox(height: 40,),
-          RestartButton(viewModel: widget.restartViewModel,
-            refresh: _refresh
-          )],
+            const SizedBox(height: 40),
+            RestartButton(
+              viewModel: widget.restartViewModel,
+              refresh: _refresh,
+            ),
+          ],
         ),
       );
     }
@@ -109,20 +117,19 @@ class _StageScreenState extends State<StageScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                  height: availableHeight * 0.6,
+                  height: availableHeight * 0.5,
                   width: double.infinity,
                   child: ListView.builder(
-
+                    shrinkWrap: true,
                     itemCount: _stages.length,
                     itemBuilder: (BuildContext context, int index) {
                       return StageItem(
                         stage: _stages[index],
-                        isAvailable:
-                        (  _currentStageIndex == index),
+                        isAvailable: (_currentStageIndex == index),
                         viewModel: widget.responseCardViewModel,
-                          onProgressStateChanged: (ProgressState state) {
-                            _onProgressStateChanged(index, state);
-                          },
+                        onProgressStateChanged: (ProgressState state) {
+                          _onProgressStateChanged(index, state);
+                        },
                       );
                     },
                   ),

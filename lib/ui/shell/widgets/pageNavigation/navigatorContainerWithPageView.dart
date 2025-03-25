@@ -43,37 +43,24 @@ class NavigatorContainerWithPageView extends HookWidget {
                 );
                 if(viewModel.layoutType == LayoutState.desktop||
                     viewModel.layoutType == LayoutState.tablet){
-                  return Column(
+                  return Stack(
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10, ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            viewModel.showLeading?
-                            IconButton(
-                              icon: const Icon(Icons.arrow_back),
-                              onPressed: () => GoRouter.of(context).pop(),
-                            ):  const SizedBox(),
-                            Expanded(
-                              child: Center(
-                                child: ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxWidth: contentWidth,
-                                    maxHeight: constraints.maxHeight-20,
-                                  ),
-                                  child: widget,
+                      Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: Center(
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: contentWidth,
+                                  maxHeight: constraints.maxHeight-20,
                                 ),
+                                child: widget,
                               ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.notifications),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      )
+                          ),
+                        ],
+                      ),
+                      TopBar(context),
                     ],
                   );
                 }else{
@@ -100,7 +87,7 @@ class NavigatorContainerWithPageView extends HookWidget {
   }
   Widget TopBar(BuildContext context){
     return Padding(
-      padding: const EdgeInsets.only(top: 10, ),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10 ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[

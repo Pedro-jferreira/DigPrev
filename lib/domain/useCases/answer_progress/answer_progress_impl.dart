@@ -108,8 +108,6 @@ class AnswerProgressImpl extends AnswerProgress {
           _updateDisabledQuestions(question, answer, disabledQuestions);
 
           if (_isQuestionDisabledOrUnanswered(answer, disabledQuestions)) {
-            print("$disabledQuestions");
-            print('_findLastAnsweredQuestion ${question.counter }');
             return question.counter ;
           }
         }

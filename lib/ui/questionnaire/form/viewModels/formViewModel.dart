@@ -115,11 +115,8 @@ class FormViewModel extends ChangeNotifier {
 
   (int section, int question) findLastPage(Stage stage) {
     if (_responseCard != null) {
-      (int, int) number = _answerProgress.getLastAnsweredQuestionnairePosition(
-        stage,
-        _responseCard!,
-      );
-      print('numero>>>>>>>>>>>>>$number');
+      final (int, int) number = _answerProgress
+          .getLastAnsweredQuestionnairePosition(stage, _responseCard!);
       _page = number;
       return number;
     }
