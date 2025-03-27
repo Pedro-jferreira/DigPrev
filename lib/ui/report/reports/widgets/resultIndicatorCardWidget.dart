@@ -22,7 +22,7 @@ class ResultIndicatorCardWidget extends StatelessWidget {
   List<Color> _generateColorVariants(
     Color baseColor,
     int count, {
-    double hueStep = 25.0,
+    double hueStep = 40.0,
   }) {
     final HSLColor hslBase = HSLColor.fromColor(baseColor);
     final double baseHue = hslBase.hue;
@@ -33,9 +33,7 @@ class ResultIndicatorCardWidget extends StatelessWidget {
     });
   }
 
-  List<ProgressSegment> dynamicSegments(BuildContext context) {
-    final Color baseColor =
-        Theme.of(context).colorScheme.primary; // Cor base para gerar variações
+  List<ProgressSegment> dynamicSegments(BuildContext context ,Color baseColor) {
     final List<Color> stageColors = _generateColorVariants(
       baseColor,
       stages.length,
@@ -57,21 +55,20 @@ class ResultIndicatorCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color baseColor = Theme.of(context).colorScheme.primary;
+    final Color baseColor = Theme.of(context).colorScheme.onPrimary;
     final List<Color> stageColors = _generateColorVariants(
       baseColor,
       stages.length,
     );
     return Card(
-      elevation: 20,
-      shadowColor: Theme.of(context).colorScheme.shadow,
+      elevation: 5.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
             TitleToolTip(title: title, tooltipText: tooltipText),
             const SizedBox(height: 16),
-            _buildChart(),
+            _buildChart(baseColor),
             const SizedBox(height: 16),
             getSteps(stageColors, stages, context),
           ],
@@ -79,7 +76,7 @@ class ResultIndicatorCardWidget extends StatelessWidget {
       ),
     );
   }
-  Widget _buildChart(){
+  Widget _buildChart(Color baseColor ){
    return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         double indicatorPosition =
@@ -94,7 +91,7 @@ class ResultIndicatorCardWidget extends StatelessWidget {
         return Stack(
           alignment: Alignment.centerLeft,
           children: <Widget>[
-            SegmentedProgressBar(segments: dynamicSegments(context)),
+            SegmentedProgressBar(segments: dynamicSegments(context,baseColor )),
             Positioned(
               left: indicatorPosition ,
               child: Container(

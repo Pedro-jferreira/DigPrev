@@ -21,42 +21,50 @@ class NavigationDrawerWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Header(context),
-            Expanded(
-              child: ListView.builder(
-                itemCount: destinations.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < destinations.length) {
-                    final AppNavigationItem destination = destinations[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      // Padding entre os itens
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        leading: Icon(destination.icon),
-                        title: Text(destination.label),
-                        onTap: () => onDestinationSelected(index),
-                        selected: selectedIndex == index,
-                        selectedColor:
-                            Theme.of(context).colorScheme.primaryFixed,
-                        selectedTileColor:
-                            Theme.of(context).colorScheme.primary,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(),
+                ),
+                ...destinations.map(
+                  (AppNavigationItem destination) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
                       ),
-                    );
-                  } else
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Divider(),
-                    );
-                },
-              ),
+                      leading: Icon(destination.icon),
+                      title: Text(destination.label),
+                      onTap:
+                          () => onDestinationSelected(
+                            destinations.indexOf(destination),
+                          ),
+                      selected:
+                          selectedIndex == destinations.indexOf(destination),
+                      selectedColor: Theme.of(context).colorScheme.primaryFixed,
+                      selectedTileColor: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Divider(),
+                ),
+              ],
             ),
+            const Spacer(),
 
-            const LogoutWidget( isExtended: true),
-            const SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height * 0.03,
+              ),
+              child: const LogoutWidget(isExtended: true),
+            ),
           ],
         ),
       ),
@@ -65,25 +73,25 @@ class NavigationDrawerWidget extends StatelessWidget {
 
   Widget Header(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        const SizedBox(height: 30),
-        Text(
-          'DigPrev',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w700,
-            fontSize: 24,
-            color: Theme.of(context).colorScheme.primary,
+        Padding(
+          padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.04,
+              bottom: MediaQuery.of(context).size.height * 0.01
+          ),
+          child: Text(
+            'DigPrev',
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              color: Theme.of(context).colorScheme.primary,
+            ),
           ),
         ),
-        const SizedBox(height: 4),
         Text(
           'Saúde Digital Alimentar', // Substitua com seu subtítulo
           style: Theme.of(context).textTheme.labelMedium,
-        ),
-        const SizedBox(height: 10),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: Divider(),
         ),
       ],
     );

@@ -112,29 +112,29 @@ class _StageScreenState extends State<StageScreen> {
         onRefresh: _refresh,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            final double availableHeight = constraints.maxHeight;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: availableHeight * 0.5,
-                  width: double.infinity,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _stages.length,
-                    itemBuilder: (BuildContext context, int index) {
+            return SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ..._stages.map((stage) {
+                      int index = _stages.indexOf(stage);
                       return StageItem(
-                        stage: _stages[index],
+                        stage: stage,
                         isAvailable: (_currentStageIndex == index),
                         viewModel: widget.responseCardViewModel,
                         onProgressStateChanged: (ProgressState state) {
                           _onProgressStateChanged(index, state);
                         },
                       );
-                    },
-                  ),
+                    }).toList(),
+                  ],
                 ),
-              ],
+              ),
             );
           },
         ),

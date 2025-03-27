@@ -91,9 +91,6 @@ class _StageItemState extends State<StageItem> {
 
         return Card(
           elevation: 5.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(

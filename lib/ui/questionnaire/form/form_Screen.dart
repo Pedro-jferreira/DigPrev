@@ -7,7 +7,9 @@ import 'package:digprev_flutter/ui/questionnaire/form/widgets/app_Bar_Form.dart'
 import 'package:digprev_flutter/utils/helpers/sectionHelper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:result_command/result_command.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FormScreen extends StatefulWidget {
   final String stageId;
@@ -31,6 +33,8 @@ class SectionPageState extends State<FormScreen> {
   final PageController _pageController = PageController();
   final List<GlobalKey<FormState>> _formKeys = <GlobalKey<FormState>>[];
   final List<bool> _completedSteps = <bool>[];
+  final List<ItemScrollController> itemsScrollController =
+      <ItemScrollController>[];
   int _currentPage = 0;
   bool _isActive = true;
 
@@ -78,7 +82,8 @@ class SectionPageState extends State<FormScreen> {
     });
   }
 
-  void canPop() {
+  Future<void> canPop() async {
+    await scrollToQuestion();
     if (_formKeys[_currentPage].currentState?.validate() ?? false) {
       GoRouter.of(context).pop();
     } else {
@@ -94,19 +99,29 @@ class SectionPageState extends State<FormScreen> {
     final (int section, int question) page = widget.formViewModel.findLastPage(
       _stage,
     );
-    for (int i = 0; i < page.$1; i++) {
-      _completedSteps[i] = true;
-    }
-
+    for (int i = 0; i < page.$1; i++) _completedSteps[i] = true;
     _pageController.jumpToPage(page.$1);
-
     setState(() {
       _currentPage = page.$1;
       _isActive = false;
     });
   }
 
-  void jumpToPage(int page) {
+  Future<void> scrollToQuestion() async {
+    widget.formViewModel.findLastPage(_stage);
+    final int index = widget.formViewModel.page.$2 - 1;
+    if (widget.formViewModel.page.$2 - 1 >= 1) {
+      await itemsScrollController[_currentPage].scrollTo(
+        index: index,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOutCubic,
+      );
+    }
+  }
+
+  Future<void> jumpToPage(int page) async {
+    await scrollToQuestion();
+
     if (_formKeys[_currentPage].currentState?.validate() ?? false) {
       _completedSteps[_currentPage] = true;
       _pageController.animateToPage(
@@ -141,20 +156,8 @@ class SectionPageState extends State<FormScreen> {
       );
     }
 
-    _formKeys.addAll(
-      List<GlobalKey<FormState>>.generate(
-        _sections.length,
-        (int index) => GlobalKey<FormState>(),
-      ),
-    );
-    _completedSteps.addAll(List<bool>.filled(_sections.length, false));
-    if (_isActive) {
-      Future<Null>.delayed(const Duration(seconds: 1), () {
-        if (mounted) {
-          initialPage();
-        }
-      });
-    }
+    _initFormsKeys();
+    _initPage();
 
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -174,15 +177,43 @@ class SectionPageState extends State<FormScreen> {
           itemCount: _sections.length,
           itemBuilder: (BuildContext context, int index) {
             return FormQuestions(
+              itemScrollController: itemsScrollController[index],
               formKey: _formKeys[index],
               section: _sections[index],
               onPrevious: onPrevious,
               onNext: onNext,
-              viewModel: widget.formViewModel,
-              stage: _stage,
+              viewModel: context.read(),
             );
           },
         ),
+      ),
+    );
+  }
+
+  void _initPage() {
+    if (_isActive) {
+      Future<Null>.delayed(const Duration(milliseconds: 500), () async {
+        if (mounted) {
+          initialPage();
+          await  Future<Null>.delayed(const Duration(seconds: 1));
+          await scrollToQuestion();
+        }
+      });
+    }
+  }
+
+  void _initFormsKeys() {
+    _formKeys.addAll(
+      List<GlobalKey<FormState>>.generate(
+        _sections.length,
+        (int index) => GlobalKey<FormState>(),
+      ),
+    );
+    _completedSteps.addAll(List<bool>.filled(_sections.length, false));
+    itemsScrollController.addAll(
+      List<ItemScrollController>.generate(
+        _sections.length,
+        (_) => ItemScrollController(),
       ),
     );
   }

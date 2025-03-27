@@ -72,14 +72,9 @@ class _reportPageWidgetState extends State<reportPageWidget> {
       final Map<Section, SectionAnswer> sectionAnswers = widget.viewModel
           .joinSectionAndAnswer(_stages, _responseCard);
 
-      return Card(
-        clipBehavior: Clip.antiAlias,
-        color: Theme.of(context).colorScheme.surfaceContainerHigh  ,
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh ,
-          appBar: AppBarResult(title: formatDate(_responseCard.date)),
-          body: ListViewResults(sectionAnswers: sectionAnswers),
-        ),
+      return Scaffold(
+        appBar: AppBarResult(title: formatDate(_responseCard.date)),
+        body: ListViewResults(sectionAnswers: sectionAnswers),
       );
     }
   }

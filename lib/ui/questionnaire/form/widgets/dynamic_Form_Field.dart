@@ -250,7 +250,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
         widget.question.id.toString(),
       );
     }else{
-      final Answer answerUpdate = widget.answer.copyWith(answers: []);
+      final Answer answerUpdate = widget.answer.copyWith(answers: <Option>[]);
       await widget.viewModel.update(
         answerUpdate,
         widget.question.id.toString(),
@@ -382,13 +382,11 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
     final List<String> texts = <String>[];
     if (widget.question.explanatoryTexts != null) {
       for (ExplanatoryTexts e in widget.question.explanatoryTexts!) {
-        if (e.explanatoryText != null) {
+        if (e.explanatoryText != null ) {
           texts.add(e.explanatoryText!);
         }
-        ;
       }
     }
-
     return texts;
   }
 

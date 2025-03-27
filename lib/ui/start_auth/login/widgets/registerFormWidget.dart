@@ -220,7 +220,7 @@ class _RegisterFormComponentState extends State<RegisterFormComponent> {
                         'de nascimento.',
                     onDateSelected: (DateTime date) {
                       credentials.setDataNascimento(date);
-                    }
+                    },
                 ),
                 const SizedBox(height: 10),
                 PasswordTextField(

@@ -52,7 +52,7 @@ class NavigatorContainerWithPageView extends HookWidget {
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
                                   maxWidth: contentWidth,
-                                  maxHeight: constraints.maxHeight-20,
+                                  maxHeight: constraints.maxHeight,
                                 ),
                                 child: widget,
                               ),

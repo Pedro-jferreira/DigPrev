@@ -22,9 +22,8 @@ class AppBarResult extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       surfaceTintColor:Theme.of(context).colorScheme.tertiary ,
-
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0))),
+      shadowColor: Theme.of(context).colorScheme.shadow,
+      elevation: 5,
       leading: hasLeading
           ? IconButton(
         icon: const Icon(Icons.close),
