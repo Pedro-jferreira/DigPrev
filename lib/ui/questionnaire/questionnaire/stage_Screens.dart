@@ -70,8 +70,6 @@ class _StageScreenState extends State<StageScreen> {
 
   Future<void> _refresh() async {
     await widget.viewModel.refresh();
-    _currentStageIndex = 0;
-
     setState(() {}); // Atualiza a tela
   }
 
