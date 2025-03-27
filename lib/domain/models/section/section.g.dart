@@ -12,10 +12,8 @@ _$SectionImpl _$$SectionImplFromJson(Map<String, dynamic> json) =>
       title: json['title'] as String,
       maxValue: (json['maxValue'] as num).toDouble(),
       typeCalculate: $enumDecode(_$TypeCalculateEnumMap, json['typeCalculate']),
-      textUnderBar:
-          (json['textUnderBar'] as List<dynamic>?)
-              ?.map((e) => StageLabel.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      textUnderBar: json['textUnderBar'] as String?,
+      tooltipText: json['tooltipText'] as String,
       questions:
           (json['questions'] as List<dynamic>)
               .map((e) => Question.fromJson(e as Map<String, dynamic>))
@@ -33,7 +31,8 @@ Map<String, dynamic> _$$SectionImplToJson(_$SectionImpl instance) =>
       'title': instance.title,
       'maxValue': instance.maxValue,
       'typeCalculate': _$TypeCalculateEnumMap[instance.typeCalculate]!,
-      'textUnderBar': instance.textUnderBar?.map((e) => e.toJson()).toList(),
+      'textUnderBar': instance.textUnderBar,
+      'tooltipText': instance.tooltipText,
       'questions': instance.questions.map((e) => e.toJson()).toList(),
       'subSections': instance.subSections?.map((e) => e.toJson()).toList(),
       'hasChart': instance.hasChart,

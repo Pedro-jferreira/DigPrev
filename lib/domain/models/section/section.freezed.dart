@@ -25,7 +25,8 @@ mixin _$Section {
   String get title => throw _privateConstructorUsedError;
   double get maxValue => throw _privateConstructorUsedError;
   TypeCalculate get typeCalculate => throw _privateConstructorUsedError;
-  List<StageLabel>? get textUnderBar => throw _privateConstructorUsedError;
+  String? get textUnderBar => throw _privateConstructorUsedError;
+  String get tooltipText => throw _privateConstructorUsedError;
   List<Question> get questions => throw _privateConstructorUsedError;
   List<Section>? get subSections => throw _privateConstructorUsedError;
   bool get hasChart => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $SectionCopyWith<$Res> {
     String title,
     double maxValue,
     TypeCalculate typeCalculate,
-    List<StageLabel>? textUnderBar,
+    String? textUnderBar,
+    String tooltipText,
     List<Question> questions,
     List<Section>? subSections,
     bool hasChart,
@@ -76,6 +78,7 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
     Object? maxValue = null,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
+    Object? tooltipText = null,
     Object? questions = null,
     Object? subSections = freezed,
     Object? hasChart = null,
@@ -106,7 +109,12 @@ class _$SectionCopyWithImpl<$Res, $Val extends Section>
                 freezed == textUnderBar
                     ? _value.textUnderBar
                     : textUnderBar // ignore: cast_nullable_to_non_nullable
-                        as List<StageLabel>?,
+                        as String?,
+            tooltipText:
+                null == tooltipText
+                    ? _value.tooltipText
+                    : tooltipText // ignore: cast_nullable_to_non_nullable
+                        as String,
             questions:
                 null == questions
                     ? _value.questions
@@ -141,7 +149,8 @@ abstract class _$$SectionImplCopyWith<$Res> implements $SectionCopyWith<$Res> {
     String title,
     double maxValue,
     TypeCalculate typeCalculate,
-    List<StageLabel>? textUnderBar,
+    String? textUnderBar,
+    String tooltipText,
     List<Question> questions,
     List<Section>? subSections,
     bool hasChart,
@@ -167,6 +176,7 @@ class __$$SectionImplCopyWithImpl<$Res>
     Object? maxValue = null,
     Object? typeCalculate = null,
     Object? textUnderBar = freezed,
+    Object? tooltipText = null,
     Object? questions = null,
     Object? subSections = freezed,
     Object? hasChart = null,
@@ -195,9 +205,14 @@ class __$$SectionImplCopyWithImpl<$Res>
                     as TypeCalculate,
         textUnderBar:
             freezed == textUnderBar
-                ? _value._textUnderBar
+                ? _value.textUnderBar
                 : textUnderBar // ignore: cast_nullable_to_non_nullable
-                    as List<StageLabel>?,
+                    as String?,
+        tooltipText:
+            null == tooltipText
+                ? _value.tooltipText
+                : tooltipText // ignore: cast_nullable_to_non_nullable
+                    as String,
         questions:
             null == questions
                 ? _value._questions
@@ -226,12 +241,12 @@ class _$SectionImpl implements _Section {
     required this.title,
     required this.maxValue,
     required this.typeCalculate,
-    required final List<StageLabel>? textUnderBar,
+    required this.textUnderBar,
+    required this.tooltipText,
     required final List<Question> questions,
     required final List<Section>? subSections,
     required this.hasChart,
-  }) : _textUnderBar = textUnderBar,
-       _questions = questions,
+  }) : _questions = questions,
        _subSections = subSections;
 
   factory _$SectionImpl.fromJson(Map<String, dynamic> json) =>
@@ -245,16 +260,10 @@ class _$SectionImpl implements _Section {
   final double maxValue;
   @override
   final TypeCalculate typeCalculate;
-  final List<StageLabel>? _textUnderBar;
   @override
-  List<StageLabel>? get textUnderBar {
-    final value = _textUnderBar;
-    if (value == null) return null;
-    if (_textUnderBar is EqualUnmodifiableListView) return _textUnderBar;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final String? textUnderBar;
+  @override
+  final String tooltipText;
   final List<Question> _questions;
   @override
   List<Question> get questions {
@@ -278,7 +287,7 @@ class _$SectionImpl implements _Section {
 
   @override
   String toString() {
-    return 'Section(id: $id, title: $title, maxValue: $maxValue, typeCalculate: $typeCalculate, textUnderBar: $textUnderBar, questions: $questions, subSections: $subSections, hasChart: $hasChart)';
+    return 'Section(id: $id, title: $title, maxValue: $maxValue, typeCalculate: $typeCalculate, textUnderBar: $textUnderBar, tooltipText: $tooltipText, questions: $questions, subSections: $subSections, hasChart: $hasChart)';
   }
 
   @override
@@ -292,10 +301,10 @@ class _$SectionImpl implements _Section {
                 other.maxValue == maxValue) &&
             (identical(other.typeCalculate, typeCalculate) ||
                 other.typeCalculate == typeCalculate) &&
-            const DeepCollectionEquality().equals(
-              other._textUnderBar,
-              _textUnderBar,
-            ) &&
+            (identical(other.textUnderBar, textUnderBar) ||
+                other.textUnderBar == textUnderBar) &&
+            (identical(other.tooltipText, tooltipText) ||
+                other.tooltipText == tooltipText) &&
             const DeepCollectionEquality().equals(
               other._questions,
               _questions,
@@ -316,7 +325,8 @@ class _$SectionImpl implements _Section {
     title,
     maxValue,
     typeCalculate,
-    const DeepCollectionEquality().hash(_textUnderBar),
+    textUnderBar,
+    tooltipText,
     const DeepCollectionEquality().hash(_questions),
     const DeepCollectionEquality().hash(_subSections),
     hasChart,
@@ -342,7 +352,8 @@ abstract class _Section implements Section {
     required final String title,
     required final double maxValue,
     required final TypeCalculate typeCalculate,
-    required final List<StageLabel>? textUnderBar,
+    required final String? textUnderBar,
+    required final String tooltipText,
     required final List<Question> questions,
     required final List<Section>? subSections,
     required final bool hasChart,
@@ -359,7 +370,9 @@ abstract class _Section implements Section {
   @override
   TypeCalculate get typeCalculate;
   @override
-  List<StageLabel>? get textUnderBar;
+  String? get textUnderBar;
+  @override
+  String get tooltipText;
   @override
   List<Question> get questions;
   @override

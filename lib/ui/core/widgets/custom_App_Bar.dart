@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 
-class AppBarResult extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarResult({
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const CustomAppBar({
     required this.title,
+    this.actions,
     super.key,
   });
 
   final String title;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,11 @@ class AppBarResult extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       surfaceTintColor:Theme.of(context).colorScheme.tertiary ,
       shadowColor: Theme.of(context).colorScheme.shadow,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12), // Ajuste o valor conforme necessário
+        ),
+      ),
       elevation: 5,
       leading: hasLeading
           ? IconButton(
@@ -36,16 +43,7 @@ class AppBarResult extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(color: Theme.of(context).colorScheme.primaryFixed),
         softWrap: true,
       ),
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: IconButton(
-            icon: const Icon(Icons.share),
-            color: Theme.of(context).colorScheme.primaryFixed,
-            onPressed: () {},
-          ),
-        )
-      ],
+      actions: actions,
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/routing/routes.dart';
+import 'package:digprev_flutter/ui/report/pdf/widgets/shared_button.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -64,13 +65,7 @@ class _ResultExpansionTileState extends State<ResultExpansionTile> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.share_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
+                SharedButton(responseCardId: widget.responseCard.id),
                 FilledButton.icon(
                   onPressed: () {
                     context.pushNamed(

@@ -2,9 +2,10 @@ import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/domain/models/sectionAnswer/sectionAnswer.dart';
 import 'package:digprev_flutter/domain/models/stage/stage.dart';
+import 'package:digprev_flutter/ui/report/pdf/widgets/shared_button.dart';
 import 'package:digprev_flutter/ui/report/reports/viewModels/Report_ViewModel.dart';
 import 'package:digprev_flutter/ui/report/reports/widgets/List_Results.dart';
-import 'package:digprev_flutter/ui/report/reports/widgets/app_Bar_Result.dart';
+import 'package:digprev_flutter/ui/core/widgets/custom_App_Bar.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:result_command/result_command.dart';
@@ -73,7 +74,16 @@ class _reportPageWidgetState extends State<reportPageWidget> {
           .joinSectionAndAnswer(_stages, _responseCard);
 
       return Scaffold(
-        appBar: AppBarResult(title: formatDate(_responseCard.date)),
+        appBar: CustomAppBar(
+          title: formatDate(_responseCard.date),
+          actions: <Widget>[
+            Padding(
+              padding:  const EdgeInsets.symmetric(horizontal: 20),
+              child: SharedButton(responseCardId:_responseCard.id,
+              color: Theme.of(context).colorScheme.primaryFixed,),
+            ),
+          ],
+        ),
         body: ListViewResults(sectionAnswers: sectionAnswers),
       );
     }

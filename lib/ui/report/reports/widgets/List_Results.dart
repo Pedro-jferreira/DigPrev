@@ -20,10 +20,10 @@ class ListViewResults extends StatelessWidget {
         final Section section = entries[index].key;
         final SectionAnswer answer = entries[index].value;
         return ResultIndicatorCardWidget(
+          textUnderBar: section.textUnderBar!,
           maxValue: section.maxValue,
           indicatorValue: answer.score,
-          stages: section.textUnderBar!,
-          tooltipText: '',
+          tooltipText: section.tooltipText,
           title: answer.title,
         );
       },

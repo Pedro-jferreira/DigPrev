@@ -1,6 +1,5 @@
 import 'package:digprev_flutter/domain/models/enums/typeCalculate.dart';
 import 'package:digprev_flutter/domain/models/question/question.dart';
-import 'package:digprev_flutter/domain/models/section/stageLabel.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'section.freezed.dart';
@@ -14,7 +13,8 @@ class Section with _$Section {
     required String title,
     required double maxValue,
     required TypeCalculate typeCalculate,
-    required List<StageLabel>? textUnderBar,
+    required String? textUnderBar,
+    required String tooltipText,
     required List<Question> questions,
     required List<Section>? subSections,
     required bool hasChart,
