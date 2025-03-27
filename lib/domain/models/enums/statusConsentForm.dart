@@ -1,0 +1,4 @@
+enum StatusConsentForm {
+  ATIVO,
+  DESATIVADO
+}

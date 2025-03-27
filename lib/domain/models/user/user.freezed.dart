@@ -29,8 +29,6 @@ mixin _$UserModel {
   DateTime get dataNascimento => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get telefone => throw _privateConstructorUsedError;
-  List<ConsentFormModel>? get consentForms =>
-      throw _privateConstructorUsedError;
   List<String>? get acceptedConsentForms => throw _privateConstructorUsedError;
 
   /// Serializes this UserModel to a JSON map.
@@ -56,7 +54,6 @@ abstract class $UserModelCopyWith<$Res> {
     @TimestampSerializer() DateTime dataNascimento,
     String email,
     String telefone,
-    List<ConsentFormModel>? consentForms,
     List<String>? acceptedConsentForms,
   });
 }
@@ -83,7 +80,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? dataNascimento = null,
     Object? email = null,
     Object? telefone = null,
-    Object? consentForms = freezed,
     Object? acceptedConsentForms = freezed,
   }) {
     return _then(
@@ -123,11 +119,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
                     ? _value.telefone
                     : telefone // ignore: cast_nullable_to_non_nullable
                         as String,
-            consentForms:
-                freezed == consentForms
-                    ? _value.consentForms
-                    : consentForms // ignore: cast_nullable_to_non_nullable
-                        as List<ConsentFormModel>?,
             acceptedConsentForms:
                 freezed == acceptedConsentForms
                     ? _value.acceptedConsentForms
@@ -156,7 +147,6 @@ abstract class _$$UserModelImplCopyWith<$Res>
     @TimestampSerializer() DateTime dataNascimento,
     String email,
     String telefone,
-    List<ConsentFormModel>? consentForms,
     List<String>? acceptedConsentForms,
   });
 }
@@ -182,7 +172,6 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? dataNascimento = null,
     Object? email = null,
     Object? telefone = null,
-    Object? consentForms = freezed,
     Object? acceptedConsentForms = freezed,
   }) {
     return _then(
@@ -222,11 +211,6 @@ class __$$UserModelImplCopyWithImpl<$Res>
                 ? _value.telefone
                 : telefone // ignore: cast_nullable_to_non_nullable
                     as String,
-        consentForms:
-            freezed == consentForms
-                ? _value._consentForms
-                : consentForms // ignore: cast_nullable_to_non_nullable
-                    as List<ConsentFormModel>?,
         acceptedConsentForms:
             freezed == acceptedConsentForms
                 ? _value._acceptedConsentForms
@@ -248,10 +232,8 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     @TimestampSerializer() required this.dataNascimento,
     required this.email,
     required this.telefone,
-    final List<ConsentFormModel>? consentForms,
     final List<String>? acceptedConsentForms,
-  }) : _consentForms = consentForms,
-       _acceptedConsentForms = acceptedConsentForms;
+  }) : _acceptedConsentForms = acceptedConsentForms;
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -271,16 +253,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   final String email;
   @override
   final String telefone;
-  final List<ConsentFormModel>? _consentForms;
-  @override
-  List<ConsentFormModel>? get consentForms {
-    final value = _consentForms;
-    if (value == null) return null;
-    if (_consentForms is EqualUnmodifiableListView) return _consentForms;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   final List<String>? _acceptedConsentForms;
   @override
   List<String>? get acceptedConsentForms {
@@ -294,7 +266,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email, telefone: $telefone, consentForms: $consentForms, acceptedConsentForms: $acceptedConsentForms)';
+    return 'UserModel(id: $id, nome: $nome, cpf: $cpf, senha: $senha, dataNascimento: $dataNascimento, email: $email, telefone: $telefone, acceptedConsentForms: $acceptedConsentForms)';
   }
 
   @override
@@ -309,7 +281,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('dataNascimento', dataNascimento))
       ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('telefone', telefone))
-      ..add(DiagnosticsProperty('consentForms', consentForms))
       ..add(DiagnosticsProperty('acceptedConsentForms', acceptedConsentForms));
   }
 
@@ -328,10 +299,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
             (identical(other.telefone, telefone) ||
                 other.telefone == telefone) &&
             const DeepCollectionEquality().equals(
-              other._consentForms,
-              _consentForms,
-            ) &&
-            const DeepCollectionEquality().equals(
               other._acceptedConsentForms,
               _acceptedConsentForms,
             ));
@@ -348,7 +315,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     dataNascimento,
     email,
     telefone,
-    const DeepCollectionEquality().hash(_consentForms),
     const DeepCollectionEquality().hash(_acceptedConsentForms),
   );
 
@@ -375,7 +341,6 @@ abstract class _UserModel implements UserModel {
     @TimestampSerializer() required final DateTime dataNascimento,
     required final String email,
     required final String telefone,
-    final List<ConsentFormModel>? consentForms,
     final List<String>? acceptedConsentForms,
   }) = _$UserModelImpl;
 
@@ -397,8 +362,6 @@ abstract class _UserModel implements UserModel {
   String get email;
   @override
   String get telefone;
-  @override
-  List<ConsentFormModel>? get consentForms;
   @override
   List<String>? get acceptedConsentForms;
 

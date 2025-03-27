@@ -1,3 +1,5 @@
+import 'package:digprev_flutter/data/repositories/consentFormRepository/consentFormRepository.dart';
+import 'package:digprev_flutter/data/repositories/consentFormRepository/consentFormRepositoryRemote.dart';
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepository.dart';
 import 'package:digprev_flutter/data/repositories/responseCardRepository/responseCardRepositoryRemote.dart';
 import 'package:digprev_flutter/data/repositories/stageRepository/stageRepository.dart';
@@ -6,6 +8,7 @@ import 'package:digprev_flutter/data/repositories/userRepository/authNotifier.da
 import 'package:digprev_flutter/data/repositories/userRepository/authRepository.dart';
 import 'package:digprev_flutter/data/repositories/userRepository/authRepositoryRemote.dart';
 import 'package:digprev_flutter/data/services/fireStore/authService.dart';
+import 'package:digprev_flutter/data/services/fireStore/consentFormService.dart';
 import 'package:digprev_flutter/data/services/fireStore/responseCardService.dart';
 import 'package:digprev_flutter/data/services/fireStore/stageService.dart';
 import 'package:digprev_flutter/domain/useCases/answer_progress/answer_progress.dart';
@@ -32,6 +35,8 @@ import 'package:provider/single_child_widget.dart';
 List<SingleChildWidget> get providersRemote {
   return <SingleChildWidget>[
     Provider<StageService>(create: (BuildContext context) => StageService()),
+    Provider<ConsentFormService>(create: (BuildContext context) =>
+        ConsentFormService()),
     Provider<ResponseCardService>(
       create: (BuildContext context) => ResponseCardService(),
     ),
@@ -41,6 +46,12 @@ List<SingleChildWidget> get providersRemote {
           (BuildContext context) =>
               StageRepositoryRemote(stageServie: context.read())
                   as StageRepository,
+    ),
+    Provider<ConsentFormRepository>(
+      create:
+          (BuildContext context) =>
+      ConsentFormRepositoryRemote(consentFormService: context.read())
+      as ConsentFormRepository,
     ),
     Provider<ResponseCardRepository>(
       create:
@@ -106,7 +117,7 @@ List<SingleChildWidget> get providersRemote {
     ChangeNotifierProvider<ConsentViewModel>(
       create:
           (BuildContext context) =>
-          ConsentViewModel(authRepository: context.read()),
+          ConsentViewModel(consentFormRepository: context.read()),
     ),
     ChangeNotifierProvider<FormViewModel>(
       create:

@@ -21,10 +21,12 @@ ConsentFormModel _$ConsentFormModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ConsentFormModel {
+  String get id => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get dataForm => throw _privateConstructorUsedError;
   String get titulo => throw _privateConstructorUsedError;
+  StatusConsentForm get status => throw _privateConstructorUsedError;
 
   /// Serializes this ConsentFormModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,9 +46,11 @@ abstract class $ConsentFormModelCopyWith<$Res> {
   ) = _$ConsentFormModelCopyWithImpl<$Res, ConsentFormModel>;
   @useResult
   $Res call({
+    String id,
     String text,
     @TimestampSerializer() DateTime dataForm,
     String titulo,
+    StatusConsentForm status,
   });
 }
 
@@ -65,12 +69,19 @@ class _$ConsentFormModelCopyWithImpl<$Res, $Val extends ConsentFormModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? text = null,
     Object? dataForm = null,
     Object? titulo = null,
+    Object? status = null,
   }) {
     return _then(
       _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
             text:
                 null == text
                     ? _value.text
@@ -86,6 +97,11 @@ class _$ConsentFormModelCopyWithImpl<$Res, $Val extends ConsentFormModel>
                     ? _value.titulo
                     : titulo // ignore: cast_nullable_to_non_nullable
                         as String,
+            status:
+                null == status
+                    ? _value.status
+                    : status // ignore: cast_nullable_to_non_nullable
+                        as StatusConsentForm,
           )
           as $Val,
     );
@@ -102,9 +118,11 @@ abstract class _$$ConsentFormModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
+    String id,
     String text,
     @TimestampSerializer() DateTime dataForm,
     String titulo,
+    StatusConsentForm status,
   });
 }
 
@@ -122,12 +140,19 @@ class __$$ConsentFormModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? text = null,
     Object? dataForm = null,
     Object? titulo = null,
+    Object? status = null,
   }) {
     return _then(
       _$ConsentFormModelImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
         text:
             null == text
                 ? _value.text
@@ -143,6 +168,11 @@ class __$$ConsentFormModelImplCopyWithImpl<$Res>
                 ? _value.titulo
                 : titulo // ignore: cast_nullable_to_non_nullable
                     as String,
+        status:
+            null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                    as StatusConsentForm,
       ),
     );
   }
@@ -154,14 +184,18 @@ class _$ConsentFormModelImpl
     with DiagnosticableTreeMixin
     implements _ConsentFormModel {
   const _$ConsentFormModelImpl({
+    required this.id,
     required this.text,
     @TimestampSerializer() required this.dataForm,
     required this.titulo,
+    required this.status,
   });
 
   factory _$ConsentFormModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConsentFormModelImplFromJson(json);
 
+  @override
+  final String id;
   @override
   final String text;
   @override
@@ -169,10 +203,12 @@ class _$ConsentFormModelImpl
   final DateTime dataForm;
   @override
   final String titulo;
+  @override
+  final StatusConsentForm status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ConsentFormModel(text: $text, dataForm: $dataForm, titulo: $titulo)';
+    return 'ConsentFormModel(id: $id, text: $text, dataForm: $dataForm, titulo: $titulo, status: $status)';
   }
 
   @override
@@ -180,9 +216,11 @@ class _$ConsentFormModelImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ConsentFormModel'))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('text', text))
       ..add(DiagnosticsProperty('dataForm', dataForm))
-      ..add(DiagnosticsProperty('titulo', titulo));
+      ..add(DiagnosticsProperty('titulo', titulo))
+      ..add(DiagnosticsProperty('status', status));
   }
 
   @override
@@ -190,15 +228,18 @@ class _$ConsentFormModelImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ConsentFormModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.text, text) || other.text == text) &&
             (identical(other.dataForm, dataForm) ||
                 other.dataForm == dataForm) &&
-            (identical(other.titulo, titulo) || other.titulo == titulo));
+            (identical(other.titulo, titulo) || other.titulo == titulo) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, text, dataForm, titulo);
+  int get hashCode =>
+      Object.hash(runtimeType, id, text, dataForm, titulo, status);
 
   /// Create a copy of ConsentFormModel
   /// with the given fields replaced by the non-null parameter values.
@@ -219,14 +260,18 @@ class _$ConsentFormModelImpl
 
 abstract class _ConsentFormModel implements ConsentFormModel {
   const factory _ConsentFormModel({
+    required final String id,
     required final String text,
     @TimestampSerializer() required final DateTime dataForm,
     required final String titulo,
+    required final StatusConsentForm status,
   }) = _$ConsentFormModelImpl;
 
   factory _ConsentFormModel.fromJson(Map<String, dynamic> json) =
       _$ConsentFormModelImpl.fromJson;
 
+  @override
+  String get id;
   @override
   String get text;
   @override
@@ -234,6 +279,8 @@ abstract class _ConsentFormModel implements ConsentFormModel {
   DateTime get dataForm;
   @override
   String get titulo;
+  @override
+  StatusConsentForm get status;
 
   /// Create a copy of ConsentFormModel
   /// with the given fields replaced by the non-null parameter values.

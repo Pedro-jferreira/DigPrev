@@ -74,7 +74,6 @@ class UsersViewModel extends ChangeNotifier {
         dataNascimento: credentials.dataNascimento,
         telefone: credentials.telefone != '' ? credentials.telefone
             : _userForm.telefone,
-        consentForms: [],
         acceptedConsentForms: []
     );
 

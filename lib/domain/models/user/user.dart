@@ -17,12 +17,9 @@ class UserModel with _$UserModel {
     @TimestampSerializer() required DateTime dataNascimento,
     required String email,
     required String telefone,
-    List<ConsentFormModel>? consentForms,
     List<String>? acceptedConsentForms
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }
-// criar classe/documento termos de consentimento com data, body e titulo
-// aqui criar a lista de termos, os checks dos termos e telefone

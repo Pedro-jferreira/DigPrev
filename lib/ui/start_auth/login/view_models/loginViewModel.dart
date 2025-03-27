@@ -43,7 +43,6 @@ class LoginViewModel extends ChangeNotifier {
       email: credentials.email,
       dataNascimento: credentials.dataNascimento,
       telefone: credentials.telefone,
-      consentForms: [],
       acceptedConsentForms: []
     );
 

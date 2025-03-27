@@ -17,10 +17,6 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       ),
       email: json['email'] as String,
       telefone: json['telefone'] as String,
-      consentForms:
-          (json['consentForms'] as List<dynamic>?)
-              ?.map((e) => ConsentFormModel.fromJson(e as Map<String, dynamic>))
-              .toList(),
       acceptedConsentForms:
           (json['acceptedConsentForms'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -37,6 +33,5 @@ Map<String, dynamic> _$$UserModelImplToJson(
   'dataNascimento': const TimestampSerializer().toJson(instance.dataNascimento),
   'email': instance.email,
   'telefone': instance.telefone,
-  'consentForms': instance.consentForms?.map((e) => e.toJson()).toList(),
   'acceptedConsentForms': instance.acceptedConsentForms,
 };
