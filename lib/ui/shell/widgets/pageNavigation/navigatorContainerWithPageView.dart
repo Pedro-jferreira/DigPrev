@@ -35,52 +35,56 @@ class NavigatorContainerWithPageView extends HookWidget {
       onPageChanged: onPageChanged,
       children:
           children.map((Widget widget) {
-            return LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
-                final double contentWidth = calculateContentWidth(
-                  constraints,
-                  viewModel.layoutType,
-                );
-                if(viewModel.layoutType == LayoutState.desktop||
-                    viewModel.layoutType == LayoutState.tablet){
-                  return Stack(
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: Center(
-                              child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth: contentWidth,
-                                  maxHeight: constraints.maxHeight,
+            return ScaffoldMessenger(
+              child: Scaffold( // <-- Adicionado um Scaffold aqui!
+                body:LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      final double contentWidth = calculateContentWidth(
+                        constraints,
+                        viewModel.layoutType,
+                      );
+                      if(viewModel.layoutType == LayoutState.desktop||
+                          viewModel.layoutType == LayoutState.tablet){
+                        return Stack(
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Center(
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(
+                                        maxWidth: contentWidth,
+                                        maxHeight: constraints.maxHeight,
+                                      ),
+                                      child: widget,
+                                    ),
+                                  ),
                                 ),
-                                child: widget,
+                              ],
+                            ),
+                            TopBar(context),
+                          ],
+                        );
+                      }else{
+                        return Column(
+                          children: <Widget>[
+                        Expanded(
+                          child: Center(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: contentWidth,
+                                maxHeight: constraints.maxHeight,
                               ),
+                              child: widget,
                             ),
                           ),
-                        ],
-                      ),
-                      TopBar(context),
-                    ],
-                  );
-                }else{
-                  return Column(
-                    children: <Widget>[
-                  Expanded(
-                    child: Center(
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxWidth: contentWidth,
-                          maxHeight: constraints.maxHeight,
                         ),
-                        child: widget,
-                      ),
-                    ),
-                  ),
-                    ]);
-                }
+                          ]);
+                      }
 
-              },
+                    },
+                  ),
+                ),
             );
           }).toList(),
     );

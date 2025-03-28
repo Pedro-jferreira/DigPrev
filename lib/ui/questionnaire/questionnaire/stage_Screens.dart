@@ -29,6 +29,7 @@ class _StageScreenState extends State<StageScreen> {
   List<Stage> _stages = <Stage>[];
   int _currentStageIndex = 0;
 
+
   @override
   void initState() {
     super.initState();
@@ -107,8 +108,7 @@ class _StageScreenState extends State<StageScreen> {
         ),
       );
     }
-    return Scaffold(
-      body: RefreshIndicator(
+    return RefreshIndicator(
         onRefresh: _refresh,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -118,27 +118,33 @@ class _StageScreenState extends State<StageScreen> {
                 constraints: BoxConstraints(
                   minHeight: constraints.maxHeight,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ..._stages.map((stage) {
-                      int index = _stages.indexOf(stage);
-                      return StageItem(
-                        stage: stage,
-                        isAvailable: (_currentStageIndex == index),
-                        viewModel: widget.responseCardViewModel,
-                        onProgressStateChanged: (ProgressState state) {
-                          _onProgressStateChanged(index, state);
-                        },
-                      );
-                    }).toList(),
-                  ],
-                ),
+                child: Builder(
+                  builder: (context) {
+                   return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        ..._stages.map((stage) {
+                          int index = _stages.indexOf(stage);
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
+                            child: StageItem(
+                              stage: stage,
+                              isAvailable: (_currentStageIndex == index),
+                              viewModel: widget.responseCardViewModel,
+                              onProgressStateChanged: (ProgressState state) {
+                                _onProgressStateChanged(index, state);
+                              },
+                            ),
+                          );
+                        }).toList(),
+                      ],
+                    );
+                  }
+                )
               ),
             );
           },
         ),
-      ),
-    );
+      );
   }
 }

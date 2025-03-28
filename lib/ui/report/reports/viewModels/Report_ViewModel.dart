@@ -64,4 +64,5 @@ class ReportViewModel extends ChangeNotifier {
     }
     return sectionAnswerMap;
   }
+
 }

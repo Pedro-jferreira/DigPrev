@@ -17,7 +17,7 @@ class InitialImage extends StatelessWidget {
                 ]
             ).createShader(rect),
         child: Image.asset(
-          'lib/assets/images/front-view-girl-sitting-table.png',
+          'assets/images/front-view-girl-sitting-table.png',
           width: double.infinity,
           fit: BoxFit.cover,
           colorBlendMode: BlendMode.darken,

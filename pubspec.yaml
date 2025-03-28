@@ -31,6 +31,8 @@ dependencies:
   flutter_hooks: ^0.21.2
   segmented_progress_bar: ^1.2.0
   scrollable_positioned_list: ^0.3.8
+  pdf: ^3.11.3
+  printing: ^5.14.2
 
 
 
@@ -45,4 +47,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets: [lib/assets/images/front-view-girl-sitting-table.png]
+  assets: [assets/images/front-view-girl-sitting-table.png, assets/fonts/RobotoSlabt.ttf]

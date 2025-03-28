@@ -9,7 +9,7 @@ part 'responseCard.g.dart';
 class ResponseCard with _$ResponseCard {
   const factory ResponseCard({
     required String id,
-    required String? userRef,
+    required String userRef,
     @TimestampSerializer() required DateTime date,
    required List<SectionAnswer> sections,
     required bool isCalculated,

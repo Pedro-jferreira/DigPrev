@@ -9,7 +9,7 @@ part of 'responseCard.dart';
 _$ResponseCardImpl _$$ResponseCardImplFromJson(Map<String, dynamic> json) =>
     _$ResponseCardImpl(
       id: json['id'] as String,
-      userRef: json['userRef'] as String?,
+      userRef: json['userRef'] as String,
       date: const TimestampSerializer().fromJson(json['date']),
       sections:
           (json['sections'] as List<dynamic>)

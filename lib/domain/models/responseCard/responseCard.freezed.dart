@@ -22,7 +22,7 @@ ResponseCard _$ResponseCardFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ResponseCard {
   String get id => throw _privateConstructorUsedError;
-  String? get userRef => throw _privateConstructorUsedError;
+  String get userRef => throw _privateConstructorUsedError;
   @TimestampSerializer()
   DateTime get date => throw _privateConstructorUsedError;
   List<SectionAnswer> get sections => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $ResponseCardCopyWith<$Res> {
   @useResult
   $Res call({
     String id,
-    String? userRef,
+    String userRef,
     @TimestampSerializer() DateTime date,
     List<SectionAnswer> sections,
     bool isCalculated,
@@ -72,7 +72,7 @@ class _$ResponseCardCopyWithImpl<$Res, $Val extends ResponseCard>
   @override
   $Res call({
     Object? id = null,
-    Object? userRef = freezed,
+    Object? userRef = null,
     Object? date = null,
     Object? sections = null,
     Object? isCalculated = null,
@@ -86,10 +86,10 @@ class _$ResponseCardCopyWithImpl<$Res, $Val extends ResponseCard>
                     : id // ignore: cast_nullable_to_non_nullable
                         as String,
             userRef:
-                freezed == userRef
+                null == userRef
                     ? _value.userRef
                     : userRef // ignore: cast_nullable_to_non_nullable
-                        as String?,
+                        as String,
             date:
                 null == date
                     ? _value.date
@@ -127,7 +127,7 @@ abstract class _$$ResponseCardImplCopyWith<$Res>
   @useResult
   $Res call({
     String id,
-    String? userRef,
+    String userRef,
     @TimestampSerializer() DateTime date,
     List<SectionAnswer> sections,
     bool isCalculated,
@@ -150,7 +150,7 @@ class __$$ResponseCardImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? userRef = freezed,
+    Object? userRef = null,
     Object? date = null,
     Object? sections = null,
     Object? isCalculated = null,
@@ -164,10 +164,10 @@ class __$$ResponseCardImplCopyWithImpl<$Res>
                 : id // ignore: cast_nullable_to_non_nullable
                     as String,
         userRef:
-            freezed == userRef
+            null == userRef
                 ? _value.userRef
                 : userRef // ignore: cast_nullable_to_non_nullable
-                    as String?,
+                    as String,
         date:
             null == date
                 ? _value.date
@@ -211,7 +211,7 @@ class _$ResponseCardImpl implements _ResponseCard {
   @override
   final String id;
   @override
-  final String? userRef;
+  final String userRef;
   @override
   @TimestampSerializer()
   final DateTime date;
@@ -277,7 +277,7 @@ class _$ResponseCardImpl implements _ResponseCard {
 abstract class _ResponseCard implements ResponseCard {
   const factory _ResponseCard({
     required final String id,
-    required final String? userRef,
+    required final String userRef,
     @TimestampSerializer() required final DateTime date,
     required final List<SectionAnswer> sections,
     required final bool isCalculated,
@@ -290,7 +290,7 @@ abstract class _ResponseCard implements ResponseCard {
   @override
   String get id;
   @override
-  String? get userRef;
+  String get userRef;
   @override
   @TimestampSerializer()
   DateTime get date;

@@ -100,7 +100,12 @@ class SectionPageState extends State<FormScreen> {
       _stage,
     );
     for (int i = 0; i < page.$1; i++) _completedSteps[i] = true;
-    _pageController.jumpToPage(page.$1);
+    _pageController
+    .animateToPage(
+    page.$1,
+    duration: const Duration(milliseconds: 500),
+    curve: Curves.easeInOut,
+    );
     setState(() {
       _currentPage = page.$1;
       _isActive = false;
@@ -157,45 +162,50 @@ class SectionPageState extends State<FormScreen> {
     }
 
     _initFormsKeys();
-    _initPage();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initPage();
+    });
 
     return Card(
       clipBehavior: Clip.antiAlias,
-      child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
-        appBar: AppBarForm(
-          sections: _sections,
-          currentStep: _currentPage.toInt(),
-          totalSteps: _sections.length,
-          canMarkStepComplete: _isStepCompleted,
-          onStepTapped: jumpToPage,
-        ),
+      child: Column(
+        children: [
+          AppBarForm(
+            sections: _sections,
+            currentStep: _currentPage.toInt(),
+            totalSteps: _sections.length,
+            canMarkStepComplete: _isStepCompleted,
+            onStepTapped: jumpToPage,
+          ),
 
-        body: PageView.builder(
-          controller: _pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: _sections.length,
-          itemBuilder: (BuildContext context, int index) {
-            return FormQuestions(
-              itemScrollController: itemsScrollController[index],
-              formKey: _formKeys[index],
-              section: _sections[index],
-              onPrevious: onPrevious,
-              onNext: onNext,
-              viewModel: context.read(),
-            );
-          },
-        ),
+          Expanded(
+            child: PageView.builder(
+              controller: _pageController,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _sections.length,
+              itemBuilder: (BuildContext context, int index) {
+                return FormQuestions(
+                  itemScrollController: itemsScrollController[index],
+                  formKey: _formKeys[index],
+                  section: _sections[index],
+                  onPrevious: onPrevious,
+                  onNext: onNext,
+                  viewModel: context.read(),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  void _initPage() {
+  Future<void> _initPage() async {
     if (_isActive) {
-      Future<Null>.delayed(const Duration(milliseconds: 500), () async {
+      Future<Null>.delayed(const Duration(milliseconds: 200), () async {
         if (mounted) {
-          initialPage();
-          await  Future<Null>.delayed(const Duration(seconds: 1));
+          await initialPage();
+          await Future<Null>.delayed(const Duration(milliseconds: 200));
           await scrollToQuestion();
         }
       });

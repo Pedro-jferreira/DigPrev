@@ -8,6 +8,7 @@ import 'package:digprev_flutter/ui/report/reports/widgets/List_Results.dart';
 import 'package:digprev_flutter/ui/core/widgets/custom_App_Bar.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:result_command/result_command.dart';
 
 class reportPageWidget extends StatefulWidget {
@@ -79,7 +80,9 @@ class _reportPageWidgetState extends State<reportPageWidget> {
           actions: <Widget>[
             Padding(
               padding:  const EdgeInsets.symmetric(horizontal: 20),
-              child: SharedButton(responseCardId:_responseCard.id,
+              child: SharedButton(
+                viewModel: context.read(),
+                responseCardId:_responseCard.id,
               color: Theme.of(context).colorScheme.primaryFixed,),
             ),
           ],

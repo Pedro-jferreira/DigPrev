@@ -15,6 +15,7 @@ import 'package:digprev_flutter/domain/useCases/responseCardGenerator/responseCa
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/sectionViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/questionnaire/viewModels/responseCardViewModel.dart';
+import 'package:digprev_flutter/ui/report/pdf/viewModels/pdf_ViewModel.dart';
 import 'package:digprev_flutter/ui/report/reports/viewModels/Report_ViewModel.dart';
 import 'package:digprev_flutter/ui/report/result/viewModels/result_ViewModel.dart';
 import 'package:digprev_flutter/ui/shell/viewModels/shell_View_Model.dart';
@@ -132,6 +133,13 @@ List<SingleChildWidget> get providersRemote {
           (BuildContext context) => ReportViewModel(
             responseCardRepository: context.read(),
             stageRepository: context.read(),
+          ),
+    ),
+    ChangeNotifierProvider<ReportPdfViewModel>(
+      create:
+          (BuildContext context) => ReportPdfViewModel(
+            responseCardRepository: context.read(),
+            authRepository:  context.read()
           ),
     ),
     ChangeNotifierProvider<ViewModel>(

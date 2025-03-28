@@ -89,37 +89,54 @@ class _StageItemState extends State<StageItem> {
           });
         }
 
-        return Card(
+        return Material(
+          clipBehavior:  Clip.antiAlias,
+          color: Theme.of(context).colorScheme.surfaceContainerLow,
           elevation: 5.0,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      widget.stage.title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+          borderRadius: BorderRadius.circular(12.0),
+          child: InkWell(
+            onTap: () {
+              if (widget.isAvailable!) {
+                _onPressed(context);
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Este questionário já foi respondido.'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        widget.stage.title,
+                        style: Theme.of(context).textTheme.titleMedium,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _getProgressWidget(_progressState, _progress, context),
-                    if (widget.isAvailable!)
-                      TextButton(
-                        onPressed: () => _onPressed(context),
-                        child: const Text('Acessar'),
-                      ),
-                  ],
-                ),
-              ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      _getProgressWidget(_progressState, _progress, context),
+                      if (widget.isAvailable!)
+                        TextButton(
+                          onPressed: () => _onPressed(context),
+                          child: const Text('Acessar'),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -4,6 +4,7 @@ import 'package:digprev_flutter/ui/report/pdf/widgets/shared_button.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class ResultExpansionTile extends StatefulWidget {
   const ResultExpansionTile({
@@ -65,7 +66,8 @@ class _ResultExpansionTileState extends State<ResultExpansionTile> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                SharedButton(responseCardId: widget.responseCard.id),
+                SharedButton(responseCardId: widget.responseCard.id,
+                viewModel: context.read(),),
                 FilledButton.icon(
                   onPressed: () {
                     context.pushNamed(

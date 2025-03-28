@@ -31,7 +31,7 @@ class ResponseCardGeneratorImpl implements ResponseCardGenerator {
 
     final ResponseCard responseCard = ResponseCard(
       id: ObjectId().hexString,
-      userRef: null,
+      userRef: '',
       date: DateTime.now(),
       sections: sectionsAnswer,
       isCalculated: false,
