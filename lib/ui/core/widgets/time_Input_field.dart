@@ -2,6 +2,7 @@ import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class TimeInputField extends StatefulWidget {
   final String title;
@@ -131,80 +132,105 @@ class _TimeInputFieldState extends State<TimeInputField> {
           explanatoryText: widget.explanatoryText!,
           state: UnicodeState.Ball,
         ),
-        Row(
-          children: <Widget>[
-            Checkbox(
-              value: _isNoneSelected,
-              onChanged: widget.disabled ? null : _handleCheckboxChanged,
-            ),
-            Text(
-              'Nenhum.',
-              style: TextStyle(
-                color:
-                    widget.disabled
-                        ? Theme.of(
-                          context,
-                        ).colorScheme.onSurface.withValues(alpha: 0.38)
-                        : Theme.of(context).colorScheme.onSurface,
-              ),
-            ),
-          ],
+        CheckboxListTile(
+          title: const Text('Nenhum.'),
+          value: _isNoneSelected,
+          onChanged: widget.disabled ? null : _handleCheckboxChanged,
+          controlAffinity: ListTileControlAffinity.leading, // Coloca o checkbox à esquerda
+          contentPadding: EdgeInsets.zero, // Remove o padding padrão
+          dense: true, // Reduz o espaçamento vertical
+          enabled: !widget.disabled, // Mantém o estado habilitado/desabilitado
         ),
         if (widget.explanatoryText != null)
           if (!_isNoneSelected)
-            Row(
+            Column(
               children: <Widget>[
-                Expanded(
-                  child: TextFormField(
-                    controller: _daysController,
-                    enabled: !widget.disabled,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Dias por semana',
+                TextFormField(
+                  controller: _daysController,
+                  enabled: !widget.disabled,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    MaskTextInputFormatter(
+                      mask: '#',
+                      filter: <String, RegExp>{ '#': RegExp(r'[0-7]') },
                     ),
-                    validator: (String? value) {
-                      if (!widget.disabled &&
-                          (value == null || value.isEmpty)) {
-                        return 'Obrigatório';
-                      }
-                      return null;
-                    },
-                    onChanged: (_) => _handleTextChanged(),
+                  ],
+                  decoration: const InputDecoration(
+                    labelText: 'Dias por semana',
+                    hintText: '0-7', // Placeholder
+                    helperText: 'Insira um número entre 0 e 7.', // Texto de suporte
                   ),
+                  validator: (String? value) {
+                    if (!widget.disabled && (value == null || value.isEmpty)) {
+                      return 'Obrigatório';
+                    }
+                    if (value != null && value.isNotEmpty) {
+                      int days = int.parse(value);
+                      if (days < 0 || days > 7) {
+                        return 'Dias devem estar entre 0 e 7';
+                      }
+                    }
+                    return null;
+                  },
+                  onChanged: (_) => _handleTextChanged(),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextFormField(
-                    controller: _hoursController,
-                    enabled: !widget.disabled,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Horas'),
-                    validator: (String? value) {
-                      if (!widget.disabled &&
-                          (value == null || value.isEmpty)) {
-                        return 'Obrigatório';
-                      }
-                      return null;
-                    },
-                    onChanged: (_) => _handleTextChanged(),
+                TextFormField(
+                  controller: _hoursController,
+                  enabled: !widget.disabled,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    MaskTextInputFormatter(
+                      mask: '##',
+                      filter: <String, RegExp>{ '#': RegExp(r'[0-9]') },
+                    ),
+                  ],
+                  decoration: const InputDecoration(
+                    labelText: 'Horas',
+                    hintText: '0-24', // Placeholder
+                    helperText: 'Insira um número entre 0 e 24.', // Texto de suporte
                   ),
+                  validator: (String? value) {
+                    if (!widget.disabled && (value == null || value.isEmpty)) {
+                      return 'Obrigatório';
+                    }
+                    if (value != null && value.isNotEmpty) {
+                      int hours = int.parse(value);
+                      if (hours < 0 || hours > 24) {
+                        return 'Horas devem estar entre 0 e 24';
+                      }
+                    }
+                    return null;
+                  },
+                  onChanged: (_) => _handleTextChanged(),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: TextFormField(
-                    controller: _minutesController,
-                    enabled: !widget.disabled,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: 'Minutos'),
-                    validator: (String? value) {
-                      if (!widget.disabled &&
-                          (value == null || value.isEmpty)) {
-                        return 'Obrigatório';
-                      }
-                      return null;
-                    },
-                    onChanged: (_) => _handleTextChanged(),
+                TextFormField(
+                  controller: _minutesController,
+                  enabled: !widget.disabled,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    MaskTextInputFormatter(
+                      mask: '##',
+                      filter: <String, RegExp>{ '#': RegExp(r'[0-9]') },
+                    ),
+                  ],
+                  decoration: const InputDecoration(
+                    labelText: 'Minutos',
+                    hintText: '0-59', // Placeholder
+                    helperText: 'Insira um número entre 0 e 59.', // Texto de suporte
                   ),
+                  validator: (String? value) {
+                    if (!widget.disabled && (value == null || value.isEmpty)) {
+                      return 'Obrigatório';
+                    }
+                    if (value != null && value.isNotEmpty) {
+                      int minutes = int.parse(value);
+                      if (minutes < 0 || minutes > 59) {
+                        return 'Minutos devem estar entre 0 e 59';
+                      }
+                    }
+                    return null;
+                  },
+                  onChanged: (_) => _handleTextChanged(),
                 ),
               ],
             ),

@@ -1,5 +1,3 @@
-
-
 import 'package:digprev_flutter/ui/core/states/unicodeState.dart';
 import 'package:digprev_flutter/ui/core/widgets/explanatory_Text.dart';
 import 'package:digprev_flutter/ui/core/widgets/title_Tool_Tip.dart';
@@ -12,35 +10,37 @@ class CheckboxGroup extends FormField<List<String>> {
     required List<String> checkboxTexts,
     required FormFieldSetter<List<String>> onChanged,
     bool disabled = false,
+    bool exclusiveLastItem = false,
     List<String>? initialSelection,
     List<String>? explanatoryTexts,
     FormFieldSetter<List<String>>? onSaved,
     FormFieldValidator<List<String>>? validator,
     Key? key,
   }) : super(
-    key: key,
-    initialValue: initialSelection ?? <String>[],
-    validator: disabled ? null : validator,
-    onSaved: onSaved,
-    autovalidateMode: AutovalidateMode.onUserInteraction,
-    builder: (FormFieldState<List<String>> state) {
-      return CheckboxGroupWidgetStateful(
-        labelText: labelText,
-        tooltipText: toolTipText,
-        checkboxTexts: checkboxTexts,
-        explanatoryTexts: explanatoryTexts,
-        initialSelection: state.value,
-        disabled: disabled,
-        onChanged: (List<String> values) {
-          if (!disabled) {
-            state.didChange(values);
-            onChanged(values);
-          }
-        },
-        state: state,
-      );
-    },
-  );
+         key: key,
+         initialValue: initialSelection ?? <String>[],
+         validator: disabled ? null : validator,
+         onSaved: onSaved,
+         autovalidateMode: AutovalidateMode.onUserInteraction,
+         builder: (FormFieldState<List<String>> state) {
+           return CheckboxGroupWidgetStateful(
+             labelText: labelText,
+             tooltipText: toolTipText,
+             checkboxTexts: checkboxTexts,
+             explanatoryTexts: explanatoryTexts,
+             initialSelection: state.value,
+             disabled: disabled,
+             exclusiveLastItem: exclusiveLastItem,
+             onChanged: (List<String> values) {
+               if (!disabled) {
+                 state.didChange(values);
+                 onChanged(values);
+               }
+             },
+             state: state,
+           );
+         },
+       );
 }
 
 class CheckboxGroupWidgetStateful extends StatefulWidget {
@@ -53,6 +53,8 @@ class CheckboxGroupWidgetStateful extends StatefulWidget {
   final FormFieldState<List<String>> state;
   final bool disabled;
 
+  final bool exclusiveLastItem;
+
   const CheckboxGroupWidgetStateful({
     required this.labelText,
     required this.tooltipText,
@@ -62,6 +64,7 @@ class CheckboxGroupWidgetStateful extends StatefulWidget {
     this.disabled = false,
     this.explanatoryTexts,
     this.initialSelection,
+    this.exclusiveLastItem = false,
   });
 
   @override
@@ -91,37 +94,54 @@ class _CheckboxGroupWidgetState extends State<CheckboxGroupWidgetStateful> {
             state: UnicodeState.Hifen,
           ),
         Column(
-          children: widget.checkboxTexts.map((String text) {
-            return CheckboxListTile(
-              title: Text(
-                text,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: widget.disabled
-                      ? Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.38)
-                      : (hasError
-                      ? Theme.of(context).colorScheme.error
-                      : null),
-                ),
-              ),
-              value: selectedOptions.contains(text),
-              onChanged: widget.disabled
-                  ? null
-                  : (bool? checked) {
-                setState(() {
-                  if (checked == true) {
-                    selectedOptions.add(text);
-                  } else {
-                    selectedOptions.remove(text);
-                  }
-                });
-                widget.state.didChange(selectedOptions);
-                widget.onChanged(selectedOptions);
-              },
-            );
-          }).toList(),
+          children:
+              widget.checkboxTexts.map((String text) {
+                return CheckboxListTile(
+                  title: Text(
+                    text,
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color:
+                          widget.disabled
+                              ? Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.38)
+                              : (hasError
+                                  ? Theme.of(context).colorScheme.error
+                                  : null),
+                    ),
+                  ),
+                  value: selectedOptions.contains(text),
+                  onChanged:
+                      widget.disabled
+                          ? null
+                          : (bool? checked) {
+                            setState(() {
+                              if (checked == true) {
+                                if (widget.exclusiveLastItem &&
+                                    text == widget.checkboxTexts.last) {
+                                  selectedOptions.clear();
+                                  selectedOptions.add(text);
+                                } else {
+                                  if (widget.exclusiveLastItem &&
+                                      selectedOptions.contains(
+                                        widget.checkboxTexts.last,
+                                      )) {
+                                    selectedOptions.remove(
+                                      widget.checkboxTexts.last,
+                                    );
+                                  }
+                                  selectedOptions.add(text);
+                                }
+                              } else {
+                                selectedOptions.remove(text);
+                              }
+                            });
+                            widget.state.didChange(selectedOptions);
+                            widget.onChanged(selectedOptions);
+                          },
+                  controlAffinity: ListTileControlAffinity.leading,
+                );
+              }).toList(),
         ),
         if (hasError)
           Padding(

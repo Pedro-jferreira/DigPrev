@@ -28,7 +28,6 @@ class _StageItemState extends State<StageItem> {
   ProgressState _progressState = ProgressState.NotStarted;
   double _progress = 0.0;
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -61,13 +60,11 @@ class _StageItemState extends State<StageItem> {
   Widget build(BuildContext context) {
     return Consumer<ResponseCardViewModel>(
       builder: (
-          BuildContext context,
-          ResponseCardViewModel responseCardViewModel,
-          Widget? child,
-          ) {
-        _progress = responseCardViewModel.getProgress(
-        widget.stage,
-        );
+        BuildContext context,
+        ResponseCardViewModel responseCardViewModel,
+        Widget? child,
+      ) {
+        _progress = responseCardViewModel.getProgress(widget.stage);
 
         ProgressState newState;
         if (_progress < 0.1) {
@@ -90,7 +87,7 @@ class _StageItemState extends State<StageItem> {
         }
 
         return Material(
-          clipBehavior:  Clip.antiAlias,
+          clipBehavior: Clip.antiAlias,
           color: Theme.of(context).colorScheme.surfaceContainerLow,
           elevation: 5.0,
           borderRadius: BorderRadius.circular(12.0),
@@ -98,11 +95,17 @@ class _StageItemState extends State<StageItem> {
             onTap: () {
               if (widget.isAvailable!) {
                 _onPressed(context);
-              }else{
+              } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Este questionário já foi respondido.'),
-                    duration: Duration(seconds: 2),
+                  SnackBar(
+                    content:
+                        _progressState == ProgressState.Complete
+                            ? const Text('Este questionário já foi respondido.')
+                            : const Text(
+                              'Questionário Bloqueado, termine o anterior para'
+                              ' liberar esse.',
+                            ),
+                    duration: const Duration(seconds: 2),
                   ),
                 );
               }
@@ -156,7 +159,6 @@ class _StageItemState extends State<StageItem> {
     double progress,
     BuildContext context,
   ) {
-
     const double iconSize = 40.0;
     return SizedBox(
       width: iconSize,

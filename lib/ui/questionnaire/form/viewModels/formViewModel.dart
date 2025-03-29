@@ -28,14 +28,31 @@ class FormViewModel extends ChangeNotifier {
 
   Map<Question, Answer> get questionAndAnswer => _questionAndAnswer;
 
-  StreamSubscription<Result<ResponseCard>> observerPending() {
-    return _repository.observerPending().listen((Result<ResponseCard> onData) {
+  StreamSubscription<Result<ResponseCard>>? _subscription;
+
+  void startObserving() {
+    _subscription
+        ?.cancel(); // Cancela qualquer stream anterior antes de iniciar
+    _subscription = _repository.observerPending().listen((
+      Result<ResponseCard> onData,
+    ) {
       _responseCard = onData.fold(
         (ResponseCard onSuccess) => onSuccess,
         (Exception onFailure) => null,
       );
       notifyListeners();
     });
+  }
+
+  void stopObserving() {
+    _subscription?.cancel();
+    _subscription = null;
+  }
+
+  @override
+  void dispose() {
+    stopObserving();
+    super.dispose();
   }
 
   Future<void> update(Answer value, String questionId) async {
@@ -102,25 +119,14 @@ class FormViewModel extends ChangeNotifier {
     return answers;
   }
 
-  bool isScroll(Stage stage, Section section) {
-    if (SectionHelper.flattenSections(stage)[_page.$1].id == section.id)
-      return true;
 
-    return false;
-  }
 
-  (int, int) _page = (0, 0);
-
-  (int, int) get page => _page;
-
-  (int section, int question) findLastPage(Stage stage) {
+  Future<(int, int)> findLastPage(Stage stage) async {
     if (_responseCard != null) {
       final (int, int) number = _answerProgress
           .getLastAnsweredQuestionnairePosition(stage, _responseCard!);
-      _page = number;
       return number;
     }
-
     return (0, 0);
   }
 }

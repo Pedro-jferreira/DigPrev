@@ -1,11 +1,7 @@
-import 'dart:async';
-
-import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/section/section.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/viewModels/formViewModel.dart';
 import 'package:digprev_flutter/ui/questionnaire/form/widgets/list_Question.dart';
 import 'package:flutter/material.dart';
-import 'package:result_dart/result_dart.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class FormQuestions extends StatefulWidget {
@@ -23,7 +19,6 @@ class FormQuestions extends StatefulWidget {
     required this.section,
     required this.formKey,
     required this.itemScrollController,
-    super.key,
   });
 
   @override
@@ -31,17 +26,14 @@ class FormQuestions extends StatefulWidget {
 }
 
 class _QuestionFormState extends State<FormQuestions> {
-  StreamSubscription<Result<ResponseCard>>? _subscription;
 
   @override
   void initState() {
-    _subscription = widget.viewModel.observerPending();
     super.initState();
   }
 
   @override
   void dispose() {
-    _subscription?.cancel();
     super.dispose();
   }
 

@@ -32,6 +32,7 @@ mixin _$Question {
       throw _privateConstructorUsedError;
   List<Option> get optionsQuestions => throw _privateConstructorUsedError;
   List<String>? get disableQuestions => throw _privateConstructorUsedError;
+  bool? get exclusiveLastItem => throw _privateConstructorUsedError;
 
   /// Serializes this Question to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -59,6 +60,7 @@ abstract class $QuestionCopyWith<$Res> {
     List<ExplanatoryTexts>? explanatoryTexts,
     List<Option> optionsQuestions,
     List<String>? disableQuestions,
+    bool? exclusiveLastItem,
   });
 }
 
@@ -87,6 +89,7 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
     Object? explanatoryTexts = freezed,
     Object? optionsQuestions = null,
     Object? disableQuestions = freezed,
+    Object? exclusiveLastItem = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -140,6 +143,11 @@ class _$QuestionCopyWithImpl<$Res, $Val extends Question>
                     ? _value.disableQuestions
                     : disableQuestions // ignore: cast_nullable_to_non_nullable
                         as List<String>?,
+            exclusiveLastItem:
+                freezed == exclusiveLastItem
+                    ? _value.exclusiveLastItem
+                    : exclusiveLastItem // ignore: cast_nullable_to_non_nullable
+                        as bool?,
           )
           as $Val,
     );
@@ -166,6 +174,7 @@ abstract class _$$QuestionImplCopyWith<$Res>
     List<ExplanatoryTexts>? explanatoryTexts,
     List<Option> optionsQuestions,
     List<String>? disableQuestions,
+    bool? exclusiveLastItem,
   });
 }
 
@@ -193,6 +202,7 @@ class __$$QuestionImplCopyWithImpl<$Res>
     Object? explanatoryTexts = freezed,
     Object? optionsQuestions = null,
     Object? disableQuestions = freezed,
+    Object? exclusiveLastItem = freezed,
   }) {
     return _then(
       _$QuestionImpl(
@@ -246,6 +256,11 @@ class __$$QuestionImplCopyWithImpl<$Res>
                 ? _value._disableQuestions
                 : disableQuestions // ignore: cast_nullable_to_non_nullable
                     as List<String>?,
+        exclusiveLastItem:
+            freezed == exclusiveLastItem
+                ? _value.exclusiveLastItem
+                : exclusiveLastItem // ignore: cast_nullable_to_non_nullable
+                    as bool?,
       ),
     );
   }
@@ -265,6 +280,7 @@ class _$QuestionImpl implements _Question {
     required final List<ExplanatoryTexts>? explanatoryTexts,
     required final List<Option> optionsQuestions,
     required final List<String>? disableQuestions,
+    required this.exclusiveLastItem,
   }) : _explanatoryTexts = explanatoryTexts,
        _optionsQuestions = optionsQuestions,
        _disableQuestions = disableQuestions;
@@ -318,8 +334,11 @@ class _$QuestionImpl implements _Question {
   }
 
   @override
+  final bool? exclusiveLastItem;
+
+  @override
   String toString() {
-    return 'Question(id: $id, counter: $counter, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, optionsQuestions: $optionsQuestions, disableQuestions: $disableQuestions)';
+    return 'Question(id: $id, counter: $counter, question: $question, placeholder: $placeholder, supportingText: $supportingText, tooltipText: $tooltipText, inputType: $inputType, explanatoryTexts: $explanatoryTexts, optionsQuestions: $optionsQuestions, disableQuestions: $disableQuestions, exclusiveLastItem: $exclusiveLastItem)';
   }
 
   @override
@@ -350,7 +369,9 @@ class _$QuestionImpl implements _Question {
             const DeepCollectionEquality().equals(
               other._disableQuestions,
               _disableQuestions,
-            ));
+            ) &&
+            (identical(other.exclusiveLastItem, exclusiveLastItem) ||
+                other.exclusiveLastItem == exclusiveLastItem));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -367,6 +388,7 @@ class _$QuestionImpl implements _Question {
     const DeepCollectionEquality().hash(_explanatoryTexts),
     const DeepCollectionEquality().hash(_optionsQuestions),
     const DeepCollectionEquality().hash(_disableQuestions),
+    exclusiveLastItem,
   );
 
   /// Create a copy of Question
@@ -395,6 +417,7 @@ abstract class _Question implements Question {
     required final List<ExplanatoryTexts>? explanatoryTexts,
     required final List<Option> optionsQuestions,
     required final List<String>? disableQuestions,
+    required final bool? exclusiveLastItem,
   }) = _$QuestionImpl;
 
   factory _Question.fromJson(Map<String, dynamic> json) =
@@ -420,6 +443,8 @@ abstract class _Question implements Question {
   List<Option> get optionsQuestions;
   @override
   List<String>? get disableQuestions;
+  @override
+  bool? get exclusiveLastItem;
 
   /// Create a copy of Question
   /// with the given fields replaced by the non-null parameter values.

@@ -73,6 +73,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
       labelText: widget.question.question,
       toolTipText: widget.question.tooltipText,
       initialSelection: initialValue.isNotEmpty ? initialValue : null,
+      exclusiveLastItem: widget.question.exclusiveLastItem == true,
       checkboxTexts: _getOptions(),
       onChanged: _onCheckBox,
       validator: (List<String>? selected) {

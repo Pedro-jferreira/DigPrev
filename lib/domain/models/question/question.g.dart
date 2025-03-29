@@ -27,6 +27,7 @@ _$QuestionImpl _$$QuestionImplFromJson(Map<String, dynamic> json) =>
           (json['disableQuestions'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList(),
+      exclusiveLastItem: json['exclusiveLastItem'] as bool?,
     );
 
 Map<String, dynamic> _$$QuestionImplToJson(
@@ -43,6 +44,7 @@ Map<String, dynamic> _$$QuestionImplToJson(
       instance.explanatoryTexts?.map((e) => e.toJson()).toList(),
   'optionsQuestions': instance.optionsQuestions.map((e) => e.toJson()).toList(),
   'disableQuestions': instance.disableQuestions,
+  'exclusiveLastItem': instance.exclusiveLastItem,
 };
 
 const _$InputTypeEnumMap = {
