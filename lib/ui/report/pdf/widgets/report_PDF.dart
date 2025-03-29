@@ -1,10 +1,11 @@
+import 'dart:io';
+
 import 'package:digprev_flutter/domain/models/responseCard/responseCard.dart';
 import 'package:digprev_flutter/domain/models/user/user.dart';
 import 'package:digprev_flutter/utils/formatters.dart';
 import 'package:flutter/services.dart';
-import 'package:pdf/pdf.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:printing/printing.dart';
 
 class ReportPdf {
   final ResponseCard _responseCard;
@@ -17,19 +18,44 @@ class ReportPdf {
         _userModel= userModel;
 
 
-  generateReportPdf() async {
-    final pw.Document doc = pw.Document();
-    final pw.Font customFont =
-    pw.Font.ttf((await rootBundle.load('assets/fonts/RobotoSlabt.ttf')));
-    doc.addPage(
-        pw.MultiPage(
-            pageTheme: pw.PageTheme(
-                margin: pw.EdgeInsets.zero,
-                theme:
-                pw.ThemeData(defaultTextStyle: pw.TextStyle(font: customFont))),
-        build: (pw.Context context) => _buildContent(context)));
-    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => doc.save());
+  // Para Android/iOS (gera um arquivo)
+  Future<File> generateReportPdf() async {
+    final pw.Document doc = await _buildPdf();
+
+    // No Android/iOS, salvar o arquivo
+    final Directory directory = await getTemporaryDirectory();
+    final File file = File('${directory.path}/report.pdf');
+    await file.writeAsBytes(await doc.save());
+
+    return file;
   }
+
+  // Para Web (gera os bytes do PDF)
+  Future<Uint8List> generateReportPdfBytes() async {
+    final pw.Document doc = await _buildPdf();
+    return await doc.save();
+  }
+
+  Future<pw.Document> _buildPdf() async {
+    final pw.Document doc = pw.Document();
+
+    // Carregar uma fonte compatível com Unicode
+    final pw.Font customFont =
+    pw.Font.ttf(await rootBundle.load('assets/fonts/RobotoSlabt.ttf'));
+
+    doc.addPage(
+      pw.MultiPage(
+        pageTheme: pw.PageTheme(
+          margin: pw.EdgeInsets.zero,
+          theme: pw.ThemeData(defaultTextStyle: pw.TextStyle(font: customFont)),
+        ),
+        build: (pw.Context context) => _buildContent(context),
+      ),
+    );
+
+    return doc;
+  }
+
 
   _buildContent(pw.Context context) {
     return [
